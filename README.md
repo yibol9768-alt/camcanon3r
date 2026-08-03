@@ -57,3 +57,18 @@ camcanon3r prepare-scene /path/to/scene /path/to/prepared --max-views 8 --seed 1
 The output contains one folder per variant and a `manifest.json` recording every
 source image, target image, resolution, interpolation rule, seed, and 3x3
 source-to-target pixel matrix.
+
+### Process-scoped downloads on my5090
+
+Large external artifacts may be downloaded with the machine-local wrapper:
+
+```bash
+./scripts/with_download_proxy.sh huggingface-cli download OWNER/REPOSITORY
+```
+
+The wrapper starts a triggerless Windows task, exposes its WSL-adapter endpoint
+only to the supplied command through environment variables, and stops the task
+when that command exits. It does not change the Windows or WSL system proxy and
+does not use TUN. The Mac-derived configuration and all provider credentials
+remain in a machine-local private directory and are never committed. A local
+Mihomo backend is also available as an explicit fallback.

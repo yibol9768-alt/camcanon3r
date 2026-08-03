@@ -13,4 +13,4 @@ results/
 wandb/
 .env
 *.token
-
+.private-download-proxy/
