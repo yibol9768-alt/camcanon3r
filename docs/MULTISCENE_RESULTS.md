@@ -24,6 +24,13 @@ disagreement of 5.018° and exceeds the frozen 2° threshold in all three
 scenes.  The center crop exceeds it in one of three scenes.  Letterbox padding
 exceeds it in none of the three scenes.
 
+A deterministic 10,000-replicate percentile bootstrap over scenes (seed 17)
+gives a 95% interval of 3.787--6.297° for the asymmetric-crop median rotation
+disagreement. With only three curated diagnostic scenes, this interval is
+explicitly marked `descriptive_only_fewer_than_10_scenes` in the artifact; it
+is not a population-level generalization claim. Confirmatory tables use the
+same paired scene-level resampling after adding full benchmark scenes.
+
 The narrow mechanism hypothesis is therefore that **view-specific
 principal-point offsets** are a stable source of drift.  The evidence does not
 support the broader statement that every crop or resize degrades geometry.

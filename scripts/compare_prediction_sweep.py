@@ -19,6 +19,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--variants", nargs="+", required=True)
     parser.add_argument("--rotation-threshold", type=float, default=2.0)
     parser.add_argument("--depth-threshold", type=float, default=0.05)
+    parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
+    parser.add_argument("--confidence-level", type=float, default=0.95)
+    parser.add_argument("--bootstrap-seed", type=int, default=17)
     existing = parser.add_mutually_exclusive_group()
     existing.add_argument("--resume", action="store_true")
     existing.add_argument("--overwrite", action="store_true")
@@ -64,6 +67,9 @@ def main() -> None:
         comparison_paths,
         rotation_threshold=args.rotation_threshold,
         depth_threshold=args.depth_threshold,
+        bootstrap_replicates=args.bootstrap_replicates,
+        confidence_level=args.confidence_level,
+        bootstrap_seed=args.bootstrap_seed,
     )
     summary_path = args.result_root / "summary.json"
     summary_path.write_text(

@@ -14,10 +14,10 @@ ground-truth accuracy table.
   relative-pair disagreements in degrees; depth is mean scale-aligned AbsRel
   on common source-image support.}
   \label{tab:pilot}
-  \setlength{\tabcolsep}{4pt}
+  \setlength{\tabcolsep}{3pt}
   \begin{tabular}{llrrr}
     \toprule
-    Scene & Transform & Rot. & Trans. & Depth \\
+    Scene & Transform & Rot.$\downarrow$ & Trans.$\downarrow$ & Depth$\downarrow$ \\
     \midrule
     Kitchen & asymmetric crop & 3.79 & 3.77 & 3.45\% \\
     Fern    & asymmetric crop & 5.02 & 18.44 & 4.31\% \\
@@ -33,10 +33,14 @@ ground-truth accuracy table.
 \end{table}
 
 The asymmetric crop exceeds the pre-registered two-degree rotation threshold
-in all three scenes.  Center crops exceed it in only one scene, and square
-letterbox padding exceeds it in none.  This transform-by-scene interaction is
-consistent with a view-specific principal-point mechanism, but severity sweeps
-and ground-truth tests are required to distinguish mechanism from correlation.
+in all three scenes. Its across-scene median is 5.02 degrees with a 95\%
+scene-bootstrap interval of [3.79, 6.30] degrees (10,000 percentile
+replicates, seed 17). Because this diagnostic contains only three curated
+scenes, the interval is descriptive rather than a population-level claim.
+Center crops exceed the threshold in only one scene, and square letterbox
+padding exceeds it in none. This transform-by-scene interaction is consistent
+with a view-specific principal-point mechanism, but severity sweeps and
+ground-truth tests are required to distinguish mechanism from correlation.
 
 \subsection{Confirmatory evaluation}
 The frozen confirmatory matrix uses VGGT and DUSt3R on ETH3D
@@ -46,6 +50,12 @@ the matched raw-depth maps, whereas pre-undistorted images are pose-only.
 DUSt3R uses four views, complete symmetrized pairs, and its 300-iteration
 point-cloud optimizer.  Every model-specific resize and crop is composed with
 the registered intervention before evaluation.
+
+All confirmatory comparisons are paired by model, scene, view set, and
+transform. We aggregate at the scene level and report deterministic 95\%
+percentile bootstrap intervals using 10,000 replicates and seed 17. Raw-depth
+and pose-only protocols are summarized separately; the evaluator rejects a
+mixed aggregate rather than silently treating missing depth as zero.
 
 The canonical-camera repair is paired with each corrupted input and with an
 identity clean-cost control.  For an error metric $E$, we report raw errors and

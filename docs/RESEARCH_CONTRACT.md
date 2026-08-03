@@ -117,5 +117,10 @@ gap recovery.
 | Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
 | CamCanon repairs geometry | paired baseline/ablation results and compute cost | needs evidence |
 
+The aggregation code now enforces one identity per scene, a complete paired
+scene/variant design, separation of pose-only and depth protocols, and
+deterministic scene-level bootstrap intervals. This is statistical
+infrastructure, not evidence that any pending hypothesis passes.
+
 No abstract or introduction may promote a claim whose status remains "needs
 evidence."

@@ -20,6 +20,9 @@ def parse_args() -> argparse.Namespace:
     depth = parser.add_mutually_exclusive_group(required=True)
     depth.add_argument("--depth-dir", type=Path)
     depth.add_argument("--pose-only", action="store_true")
+    parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
+    parser.add_argument("--confidence-level", type=float, default=0.95)
+    parser.add_argument("--bootstrap-seed", type=int, default=17)
     existing = parser.add_mutually_exclusive_group()
     existing.add_argument("--resume", action="store_true")
     existing.add_argument("--overwrite", action="store_true")
@@ -55,7 +58,12 @@ def main() -> None:
         executed.append(str(output))
 
     evaluation_paths = sorted(args.result_root.glob("*_vs_gt.json"))
-    summary = summarize_eth3d_evaluations(evaluation_paths)
+    summary = summarize_eth3d_evaluations(
+        evaluation_paths,
+        bootstrap_replicates=args.bootstrap_replicates,
+        confidence_level=args.confidence_level,
+        bootstrap_seed=args.bootstrap_seed,
+    )
     summary_path = args.result_root / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(

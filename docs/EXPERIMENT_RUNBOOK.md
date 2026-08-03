@@ -167,3 +167,31 @@ PYTHONPATH=src .venv/bin/python scripts/evaluate_repair.py \
 The output never clips recovery to `[0, 1]`: negative repair and better-than-
 identity overshoot remain visible. A non-positive or noise-floor corruption gap
 is marked undefined, and pose-only ETH3D records keep depth unavailable.
+
+## Statistical aggregation
+
+Sweep summaries use a deterministic 10,000-replicate percentile bootstrap
+over scenes with seed 17 and 95% intervals. The same sampled scene indices are
+shared across metrics so raw error and identity-relative deltas remain paired.
+Summaries reject duplicate scene/variant records and reject mixtures of
+pose-only and pose-plus-depth ETH3D protocols. Fewer than ten scenes trigger a
+machine-readable `descriptive_only_fewer_than_10_scenes` warning.
+
+The defaults can be reproduced or overridden explicitly:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/summarize_comparisons.py \
+  results/vggt/pilot --output results/vggt/pilot/summary.json \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17
+```
+
+For a nested ETH3D layout with one directory per scene, aggregate every
+`*_vs_gt.json` record while enforcing a complete paired design:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/summarize_eth3d.py \
+  results/eth3d/raw --output results/eth3d/raw/summary.json \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17
+```

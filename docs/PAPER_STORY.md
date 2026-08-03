@@ -37,6 +37,7 @@ support that promotion.
 |---|---|---|---|
 | Exact preprocessing transforms define a 3D equivariance contract. | Camera algebra and unit-tested affine composition. | supported | none |
 | VGGT is non-equivariant to view-dependent 75% crops in the tested setting. | Three scenes, all above 2° median relative rotation; exact repeat control. | supported for diagnostic setting | severity sweep for broader claim |
+| Diagnostic uncertainty is auditable. | Deterministic 10,000-replicate scene bootstrap with an explicit fewer-than-10-scenes warning. | implemented | benchmark-scale scenes for inferential use |
 | Preprocessing reduces ground-truth reconstruction accuracy. | None yet. Cross-run disagreement is insufficient. | needs evidence | ETH3D pose/depth |
 | The failure generalizes beyond VGGT. | None yet. | needs evidence | DUSt3R confirmatory matrix |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
@@ -52,7 +53,11 @@ support that promotion.
 - **Unsupported claims:** no current text claims multi-model generality, AUROC,
   or repair gains.
 - **Missing evidence:** ETH3D GT, severity response, DUSt3R, reliability, repair,
-  statistics, compute-normalized baselines, and qualitative geometry.
+  benchmark-scale statistical power, compute-normalized baselines, and
+  qualitative geometry.
+- **Statistical boundary:** scene bootstrap is implemented, but the current
+  three-scene interval is descriptive; benchmark-scale GT evidence remains
+  missing.
 
 ## Method reverse outline
 
