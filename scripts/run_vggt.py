@@ -10,12 +10,14 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from PIL import Image
 from safetensors.torch import load_file
 from vggt.models.vggt import VGGT
 from vggt.utils.load_fn import load_and_preprocess_images
 from vggt.utils.pose_enc import pose_encoding_to_extri_intri
 
 from camcanon3r.protocol import list_images
+from camcanon3r.vggt_preprocess import plan_vggt_preprocessing
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,6 +49,21 @@ def load_model(weights: Path, device: torch.device) -> VGGT:
     return model.eval().to(device)
 
 
+def protocol_affines(scene_dir: Path, image_paths: list[Path]) -> list[np.ndarray]:
+    manifest_path = scene_dir.parent / "manifest.json"
+    if not manifest_path.exists():
+        return [np.eye(3, dtype=np.float64) for _ in image_paths]
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    variants = [item for item in manifest["variants"] if item["name"] == scene_dir.name]
+    if len(variants) != 1:
+        raise RuntimeError(f"manifest has no unique variant named {scene_dir.name}")
+    records = {Path(item["output"]).name: item for item in variants[0]["images"]}
+    missing = [path.name for path in image_paths if path.name not in records]
+    if missing:
+        raise RuntimeError(f"manifest is missing prepared inputs: {missing}")
+    return [np.asarray(records[path.name]["matrix"], dtype=np.float64) for path in image_paths]
+
+
 def main() -> None:
     args = parse_args()
     torch.manual_seed(args.seed)
@@ -56,9 +73,27 @@ def main() -> None:
         raise RuntimeError("CUDA is required for the frozen VGGT pilot")
 
     image_paths = list_images(args.scene_dir, max_views=args.max_views)
+    source_sizes: list[tuple[int, int]] = []
+    for path in image_paths:
+        with Image.open(path) as opened:
+            source_sizes.append(opened.size)
+    preprocess_specs = plan_vggt_preprocessing(source_sizes, mode=args.preprocess)
     images = load_and_preprocess_images(
         [str(path) for path in image_paths], mode=args.preprocess
     ).to(device)
+    expected_size = preprocess_specs[0].affine.target_size
+    if tuple(images.shape[-2:][::-1]) != expected_size:
+        raise RuntimeError(
+            f"logged preprocessing size {expected_size} does not match tensor "
+            f"size {tuple(images.shape[-2:][::-1])}"
+        )
+    prepared_affines = protocol_affines(args.scene_dir, image_paths)
+    model_affines = [spec.affine.matrix for spec in preprocess_specs]
+    source_to_model = [
+        model @ prepared for model, prepared in zip(
+            model_affines, prepared_affines, strict=True
+        )
+    ]
     dtype = (
         torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
     )
@@ -87,6 +122,9 @@ def main() -> None:
         depth_conf=to_numpy(predictions["depth_conf"]),
         world_points=to_numpy(predictions["world_points"]),
         world_points_conf=to_numpy(predictions["world_points_conf"]),
+        model_preprocess_affine=np.stack(model_affines),
+        protocol_affine=np.stack(prepared_affines),
+        source_to_model_affine=np.stack(source_to_model),
     )
     metadata = {
         "scene_directory": str(args.scene_dir.resolve()),
@@ -95,6 +133,26 @@ def main() -> None:
         "preprocess": args.preprocess,
         "seed": args.seed,
         "input_tensor_shape": list(images.shape),
+        "spatial_transforms": [
+            {
+                "input": path.name,
+                "input_size": list(spec.affine.source_size),
+                "resized_size": list(spec.resized_size),
+                "crop_top": spec.crop_top,
+                "padding_left_top_right_bottom": list(spec.padding),
+                "model_tensor_size": list(spec.affine.target_size),
+                "model_preprocess_affine": spec.affine.matrix.tolist(),
+                "protocol_affine": prepared.tolist(),
+                "source_to_model_affine": combined.tolist(),
+            }
+            for path, spec, prepared, combined in zip(
+                image_paths,
+                preprocess_specs,
+                prepared_affines,
+                source_to_model,
+                strict=True,
+            )
+        ],
         "torch": torch.__version__,
         "cuda": torch.version.cuda,
         "gpu": torch.cuda.get_device_name(device),
