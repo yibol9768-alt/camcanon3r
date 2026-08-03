@@ -86,3 +86,35 @@ PYTHONPATH=src .venv/bin/python scripts/evaluate_eth3d_sweep.py \
 Each ETH3D summary reports absolute GT metrics and the signed delta from the
 identity run. Positive deltas are direct accuracy degradation; cross-run
 disagreement alone must not be described as such.
+
+## DUSt3R confirmatory matrix
+
+DUSt3R is pinned and licensed as documented in `docs/DUST3R_PROTOCOL.md`.
+Install it without changing any Windows or WSL global proxy setting:
+
+```bash
+CAMCANON3R_ACCEPT_DUST3R_NONCOMMERCIAL=1 \
+  ./scripts/setup_dust3r_my5090.sh
+```
+
+Run the same three-scene diagnostic matrix with a single model load:
+
+```bash
+PYTHONPATH=src:third_party/dust3r:third_party/dust3r/croco \
+  .venv-dust3r/bin/python scripts/run_dust3r_batch.py \
+  data/pilot outputs/dust3r/pilot \
+  --scenes room kitchen llff_fern \
+  --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
+  --weights checkpoints/dust3r-512-dpt \
+  --max-views 4 --image-size 512 --batch-size 1 \
+  --niter 300 --schedule cosine --lr 0.01 --seed 17 --resume
+
+PYTHONPATH=src .venv-dust3r/bin/python scripts/compare_prediction_sweep.py \
+  outputs/dust3r/pilot results/dust3r/pilot \
+  --scenes room kitchen llff_fern \
+  --variants center_crop_075 asymmetric_crop_075 letterbox_square --resume
+```
+
+Do not pool VGGT and DUSt3R runs before reporting each model separately. The
+same identity-relative rotation, translation-direction, and aligned-depth
+metrics are used because both adapters emit the same archive schema.

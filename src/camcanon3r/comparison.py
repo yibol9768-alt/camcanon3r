@@ -1,4 +1,4 @@
-"""Gauge-invariant comparison of two VGGT prediction archives."""
+"""Gauge-invariant comparison of model-neutral prediction archives."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ def _finite_or_none(value: np.floating) -> float | None:
     return float(value) if np.isfinite(value) else None
 
 
-def compare_vggt_predictions(
+def compare_predictions(
     reference_path: Path,
     candidate_path: Path,
     *,
@@ -77,3 +77,20 @@ def compare_vggt_predictions(
             )
         ],
     }
+
+
+def compare_vggt_predictions(
+    reference_path: Path,
+    candidate_path: Path,
+    *,
+    reference_label: str = "identity",
+    candidate_label: str | None = None,
+) -> dict[str, object]:
+    """Backward-compatible alias for legacy scripts and stored notebooks."""
+
+    return compare_predictions(
+        reference_path,
+        candidate_path,
+        reference_label=reference_label,
+        candidate_label=candidate_label,
+    )

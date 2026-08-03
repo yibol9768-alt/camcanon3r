@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Load VGGT once and run a resumable multi-scene variant sweep."""
+"""Load DUSt3R once and run a resumable multi-scene sweep."""
 
 from __future__ import annotations
 
@@ -9,8 +9,7 @@ import json
 import time
 from pathlib import Path
 
-import torch
-from run_vggt import load_model, run_scene
+from run_dust3r import load_model, run_scene
 
 from camcanon3r.sweep import plan_prediction_sweep
 
@@ -20,26 +19,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("prepared_root", type=Path)
     parser.add_argument("output_root", type=Path)
     parser.add_argument("--variants", nargs="+", required=True)
-    parser.add_argument(
-        "--scenes",
-        nargs="+",
-        help="scene directories beneath prepared_root; omit for one scene root",
-    )
+    parser.add_argument("--scenes", nargs="+")
     parser.add_argument("--weights", type=Path, required=True)
     parser.add_argument("--max-views", type=int, default=4)
-    parser.add_argument("--preprocess", choices=("crop", "pad"), default="crop")
+    parser.add_argument("--image-size", type=int, choices=(224, 512), default=512)
+    parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--niter", type=int, default=300)
+    parser.add_argument("--schedule", choices=("linear", "cosine"), default="cosine")
+    parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--seed", type=int, default=17)
     existing = parser.add_mutually_exclusive_group()
-    existing.add_argument(
-        "--resume",
-        action="store_true",
-        help="skip variants with both NPZ and JSON outputs already present",
-    )
-    existing.add_argument(
-        "--overwrite",
-        action="store_true",
-        help="replace complete or partial outputs",
-    )
+    existing.add_argument("--resume", action="store_true")
+    existing.add_argument("--overwrite", action="store_true")
     return parser.parse_args()
 
 
@@ -62,20 +53,14 @@ def main() -> None:
                     "run_count": len(planned),
                     "executed_count": 0,
                     "skipped_count": len(planned),
-                    "runs": [
-                        {
-                            "scene": run.scene,
-                            "variant": run.variant,
-                            "status": "skipped",
-                        }
-                        for run in planned
-                    ],
                 }
             )
         )
         return
+    import torch
+
     if not torch.cuda.is_available():
-        raise RuntimeError("CUDA is required for the frozen VGGT pilot")
+        raise RuntimeError("CUDA is required for the frozen DUSt3R protocol")
     device = torch.device("cuda")
     start = time.perf_counter()
     model = load_model(args.weights, device)
@@ -84,11 +69,7 @@ def main() -> None:
     for run in planned:
         if run.skip:
             summaries.append(
-                {
-                    "scene": run.scene,
-                    "variant": run.variant,
-                    "status": "skipped",
-                }
+                {"scene": run.scene, "variant": run.variant, "status": "skipped"}
             )
             continue
         metadata = run_scene(
@@ -96,7 +77,11 @@ def main() -> None:
             output=run.output,
             weights=args.weights,
             max_views=args.max_views,
-            preprocess=args.preprocess,
+            image_size=args.image_size,
+            batch_size=args.batch_size,
+            niter=args.niter,
+            schedule=args.schedule,
+            lr=args.lr,
             seed=args.seed,
             model=model,
             device=device,
@@ -109,7 +94,10 @@ def main() -> None:
                 "scene": run.scene,
                 "variant": run.variant,
                 "status": "executed",
-                "inference_seconds": metadata["inference_seconds"],
+                "pairwise_inference_seconds": metadata[
+                    "pairwise_inference_seconds"
+                ],
+                "alignment_seconds": metadata["alignment_seconds"],
                 "peak_vram_bytes": metadata["peak_vram_bytes"],
             }
         )

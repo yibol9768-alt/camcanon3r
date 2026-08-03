@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from camcanon3r.sweep import plan_vggt_sweep
+from camcanon3r.sweep import plan_prediction_sweep
 
 
 def _prepared(tmp_path: Path) -> tuple[Path, Path]:
@@ -16,7 +16,7 @@ def _prepared(tmp_path: Path) -> tuple[Path, Path]:
 
 def test_multiscene_sweep_plan_and_resume(tmp_path: Path) -> None:
     prepared, output = _prepared(tmp_path)
-    runs = plan_vggt_sweep(
+    runs = plan_prediction_sweep(
         prepared,
         output,
         variants=["center_crop_090", "center_crop_060"],
@@ -35,7 +35,7 @@ def test_multiscene_sweep_plan_and_resume(tmp_path: Path) -> None:
     first.parent.mkdir(parents=True)
     first.touch()
     first.with_suffix(".json").touch()
-    resumed = plan_vggt_sweep(
+    resumed = plan_prediction_sweep(
         prepared,
         output,
         variants=["center_crop_090", "center_crop_060"],
@@ -53,7 +53,7 @@ def test_sweep_rejects_existing_or_partial_outputs(tmp_path: Path) -> None:
     target.parent.mkdir(parents=True)
     target.touch()
     with pytest.raises(RuntimeError, match="partial prediction"):
-        plan_vggt_sweep(
+        plan_prediction_sweep(
             prepared,
             output,
             variants=["center_crop_090"],
@@ -64,7 +64,7 @@ def test_sweep_rejects_existing_or_partial_outputs(tmp_path: Path) -> None:
 
     target.with_suffix(".json").touch()
     with pytest.raises(FileExistsError, match="prediction already exists"):
-        plan_vggt_sweep(
+        plan_prediction_sweep(
             prepared,
             output,
             variants=["center_crop_090"],
@@ -73,7 +73,7 @@ def test_sweep_rejects_existing_or_partial_outputs(tmp_path: Path) -> None:
             overwrite=False,
         )
 
-    overwritten = plan_vggt_sweep(
+    overwritten = plan_prediction_sweep(
         prepared,
         output,
         variants=["center_crop_090"],

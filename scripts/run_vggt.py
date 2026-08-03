@@ -16,7 +16,7 @@ from vggt.models.vggt import VGGT
 from vggt.utils.load_fn import load_and_preprocess_images
 from vggt.utils.pose_enc import pose_encoding_to_extri_intri
 
-from camcanon3r.protocol import list_images
+from camcanon3r.protocol import list_images, protocol_affines
 from camcanon3r.vggt_preprocess import plan_vggt_preprocessing
 
 
@@ -47,21 +47,6 @@ def load_model(weights: Path, device: torch.device) -> VGGT:
     if invalid_unexpected:
         raise RuntimeError(f"unexpected non-track weights: {invalid_unexpected[:8]}")
     return model.eval().to(device)
-
-
-def protocol_affines(scene_dir: Path, image_paths: list[Path]) -> list[np.ndarray]:
-    manifest_path = scene_dir.parent / "manifest.json"
-    if not manifest_path.exists():
-        return [np.eye(3, dtype=np.float64) for _ in image_paths]
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    variants = [item for item in manifest["variants"] if item["name"] == scene_dir.name]
-    if len(variants) != 1:
-        raise RuntimeError(f"manifest has no unique variant named {scene_dir.name}")
-    records = {Path(item["output"]).name: item for item in variants[0]["images"]}
-    missing = [path.name for path in image_paths if path.name not in records]
-    if missing:
-        raise RuntimeError(f"manifest is missing prepared inputs: {missing}")
-    return [np.asarray(records[path.name]["matrix"], dtype=np.float64) for path in image_paths]
 
 
 def run_scene(

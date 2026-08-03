@@ -8,6 +8,7 @@ from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 from .image_ops import apply_affine
@@ -44,6 +45,36 @@ def list_images(scene_dir: Path, max_views: int | None = None) -> list[Path]:
     if len(images) < 2:
         raise ValueError("a scene must contain at least two supported images")
     return images
+
+
+def protocol_affines(
+    scene_dir: Path, image_paths: list[Path]
+) -> list[np.ndarray]:
+    """Read the exact source-to-prepared transform for selected inputs.
+
+    Hand-authored image folders are treated as their own source domain. A
+    protocol-generated variant must have a unique manifest record for every
+    selected image; silently substituting identity for a partial manifest
+    would invalidate the common-coordinate comparison.
+    """
+
+    manifest_path = scene_dir.parent / "manifest.json"
+    if not manifest_path.exists():
+        return [np.eye(3, dtype=np.float64) for _ in image_paths]
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    variants = [
+        item for item in manifest["variants"] if item["name"] == scene_dir.name
+    ]
+    if len(variants) != 1:
+        raise RuntimeError(f"manifest has no unique variant named {scene_dir.name}")
+    records = {Path(item["output"]).name: item for item in variants[0]["images"]}
+    missing = [path.name for path in image_paths if path.name not in records]
+    if missing:
+        raise RuntimeError(f"manifest is missing prepared inputs: {missing}")
+    return [
+        np.asarray(records[path.name]["matrix"], dtype=np.float64)
+        for path in image_paths
+    ]
 
 
 def _center_crop(source_size: tuple[int, int], fraction: float) -> ImageAffine:

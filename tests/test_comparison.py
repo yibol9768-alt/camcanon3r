@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 
-from camcanon3r.comparison import compare_vggt_predictions
+from camcanon3r.comparison import compare_predictions
 
 
 def test_identical_vggt_predictions_have_zero_disagreement(tmp_path: Path) -> None:
@@ -24,7 +24,7 @@ def test_identical_vggt_predictions_have_zero_disagreement(tmp_path: Path) -> No
             source_to_model_affine=affine,
         )
 
-    result = compare_vggt_predictions(reference, candidate)
+    result = compare_predictions(reference, candidate)
     assert result["rotation_degrees"]["median"] == 0.0
     assert result["translation_direction_degrees"]["median"] == 0.0
     assert result["aligned_depth_consistency"]["mean_abs_rel"] == 0.0

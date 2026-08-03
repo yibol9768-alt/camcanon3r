@@ -15,7 +15,7 @@ class SweepRun:
     skip: bool
 
 
-def plan_vggt_sweep(
+def plan_prediction_sweep(
     prepared_root: Path,
     output_root: Path,
     *,
@@ -63,3 +63,24 @@ def plan_vggt_sweep(
                 )
             )
     return planned
+
+
+def plan_vggt_sweep(
+    prepared_root: Path,
+    output_root: Path,
+    *,
+    variants: list[str],
+    scenes: list[str] | None,
+    resume: bool,
+    overwrite: bool,
+) -> list[SweepRun]:
+    """Backward-compatible alias for the model-neutral sweep planner."""
+
+    return plan_prediction_sweep(
+        prepared_root,
+        output_root,
+        variants=variants,
+        scenes=scenes,
+        resume=resume,
+        overwrite=overwrite,
+    )

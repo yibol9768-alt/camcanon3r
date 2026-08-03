@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from camcanon3r.protocol import build_transform, prepare_scene
+from camcanon3r.protocol import build_transform, prepare_scene, protocol_affines
 
 
 def _write_scene(scene_dir: Path) -> None:
@@ -66,3 +66,21 @@ def test_crop_fraction_variants_encode_frozen_severities() -> None:
     assert asymmetric.matrix[1, 1] == pytest.approx(1 / 0.9)
     with pytest.raises(ValueError, match="three-digit"):
         build_transform("center_crop_75", (1000, 800), rng=rng)
+
+
+def test_protocol_affines_require_complete_variant_manifest(tmp_path: Path) -> None:
+    scene = tmp_path / "scene"
+    _write_scene(scene)
+    prepared = tmp_path / "prepared"
+    prepare_scene(scene, prepared, variants=["center_crop_075"], seed=17)
+    variant = prepared / "center_crop_075"
+    paths = sorted(variant.glob("*.png"))
+    matrices = protocol_affines(variant, paths)
+    assert len(matrices) == 3
+    np.testing.assert_allclose(matrices[0][0, 0], 4 / 3)
+
+    manifest = json.loads((prepared / "manifest.json").read_text())
+    manifest["variants"][0]["images"].pop()
+    (prepared / "manifest.json").write_text(json.dumps(manifest))
+    with pytest.raises(RuntimeError, match="missing prepared inputs"):
+        protocol_affines(variant, paths)
