@@ -1,0 +1,55 @@
+import json
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+from camcanon3r.protocol import prepare_scene
+
+
+def _write_scene(scene_dir: Path) -> None:
+    scene_dir.mkdir()
+    for index in range(3):
+        array = np.zeros((40, 60, 3), dtype=np.uint8)
+        array[..., 0] = 30 * index
+        array[10:30, 20:40, 1] = 255
+        Image.fromarray(array).save(scene_dir / f"view_{index}.png")
+
+
+def test_prepare_scene_writes_exact_manifest_and_images(tmp_path: Path) -> None:
+    scene = tmp_path / "scene"
+    output = tmp_path / "prepared"
+    _write_scene(scene)
+    manifest = prepare_scene(
+        scene,
+        output,
+        variants=("identity", "asymmetric_crop_075", "letterbox_square"),
+        seed=29,
+    )
+
+    assert manifest["protocol_version"] == "0.1.0"
+    assert len(manifest["variants"]) == 3
+    assert all(len(variant["images"]) == 3 for variant in manifest["variants"])
+    assert (output / "identity" / "view_0.png").stat().st_size > 0
+    loaded = json.loads((output / "manifest.json").read_text())
+    assert loaded == manifest
+
+
+def test_asymmetric_crop_is_seed_deterministic(tmp_path: Path) -> None:
+    scene = tmp_path / "scene"
+    _write_scene(scene)
+    first = prepare_scene(
+        scene,
+        tmp_path / "first",
+        variants=("asymmetric_crop_075",),
+        seed=43,
+    )
+    second = prepare_scene(
+        scene,
+        tmp_path / "second",
+        variants=("asymmetric_crop_075",),
+        seed=43,
+    )
+    first_matrices = [image["matrix"] for image in first["variants"][0]["images"]]
+    second_matrices = [image["matrix"] for image in second["variants"][0]["images"]]
+    assert first_matrices == second_matrices

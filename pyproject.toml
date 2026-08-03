@@ -15,6 +15,9 @@ dependencies = [
   "pyyaml>=6",
 ]
 
+[project.scripts]
+camcanon3r = "camcanon3r.cli:main"
+
 [project.optional-dependencies]
 dev = [
   "pytest>=8",
@@ -30,4 +33,3 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 88
 target-version = "py310"
-

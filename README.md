@@ -42,3 +42,12 @@ pytest
 See [`docs/RESEARCH_CONTRACT.md`](docs/RESEARCH_CONTRACT.md) for hypotheses,
 baselines, metrics, stop criteria, and the claim-evidence contract.
 
+Prepare deterministic pilot variants with exact image-space transforms:
+
+```bash
+camcanon3r prepare-scene /path/to/scene /path/to/prepared --max-views 8 --seed 17
+```
+
+The output contains one folder per variant and a `manifest.json` recording every
+source image, target image, resolution, interpolation rule, seed, and 3x3
+source-to-target pixel matrix.
