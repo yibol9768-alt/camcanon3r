@@ -235,7 +235,7 @@ def aligned_depth_consistency(
     if not nonempty_ratios:
         raise ValueError("no valid depth correspondences remain after inverse mapping")
     scale = float(np.median(np.concatenate(nonempty_ratios)))
-    per_view: list[dict[str, float | int]] = []
+    per_view: list[dict[str, float | int | None]] = []
     all_errors: list[np.ndarray] = []
     for flattened_reference, sampled_candidate, valid in correspondences:
         errors = (
@@ -247,9 +247,9 @@ def aligned_depth_consistency(
             {
                 "valid_pixels": int(valid.sum()),
                 "valid_fraction": float(valid.mean()),
-                "mean_abs_rel": float(np.mean(errors)) if len(errors) else float("nan"),
+                "mean_abs_rel": float(np.mean(errors)) if len(errors) else None,
                 "median_abs_rel": (
-                    float(np.median(errors)) if len(errors) else float("nan")
+                    float(np.median(errors)) if len(errors) else None
                 ),
             }
         )
@@ -257,6 +257,85 @@ def aligned_depth_consistency(
     return {
         "scale": scale,
         "valid_pixels": int(sum(len(errors) for errors in all_errors)),
+        "mean_abs_rel": float(np.mean(combined)),
+        "median_abs_rel": float(np.median(combined)),
+        "p90_abs_rel": float(np.quantile(combined, 0.9)),
+        "per_view": per_view,
+    }
+
+
+def aligned_depth_to_source_ground_truth(
+    predicted_depth: ArrayLike,
+    source_to_model: ArrayLike,
+    source_depths: list[ArrayLike],
+    *,
+    minimum_depth: float = 1e-8,
+) -> dict[str, object]:
+    """Evaluate model depth against sparse depth in original source pixels."""
+
+    predicted = _depth_stack(predicted_depth)
+    affines = _affine_stack(source_to_model, len(predicted))
+    if len(source_depths) != len(predicted):
+        raise ValueError("one source depth map is required for every predicted view")
+    correspondences: list[tuple[np.ndarray, np.ndarray]] = []
+    ratios: list[np.ndarray] = []
+    for view, predicted_image in enumerate(predicted):
+        source_depth = np.asarray(source_depths[view])
+        if source_depth.ndim != 2:
+            raise ValueError("source depth maps must be two-dimensional")
+        height, width = predicted_image.shape
+        grid_y, grid_x = np.mgrid[:height, :width]
+        pixels = np.stack(
+            [grid_x.reshape(-1), grid_y.reshape(-1), np.ones(height * width)],
+            axis=0,
+        )
+        source_pixels = np.linalg.solve(affines[view], pixels)
+        source_x = np.rint(source_pixels[0] / source_pixels[2]).astype(np.int64)
+        source_y = np.rint(source_pixels[1] / source_pixels[2]).astype(np.int64)
+        in_bounds = (
+            (source_x >= 0)
+            & (source_x < source_depth.shape[1])
+            & (source_y >= 0)
+            & (source_y < source_depth.shape[0])
+        )
+        sampled_ground_truth = np.full(height * width, np.nan, dtype=np.float64)
+        sampled_ground_truth[in_bounds] = source_depth[
+            source_y[in_bounds], source_x[in_bounds]
+        ]
+        flattened_prediction = predicted_image.reshape(-1)
+        valid = (
+            np.isfinite(sampled_ground_truth)
+            & np.isfinite(flattened_prediction)
+            & (sampled_ground_truth > minimum_depth)
+            & (flattened_prediction > minimum_depth)
+        )
+        ground_truth = sampled_ground_truth[valid]
+        prediction = flattened_prediction[valid]
+        correspondences.append((ground_truth, prediction))
+        ratios.append(ground_truth / prediction)
+
+    nonempty_ratios = [values for values in ratios if len(values)]
+    if not nonempty_ratios:
+        raise ValueError("no valid ETH3D depth pixels map into the model tensor")
+    scale = float(np.median(np.concatenate(nonempty_ratios)))
+    per_view: list[dict[str, float | int | None]] = []
+    all_errors: list[np.ndarray] = []
+    for ground_truth, prediction in correspondences:
+        errors = np.abs(scale * prediction - ground_truth) / ground_truth
+        all_errors.append(errors)
+        per_view.append(
+            {
+                "valid_pixels": len(errors),
+                "mean_abs_rel": float(np.mean(errors)) if len(errors) else None,
+                "median_abs_rel": (
+                    float(np.median(errors)) if len(errors) else None
+                ),
+            }
+        )
+    combined = np.concatenate(all_errors)
+    return {
+        "scale": scale,
+        "valid_pixels": len(combined),
         "mean_abs_rel": float(np.mean(combined)),
         "median_abs_rel": float(np.median(combined)),
         "p90_abs_rel": float(np.quantile(combined, 0.9)),
