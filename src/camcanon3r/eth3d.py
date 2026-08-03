@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
+
+from .metrics import (
+    aligned_depth_to_source_ground_truth,
+    pairwise_relative_pose_errors,
+)
 
 
 @dataclass(frozen=True)
@@ -105,3 +111,70 @@ def open_eth3d_depth(path: Path, *, width: int, height: int) -> np.memmap:
             f"got {path.stat().st_size}"
         )
     return np.memmap(path, mode="r", dtype="<f4", shape=(height, width))
+
+
+def _finite_summary(values: np.ndarray) -> dict[str, float | int | None]:
+    finite = values[np.isfinite(values)]
+    return {
+        "count": len(finite),
+        "median": float(np.median(finite)) if len(finite) else None,
+        "mean": float(np.mean(finite)) if len(finite) else None,
+        "p90": float(np.quantile(finite, 0.9)) if len(finite) else None,
+    }
+
+
+def evaluate_eth3d_prediction(
+    prediction_path: Path,
+    calibration_dir: Path,
+    *,
+    depth_dir: Path | None,
+) -> dict[str, object]:
+    """Evaluate one prediction against ETH3D pose and optional raw-depth GT.
+
+    ``depth_dir=None`` is the supported pose-only path for pre-undistorted
+    images. Raw depth must only be paired with the original DSLR calibration.
+    """
+
+    metadata = json.loads(prediction_path.with_suffix(".json").read_text())
+    cameras = read_colmap_cameras(calibration_dir / "cameras.txt")
+    images = read_colmap_images(calibration_dir / "images.txt")
+    inputs = metadata["inputs"]
+    matched = [images[Path(name).stem] for name in inputs]
+    ground_truth_extrinsics = np.stack([item.extrinsic for item in matched])
+    camera = cameras[matched[0].camera_id]
+    if any(item.camera_id != camera.camera_id for item in matched):
+        raise RuntimeError("the selected ETH3D views do not share one camera model")
+
+    with np.load(prediction_path) as prediction:
+        pose_errors = pairwise_relative_pose_errors(
+            ground_truth_extrinsics, prediction["extrinsic"]
+        )
+        depth = None
+        if depth_dir is not None:
+            source_depths = [
+                open_eth3d_depth(
+                    depth_dir / f"{Path(name).stem}.JPG",
+                    width=camera.width,
+                    height=camera.height,
+                )
+                for name in inputs
+            ]
+            depth = aligned_depth_to_source_ground_truth(
+                prediction["depth"],
+                prediction["source_to_model_affine"],
+                source_depths,
+            )
+
+    return {
+        "prediction": str(prediction_path.resolve()),
+        "inputs": inputs,
+        "camera_model": camera.model,
+        "camera_size": [camera.width, camera.height],
+        "relative_rotation_degrees": _finite_summary(
+            pose_errors["rotation_degrees"]
+        ),
+        "translation_direction_degrees": _finite_summary(
+            pose_errors["translation_direction_degrees"]
+        ),
+        "depth": depth,
+    }

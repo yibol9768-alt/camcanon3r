@@ -34,3 +34,32 @@ pre-undistorted 6221x4146 images. CamCanon3R therefore uses:
 
 No ETH3D file is redistributed. Dataset terms and citation requirements must be
 checked again before releasing a derived benchmark package.
+
+## Frozen office four-view pilot
+
+The first confirmatory set is `DSC_0219` through `DSC_0222`. Live validation on
+2026-08-03 established that:
+
+- raw and pre-undistorted COLMAP extrinsics are bit-identical for all four
+  selected views (maximum absolute difference `0.0`);
+- the raw camera is `THIN_PRISM_FISHEYE`, 6048x4032;
+- the pre-undistorted camera is `PINHOLE`, 6221x4146;
+- each selected raw depth file is exactly 97,542,144 bytes, equal to
+  `6048 * 4032 * sizeof(float32)`.
+
+The two evaluation paths are intentionally separate:
+
+```bash
+# Raw image prediction: pose plus pixel-aligned raw depth.
+python scripts/evaluate_eth3d.py PREDICTION.npz \
+  /mnt/e/camcanon3r-data/eth3d/office/dslr_calibration_jpg \
+  /mnt/e/camcanon3r-data/eth3d/office/ground_truth_depth/dslr_images
+
+# Pre-undistorted prediction: pose only; raw depth must not be attached.
+python scripts/evaluate_eth3d.py PREDICTION.npz \
+  /mnt/e/camcanon3r-data/eth3d/office/dslr_calibration_undistorted \
+  --skip-depth
+```
+
+The `--skip-depth` branch reports `"depth": null` so downstream aggregation
+cannot silently confuse missing depth with a zero error.
