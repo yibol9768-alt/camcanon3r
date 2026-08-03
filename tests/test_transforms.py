@@ -3,8 +3,10 @@ import pytest
 
 from camcanon3r.metrics import (
     focal_relative_error,
+    pairwise_relative_pose_errors,
     principal_point_error,
     rotation_geodesic_degrees,
+    translation_direction_degrees,
 )
 from camcanon3r.transforms import crop_resize, letterbox, resize
 
@@ -54,3 +56,41 @@ def test_camera_metrics_have_expected_zero_and_known_rotation() -> None:
         ]
     )
     assert rotation_geodesic_degrees(rotation, np.eye(3)) == pytest.approx(30.0)
+    assert translation_direction_degrees([1, 0, 0], [0, 1, 0]) == pytest.approx(90.0)
+
+
+def test_pairwise_pose_errors_cancel_global_similarity_gauge() -> None:
+    reference = np.array(
+        [
+            np.hstack([np.eye(3), np.array([[0.0], [0.0], [0.0]])]),
+            np.hstack([np.eye(3), np.array([[-1.0], [0.0], [0.0]])]),
+            np.hstack([np.eye(3), np.array([[0.0], [-2.0], [0.0]])]),
+        ]
+    )
+    angle = np.deg2rad(25.0)
+    gauge_rotation = np.array(
+        [
+            [np.cos(angle), -np.sin(angle), 0.0],
+            [np.sin(angle), np.cos(angle), 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+    )
+    scale = 3.5
+    world_translation = np.array([4.0, -2.0, 1.0])
+    reference_rotations = reference[:, :, :3]
+    reference_translations = reference[:, :, 3]
+    centers = -np.einsum("vji,vj->vi", reference_rotations, reference_translations)
+    transformed_centers = scale * (centers @ gauge_rotation.T) + world_translation
+    transformed_rotations = reference_rotations @ gauge_rotation.T
+    transformed_translations = -np.einsum(
+        "vij,vj->vi", transformed_rotations, transformed_centers
+    )
+    candidate = np.concatenate(
+        [transformed_rotations, transformed_translations[:, :, None]], axis=2
+    )
+
+    errors = pairwise_relative_pose_errors(reference, candidate)
+    np.testing.assert_allclose(errors["rotation_degrees"], 0.0, atol=1e-6)
+    np.testing.assert_allclose(
+        errors["translation_direction_degrees"], 0.0, atol=1e-6
+    )
