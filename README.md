@@ -17,6 +17,10 @@ non-equivariance signal, with effectively exact identity-repeat controls. See
 [`docs/PILOT_RESULTS.md`](docs/PILOT_RESULTS.md). This is not yet a
 ground-truth accuracy or multi-model claim.
 
+Ground-truth experiments use only documented official datasets. See
+[`docs/DATA_PROVENANCE.md`](docs/DATA_PROVENANCE.md) for URLs, hashes, formats,
+and the raw-versus-undistorted ETH3D boundary.
+
 ## Core protocol
 
 For each multi-view scene, compare the original input with controlled,
