@@ -41,6 +41,7 @@ support that promotion.
 | Preprocessing reduces ground-truth reconstruction accuracy. | None yet. Cross-run disagreement is insufficient. | needs evidence | ETH3D pose/depth |
 | The failure generalizes beyond VGGT. | None yet. | needs evidence | DUSt3R confirmatory matrix |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
+| Reliability metrics are auditable. | Tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, and scene-cluster bootstrap are unit tested. | implemented, no effectiveness claim | populate with held-out GT cases |
 | Analytic canonical-camera repair restores source pixel coordinates. | Unit-tested inverse affine, identity control, masks, and manifests. | implemented, no effectiveness claim | paired GT gap recovery and clean cost |
 | Consensus repairs geometry. | None yet. | needs evidence | paired gap recovery beyond analytic repair, clean cost, runtime |
 

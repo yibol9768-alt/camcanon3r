@@ -195,3 +195,20 @@ PYTHONPATH=src .venv/bin/python scripts/summarize_eth3d.py \
   --bootstrap-replicates 10000 --confidence-level 0.95 \
   --bootstrap-seed 17
 ```
+
+## Reliability evaluation
+
+After creating held-out case records with one GT error and uncertainty score
+per `(model, dataset, scene, view set, transform)`, run:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/analyze_reliability.py \
+  results/reliability/rotation_cases.jsonl \
+  --failure-threshold 2.0 \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17 \
+  --output results/reliability/rotation_disagreement.json
+```
+
+The exact case schema, split rules, tie handling, AURC definition, and claim
+gate are frozen in `docs/RELIABILITY_PROTOCOL.md`.

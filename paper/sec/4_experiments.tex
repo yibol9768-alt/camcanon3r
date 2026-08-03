@@ -71,6 +71,12 @@ reported as undefined rather than clipped.  Results remain pending and no
 accuracy claim is drawn from Table~\ref{tab:pilot}.
 
 \subsection{Failure detection and repair}
+Failure thresholds are frozen before held-out testing and use the strict rule
+$E>\tau$. AUROC uses average ranks for ties; risk--coverage adds complete
+equal-score blocks and reports raw AURC, oracle AURC, and their difference.
+Confidence intervals resample scenes as clusters, carrying all view-set and
+transform cases together. Single-class AUROC replicates are omitted and
+counted rather than assigned a numerical value.
 \TODO{Report native confidence, cross-transform disagreement, AUROC,
 risk--coverage, consensus repair, gap recovery, oracle selection, runtime, and
 accuracy per unit compute.}

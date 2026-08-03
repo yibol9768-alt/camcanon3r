@@ -56,3 +56,8 @@ predicts held-out ground-truth error, and promote consensus selection or fusion
 only if it improves over Eq.~\eqref{eq:canonical-repair} at a matched compute
 budget.  Until those gates pass, disagreement remains an audit metric rather
 than a claimed uncertainty estimator.
+For evaluation, larger scores always denote greater uncertainty. We use
+average-rank AUROC for tied scores and construct risk--coverage curves by
+adding complete equal-score blocks, avoiding dependence on arbitrary row
+order. Oracle ranking by ground-truth error defines the minimum reference AURC,
+and we report both raw and excess AURC.

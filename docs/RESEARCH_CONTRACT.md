@@ -122,5 +122,11 @@ scene/variant design, separation of pose-only and depth protocols, and
 deterministic scene-level bootstrap intervals. This is statistical
 infrastructure, not evidence that any pending hypothesis passes.
 
+Reliability evaluation uses average-rank AUROC for tied scores, complete tie
+blocks for risk--coverage, oracle and excess AURC, and a scene-cluster
+bootstrap. Single-class AUROC and invalid bootstrap replicates remain explicit
+undefined values. Detector promotion still requires held-out AUROC at least
+0.75; evaluator implementation alone does not satisfy that gate.
+
 No abstract or introduction may promote a claim whose status remains "needs
 evidence."
