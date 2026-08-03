@@ -151,3 +151,19 @@ PYTHONPATH=src .venv/bin/python scripts/compare_prediction_sweep.py \
 This diagnostic only shows whether canonicalization reduces disagreement. The
 repair claim is promoted solely from paired ETH3D or DTU ground-truth gap
 recovery, with the clean cost and visible-support fraction reported alongside.
+
+After evaluating the original, corrupted, repaired, and repaired-identity
+predictions against the same GT, compute each metric's raw gap and recovery:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/evaluate_repair.py \
+  results/eth3d_office/raw/identity.json \
+  results/eth3d_office/raw/asymmetric_crop_075.json \
+  results/eth3d_office/raw_canonical/canonical_asymmetric_crop_075.json \
+  --clean-control results/eth3d_office/raw_canonical/identity.json \
+  --output results/eth3d_office/raw_canonical/repair_gap_075.json
+```
+
+The output never clips recovery to `[0, 1]`: negative repair and better-than-
+identity overshoot remain visible. A non-positive or noise-floor corruption gap
+is marked undefined, and pose-only ETH3D records keep depth unavailable.
