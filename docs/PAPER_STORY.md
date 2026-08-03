@@ -40,7 +40,8 @@ support that promotion.
 | Preprocessing reduces ground-truth reconstruction accuracy. | None yet. Cross-run disagreement is insufficient. | needs evidence | ETH3D pose/depth |
 | The failure generalizes beyond VGGT. | None yet. | needs evidence | DUSt3R confirmatory matrix |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
-| Consensus repairs geometry. | None yet. | needs evidence | paired gap recovery, clean cost, runtime |
+| Analytic canonical-camera repair restores source pixel coordinates. | Unit-tested inverse affine, identity control, masks, and manifests. | implemented, no effectiveness claim | paired GT gap recovery and clean cost |
+| Consensus repairs geometry. | None yet. | needs evidence | paired gap recovery beyond analytic repair, clean cost, runtime |
 
 ## Self-review
 
@@ -52,6 +53,16 @@ support that promotion.
   or repair gains.
 - **Missing evidence:** ETH3D GT, severity response, DUSt3R, reliability, repair,
   statistics, compute-normalized baselines, and qualitative geometry.
+
+## Method reverse outline
+
+| Subsection | First-message role | Design and evidence boundary |
+|---|---|---|
+| Overview | Separate coordinate intervention from model response. | Logged maps, common-domain audit, analytic repair. |
+| Equivariance contract | Compose user and hidden model maps exactly. | $C_i=B_iA_i$; unit-tested bookkeeping. |
+| Common-domain comparison | Remove pixel and 3D gauge before measuring drift. | Common support, relative pose, one depth scale. |
+| Canonical-camera repair | Undo coordinates without claiming to restore lost pixels. | Inverse warp, neutral fill, validity mask, identity control. |
+| Disagreement | Promotion depends on held-out GT and matched compute. | No detector or consensus claim yet. |
 
 The working title remains audit-only.  Add "and Repairing" only after the
 registered repair thresholds are met.

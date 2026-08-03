@@ -39,10 +39,26 @@ consistent with a view-specific principal-point mechanism, but severity sweeps
 and ground-truth tests are required to distinguish mechanism from correlation.
 
 \subsection{Confirmatory evaluation}
-\TODO{Add ETH3D~\cite{schops2017eth3d} pose and raw-depth ground truth for
-identity, center crop, asymmetric crop, and letterbox variants.  Report
-confidence intervals and clean-versus-transformed accuracy, then repeat with
-DUSt3R.}
+The frozen confirmatory matrix uses VGGT and DUSt3R on ETH3D
+\cite{schops2017eth3d}.  We evaluate identity, center crop, asymmetric crop,
+and letterbox variants against pose ground truth; raw images additionally use
+the matched raw-depth maps, whereas pre-undistorted images are pose-only.
+DUSt3R uses four views, complete symmetrized pairs, and its 300-iteration
+point-cloud optimizer.  Every model-specific resize and crop is composed with
+the registered intervention before evaluation.
+
+The canonical-camera repair is paired with each corrupted input and with an
+identity clean-cost control.  For an error metric $E$, we report raw errors and
+gap recovery
+\begin{equation}
+  \mathrm{Recovery}=
+  \frac{E_{\mathrm{corrupt}}-E_{\mathrm{repair}}}
+       {E_{\mathrm{corrupt}}-E_{\mathrm{identity}}}.
+\end{equation}
+The repair claim requires at least 30\% recovery while identity degradation
+remains below 2\%; denominators at or below the identity noise floor are
+reported as undefined rather than clipped.  Results remain pending and no
+accuracy claim is drawn from Table~\ref{tab:pilot}.
 
 \subsection{Failure detection and repair}
 \TODO{Report native confidence, cross-transform disagreement, AUROC,

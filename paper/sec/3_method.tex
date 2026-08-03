@@ -1,6 +1,14 @@
 \section{Method}
 \label{sec:method}
 
+\subsection{Overview}
+CamCanon3R separates a coordinate intervention from the model response it is
+intended to preserve.  Given a logged image affine, we first compose all user
+and model pixel maps, then compare predictions on their common source support.
+For repair, we analytically return each input to a canonical camera canvas
+before reconstruction.  This design exposes residual model non-equivariance
+without pretending that inverse warping can restore content removed by a crop.
+
 \subsection{Preprocessing-equivariance contract}
 Let source image $I_i$ have camera matrix
 $P_i=K_i[R_i\mid t_i]$.  A controlled invertible image-space affine
@@ -13,14 +21,38 @@ map is $C_i=B_iA_i$.  We store $A_i$, $B_i$, and $C_i$ rather than infer them
 after prediction.
 
 \subsection{Common-domain comparison}
-Predicted pixel-aligned quantities are mapped through $C_i^{-1}$ and compared
-only on common visible support.  Relative rotations and translation directions
-are evaluated over all view pairs, eliminating arbitrary world frames and
-translation scale.  Depth is compared after one declared scene-level median
-scale alignment.  An identity-repeat run measures the numerical noise floor.
+The contract is only measurable after both pixel coordinates and 3D gauge are
+removed.  Predicted pixel-aligned quantities are mapped through $C_i^{-1}$ and
+compared only on common visible support.  Relative rotations and
+translation directions are evaluated over all view pairs, eliminating
+arbitrary world frames and translation scale.  Depth is compared after one
+declared scene-level median scale alignment.  An identity-repeat run measures
+the numerical noise floor.
+
+\subsection{Analytic canonical-camera repair}
+A crop-resize changes coordinates and removes content, but only the former is
+analytically reversible.  Let $\Omega_i$ and $\Omega'_i$ denote the source and
+prepared canvases.  We construct a repaired image on $\Omega_i$ as
+\begin{equation}
+  \widehat I_i(\mathbf{x})=
+  \begin{cases}
+    I'_i(A_i\mathbf{x}), & A_i\mathbf{x}\in\Omega'_i,\\
+    \boldsymbol\mu, & \text{otherwise},
+  \end{cases}
+  \label{eq:canonical-repair}
+\end{equation}
+where $\boldsymbol\mu$ is a fixed neutral-gray fill.  The binary validity mask
+$M_i(\mathbf{x})=\mathbf{1}[A_i\mathbf{x}\in\Omega'_i]$ records the visible
+support and is reported with every result.  Because $\widehat I_i$ again uses
+the source canvas, its protocol affine is identity and its camera intrinsics
+are $K_i$, not $A_iK_i$.  The repair therefore removes the induced focal and
+principal-point change while preserving the unavoidable information loss.
+Processing identity through the same path provides the clean-cost control.
 
 \subsection{Disagreement and repair}
-\TODO{Specify the cross-transform disagreement score only after its held-out
-association with ground-truth error is measured.  Specify consensus selection
-or fusion, its compute budget, and its oracle upper bound only after the repair
-kill-test passes.}
+The analytic repair is evaluated before any learned or ensemble component.
+We will promote cross-transform disagreement to a failure score only if it
+predicts held-out ground-truth error, and promote consensus selection or fusion
+only if it improves over Eq.~\eqref{eq:canonical-repair} at a matched compute
+budget.  Until those gates pass, disagreement remains an audit metric rather
+than a claimed uncertainty estimator.

@@ -118,3 +118,36 @@ PYTHONPATH=src .venv-dust3r/bin/python scripts/compare_prediction_sweep.py \
 Do not pool VGGT and DUSt3R runs before reporting each model separately. The
 same identity-relative rotation, translation-direction, and aligned-depth
 metrics are used because both adapters emit the same archive schema.
+
+## Analytic canonical-canvas repair
+
+The repair uses the registered affine to inverse-warp each prepared image onto
+its original camera canvas. Pixels outside visible crop support are neutral
+gray and exported with a binary mask. Identity is processed through the same
+path to measure clean cost.
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/canonicalize_sweep.py \
+  data/pilot data/pilot_canonical \
+  --scenes room kitchen llff_fern \
+  --variants identity asymmetric_crop_075 asymmetric_crop_090 \
+  --fill-policy neutral_gray --resume
+
+PYTHONPATH=src:third_party/vggt .venv/bin/python scripts/run_vggt_batch.py \
+  data/pilot_canonical outputs/vggt/pilot_canonical \
+  --scenes room kitchen llff_fern \
+  --variants identity canonical_asymmetric_crop_075 \
+    canonical_asymmetric_crop_090 \
+  --weights checkpoints/VGGT-1B/model.safetensors \
+  --max-views 4 --preprocess crop --seed 17 --resume
+
+PYTHONPATH=src .venv/bin/python scripts/compare_prediction_sweep.py \
+  outputs/vggt/pilot_canonical results/vggt/pilot_canonical \
+  --scenes room kitchen llff_fern \
+  --variants canonical_asymmetric_crop_075 \
+    canonical_asymmetric_crop_090 --resume
+```
+
+This diagnostic only shows whether canonicalization reduces disagreement. The
+repair claim is promoted solely from paired ETH3D or DTU ground-truth gap
+recovery, with the clean cost and visible-support fraction reported alongside.

@@ -11,7 +11,8 @@ def apply_affine(
     image: Image.Image,
     transform: ImageAffine,
     *,
-    fill: tuple[int, int, int] = (0, 0, 0),
+    fill: int | tuple[int, int, int] = (0, 0, 0),
+    resample: Image.Resampling = Image.Resampling.BICUBIC,
 ) -> Image.Image:
     """Render an ``ImageAffine`` with bicubic interpolation.
 
@@ -30,6 +31,6 @@ def apply_affine(
         transform.target_size,
         Image.Transform.AFFINE,
         coefficients,
-        resample=Image.Resampling.BICUBIC,
+        resample=resample,
         fillcolor=fill,
     )

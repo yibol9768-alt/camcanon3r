@@ -65,6 +65,17 @@ The output contains one folder per variant and a `manifest.json` recording every
 source image, target image, resolution, interpolation rule, seed, and 3x3
 source-to-target pixel matrix.
 
+Known transforms can be inverse-warped onto their original camera canvas for
+the analytic repair baseline. The repaired manifest stores identity camera
+coordinates, the original affine, fill policy, validity mask, and visible
+support fraction:
+
+```bash
+PYTHONPATH=src python scripts/canonicalize_variant.py \
+  /path/to/prepared/asymmetric_crop_075 \
+  /path/to/repaired/canonical_asymmetric_crop_075
+```
+
 ### Process-scoped downloads on my5090
 
 Large external artifacts may be downloaded with the machine-local wrapper:
