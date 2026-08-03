@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "dataset": "ETH3D high-resolution multi-view training data",
+  "source_index": "https://www.eth3d.net/datasets",
+  "accessed_date": "2026-08-03",
+  "selection_policy": "All 13 official high-resolution multi-view training scenes with public ground truth; no scene was selected using model outcomes.",
+  "scenes": [
+    "courtyard",
+    "delivery_area",
+    "electro",
+    "facade",
+    "kicker",
+    "meadow",
+    "office",
+    "pipes",
+    "playground",
+    "relief",
+    "relief_2",
+    "terrace",
+    "terrains"
+  ],
+  "archives": [
+    {
+      "filename": "multi_view_training_dslr_undistorted.7z",
+      "url": "https://www.eth3d.net/data/multi_view_training_dslr_undistorted.7z",
+      "expected_bytes": 5887406146,
+      "purpose": "all pre-undistorted DSLR images and calibration"
+    },
+    {
+      "filename": "multi_view_training_dslr_jpg.7z",
+      "url": "https://www.eth3d.net/data/multi_view_training_dslr_jpg.7z",
+      "expected_bytes": 5054974037,
+      "purpose": "all original distorted DSLR JPEG images and calibration"
+    },
+    {
+      "filename": "courtyard_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/courtyard_dslr_depth.7z",
+      "expected_bytes": 428289105,
+      "purpose": "courtyard rendered raw-camera depth"
+    },
+    {
+      "filename": "delivery_area_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/delivery_area_dslr_depth.7z",
+      "expected_bytes": 388144128,
+      "purpose": "delivery_area rendered raw-camera depth"
+    },
+    {
+      "filename": "electro_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/electro_dslr_depth.7z",
+      "expected_bytes": 655596830,
+      "purpose": "electro rendered raw-camera depth"
+    },
+    {
+      "filename": "facade_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/facade_dslr_depth.7z",
+      "expected_bytes": 804421080,
+      "purpose": "facade rendered raw-camera depth"
+    },
+    {
+      "filename": "kicker_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/kicker_dslr_depth.7z",
+      "expected_bytes": 415014798,
+      "purpose": "kicker rendered raw-camera depth"
+    },
+    {
+      "filename": "meadow_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/meadow_dslr_depth.7z",
+      "expected_bytes": 146736485,
+      "purpose": "meadow rendered raw-camera depth"
+    },
+    {
+      "filename": "office_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/office_dslr_depth.7z",
+      "expected_bytes": 441352937,
+      "purpose": "office rendered raw-camera depth"
+    },
+    {
+      "filename": "pipes_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/pipes_dslr_depth.7z",
+      "expected_bytes": 127725253,
+      "purpose": "pipes rendered raw-camera depth"
+    },
+    {
+      "filename": "playground_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/playground_dslr_depth.7z",
+      "expected_bytes": 283987129,
+      "purpose": "playground rendered raw-camera depth"
+    },
+    {
+      "filename": "relief_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/relief_dslr_depth.7z",
+      "expected_bytes": 686900728,
+      "purpose": "relief rendered raw-camera depth"
+    },
+    {
+      "filename": "relief_2_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/relief_2_dslr_depth.7z",
+      "expected_bytes": 646673138,
+      "purpose": "relief_2 rendered raw-camera depth"
+    },
+    {
+      "filename": "terrace_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/terrace_dslr_depth.7z",
+      "expected_bytes": 376720366,
+      "purpose": "terrace rendered raw-camera depth"
+    },
+    {
+      "filename": "terrains_dslr_depth.7z",
+      "url": "https://www.eth3d.net/data/terrains_dslr_depth.7z",
+      "expected_bytes": 529179696,
+      "purpose": "terrains rendered raw-camera depth"
+    }
+  ]
+}

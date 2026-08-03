@@ -4,6 +4,22 @@ All commands run from `/opt/camcanon3r`. Do not start a VGGT run while another
 project owns the GPU. Confirm both the process list and utilization rather than
 relying on one momentary utilization sample.
 
+## ETH3D archive acquisition
+
+The frozen full-training-scene manifest contains all 13 official scenes. Start
+the resumable download through the process-scoped proxy at low CPU/I/O
+priority:
+
+```bash
+./scripts/start_eth3d_download_my5090.sh
+```
+
+Progress is recorded in
+`/mnt/e/camcanon3r-data/eth3d_archives/download.log`; verified byte lengths and
+SHA-256 values are checkpointed after every archive in
+`download_report.json`. This stage downloads only. Do not extract or prepare
+full-resolution PNG variants until CPU and disk contention is safe.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and

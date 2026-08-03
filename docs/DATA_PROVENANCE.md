@@ -35,6 +35,21 @@ pre-undistorted 6221x4146 images. CamCanon3R therefore uses:
 No ETH3D file is redistributed. Dataset terms and citation requirements must be
 checked again before releasing a derived benchmark package.
 
+## Frozen full-training-scene expansion
+
+The confirmatory expansion includes all 13 official high-resolution
+multi-view training scenes, rather than selecting scenes after viewing model
+outcomes. The frozen manifest is `configs/eth3d_training_archives.json` and
+records official URLs plus live `Content-Length` values observed on
+2026-08-03. It consists of the two official all-scene DSLR JPEG archives and
+the 13 scene-specific rendered-depth archives (16,873,121,856 bytes total).
+
+On my5090, archives and the machine-local SHA-256 report live under
+`/mnt/e/camcanon3r-data/eth3d_archives`. Downloads are serialized, resumable,
+length checked, hashed after completion, and run at low CPU/I/O priority
+through the command-scoped proxy. Download completion does not authorize
+automatic extraction or preprocessing while another project owns the machine.
+
 ## Frozen office four-view pilot
 
 The first confirmatory set is `DSC_0219` through `DSC_0222`. Live validation on
