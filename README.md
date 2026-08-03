@@ -48,6 +48,8 @@ pytest
 
 See [`docs/RESEARCH_CONTRACT.md`](docs/RESEARCH_CONTRACT.md) for hypotheses,
 baselines, metrics, stop criteria, and the claim-evidence contract.
+The exact my5090 severity and ETH3D commands are frozen in
+[`docs/EXPERIMENT_RUNBOOK.md`](docs/EXPERIMENT_RUNBOOK.md).
 
 The evolving 3DV 2027 manuscript uses the official author kit under
 [`paper/`](paper/); its story and promotion gates are tracked in

@@ -167,6 +167,7 @@ def evaluate_eth3d_prediction(
 
     return {
         "prediction": str(prediction_path.resolve()),
+        "variant": prediction_path.stem,
         "inputs": inputs,
         "camera_model": camera.model,
         "camera_size": [camera.width, camera.height],

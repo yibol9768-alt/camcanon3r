@@ -75,6 +75,7 @@ def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> No
         prediction, calibration, depth_dir=depth_dir
     )
     assert pose_only["depth"] is None
+    assert pose_only["variant"] == "prediction"
     assert pose_only["relative_rotation_degrees"]["median"] == 0.0
     assert with_depth["depth"]["mean_abs_rel"] == 0.0
     assert with_depth["depth"]["scale"] == 2.0

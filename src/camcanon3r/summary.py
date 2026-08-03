@@ -75,3 +75,52 @@ def summarize_comparison_files(
         "comparisons": rows,
         "by_variant": by_variant,
     }
+
+
+def summarize_eth3d_evaluations(paths: list[Path]) -> dict[str, object]:
+    """Aggregate GT metrics and compute absolute deltas from identity."""
+
+    if not paths:
+        raise ValueError("at least one ETH3D evaluation record is required")
+    rows: list[dict[str, object]] = []
+    for path in sorted(paths):
+        record = json.loads(path.read_text(encoding="utf-8"))
+        depth = record["depth"]
+        rows.append(
+            {
+                "variant": record.get("variant", Path(record["prediction"]).stem),
+                "rotation_median_degrees": record["relative_rotation_degrees"][
+                    "median"
+                ],
+                "translation_median_degrees": record[
+                    "translation_direction_degrees"
+                ]["median"],
+                "depth_mean_abs_rel": depth["mean_abs_rel"] if depth else None,
+                "valid_depth_pixels": depth["valid_pixels"] if depth else None,
+                "source": str(path),
+            }
+        )
+    identities = [row for row in rows if row["variant"] == "identity"]
+    if len(identities) != 1:
+        raise ValueError("ETH3D summary requires exactly one identity record")
+    identity = identities[0]
+    for row in rows:
+        row["rotation_delta_from_identity_degrees"] = float(
+            row["rotation_median_degrees"] - identity["rotation_median_degrees"]
+        )
+        row["translation_delta_from_identity_degrees"] = float(
+            row["translation_median_degrees"]
+            - identity["translation_median_degrees"]
+        )
+        if row["depth_mean_abs_rel"] is None:
+            row["depth_abs_rel_delta_from_identity"] = None
+        else:
+            row["depth_abs_rel_delta_from_identity"] = float(
+                row["depth_mean_abs_rel"] - identity["depth_mean_abs_rel"]
+            )
+    return {
+        "evaluation_count": len(rows),
+        "depth_evaluated": identity["depth_mean_abs_rel"] is not None,
+        "identity": identity,
+        "evaluations": rows,
+    }
