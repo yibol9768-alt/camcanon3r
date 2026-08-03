@@ -1,0 +1,149 @@
+{
+  "rotation_threshold_degrees": 2.0,
+  "depth_abs_rel_threshold": 0.05,
+  "comparison_count": 10,
+  "comparisons": [
+    {
+      "scene": "kitchen",
+      "candidate": "asymmetric_crop_075",
+      "rotation_median_degrees": 3.787412325179243,
+      "translation_median_degrees": 3.766801301546871,
+      "depth_mean_abs_rel": 0.034452482777282176,
+      "valid_depth_pixels": 405838,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/kitchen/asymmetric_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "kitchen",
+      "candidate": "center_crop_075",
+      "rotation_median_degrees": 0.1540559348788842,
+      "translation_median_degrees": 0.5984775939323902,
+      "depth_mean_abs_rel": 0.03808760547827065,
+      "valid_depth_pixels": 406624,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/kitchen/center_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "kitchen",
+      "candidate": "letterbox_square",
+      "rotation_median_degrees": 0.5070862697871141,
+      "translation_median_degrees": 1.6692677758593224,
+      "depth_mean_abs_rel": 0.044213427717549436,
+      "valid_depth_pixels": 725200,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/kitchen/letterbox_square_vs_identity.json"
+    },
+    {
+      "scene": "llff_fern",
+      "candidate": "asymmetric_crop_075",
+      "rotation_median_degrees": 5.017861040078622,
+      "translation_median_degrees": 18.440236535940805,
+      "depth_mean_abs_rel": 0.04310009525534098,
+      "valid_depth_pixels": 453857,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/llff_fern/asymmetric_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "llff_fern",
+      "candidate": "center_crop_075",
+      "rotation_median_degrees": 0.23936438774463586,
+      "translation_median_degrees": 0.7249462884937673,
+      "depth_mean_abs_rel": 0.03314331820552371,
+      "valid_depth_pixels": 456288,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/llff_fern/center_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "llff_fern",
+      "candidate": "letterbox_square",
+      "rotation_median_degrees": 0.08293381825034542,
+      "translation_median_degrees": 0.47633529425235477,
+      "depth_mean_abs_rel": 0.030498751306067592,
+      "valid_depth_pixels": 812224,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/llff_fern/letterbox_square_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "asymmetric_crop_075",
+      "rotation_median_degrees": 6.2974352805696,
+      "translation_median_degrees": 32.28278415046336,
+      "depth_mean_abs_rel": 0.09938562130237993,
+      "valid_depth_pixels": 453857,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/room/asymmetric_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "center_crop_075",
+      "rotation_median_degrees": 3.876263358799968,
+      "translation_median_degrees": 18.002379432083398,
+      "depth_mean_abs_rel": 0.0866635244921539,
+      "valid_depth_pixels": 456288,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/room/center_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "identity_repeat",
+      "rotation_median_degrees": 0.0,
+      "translation_median_degrees": 4.2688682312579694e-07,
+      "depth_mean_abs_rel": 3.656006848022587e-17,
+      "valid_depth_pixels": 812224,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/room/identity_repeat_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "letterbox_square",
+      "rotation_median_degrees": 1.7555252310740277,
+      "translation_median_degrees": 9.226514861465123,
+      "depth_mean_abs_rel": 0.041528913758557,
+      "valid_depth_pixels": 812224,
+      "source": "artifacts/pilot_multiscene_seed17/comparisons/room/letterbox_square_vs_identity.json"
+    }
+  ],
+  "by_variant": {
+    "asymmetric_crop_075": {
+      "scene_count": 3,
+      "scenes": [
+        "kitchen",
+        "llff_fern",
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 5.017861040078622,
+      "median_of_scene_translation_medians_degrees": 18.440236535940805,
+      "median_of_scene_depth_mean_abs_rel": 0.04310009525534098,
+      "scenes_over_rotation_threshold": 3,
+      "scenes_over_depth_threshold": 1
+    },
+    "center_crop_075": {
+      "scene_count": 3,
+      "scenes": [
+        "kitchen",
+        "llff_fern",
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 0.23936438774463586,
+      "median_of_scene_translation_medians_degrees": 0.7249462884937673,
+      "median_of_scene_depth_mean_abs_rel": 0.03808760547827065,
+      "scenes_over_rotation_threshold": 1,
+      "scenes_over_depth_threshold": 1
+    },
+    "identity_repeat": {
+      "scene_count": 1,
+      "scenes": [
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 0.0,
+      "median_of_scene_translation_medians_degrees": 4.2688682312579694e-07,
+      "median_of_scene_depth_mean_abs_rel": 3.656006848022587e-17,
+      "scenes_over_rotation_threshold": 0,
+      "scenes_over_depth_threshold": 0
+    },
+    "letterbox_square": {
+      "scene_count": 3,
+      "scenes": [
+        "kitchen",
+        "llff_fern",
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 0.5070862697871141,
+      "median_of_scene_translation_medians_degrees": 1.6692677758593224,
+      "median_of_scene_depth_mean_abs_rel": 0.041528913758557,
+      "scenes_over_rotation_threshold": 0,
+      "scenes_over_depth_threshold": 0
+    }
+  }
+}

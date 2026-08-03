@@ -1,0 +1,19 @@
+\begin{abstract}
+Feed-forward 3D reconstruction systems routinely resize, crop, and pad their
+input images, although these operations change the image formation model.  An
+image-space affine transform $A$ changes the camera matrix from $K[R\mid t]$
+to $AK[R\mid t]$; after this known update is accounted for, the recovered
+scene should remain unchanged up to the model's global gauge.  We formulate
+this requirement as a preprocessing-equivariance contract and introduce an
+auditable protocol that records both user-level and model-internal image
+transforms, composes their exact pixel maps, and compares reconstructed
+cameras and depth on common source-image support.  In a controlled four-view
+VGGT diagnostic across three scenes, independently shifted 75\% crops produce
+median relative-rotation disagreement of \SIrange{3.79}{6.30}{\degree}, while
+an identity-repeat control is numerically exact.  Center crops and letterbox
+padding are substantially more scene dependent, implicating inconsistent
+principal-point shifts rather than cropping alone.  These results establish a
+reproducible non-equivariance signal; ground-truth degradation, cross-model
+generality, failure detection, and repair remain explicit confirmatory gates
+for the full study.
+\end{abstract}

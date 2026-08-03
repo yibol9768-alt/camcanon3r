@@ -1,0 +1,50 @@
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{Controlled non-equivariance diagnostic}
+We run the official VGGT weights on four views from three scenes with seed 17.
+Each candidate is compared with the identity prediction using six relative
+camera pairs and affine-aware common-support depth consistency.  Table
+\ref{tab:pilot} reports disagreement between model runs; it is not a
+ground-truth accuracy table.
+
+\begin{table}[t]
+  \centering
+  \caption{Four-view VGGT diagnostic.  Rotation and translation are median
+  relative-pair disagreements in degrees; depth is mean scale-aligned AbsRel
+  on common source-image support.}
+  \label{tab:pilot}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{llrrr}
+    \toprule
+    Scene & Transform & Rot. & Trans. & Depth \\
+    \midrule
+    Kitchen & asymmetric crop & 3.79 & 3.77 & 3.45\% \\
+    Fern    & asymmetric crop & 5.02 & 18.44 & 4.31\% \\
+    Room    & asymmetric crop & 6.30 & 32.28 & 9.94\% \\
+    \midrule
+    Kitchen & center crop & 0.15 & 0.60 & 3.81\% \\
+    Fern    & center crop & 0.24 & 0.72 & 3.31\% \\
+    Room    & center crop & 3.88 & 18.00 & 8.67\% \\
+    \midrule
+    Room    & identity repeat & 0.00 & $4.3\!\times\!10^{-7}$ & $<10^{-12}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The asymmetric crop exceeds the pre-registered two-degree rotation threshold
+in all three scenes.  Center crops exceed it in only one scene, and square
+letterbox padding exceeds it in none.  This transform-by-scene interaction is
+consistent with a view-specific principal-point mechanism, but severity sweeps
+and ground-truth tests are required to distinguish mechanism from correlation.
+
+\subsection{Confirmatory evaluation}
+\TODO{Add ETH3D~\cite{schops2017eth3d} pose and raw-depth ground truth for
+identity, center crop, asymmetric crop, and letterbox variants.  Report
+confidence intervals and clean-versus-transformed accuracy, then repeat with
+DUSt3R.}
+
+\subsection{Failure detection and repair}
+\TODO{Report native confidence, cross-transform disagreement, AUROC,
+risk--coverage, consensus repair, gap recovery, oracle selection, runtime, and
+accuracy per unit compute.}

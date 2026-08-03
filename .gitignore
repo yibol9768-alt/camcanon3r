@@ -14,3 +14,13 @@ wandb/
 .env
 *.token
 .private-download-proxy/
+tmp/
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.brf
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.pdf

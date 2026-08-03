@@ -1,0 +1,21 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\paragraph{Feed-forward multi-view reconstruction.}
+DUSt3R~\cite{wang2024dust3r}, MASt3R~\cite{leroy2024mast3r}, and
+VGGT~\cite{wang2025vggt} replace substantial parts of classical geometric
+pipelines with feed-forward prediction of cameras, depth, point maps, or dense
+correspondence.  Their capability motivates a complementary systems question:
+whether the recovered 3D remains consistent when a known image-space camera
+transform is introduced and then exactly removed.  We study this contract
+rather than propose another reconstruction backbone.
+
+\paragraph{Equivariance and geometric consistency.}
+\TODO{Review camera-aware equivariance, test-time consistency, and geometric
+self-consistency.  Identify whether prior work explicitly composes hidden
+preprocessing affines and measures gauge-invariant 3D disagreement.}
+
+\paragraph{Robustness and uncertainty in 3D vision.}
+\TODO{Distinguish appearance corruptions and generic uncertainty estimation
+from a known, invertible camera intervention.  Compare native confidence,
+risk--coverage, and disagreement-based failure detection.}

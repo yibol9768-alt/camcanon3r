@@ -1,0 +1,26 @@
+\section{Method}
+\label{sec:method}
+
+\subsection{Preprocessing-equivariance contract}
+Let source image $I_i$ have camera matrix
+$P_i=K_i[R_i\mid t_i]$.  A controlled invertible image-space affine
+$A_i\in\R^{3\times3}$ produces $I'_i$ and changes the camera to
+\begin{equation}
+  P'_i=A_iK_i[R_i\mid t_i].
+\end{equation}
+If the model applies an internal pixel map $B_i$, the complete source-to-model
+map is $C_i=B_iA_i$.  We store $A_i$, $B_i$, and $C_i$ rather than infer them
+after prediction.
+
+\subsection{Common-domain comparison}
+Predicted pixel-aligned quantities are mapped through $C_i^{-1}$ and compared
+only on common visible support.  Relative rotations and translation directions
+are evaluated over all view pairs, eliminating arbitrary world frames and
+translation scale.  Depth is compared after one declared scene-level median
+scale alignment.  An identity-repeat run measures the numerical noise floor.
+
+\subsection{Disagreement and repair}
+\TODO{Specify the cross-transform disagreement score only after its held-out
+association with ground-truth error is measured.  Specify consensus selection
+or fusion, its compute budget, and its oracle upper bound only after the repair
+kill-test passes.}

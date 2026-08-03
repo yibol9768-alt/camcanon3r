@@ -12,10 +12,11 @@ and develops a training-free consistency repair.
 
 ## Status
 
-The frozen single-scene VGGT pilot found a positive preprocessing
-non-equivariance signal, with effectively exact identity-repeat controls. See
-[`docs/PILOT_RESULTS.md`](docs/PILOT_RESULTS.md). This is not yet a
-ground-truth accuracy or multi-model claim.
+The frozen three-scene VGGT diagnostic found a consistent asymmetric-crop
+non-equivariance signal, with an effectively exact identity-repeat control.
+See [`docs/MULTISCENE_RESULTS.md`](docs/MULTISCENE_RESULTS.md) and its committed
+machine-readable evidence. This is not yet a ground-truth accuracy or
+multi-model claim.
 
 Ground-truth experiments use only documented official datasets. See
 [`docs/DATA_PROVENANCE.md`](docs/DATA_PROVENANCE.md) for URLs, hashes, formats,
@@ -47,6 +48,10 @@ pytest
 
 See [`docs/RESEARCH_CONTRACT.md`](docs/RESEARCH_CONTRACT.md) for hypotheses,
 baselines, metrics, stop criteria, and the claim-evidence contract.
+
+The evolving 3DV 2027 manuscript uses the official author kit under
+[`paper/`](paper/); its story and promotion gates are tracked in
+[`docs/PAPER_STORY.md`](docs/PAPER_STORY.md).
 
 Prepare deterministic pilot variants with exact image-space transforms:
 
