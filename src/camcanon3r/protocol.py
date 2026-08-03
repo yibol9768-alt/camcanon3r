@@ -83,14 +83,28 @@ def build_transform(
 ) -> ImageAffine:
     if variant == "identity":
         return resize(source_size, source_size)
-    if variant == "center_crop_075":
-        return _center_crop(source_size, 0.75)
-    if variant == "asymmetric_crop_075":
-        return _asymmetric_crop(source_size, 0.75, rng)
+    if variant.startswith("center_crop_"):
+        return _center_crop(source_size, _fraction_suffix(variant, "center_crop_"))
+    if variant.startswith("asymmetric_crop_"):
+        return _asymmetric_crop(
+            source_size, _fraction_suffix(variant, "asymmetric_crop_"), rng
+        )
     if variant == "letterbox_square":
         side = max(source_size)
         return letterbox(source_size, (side, side))
     raise ValueError(f"unknown protocol variant: {variant}")
+
+
+def _fraction_suffix(variant: str, prefix: str) -> float:
+    encoded = variant.removeprefix(prefix)
+    if not encoded.isdigit() or len(encoded) != 3:
+        raise ValueError(
+            f"crop variant must encode a three-digit percentage, got {variant}"
+        )
+    fraction = int(encoded) / 100.0
+    if not 0.0 < fraction <= 1.0:
+        raise ValueError(f"crop fraction must be in (0, 1], got {fraction}")
+    return fraction
 
 
 def prepare_scene(

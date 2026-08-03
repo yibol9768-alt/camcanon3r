@@ -2,9 +2,10 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pytest
 from PIL import Image
 
-from camcanon3r.protocol import prepare_scene
+from camcanon3r.protocol import build_transform, prepare_scene
 
 
 def _write_scene(scene_dir: Path) -> None:
@@ -53,3 +54,15 @@ def test_asymmetric_crop_is_seed_deterministic(tmp_path: Path) -> None:
     first_matrices = [image["matrix"] for image in first["variants"][0]["images"]]
     second_matrices = [image["matrix"] for image in second["variants"][0]["images"]]
     assert first_matrices == second_matrices
+
+
+def test_crop_fraction_variants_encode_frozen_severities() -> None:
+    import random
+
+    rng = random.Random(17)
+    center = build_transform("center_crop_060", (1000, 800), rng=rng)
+    asymmetric = build_transform("asymmetric_crop_090", (1000, 800), rng=rng)
+    assert center.matrix[0, 0] == pytest.approx(1 / 0.6)
+    assert asymmetric.matrix[1, 1] == pytest.approx(1 / 0.9)
+    with pytest.raises(ValueError, match="three-digit"):
+        build_transform("center_crop_75", (1000, 800), rng=rng)
