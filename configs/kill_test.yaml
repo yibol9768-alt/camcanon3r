@@ -1,0 +1,41 @@
+protocol_version: 0.1.0
+frozen_before_results: true
+models:
+  - vggt
+  - dust3r
+datasets:
+  pilot:
+    name: vggt_example_scenes
+    minimum_scenes: 3
+    views_per_scene: [4, 8]
+  confirmatory:
+    - dtu
+    - eth3d
+transforms:
+  center_crop_fraction: [0.9, 0.75, 0.6]
+  asymmetric_crop_fraction: [0.9, 0.75]
+  anisotropic_scale_xy:
+    - [1.0, 0.8]
+    - [0.8, 1.0]
+  letterbox_aspect_ratio: [1.0, 1.333333, 1.777778]
+metrics:
+  camera:
+    - focal_relative_error
+    - principal_point_diagonal_error
+    - rotation_geodesic_degrees
+    - translation_direction_degrees
+  geometry:
+    - aligned_point_accuracy
+    - aligned_point_completeness
+    - depth_abs_rel
+  reliability:
+    - risk_coverage_auc
+    - transform_disagreement_auroc
+continue_if:
+  at_least_two_transforms_show_pose_degradation_degrees: 2.0
+  at_least_two_transforms_show_depth_abs_rel_increase: 0.05
+  transform_disagreement_failure_auroc: 0.75
+  training_free_repair_recovers_fraction_of_gap: 0.30
+  clean_noninferiority_relative_tolerance: 0.02
+seeds: [17, 29, 43]
+
