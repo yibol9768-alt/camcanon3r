@@ -16,6 +16,11 @@ replacement for the ETH3D ground-truth accuracy experiment.
 The external repository and weights are machine-local and excluded from this
 MIT repository. The setup script requires explicit acknowledgement of the
 non-commercial boundary. No DUSt3R source or weight file is redistributed.
+The my5090 Python environment is frozen in
+`configs/dust3r_requirements_lock.txt`; PyTorch 2.11.0 and torchvision 0.26.0
+use the CUDA 12.8 wheels. The model snapshot is accepted only at exactly
+2,284,790,056 bytes with SHA-256
+`7c300a89534113436bde52732d3151212bcbd90f0aa3c8d1496f86d84bfe4b42`.
 
 ## Exact preprocessing contract
 

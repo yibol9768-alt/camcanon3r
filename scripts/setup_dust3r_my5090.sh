@@ -10,6 +10,7 @@ dust3r_repo="${repo_root}/third_party/dust3r"
 dust3r_python="${repo_root}/.venv-dust3r/bin/python"
 checkpoint_dir="${repo_root}/checkpoints/dust3r-512-dpt"
 download_wrapper="${repo_root}/scripts/with_download_proxy.sh"
+requirements_lock="${repo_root}/configs/dust3r_requirements_lock.txt"
 download_priority=()
 if command -v nice >/dev/null 2>&1; then
   download_priority+=(nice -n 15)
@@ -62,26 +63,64 @@ if command -v uv >/dev/null 2>&1; then
   run_download uv pip install \
     --python "${dust3r_python}" \
     --index-url https://download.pytorch.org/whl/cu128 \
-    torch torchvision
+    'torch==2.11.0+cu128' 'torchvision==0.26.0+cu128'
   run_download uv pip install \
     --python "${dust3r_python}" \
-    -r "${dust3r_repo}/requirements.txt"
+    -r "${requirements_lock}"
   run_download uv pip install --python "${dust3r_python}" -e "${repo_root}"
 else
   run_download "${dust3r_python}" -m pip install \
     --index-url https://download.pytorch.org/whl/cu128 \
-    torch torchvision
+    'torch==2.11.0+cu128' 'torchvision==0.26.0+cu128'
   run_download "${dust3r_python}" -m pip install \
-    -r "${dust3r_repo}/requirements.txt"
+    -r "${requirements_lock}"
   run_download "${dust3r_python}" -m pip install -e "${repo_root}"
 fi
 
 mkdir -p "${checkpoint_dir}"
-run_download "${dust3r_python}" -c \
-  "from huggingface_hub import snapshot_download; snapshot_download(repo_id='naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt', local_dir='${checkpoint_dir}')"
+config_url="https://huggingface.co/naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt/resolve/main/config.json"
+config_sha="3a95c4ea45381e13e998ec059e91f641e3d43b3230e85afb29e46b47e76c1ba5"
+if [[ ! -f "${checkpoint_dir}/config.json" ]]; then
+  run_download curl -fL --retry 10 --retry-all-errors \
+    -o "${checkpoint_dir}/config.json.part" "${config_url}"
+  mv -- "${checkpoint_dir}/config.json.part" "${checkpoint_dir}/config.json"
+fi
+actual_config_sha="$(sha256sum "${checkpoint_dir}/config.json" | awk '{print $1}')"
+if [[ "${actual_config_sha}" != "${config_sha}" ]]; then
+  echo "DUSt3R config checksum mismatch: ${actual_config_sha}" >&2
+  exit 1
+fi
+
+model_url="https://huggingface.co/naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt/resolve/main/model.safetensors"
+model_path="${checkpoint_dir}/model.safetensors"
+model_part="${model_path}.part"
+model_size=2284790056
+model_sha="7c300a89534113436bde52732d3151212bcbd90f0aa3c8d1496f86d84bfe4b42"
+if [[ ! -f "${model_path}" ]]; then
+  run_download curl -fL --retry 30 --retry-all-errors --retry-delay 2 \
+    --connect-timeout 30 --speed-time 90 --speed-limit 1024 \
+    -C - -o "${model_part}" "${model_url}"
+  actual_size="$(stat -c %s "${model_part}")"
+  if [[ "${actual_size}" -ne "${model_size}" ]]; then
+    echo "DUSt3R checkpoint size mismatch: ${actual_size}" >&2
+    exit 1
+  fi
+  actual_model_sha="$(sha256sum "${model_part}" | awk '{print $1}')"
+  if [[ "${actual_model_sha}" != "${model_sha}" ]]; then
+    echo "DUSt3R checkpoint checksum mismatch: ${actual_model_sha}" >&2
+    exit 1
+  fi
+  mv -- "${model_part}" "${model_path}"
+fi
+actual_size="$(stat -c %s "${model_path}")"
+actual_model_sha="$(sha256sum "${model_path}" | awk '{print $1}')"
+if [[ "${actual_size}" -ne "${model_size}" || "${actual_model_sha}" != "${model_sha}" ]]; then
+  echo "Existing DUSt3R checkpoint failed size or checksum verification." >&2
+  exit 1
+fi
 
 "${dust3r_python}" -c \
   "import torch; assert torch.cuda.is_available(); print(torch.__version__, torch.cuda.get_device_name(0))"
 test -f "${checkpoint_dir}/config.json"
-test -f "${checkpoint_dir}/model.safetensors"
+test -f "${model_path}"
 echo "DUSt3R_READY commit=${actual_commit} checkpoint=${checkpoint_dir}"
