@@ -64,22 +64,30 @@ def protocol_affines(scene_dir: Path, image_paths: list[Path]) -> list[np.ndarra
     return [np.asarray(records[path.name]["matrix"], dtype=np.float64) for path in image_paths]
 
 
-def main() -> None:
-    args = parse_args()
-    torch.manual_seed(args.seed)
-    np.random.seed(args.seed)
-    device = torch.device("cuda")
-    if not torch.cuda.is_available():
-        raise RuntimeError("CUDA is required for the frozen VGGT pilot")
-
-    image_paths = list_images(args.scene_dir, max_views=args.max_views)
+def run_scene(
+    *,
+    scene_dir: Path,
+    output: Path,
+    weights: Path,
+    max_views: int,
+    preprocess: str,
+    seed: int,
+    model: VGGT,
+    device: torch.device,
+    model_load_seconds: float,
+    model_reused: bool,
+    print_metadata: bool = True,
+) -> dict[str, object]:
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    image_paths = list_images(scene_dir, max_views=max_views)
     source_sizes: list[tuple[int, int]] = []
     for path in image_paths:
         with Image.open(path) as opened:
             source_sizes.append(opened.size)
-    preprocess_specs = plan_vggt_preprocessing(source_sizes, mode=args.preprocess)
+    preprocess_specs = plan_vggt_preprocessing(source_sizes, mode=preprocess)
     images = load_and_preprocess_images(
-        [str(path) for path in image_paths], mode=args.preprocess
+        [str(path) for path in image_paths], mode=preprocess
     ).to(device)
     expected_size = preprocess_specs[0].affine.target_size
     if tuple(images.shape[-2:][::-1]) != expected_size:
@@ -87,7 +95,7 @@ def main() -> None:
             f"logged preprocessing size {expected_size} does not match tensor "
             f"size {tuple(images.shape[-2:][::-1])}"
         )
-    prepared_affines = protocol_affines(args.scene_dir, image_paths)
+    prepared_affines = protocol_affines(scene_dir, image_paths)
     model_affines = [spec.affine.matrix for spec in preprocess_specs]
     source_to_model = [
         model @ prepared for model, prepared in zip(
@@ -99,10 +107,6 @@ def main() -> None:
     )
 
     torch.cuda.reset_peak_memory_stats(device)
-    start = time.perf_counter()
-    model = load_model(args.weights, device)
-    load_seconds = time.perf_counter() - start
-
     inference_start = time.perf_counter()
     with torch.inference_mode(), torch.autocast("cuda", dtype=dtype):
         predictions = model(images)
@@ -112,9 +116,9 @@ def main() -> None:
         predictions["pose_enc"], images.shape[-2:]
     )
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
+    output.parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
-        args.output,
+        output,
         pose_enc=to_numpy(predictions["pose_enc"]),
         extrinsic=to_numpy(extrinsic),
         intrinsic=to_numpy(intrinsic),
@@ -127,11 +131,11 @@ def main() -> None:
         source_to_model_affine=np.stack(source_to_model),
     )
     metadata = {
-        "scene_directory": str(args.scene_dir.resolve()),
+        "scene_directory": str(scene_dir.resolve()),
         "inputs": [path.name for path in image_paths],
-        "weights": str(args.weights.resolve()),
-        "preprocess": args.preprocess,
-        "seed": args.seed,
+        "weights": str(weights.resolve()),
+        "preprocess": preprocess,
+        "seed": seed,
         "input_tensor_shape": list(images.shape),
         "spatial_transforms": [
             {
@@ -157,13 +161,38 @@ def main() -> None:
         "cuda": torch.version.cuda,
         "gpu": torch.cuda.get_device_name(device),
         "dtype": str(dtype),
-        "load_seconds": load_seconds,
+        "load_seconds": model_load_seconds,
+        "model_reused_across_variants": model_reused,
         "inference_seconds": inference_seconds,
         "peak_vram_bytes": torch.cuda.max_memory_allocated(device),
     }
-    metadata_path = args.output.with_suffix(".json")
+    metadata_path = output.with_suffix(".json")
     metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(metadata))
+    if print_metadata:
+        print(json.dumps(metadata))
+    return metadata
+
+
+def main() -> None:
+    args = parse_args()
+    device = torch.device("cuda")
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA is required for the frozen VGGT pilot")
+    start = time.perf_counter()
+    model = load_model(args.weights, device)
+    load_seconds = time.perf_counter() - start
+    run_scene(
+        scene_dir=args.scene_dir,
+        output=args.output,
+        weights=args.weights,
+        max_views=args.max_views,
+        preprocess=args.preprocess,
+        seed=args.seed,
+        model=model,
+        device=device,
+        model_load_seconds=load_seconds,
+        model_reused=False,
+    )
 
 
 if __name__ == "__main__":
