@@ -1,0 +1,51 @@
+{
+  "protocol_version": "0.1.0",
+  "date": "2026-08-03",
+  "model": "VGGT-1B",
+  "model_commit": "a288dd0f14786c93483e45524328726ab7b1b4ce",
+  "scene": "official_vggt_room_no_overlap",
+  "views": 4,
+  "seed": 17,
+  "reference": "identity",
+  "metrics": {
+    "rotation": "median pairwise relative-rotation disagreement in degrees",
+    "translation": "median pairwise translation-direction disagreement in degrees",
+    "depth": "mean AbsRel on common pixels after one scene-level median scale"
+  },
+  "repeat_control": {
+    "candidate": "identity_repeat",
+    "rotation_degrees": 0.0,
+    "translation_direction_degrees": 4.2688682312579694e-07,
+    "aligned_depth_abs_rel": 3.656006848022587e-17
+  },
+  "variants": [
+    {
+      "candidate": "center_crop_075",
+      "rotation_degrees": 3.876263358799968,
+      "translation_direction_degrees": 18.002379432083398,
+      "aligned_depth_abs_rel": 0.0866635244921539,
+      "valid_depth_pixels": 456288
+    },
+    {
+      "candidate": "asymmetric_crop_075",
+      "rotation_degrees": 6.2974352805696,
+      "translation_direction_degrees": 32.28278415046336,
+      "aligned_depth_abs_rel": 0.09938562130237993,
+      "valid_depth_pixels": 453857
+    },
+    {
+      "candidate": "letterbox_square",
+      "rotation_degrees": 1.7555252310740277,
+      "translation_direction_degrees": 9.226514861465123,
+      "aligned_depth_abs_rel": 0.041528913758557,
+      "valid_depth_pixels": 812224
+    }
+  ],
+  "interpretation": "Positive single-scene non-equivariance signal; not a ground-truth accuracy claim.",
+  "required_next_evidence": [
+    "repeat on at least two additional scenes",
+    "evaluate against geometry ground truth",
+    "confirm on DTU and ETH3D",
+    "confirm with DUSt3R"
+  ]
+}

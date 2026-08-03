@@ -12,8 +12,10 @@ and develops a training-free consistency repair.
 
 ## Status
 
-The repository currently contains the frozen geometry protocol and a 72-hour
-kill-test contract. No performance claim is made before the kill-test passes.
+The frozen single-scene VGGT pilot found a positive preprocessing
+non-equivariance signal, with effectively exact identity-repeat controls. See
+[`docs/PILOT_RESULTS.md`](docs/PILOT_RESULTS.md). This is not yet a
+ground-truth accuracy or multi-model claim.
 
 ## Core protocol
 

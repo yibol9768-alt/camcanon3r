@@ -112,7 +112,7 @@ gap recovery.
 
 | Claim | Required evidence | Current status |
 |---|---|---|
-| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | needs evidence |
+| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | positive VGGT room pilot; confirmation needed |
 | Native confidence misses failures | calibration and risk-coverage comparison | needs evidence |
 | Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
 | CamCanon repairs geometry | paired baseline/ablation results and compute cost | needs evidence |
