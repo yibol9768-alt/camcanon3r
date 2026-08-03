@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 
 from camcanon3r.metrics import (
+    aligned_depth_consistency,
     focal_relative_error,
     pairwise_relative_pose_errors,
     principal_point_error,
@@ -94,3 +95,28 @@ def test_pairwise_pose_errors_cancel_global_similarity_gauge() -> None:
     np.testing.assert_allclose(
         errors["translation_direction_degrees"], 0.0, atol=1e-6
     )
+
+
+def test_aligned_depth_consistency_recovers_scale_and_common_crop() -> None:
+    reference = np.stack(
+        [
+            np.tile(np.arange(1.0, 5.0), (3, 1)),
+            np.tile(np.arange(2.0, 6.0), (3, 1)),
+        ]
+    )
+    candidate = np.zeros_like(reference)
+    candidate[:, :, :3] = reference[:, :, 1:] / 2.5
+    identity = np.repeat(np.eye(3)[None], 2, axis=0)
+    shifted = identity.copy()
+    shifted[:, 0, 2] = -1.0
+
+    result = aligned_depth_consistency(
+        reference,
+        candidate,
+        identity,
+        shifted,
+    )
+    assert result["scale"] == pytest.approx(2.5)
+    assert result["valid_pixels"] == 18
+    assert result["mean_abs_rel"] == pytest.approx(0.0)
+    assert all(view["valid_fraction"] == pytest.approx(0.75) for view in result["per_view"])

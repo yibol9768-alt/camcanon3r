@@ -9,7 +9,7 @@ from pathlib import Path
 
 import numpy as np
 
-from camcanon3r.metrics import pairwise_relative_pose_errors
+from camcanon3r.metrics import aligned_depth_consistency, pairwise_relative_pose_errors
 
 
 def parse_args() -> argparse.Namespace:
@@ -42,10 +42,20 @@ def main() -> None:
     args = parse_args()
     with np.load(args.reference) as reference_data:
         reference = reference_data["extrinsic"]
+        reference_depth = reference_data["depth"]
+        reference_affine = reference_data["source_to_model_affine"]
     with np.load(args.candidate) as candidate_data:
         candidate = candidate_data["extrinsic"]
+        candidate_depth = candidate_data["depth"]
+        candidate_affine = candidate_data["source_to_model_affine"]
 
     errors = pairwise_relative_pose_errors(reference, candidate)
+    depth = aligned_depth_consistency(
+        reference_depth,
+        candidate_depth,
+        reference_affine,
+        candidate_affine,
+    )
     pairs = errors["pairs"]
     result = {
         "reference": str(args.reference.resolve()),
@@ -58,6 +68,7 @@ def main() -> None:
         "translation_direction_degrees": summarize(
             errors["translation_direction_degrees"]
         ),
+        "aligned_depth_consistency": depth,
         "per_pair": [
             {
                 "views": [int(first), int(second)],
