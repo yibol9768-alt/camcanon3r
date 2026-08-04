@@ -13,9 +13,13 @@ if [[ -n \"\$(git status --porcelain --untracked-files=no)\" ]]; then
   git status --short
   exit 3
 fi
-git fetch origin '$branch'
+if [[ -x ./scripts/with_download_proxy.sh ]]; then
+  ./scripts/with_download_proxy.sh git fetch origin '$branch'
+else
+  git fetch origin '$branch'
+fi
 git checkout '$branch'
-git pull --ff-only origin '$branch'
+git merge --ff-only 'origin/$branch'
 printf 'MY5090_HEAD='
 git rev-parse HEAD
 EOF

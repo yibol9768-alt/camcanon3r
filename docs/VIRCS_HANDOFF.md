@@ -73,7 +73,8 @@ git push origin main
 ```
 
 The sync script aborts if tracked changes exist on `my5090` and uses
-`git pull --ff-only`; it never resets or force-checks out files.
+the process-scoped download proxy for `git fetch`, followed by a fast-forward-
+only merge.  It never resets or force-checks out files.
 
 ## Network rule
 
