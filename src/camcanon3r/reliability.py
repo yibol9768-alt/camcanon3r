@@ -2,10 +2,28 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 
 import numpy as np
 from numpy.typing import ArrayLike
+
+
+def resolve_case_field(record: Mapping[str, object], field: str) -> object:
+    """Resolve a flat or dot-separated field from a reliability case."""
+
+    if not field:
+        raise ValueError("case field must not be empty")
+    if field in record:
+        return record[field]
+    value: object = record
+    traversed: list[str] = []
+    for part in field.split("."):
+        traversed.append(part)
+        if not isinstance(value, Mapping) or part not in value:
+            prefix = ".".join(traversed)
+            raise KeyError(f"case field {field!r} is missing at {prefix!r}")
+        value = value[part]
+    return value
 
 
 def _finite_vector(values: ArrayLike, *, label: str) -> np.ndarray:

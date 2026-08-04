@@ -350,17 +350,34 @@ PYTHONPATH=src .venv/bin/python scripts/summarize_eth3d.py \
 
 ## Reliability evaluation
 
-After creating held-out case records with one GT error and uncertainty score
-per `(model, dataset, scene, view set, transform)`, run:
+Build complete case records before evaluation. ETH3D is development-only for
+this detector because its outcomes were already inspected when the score was
+designed:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/build_reliability_cases.py \
+  outputs/eth3d_training/vggt/raw \
+  results/eth3d_training/vggt/raw \
+  results/reliability/eth3d_vggt_raw_seed17/cases.json \
+  --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
+  --model vggt --dataset eth3d-training-raw
+```
+
+Then run one score/error pair at a time using nested fields:
 
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/analyze_reliability.py \
-  results/reliability/rotation_cases.jsonl \
+  results/reliability/eth3d_vggt_raw_seed17/cases.json \
+  --error-field ground_truth.rotation_median_degrees \
+  --uncertainty-field scores.rotation_disagreement_degrees \
   --failure-threshold 2.0 \
   --bootstrap-replicates 10000 --confidence-level 0.95 \
   --bootstrap-seed 17 \
   --output results/reliability/rotation_disagreement.json
 ```
 
-The exact case schema, split rules, tie handling, AURC definition, and claim
-gate are frozen in `docs/RELIABILITY_PROTOCOL.md`.
+Repeat with `scores.native_uncertainty` as the required native-confidence
+baseline. The primary held-out endpoint is rotation error above 2 degrees;
+depth AbsRel above 0.05 is secondary where depth GT exists. The exact case
+schema, DTU held-out status, split rules, tie handling, AURC definition, and
+claim gate are frozen in `docs/RELIABILITY_PROTOCOL.md`.

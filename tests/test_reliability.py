@@ -4,8 +4,18 @@ import pytest
 from camcanon3r.reliability import (
     binary_auroc,
     reliability_summary,
+    resolve_case_field,
     risk_coverage_curve,
 )
+
+
+def test_resolve_case_field_supports_nested_and_flat_records() -> None:
+    nested = {"scene": "office", "scores": {"rotation": 3.0}}
+    flat = {"scores.rotation": 4.0}
+    assert resolve_case_field(nested, "scores.rotation") == 3.0
+    assert resolve_case_field(flat, "scores.rotation") == 4.0
+    with pytest.raises(KeyError, match="missing at 'missing'"):
+        resolve_case_field(nested, "missing.rotation")
 
 
 def test_binary_auroc_is_exact_and_tie_aware() -> None:

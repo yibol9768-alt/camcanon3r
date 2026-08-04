@@ -189,11 +189,17 @@ scene/variant design, separation of pose-only and depth protocols, and
 deterministic scene-level bootstrap intervals. This is statistical
 infrastructure, not evidence that any pending hypothesis passes.
 
-Reliability evaluation uses average-rank AUROC for tied scores, complete tie
-blocks for risk--coverage, oracle and excess AURC, and a scene-cluster
-bootstrap. Single-class AUROC and invalid bootstrap replicates remain explicit
-undefined values. Detector promotion still requires held-out AUROC at least
-0.75; evaluator implementation alone does not satisfy that gate.
+Reliability score construction and evaluation are now frozen. Each candidate's
+score is its median disagreement with every other registered transform of the
+same model and scene; identity is not assigned zero, pairwise depth is
+symmetrized, and native uncertainty is negative median model confidence.
+ETH3D is development-only because its outcomes were already inspected, while
+DTU is the held-out promotion dataset. Evaluation uses average-rank AUROC for
+tied scores, complete tie blocks for risk--coverage, oracle and excess AURC,
+and a scene-cluster bootstrap. Single-class AUROC and invalid bootstrap
+replicates remain explicit undefined values. Detector promotion still requires
+held-out AUROC at least 0.75; implementation and exploratory ETH3D results alone
+do not satisfy that gate.
 
 No abstract or introduction may promote a claim whose status remains "needs
 evidence."

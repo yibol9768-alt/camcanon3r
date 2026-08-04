@@ -8,7 +8,7 @@ import csv
 import json
 from pathlib import Path
 
-from camcanon3r.reliability import reliability_summary
+from camcanon3r.reliability import reliability_summary, resolve_case_field
 
 
 def parse_args() -> argparse.Namespace:
@@ -50,9 +50,14 @@ def main() -> None:
     if not records:
         raise ValueError("at least one reliability case is required")
     result = reliability_summary(
-        [float(row[args.error_field]) for row in records],
-        [float(row[args.uncertainty_field]) for row in records],
-        scenes=[str(row[args.scene_field]) for row in records],
+        [float(resolve_case_field(row, args.error_field)) for row in records],
+        [
+            float(resolve_case_field(row, args.uncertainty_field))
+            for row in records
+        ],
+        scenes=[
+            str(resolve_case_field(row, args.scene_field)) for row in records
+        ],
         failure_threshold=args.failure_threshold,
         bootstrap_replicates=args.bootstrap_replicates,
         confidence_level=args.confidence_level,
