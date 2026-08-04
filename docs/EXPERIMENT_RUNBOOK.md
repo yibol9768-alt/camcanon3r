@@ -154,6 +154,22 @@ planes, selected calibration files, and the official evaluation code. Do not
 inspect DTU GT metrics until the reliability cases, score fields, failure
 threshold, and AUROC gate in `docs/RELIABILITY_PROTOCOL.md` are frozen.
 
+Once `rectified_extraction_report.json` is complete, prepare all eleven frozen
+mechanism variants. Preparation independently revalidates the exact 22 x 3
+source-image design and checkpoints its protocol and extraction-report hashes:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/prepare_dtu_selection.py \
+  /mnt/e/camcanon3r-data/dtu_selected \
+  data/dtu/rectified_mechanism \
+  /mnt/e/camcanon3r-data/dtu_mvs/rectified_extraction_report.json \
+  --resume
+```
+
+The expected prepared design is 22 scene manifests plus 22 x 11 x 3 = 726
+PNGs. Run preparation as a detached Windows task; do not tie it to an SSH
+session.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and
