@@ -154,35 +154,22 @@ planes, selected calibration files, and the official evaluation code. Do not
 inspect DTU GT metrics until the reliability cases, score fields, failure
 threshold, and AUROC gate in `docs/RELIABILITY_PROTOCOL.md` are frozen.
 
-Once `rectified_extraction_report.json` is complete, prepare all eleven frozen
+Once all three extraction reports are complete, prepare all eleven frozen
 mechanism variants. Preparation independently revalidates the exact 22 x 3
-source-image design and checkpoints its protocol and extraction-report hashes:
+source-image design and checkpoints its protocol and extraction-report hashes.
+The wrapper refuses incomplete selection reports, prepares resumably, runs the
+strict tree audit, and requires exactly 22 scenes, 11 variants, and 726 PNGs:
 
 ```bash
-PYTHONPATH=src .venv/bin/python scripts/prepare_dtu_selection.py \
-  /mnt/e/camcanon3r-data/dtu_selected \
-  data/dtu/rectified_mechanism \
-  /mnt/e/camcanon3r-data/dtu_mvs/rectified_extraction_report.json \
-  --resume
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUPreparation \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_preparation.sh \
+  > results/dtu/preparation.log 2>&1'
 ```
 
 The expected prepared design is 22 scene manifests plus 22 x 11 x 3 = 726
-PNGs. Run preparation as a detached Windows task; do not tie it to an SSH
-session.
-
-Before inference, bind the preparation report to the frozen protocol and hash
-the complete prepared image tree:
-
-```bash
-PYTHONPATH=src .venv/bin/python scripts/audit_dtu_mechanism.py \
-  data/dtu/rectified_mechanism \
-  --protocol configs/dtu_protocol.json \
-  --variant-config configs/eth3d_mechanism_variants.json \
-  --output results/dtu/rectified_mechanism_preparation_audit.json
-```
-
-The audit rejects any scene, camera, light, seed, variant, file, protocol hash,
-or preparation-report drift. GPU inference starts only after it passes.
+PNGs. The audit rejects any scene, camera, light, seed, variant, file, protocol
+hash, or preparation-report drift. GPU inference starts only after the
+preparation task is Ready with exit code 0.
 
 Run the two models sequentially, never concurrently, over the exact ordered
 variant list in `configs/eth3d_mechanism_variants.json`. Use all 22 `scan*`
