@@ -80,9 +80,14 @@ only merge.  It never resets or force-checks out files.
 ## Network rule
 
 - The stable control path is `vircs -> my5090` over the existing SSH alias and
-  dedicated key.  Keep long runs detached on `my5090`; loss of the controller
-  session must not kill an experiment.  Five fresh control probes succeeded at
-  handoff, with new-connection latency between about 2.9 and 5.2 seconds.
+  dedicated key. Keep long runs detached on `my5090`; loss of the controller
+  session must not kill an experiment. On this Windows OpenSSH-to-WSL topology,
+  Linux-only `tmux` or `nohup` does not keep the distribution alive after the
+  final Windows-side WSL client exits. Launch long commands with
+  `scripts/start_my5090_background_job.sh`, which uses a triggerless Windows
+  Scheduled Task with concurrent starts disabled. Five fresh control probes
+  succeeded at handoff, with new-connection latency between about 2.9 and 5.2
+  seconds.
 - Git commits are pushed from `vircs` to GitHub, then fast-forwarded on
   `my5090`.  Commit lightweight summaries and provenance, not weights, raw
   datasets, or large prediction archives.
@@ -129,7 +134,8 @@ download progress are allowed to drift after this document is committed.
    VGGT or DUSt3R while another project owns the GPU.
 4. Check whether `download_archives.py` is already running before touching the
    ETH3D download task.
-5. Follow `docs/EXPERIMENT_RUNBOOK.md` exactly.  Use resumable runners and keep
+5. Follow `docs/EXPERIMENT_RUNBOOK.md` exactly. Use the Windows-owned background
+   launcher for long commands, use resumable runners, and keep
    raw, transformed, repaired, and clean-control outputs distinct.
 6. Bring only small machine-readable summaries, plots, provenance, and paper
    evidence back into Git.  Run the full CPU test suite before every push.

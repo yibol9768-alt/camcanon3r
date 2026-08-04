@@ -145,24 +145,24 @@ def prepare_scene(
     variants: Iterable[str],
     seed: int,
     max_views: int | None = None,
+    resume: bool = False,
 ) -> dict[str, object]:
     sources = list_images(scene_dir, max_views=max_views)
     variant_records: list[VariantRecord] = []
+    render_plans: list[tuple[Path, ImageAffine, Path]] = []
 
     for variant_index, variant in enumerate(variants):
         rng = random.Random(seed + 10_007 * variant_index)
         variant_dir = output_dir / variant
-        variant_dir.mkdir(parents=True, exist_ok=True)
         image_records: list[TransformRecord] = []
 
         for source in sources:
             with Image.open(source) as opened:
-                image = opened.convert("RGB")
-            transform = build_transform(variant, image.size, rng=rng)
-            rendered = apply_affine(image, transform)
+                source_size = opened.size
+            transform = build_transform(variant, source_size, rng=rng)
             output_name = f"{source.stem}.png"
             output_path = variant_dir / output_name
-            rendered.save(output_path, format="PNG", optimize=False)
+            render_plans.append((source, transform, output_path))
             image_records.append(
                 TransformRecord(
                     source=source.name,
@@ -193,5 +193,41 @@ def prepare_scene(
     rendered = json.dumps(manifest, indent=2) + "\n"
     normalized_manifest = json.loads(rendered)
     manifest_path = output_dir / "manifest.json"
-    manifest_path.write_text(rendered, encoding="utf-8")
+    if resume and manifest_path.exists():
+        existing_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if existing_manifest != normalized_manifest:
+            raise ValueError(
+                "existing manifest does not match the requested scene preparation"
+            )
+
+    for source, transform, output_path in render_plans:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        if resume and _valid_prepared_image(output_path, transform.target_size):
+            continue
+        with Image.open(source) as opened:
+            image = opened.convert("RGB")
+        prepared = apply_affine(image, transform)
+        temporary = output_path.with_name(f".{output_path.name}.tmp")
+        prepared.save(temporary, format="PNG", optimize=False)
+        temporary.replace(output_path)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    temporary_manifest = manifest_path.with_suffix(".json.tmp")
+    temporary_manifest.write_text(rendered, encoding="utf-8")
+    temporary_manifest.replace(manifest_path)
     return normalized_manifest
+
+
+def _valid_prepared_image(
+    path: Path, expected_size: tuple[int, int]
+) -> bool:
+    if not path.is_file():
+        return False
+    try:
+        with Image.open(path) as image:
+            if image.size != expected_size or image.mode != "RGB":
+                return False
+            image.verify()
+    except (OSError, SyntaxError, ValueError):
+        return False
+    return True

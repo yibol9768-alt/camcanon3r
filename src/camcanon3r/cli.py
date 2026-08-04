@@ -24,6 +24,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--seed", type=int, default=17)
     prepare.add_argument("--max-views", type=int)
     prepare.add_argument("--variants", nargs="+", default=list(DEFAULT_VARIANTS))
+    prepare.add_argument("--resume", action="store_true")
     return parser
 
 
@@ -36,6 +37,7 @@ def main() -> None:
             variants=args.variants,
             seed=args.seed,
             max_views=args.max_views,
+            resume=args.resume,
         )
         print(
             f"prepared {len(manifest['variants'])} variants in {args.output_dir.resolve()}"

@@ -4,6 +4,21 @@ All commands run from `/opt/camcanon3r`. Do not start a VGGT run while another
 project owns the GPU. Confirm both the process list and utilization rather than
 relying on one momentary utilization sample.
 
+Long jobs must be owned by a Windows Scheduled Task so WSL remains alive after
+the SSH controller disconnects. A Linux-only `tmux` or `nohup` session is not
+sufficient on this machine. From my5090 WSL, start an auditable job with one
+quoted shell command:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-JOB-NAME \
+  'cd /opt/camcanon3r && COMMAND > outputs/logs/JOB.log 2>&1'
+```
+
+The launcher refuses a concurrent task or a same-named task whose registered
+command differs. The task has no trigger and is started only on explicit
+request. Inspect its Windows state and the Linux process/log before deciding
+whether a resumable job needs another start.
+
 ## ETH3D archive acquisition
 
 The frozen full-training-scene manifest contains all 13 official scenes. Start
@@ -56,13 +71,13 @@ protocol preserves source resolution and losslessly writes PNG files.
 PYTHONPATH=src .venv/bin/python -m camcanon3r.cli prepare-scene \
   data/eth3d_office/raw_selected data/eth3d_office/raw_prepared \
   --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
-  --seed 17 --max-views 4
+  --seed 17 --max-views 4 --resume
 
 PYTHONPATH=src .venv/bin/python -m camcanon3r.cli prepare-scene \
   data/eth3d_office/undistorted_selected \
   data/eth3d_office/undistorted_prepared \
   --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
-  --seed 17 --max-views 4
+  --seed 17 --max-views 4 --resume
 ```
 
 Run VGGT once per image domain:

@@ -5,6 +5,7 @@ import numpy as np
 import pytest
 from PIL import Image
 
+import camcanon3r.protocol as protocol_module
 from camcanon3r.protocol import build_transform, prepare_scene, protocol_affines
 
 
@@ -84,3 +85,71 @@ def test_protocol_affines_require_complete_variant_manifest(tmp_path: Path) -> N
     (prepared / "manifest.json").write_text(json.dumps(manifest))
     with pytest.raises(RuntimeError, match="missing prepared inputs"):
         protocol_affines(variant, paths)
+
+
+def test_prepare_scene_resume_skips_valid_outputs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    scene = tmp_path / "scene"
+    output = tmp_path / "prepared"
+    _write_scene(scene)
+    expected = prepare_scene(
+        scene, output, variants=("identity", "letterbox_square"), seed=17
+    )
+
+    def fail_if_rendered(*args: object, **kwargs: object) -> Image.Image:
+        raise AssertionError("valid prepared output should have been reused")
+
+    monkeypatch.setattr(protocol_module, "apply_affine", fail_if_rendered)
+    resumed = prepare_scene(
+        scene,
+        output,
+        variants=("identity", "letterbox_square"),
+        seed=17,
+        resume=True,
+    )
+    assert resumed == expected
+
+
+def test_prepare_scene_resume_repairs_invalid_output(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    scene = tmp_path / "scene"
+    output = tmp_path / "prepared"
+    _write_scene(scene)
+    prepare_scene(scene, output, variants=("identity",), seed=17)
+    damaged = output / "identity" / "view_1.png"
+    damaged.write_bytes(b"truncated")
+    original_apply = protocol_module.apply_affine
+    rendered_sources: list[tuple[int, int]] = []
+
+    def record_render(
+        image: Image.Image, transform: object, **kwargs: object
+    ) -> Image.Image:
+        rendered_sources.append(image.size)
+        return original_apply(image, transform, **kwargs)
+
+    monkeypatch.setattr(protocol_module, "apply_affine", record_render)
+    prepare_scene(
+        scene, output, variants=("identity",), seed=17, resume=True
+    )
+
+    assert rendered_sources == [(60, 40)]
+    with Image.open(damaged) as repaired:
+        repaired.verify()
+
+
+def test_prepare_scene_resume_rejects_manifest_mismatch(tmp_path: Path) -> None:
+    scene = tmp_path / "scene"
+    output = tmp_path / "prepared"
+    _write_scene(scene)
+    prepare_scene(scene, output, variants=("asymmetric_crop_075",), seed=17)
+
+    with pytest.raises(ValueError, match="manifest does not match"):
+        prepare_scene(
+            scene,
+            output,
+            variants=("asymmetric_crop_075",),
+            seed=29,
+            resume=True,
+        )
