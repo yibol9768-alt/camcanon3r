@@ -10,9 +10,12 @@ paper, evidence, reproducibility package, and reviewer red-team jointly support
 an estimated ICLR-style score in the 6--8 range.  Report uncertainty honestly;
 never promote a claim beyond the committed evidence.
 
-The present paper is an incomplete working draft.  Related Work and detector
-results still contain TODOs.  The frozen three-scene diagnostic is evidence of
-non-equivariance, not yet a ground-truth accuracy or multi-model result.
+The present paper is a five-page working draft, not a finished submission.
+Its Related Work is calibrated against the frozen three-paper ICLR comparison,
+and its matched ETH3D tables are populated; reliability/repair results still
+contain a TODO.  The committed evidence now establishes a multi-model
+ground-truth failure for one transform family on ETH3D, but not cross-dataset
+generality, detector effectiveness, repair, or the requested reviewer score.
 
 ## Two-machine contract
 
@@ -100,27 +103,47 @@ only merge.  It never resets or force-checks out files.
 
 ## Current frozen state
 
-- Expected repository baseline at handoff creation:
-  `a773e36f00049f862db919624ef84f9c3080ed5b` plus the handoff commit that
-  contains this file.
-- Local and my5090 CPU test baseline before this handoff: 47 tests passed.
+- Expected repository baseline at this update:
+  `46baf992ed13c0f3e718545ac62e62470ace47bc` plus the handoff-update commit
+  that contains this text.  Before editing this section, both hosts were clean
+  at `46baf99` and independently passed all 69 CPU tests.
 - VGGT weights already reside on `my5090`.
 - DUSt3R weights reside at
   `/opt/camcanon3r/checkpoints/dust3r-512-dpt`; the previously verified large
   weight SHA-256 is
   `7c300a89534113436bde52732d3151212bcbd90f0aa3c8d1496f86d84bfe4b42`.
-- ETH3D office assets already reside on `my5090`.
-- The manifest freezes all 13 official ETH3D training scenes.  Before starting
-  another downloader, inspect the current process, archive directory, log, and
-  `download_report.json`; do not create a duplicate job.
-- Live verification on 2026-08-04 found no active `download_archives.py`
-  process and an empty archive directory.  The old log ended with a missing
-  local-Mihomo fallback error, but the preferred Windows scheduled-task backend
-  subsequently completed a proxied Git fetch.  Recheck, then the frozen
-  `./scripts/start_eth3d_download_my5090.sh` entry point may be started once.
-- Live asset sizes at handoff were approximately 4.7 GB for VGGT weights,
-  2.2 GB for DUSt3R weights, 85 MB for prepared data, and 212 MB for outputs.
-  Both machines passed all 47 CPU tests when `my5090` used `PYTHONPATH=src`.
+- All 15 frozen ETH3D archives are downloaded and locally hashed under
+  `/mnt/e/camcanon3r-data/eth3d_archives` (about 16 GB).  The strict extraction
+  audit covers all 13 training scenes, four deterministic views per scene, 234
+  selected source files, exact paths/sizes/SHA-256 values, and no extras.
+  There is no active `download_archives.py` process.  Do not restart the
+  downloader unless the completed report itself fails a fresh audit.
+- Raw ETH3D preparation contains 13 scenes x 4 variants x 4 views: 208 PNGs
+  plus 13 manifests under `data/eth3d_training/raw` (about 4.6 GB).  Its strict
+  audit verified every image, affine, view order, and nested scene ID.  Mixed
+  COLMAP camera IDs in `electro`, `facade`, and `terrace` are intentionally
+  retained and evaluated per view.
+- Full raw inference and protocol-2.1 GT evaluation are complete for both
+  models: 52/52 VGGT cases and 52/52 DUSt3R cases, with all pose, intrinsic,
+  depth, point-accuracy, and point-completeness metrics available.  Prediction
+  roots are about 772 MB (VGGT) and 724 MB (DUSt3R); each result root is about
+  568 KB.  The four Windows tasks `CamCanon3R-ETH3DRawVGGT`,
+  `CamCanon3R-ETH3DRawVGGTEval`, `CamCanon3R-ETH3DRawDUSt3R`, and
+  `CamCanon3R-ETH3DRawDUSt3REval` are Ready and last exited successfully.
+- Lightweight exact summaries are committed at
+  `artifacts/eth3d_vggt_raw_seed17/summary.json` and
+  `artifacts/eth3d_dust3r_raw_seed17/summary.json`.  Each contains all 56
+  scene-bootstrap metric triplets and source/prediction digests; both were
+  programmatically matched against the full my5090 summary before commit.
+- The decisive matched result is the view-dependent 75% crop.  Its paired
+  rotation deltas are 4.61 degrees for VGGT (95% CI [3.13, 6.17]) and 4.52
+  degrees for DUSt3R ([2.13, 5.72]); translation, depth, principal-point, and
+  completeness intervals also exclude zero for both.  DUSt3R point accuracy
+  does not exclude zero.  Letterbox depth and point intervals include zero for
+  both models.  Do not broaden this to an all-transform or all-metric claim.
+- Latest idle GPU check after all jobs: 0% utilization and 1336 MiB baseline
+  memory.  Live sizes were 4.7 GB for VGGT weights and 2.2 GB for DUSt3R
+  weights.
 
 Re-verify every item live before reporting it as current.  Machine state and
 download progress are allowed to drift after this document is committed.
@@ -144,15 +167,20 @@ download progress are allowed to drift after this document is committed.
 
 ## Immediate research queue
 
-1. Inspect and, if needed, resume the frozen 13-scene ETH3D downloads.
-2. Complete ground-truth ETH3D runs for the chosen transformations and paired
-   scene-level bootstrap summaries.
-3. Complete the DUSt3R confirmatory matrix without pooling it with VGGT.
-4. Evaluate analytic repair against the same ground truth, including clean
+1. Freeze and implement the second-dataset protocol (DTU remains the registered
+   target) before inspecting outcomes; audit existing assets before any new
+   download and preserve dataset/model license boundaries.
+2. Run a severity response and shared-versus-view-dependent crop ablation to
+   test the principal-point mechanism and determine honestly whether a second
+   transform family crosses the frozen hypothesis threshold.
+3. Evaluate analytic repair against the same ground truth, including clean
    cost, visible support, negative recovery, and overshoot.
-5. Populate reliability AUROC, risk--coverage, AURC/excess-AURC, and
+4. Populate native-confidence and cross-transform-disagreement AUROC,
+   risk--coverage, AURC/excess-AURC, and
    scene-cluster confidence intervals on held-out cases.
-6. Replace paper TODOs only with committed results, then red-team the complete
+5. Add runtime/VRAM and accuracy-per-compute baselines, representative cases,
+   and explicit failures without outcome-driven scene filtering.
+6. Replace the remaining paper TODO only with committed results, then red-team the complete
    manuscript against 3DV scope and the requested ICLR-style 6--8 bar.
 
 ## Handoff prompt for the vircs Codex session
