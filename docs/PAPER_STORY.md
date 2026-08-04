@@ -65,6 +65,10 @@ held-out evidence supports it.
   are labeled exploratory wherever they appear.
 - **Missing evidence:** a second geometry dataset, held-out reliability,
   cross-dataset repair replication, and qualitative geometry.
+- **Limitations:** the draft now names controlled-versus-deployed prevalence,
+  fixed view/model scope, non-leaderboard point metrics, irreversible missing
+  pixels, negative depth/consensus repair, development-set reliability, and
+  DUSt3R's license boundary in a dedicated section.
 - **Statistical boundary:** the three-scene diagnostics remain descriptive;
   the two separate 13-scene ETH3D aggregates support only their registered
   model/dataset/transform claims.

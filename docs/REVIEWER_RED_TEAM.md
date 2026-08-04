@@ -1,7 +1,7 @@
 # Reviewer red-team
 
 Updated: 2026-08-04
-Checkpoint: pre-DTU, through commit `9c8e618`
+Checkpoint: living pre-DTU review
 Status: provisional review; not a final score
 
 ## Current recommendation
@@ -58,10 +58,9 @@ The current score must not be rounded up because experiments are in progress.
 5. **Controlled crops may be dismissed as synthetic.** The camera intervention
    is causal and useful, but the paper still needs to connect it to realistic
    heterogeneous preprocessing pipelines without overstating prevalence.
-6. **The six-page draft is dense but incomplete.** It lacks a dedicated
-   limitations section, a compact compute/VRAM comparison, and a final
-   cross-dataset table. The TODO in failure detection makes the current draft
-   non-submittable.
+6. **The six-page draft is dense but incomplete.** It lacks a compact
+   compute/VRAM comparison and a final cross-dataset table. The TODO in failure
+   detection makes the current draft non-submittable.
 
 ## Scorecard
 
@@ -71,7 +70,7 @@ The current score must not be rounded up because experiments are in progress.
 | Correctness | 7 | Exact maps, minimal gauge, paired GT, controls, hashes, 123 tests | Complete DTU audit without protocol drift |
 | Significance | 5 | Large failure on two major model families | Cross-dataset replication and a useful held-out detector or broader practical consequence |
 | Empirical strength | 5 | 13 scenes, 286 mechanism evaluations, repair and development reliability | DTU 22 scenes x 11 variants x 2 models, held-out reliability, qualitative and compute views |
-| Presentation | 5 | Clear claim boundaries and compact tables | Overview/result figure, dedicated limitations, final no-TODO narrative |
+| Presentation | 5 | Clear claim boundaries, compact tables, and dedicated limitations | Overview/result figure and final no-TODO narrative |
 | Reproducibility | 7 | Frozen protocols and committed evidence | Freeze DTU artifacts and final paper-number provenance |
 
 ## Mandatory completion gates
@@ -89,7 +88,9 @@ The current score must not be rounded up because experiments are in progress.
   scene-cluster intervals for each model.
 - [ ] Freeze representative qualitative successes and failures by a declared
   rule that does not select only favorable scenes.
-- [ ] Remove every TODO and add a dedicated limitations subsection.
+- [ ] Remove every TODO after held-out results are frozen.
+- [x] Add a dedicated limitations section covering intervention, evaluation,
+  repair, detector, dataset/model, and license boundaries.
 
 ### P1: separates a 6 from a plausible 7
 
@@ -120,9 +121,9 @@ The current score must not be rounded up because experiments are in progress.
 π³ defines one symmetry, builds its representation around that symmetry, then
 supports it with camera, point-map, depth, permutation robustness, component
 ablation, speed, qualitative results, and explicit limitations. CamCanon3R is
-already competitive in causal audit rigor and negative controls, but it is
-behind in dataset/task breadth, visual evidence, and final limitations. DTU,
-the severity plot, and a limitations section are the minimum structural match.
+already competitive in causal audit rigor, negative controls, and explicit
+limitations, but it is behind in dataset/task breadth and visual evidence. DTU
+and the severity plot are the minimum remaining structural match.
 
 ### Cameras as Rays
 

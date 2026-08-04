@@ -1,0 +1,22 @@
+\section{Limitations}
+\label{sec:limitations}
+
+Our interventions are controlled affine camera changes, not a measurement of
+how often a particular crop occurs in deployed pipelines.  The current
+ground-truth evidence uses four fixed views from 13 ETH3D scenes and two model
+families; behavior may differ with view count, image content, resolution,
+training preprocessing, or other reconstruction systems.  Our ETH3D point-map
+metric uses raw scan-supported depth and camera-pose-only alignment and is not
+the official MVS leaderboard protocol.  The experiment excludes photometric
+corruptions and unrelated-view failures because they do not isolate the known
+camera intervention.
+
+Canonicalization can undo coordinates but cannot reconstruct pixels removed by
+a crop.  Consistent with that limit, it recovers camera rotation but worsens
+depth for both models, and the registered consensus selector is not promoted.
+Finally, ETH3D reliability is development evidence because its outcomes were
+available when the score was finalized.  Any detector claim requires the
+unchanged threshold and score to succeed on held-out DTU; until then,
+disagreement remains an audit metric.  DUSt3R additionally carries a
+non-commercial code and checkpoint license, so we distribute only our adapter
+and protocol.
