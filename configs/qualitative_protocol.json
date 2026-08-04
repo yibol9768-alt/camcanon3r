@@ -38,6 +38,13 @@
     "models_are_separate": true,
     "geometry_alignment": "the same camera-pose-only orientation-preserving Sim(3) used by the registered evaluator",
     "no_surface_gt_fitting": true,
-    "no_per_scene_axis_or_colormap_tuning": true
+    "no_per_scene_axis_or_colormap_tuning": true,
+    "projection": "first frozen ground-truth camera with deterministic nearest-depth z-buffer",
+    "depth_normalization": "median pairwise frozen ground-truth camera baseline",
+    "maximum_points_per_view": 25000,
+    "raster_size": [320, 240],
+    "colormap": "viridis",
+    "log10_depth_per_baseline_range": [-1.0, 2.0],
+    "canonical_validity_mask_inset": true
   }
 }

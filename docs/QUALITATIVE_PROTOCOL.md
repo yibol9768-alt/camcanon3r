@@ -31,6 +31,16 @@ undefined. Undefined metrics and degenerate geometry are displayed as such.
 - Quantitative severity and risk--coverage plots use every registered scene and
   are not qualitative substitutes.
 
+The renderer is frozen before DTU outcomes: it deterministically keeps at most
+25,000 source-supported predicted points per view, applies the evaluator's
+camera-only Sim(3), and z-buffers them into the first frozen GT camera at
+320 x 240.  Color is `viridis` over a fixed `[-1, 2]` range of log10 aligned
+depth divided by the median pairwise GT-camera baseline.  This avoids
+model-dependent PCA, surface fitting, per-scene point-cloud crops, and
+per-scene color limits.  Canonical panels include the first view's binary
+validity mask as an inset.  The renderer's provenance report hashes every
+prediction, evaluation, mask, protocol, PDF, and PNG.
+
 The machine-readable source of truth is
 `configs/qualitative_protocol.json`. Any appendix of best/worst cases must be
 clearly labeled diagnostic and cannot replace this fixed primary panel.

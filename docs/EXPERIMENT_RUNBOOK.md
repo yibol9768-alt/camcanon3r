@@ -308,6 +308,53 @@ The paired reports are written to
 replace the already frozen ETH3D fill or consensus choice; they only confirm
 or reject transfer of the one-pass neutral-gray orientation repair.
 
+After all repair evaluations are frozen, render the primary qualitative grids
+from the four outcome-independent scenes in `configs/qualitative_protocol.json`.
+The renderer refuses model, scene, variant, prediction-path, or evaluation-
+input drift.  It applies the evaluator's recorded camera-pose-only Sim(3),
+projects into the first frozen target camera, normalizes depth only by the
+target-camera baseline, uses one fixed raster/color range, and places the
+canonical validity mask inside every repaired panel.  It retains undefined
+geometry as a labeled panel.  Run it on `my5090`, where the full predictions
+and calibration files reside:
+
+```bash
+MPLBACKEND=Agg PYTHONPATH=src python3 scripts/render_qualitative_grid.py \
+  eth3d-training-raw results/paper/qualitative_eth3d.pdf \
+  --model vggt \
+    outputs/eth3d_training/vggt/raw results/eth3d_training/vggt/raw \
+    outputs/eth3d_training/vggt/raw_canonical \
+    results/eth3d_training/vggt/raw_canonical \
+  --model dust3r \
+    outputs/eth3d_training/dust3r/raw results/eth3d_training/dust3r/raw \
+    outputs/eth3d_training/dust3r/raw_canonical \
+    results/eth3d_training/dust3r/raw_canonical \
+  --repair-prepared-root data/eth3d_training/raw_canonical \
+  --png results/paper/qualitative_eth3d.png \
+  --report results/paper/qualitative_eth3d.json
+
+MPLBACKEND=Agg PYTHONPATH=src python3 scripts/render_qualitative_grid.py \
+  dtu-held-out results/paper/qualitative_dtu.pdf \
+  --model vggt \
+    outputs/dtu/vggt/rectified_mechanism \
+    results/dtu/vggt/rectified_mechanism \
+    outputs/dtu/vggt/rectified_canonical \
+    results/dtu/vggt/rectified_canonical \
+  --model dust3r \
+    outputs/dtu/dust3r/rectified_mechanism \
+    results/dtu/dust3r/rectified_mechanism \
+    outputs/dtu/dust3r/rectified_canonical \
+    results/dtu/dust3r/rectified_canonical \
+  --repair-prepared-root data/dtu/rectified_canonical \
+  --png results/paper/qualitative_dtu.png \
+  --report results/paper/qualitative_dtu.json
+```
+
+Each PDF contains all 4 scenes x 2 models x 3 registered variants.  The JSON
+report hashes every prediction, metadata file, evaluation, validity mask, and
+rendered artifact.  Copy the PDFs, previews, and reports back to `vircs` with a
+binary-safe transfer and compare their SHA-256 values before committing them.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and

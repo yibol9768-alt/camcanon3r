@@ -106,8 +106,8 @@ only merge.  It never resets or force-checks out files.
 ## Current frozen state
 
 - Control-plane baseline immediately before this update:
-  `bb115649c9abbe6b97eb0563ae13fbfde3fb5ecb` plus the repair-chain commit
-  that contains this text.  `vircs` is clean and passes 133 CPU tests.  While
+  `5d5337f61b793b3b3e591b4c637afcc3ae77ab35` plus the qualitative-renderer
+  commit that contains this text.  `vircs` is clean and passes 135 CPU tests. While
   the DTU selection extractor owns the download proxy and data tree, the
   formal `my5090` checkout is intentionally left clean at `4029913`; it passes
   its then-current 123 tests.  Fast-forward it only after extraction exits.
@@ -162,7 +162,8 @@ only merge.  It never resets or force-checks out files.
   the frozen DTU evaluation remains the only held-out gate.
 - DTU acquisition is active under the single Windows task
   `CamCanon3R-DTUSelectionExtract`. At this edit, SampleSet is complete 58/58,
-  Rectified is in progress at 26/66, and Points has not started. The
+  Rectified is in progress at 28/66 with one active `.part`, and Points has not
+  started. The
   extractor uses only the process-scoped proxy, is resumable, and now retries
   truncated HTTP 206 bodies. Do not launch a duplicate, sync the execution
   checkout, inspect GT outcomes, or start GPU work while this task is running.
@@ -177,6 +178,11 @@ only merge.  It never resets or force-checks out files.
   prediction pairs are audited; both variants receive point GT; and the final
   paired report uses the unchanged 30% recovery and 2% clean-cost gates. This
   chain must not be mixed into the eleven-variant mechanism summary.
+- The primary qualitative renderer is implemented and synthetic-end-to-end
+  checked over all 24 panels. Its protocol freezes the selected scenes, first
+  target-camera projection, 25,000 points per view, 320 x 240 z-buffer,
+  camera-baseline depth normalization, viridis range, and canonical mask
+  insets. Real ETH3D/DTU figures remain pending the formal DTU results.
 - Latest idle GPU check after all jobs: 0% utilization and 1336 MiB baseline
   memory.  Live sizes were 4.7 GB for VGGT weights and 2.2 GB for DUSt3R
   weights.
@@ -206,7 +212,7 @@ download progress are allowed to drift after this document is committed.
 
 1. Let the existing DTU selection task finish exactly once; verify all three
    reports and the selected tree before syncing the `my5090` checkout.
-2. Fast-forward `my5090`, run 133/133 tests, then execute and audit DTU
+2. Fast-forward `my5090`, run 135/135 tests, then execute and audit DTU
    preparation. Start no GPU task until two idle checks and no foreign owner.
 3. Run VGGT then DUSt3R over the exact 22 x 11 design, retaining schema-1.2
    input hashes, compute/VRAM metadata, and audit-only resumability.
