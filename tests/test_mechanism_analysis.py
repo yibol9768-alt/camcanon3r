@@ -140,3 +140,37 @@ def test_mechanism_analysis_rejects_duplicate_or_unfrozen_variant_design(
     unfrozen.write_text(json.dumps({"ordered_variants": list(VARIANTS)}))
     with pytest.raises(ValueError, match="is not frozen"):
         analyze_mechanism_summaries([("vggt", "eth3d", summary)], unfrozen)
+
+
+def test_mechanism_analysis_keeps_partial_secondary_metric_explicit(
+    tmp_path: Path,
+) -> None:
+    config = tmp_path / "variants.json"
+    summary = tmp_path / "summary.json"
+    _write_config(config)
+    _write_summary(summary)
+    payload = json.loads(summary.read_text(encoding="utf-8"))
+    target = next(
+        row
+        for row in payload["evaluations"]
+        if row["scene"] == "second" and row["variant"] == "center_crop_075"
+    )
+    target["translation_median_degrees"] = None
+    summary.write_text(json.dumps(payload), encoding="utf-8")
+
+    report = analyze_mechanism_summaries(
+        [("vggt", "eth3d", summary)],
+        config,
+        bootstrap_replicates=20,
+    )
+    variant = report["analyses"]["vggt/eth3d"]["analysis"]["by_variant"][
+        "center_crop_075"
+    ]
+    availability = variant["metric_availability"][
+        "translation_median_degrees"
+    ]
+    assert availability["paired_valid_scene_count"] == 2
+    assert availability["undefined_scene_count"] == 1
+    assert availability["included_in_scene_bootstrap"] is False
+    assert "translation_median_degrees" not in variant["metrics"]
+    assert "rotation_median_degrees" in variant["metrics"]

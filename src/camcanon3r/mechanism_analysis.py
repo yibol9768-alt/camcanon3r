@@ -43,15 +43,13 @@ _EXPECTED_VARIANTS = {"identity"}.union(
 )
 
 
-def _finite_array(values: Sequence[object], label: str) -> np.ndarray | None:
+def _metric_array(values: Sequence[object], label: str) -> np.ndarray:
     array = np.asarray(
         [float(value) if value is not None else np.nan for value in values],
         dtype=np.float64,
     )
-    if np.isnan(array).all():
-        return None
-    if not np.isfinite(array).all():
-        raise ValueError(f"mechanism metric is partially undefined: {label}")
+    if np.isinf(array).any():
+        raise ValueError(f"mechanism metric contains infinity: {label}")
     return array
 
 
@@ -94,31 +92,45 @@ def _analyze_one(
     for variant in variants:
         raw_arrays: dict[str, np.ndarray] = {}
         candidate_deltas: dict[str, np.ndarray] = {}
+        metric_availability: dict[str, dict[str, object]] = {}
         for metric in _RAW_METRICS:
-            raw = _finite_array(
+            raw = _metric_array(
                 [grouped[scene][variant].get(metric) for scene in scenes],
                 f"{variant}/{metric}",
             )
-            identity = _finite_array(
+            identity = _metric_array(
                 [grouped[scene]["identity"].get(metric) for scene in scenes],
                 f"identity/{metric}",
             )
-            if raw is None and identity is None:
+            paired_finite = np.isfinite(raw) & np.isfinite(identity)
+            included = bool(paired_finite.all())
+            metric_availability[metric] = {
+                "candidate_valid_scene_count": int(
+                    np.count_nonzero(np.isfinite(raw))
+                ),
+                "identity_valid_scene_count": int(
+                    np.count_nonzero(np.isfinite(identity))
+                ),
+                "paired_valid_scene_count": int(np.count_nonzero(paired_finite)),
+                "undefined_scene_count": int(
+                    len(scenes) - np.count_nonzero(paired_finite)
+                ),
+                "included_in_scene_bootstrap": included,
+            }
+            if not included:
                 continue
-            if raw is None or identity is None:
-                raise ValueError(
-                    f"mechanism identity/candidate availability mismatch: {variant}/{metric}"
-                )
             raw_arrays[metric] = raw
             candidate_deltas[f"{metric}_delta_from_identity"] = raw - identity
         complete = {**raw_arrays, **candidate_deltas}
-        by_variant[variant] = scene_bootstrap_summary(
+        bootstrap = scene_bootstrap_summary(
             complete,
             scenes=scenes,
             replicates=bootstrap_replicates,
             confidence_level=confidence_level,
             seed=bootstrap_seed,
         )
+        bootstrap["metric_availability"] = metric_availability
+        by_variant[variant] = bootstrap
         delta_arrays[variant] = candidate_deltas
 
     contrasts: dict[str, dict[str, object]] = {}
@@ -161,12 +173,13 @@ def _analyze_one(
         depth_crossings = []
         rotation_values = []
         for variant in family_variants:
-            rotation = float(
-                np.median(
-                    delta_arrays[variant][
-                        "rotation_median_degrees_delta_from_identity"
-                    ]
+            rotation_field = "rotation_median_degrees_delta_from_identity"
+            if rotation_field not in delta_arrays[variant]:
+                raise ValueError(
+                    f"registered rotation metric is incomplete: {variant}"
                 )
+            rotation = float(
+                np.median(delta_arrays[variant][rotation_field])
             )
             rotation_values.append(rotation)
             if rotation > rotation_threshold:
