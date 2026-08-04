@@ -8,7 +8,7 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 read -r -d '' remote_command <<EOF || true
 set -euo pipefail
 cd '$repo'
-if [[ -n \"\$(git status --porcelain --untracked-files=no)\" ]]; then
+if [[ -n "\$(git status --porcelain --untracked-files=no)" ]]; then
   echo 'ERROR: tracked changes exist on my5090; refusing to overwrite them.' >&2
   git status --short
   exit 3
