@@ -1,0 +1,321 @@
+{
+  "model": "DUSt3R",
+  "scene_directory": "/opt/camcanon3r/data/pilot/kitchen/identity",
+  "inputs": [
+    "00.png",
+    "01.png",
+    "02.png",
+    "03.png"
+  ],
+  "weights": "/opt/camcanon3r/checkpoints/dust3r-512-dpt",
+  "seed": 17,
+  "image_size": 512,
+  "batch_size": 1,
+  "scene_graph": "complete_symmetrized",
+  "alignment": {
+    "mode": "PointCloudOptimizer",
+    "init": "mst",
+    "niter": 300,
+    "schedule": "cosine",
+    "lr": 0.01,
+    "loss": 0.007828306406736374
+  },
+  "spatial_transforms": [
+    {
+      "input": "00.png",
+      "input_size": [
+        779,
+        520
+      ],
+      "resized_size": [
+        512,
+        342
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        3,
+        512,
+        339
+      ],
+      "model_tensor_size": [
+        512,
+        336
+      ],
+      "model_preprocess_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "01.png",
+      "input_size": [
+        779,
+        520
+      ],
+      "resized_size": [
+        512,
+        342
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        3,
+        512,
+        339
+      ],
+      "model_tensor_size": [
+        512,
+        336
+      ],
+      "model_preprocess_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "02.png",
+      "input_size": [
+        779,
+        520
+      ],
+      "resized_size": [
+        512,
+        342
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        3,
+        512,
+        339
+      ],
+      "model_tensor_size": [
+        512,
+        336
+      ],
+      "model_preprocess_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "03.png",
+      "input_size": [
+        779,
+        520
+      ],
+      "resized_size": [
+        512,
+        342
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        3,
+        512,
+        339
+      ],
+      "model_tensor_size": [
+        512,
+        336
+      ],
+      "model_preprocess_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.6572528883183568,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6576923076923077,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "load_seconds": 32.45235304999915,
+  "model_reused_across_variants": true,
+  "pairwise_inference_seconds": 1.0706047359999502,
+  "alignment_seconds": 3.6904500529999495,
+  "peak_vram_bytes": 2721136640
+}

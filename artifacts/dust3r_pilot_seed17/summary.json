@@ -1,0 +1,271 @@
+{
+  "rotation_threshold_degrees": 2.0,
+  "depth_abs_rel_threshold": 0.05,
+  "comparison_count": 9,
+  "comparisons": [
+    {
+      "scene": "kitchen",
+      "candidate": "asymmetric_crop_075",
+      "rotation_median_degrees": 6.334731805668442,
+      "translation_median_degrees": 16.253710064622936,
+      "depth_mean_abs_rel": 0.12941607523759932,
+      "valid_depth_pixels": 385166,
+      "source": "results/dust3r/pilot/kitchen/asymmetric_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "kitchen",
+      "candidate": "center_crop_075",
+      "rotation_median_degrees": 1.7313582530803977,
+      "translation_median_degrees": 15.098023623253155,
+      "depth_mean_abs_rel": 0.10359044698269754,
+      "valid_depth_pixels": 387072,
+      "source": "results/dust3r/pilot/kitchen/center_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "kitchen",
+      "candidate": "letterbox_square",
+      "rotation_median_degrees": 0.30449109088682685,
+      "translation_median_degrees": 0.7678575376463854,
+      "depth_mean_abs_rel": 0.04034567435117511,
+      "valid_depth_pixels": 688128,
+      "source": "results/dust3r/pilot/kitchen/letterbox_square_vs_identity.json"
+    },
+    {
+      "scene": "llff_fern",
+      "candidate": "asymmetric_crop_075",
+      "rotation_median_degrees": 8.830535994469056,
+      "translation_median_degrees": 56.39093903288522,
+      "depth_mean_abs_rel": 0.07314401915609235,
+      "valid_depth_pixels": 440355,
+      "source": "results/dust3r/pilot/llff_fern/asymmetric_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "llff_fern",
+      "candidate": "center_crop_075",
+      "rotation_median_degrees": 2.2978750953960354,
+      "translation_median_degrees": null,
+      "depth_mean_abs_rel": 0.05679216079947918,
+      "valid_depth_pixels": 442368,
+      "source": "results/dust3r/pilot/llff_fern/center_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "llff_fern",
+      "candidate": "letterbox_square",
+      "rotation_median_degrees": 0.28772949216274724,
+      "translation_median_degrees": 17.598452217841682,
+      "depth_mean_abs_rel": 0.020191702529176073,
+      "valid_depth_pixels": 786432,
+      "source": "results/dust3r/pilot/llff_fern/letterbox_square_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "asymmetric_crop_075",
+      "rotation_median_degrees": 5.740810606420704,
+      "translation_median_degrees": 83.40043715041261,
+      "depth_mean_abs_rel": 0.0398727089488578,
+      "valid_depth_pixels": 440355,
+      "source": "results/dust3r/pilot/room/asymmetric_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "center_crop_075",
+      "rotation_median_degrees": 5.5656830186966815,
+      "translation_median_degrees": 84.05434037900218,
+      "depth_mean_abs_rel": 0.0306357093620339,
+      "valid_depth_pixels": 442368,
+      "source": "results/dust3r/pilot/room/center_crop_075_vs_identity.json"
+    },
+    {
+      "scene": "room",
+      "candidate": "letterbox_square",
+      "rotation_median_degrees": 1.6079804241534514,
+      "translation_median_degrees": 11.159253495538929,
+      "depth_mean_abs_rel": 0.018392518950052224,
+      "valid_depth_pixels": 786432,
+      "source": "results/dust3r/pilot/room/letterbox_square_vs_identity.json"
+    }
+  ],
+  "by_variant": {
+    "asymmetric_crop_075": {
+      "scene_count": 3,
+      "scenes": [
+        "kitchen",
+        "llff_fern",
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 6.334731805668442,
+      "median_of_scene_translation_medians_degrees": 56.39093903288522,
+      "median_of_scene_depth_mean_abs_rel": 0.07314401915609235,
+      "scenes_over_rotation_threshold": 3,
+      "scenes_over_depth_threshold": 2,
+      "metric_availability": {
+        "rotation_median_degrees": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        },
+        "translation_median_degrees": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        },
+        "depth_mean_abs_rel": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        }
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "scene_count": 3,
+        "scenes": [
+          "kitchen",
+          "llff_fern",
+          "room"
+        ],
+        "small_sample_warning": "descriptive_only_fewer_than_10_scenes",
+        "metrics": {
+          "rotation_median_degrees": {
+            "point_estimate": 6.334731805668442,
+            "lower": 5.740810606420704,
+            "upper": 8.830535994469056
+          },
+          "translation_median_degrees": {
+            "point_estimate": 56.39093903288522,
+            "lower": 16.253710064622936,
+            "upper": 83.40043715041261
+          },
+          "depth_mean_abs_rel": {
+            "point_estimate": 0.07314401915609235,
+            "lower": 0.0398727089488578,
+            "upper": 0.12941607523759932
+          }
+        }
+      }
+    },
+    "center_crop_075": {
+      "scene_count": 3,
+      "scenes": [
+        "kitchen",
+        "llff_fern",
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 2.2978750953960354,
+      "median_of_scene_translation_medians_degrees": null,
+      "median_of_scene_depth_mean_abs_rel": 0.05679216079947918,
+      "scenes_over_rotation_threshold": 2,
+      "scenes_over_depth_threshold": 2,
+      "metric_availability": {
+        "rotation_median_degrees": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        },
+        "translation_median_degrees": {
+          "valid_scene_count": 2,
+          "undefined_scene_count": 1,
+          "included_in_scene_bootstrap": false
+        },
+        "depth_mean_abs_rel": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        }
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "scene_count": 3,
+        "scenes": [
+          "kitchen",
+          "llff_fern",
+          "room"
+        ],
+        "small_sample_warning": "descriptive_only_fewer_than_10_scenes",
+        "metrics": {
+          "rotation_median_degrees": {
+            "point_estimate": 2.2978750953960354,
+            "lower": 1.7313582530803977,
+            "upper": 5.5656830186966815
+          },
+          "depth_mean_abs_rel": {
+            "point_estimate": 0.05679216079947918,
+            "lower": 0.0306357093620339,
+            "upper": 0.10359044698269754
+          }
+        }
+      }
+    },
+    "letterbox_square": {
+      "scene_count": 3,
+      "scenes": [
+        "kitchen",
+        "llff_fern",
+        "room"
+      ],
+      "median_of_scene_rotation_medians_degrees": 0.30449109088682685,
+      "median_of_scene_translation_medians_degrees": 11.159253495538929,
+      "median_of_scene_depth_mean_abs_rel": 0.020191702529176073,
+      "scenes_over_rotation_threshold": 0,
+      "scenes_over_depth_threshold": 0,
+      "metric_availability": {
+        "rotation_median_degrees": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        },
+        "translation_median_degrees": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        },
+        "depth_mean_abs_rel": {
+          "valid_scene_count": 3,
+          "undefined_scene_count": 0,
+          "included_in_scene_bootstrap": true
+        }
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "scene_count": 3,
+        "scenes": [
+          "kitchen",
+          "llff_fern",
+          "room"
+        ],
+        "small_sample_warning": "descriptive_only_fewer_than_10_scenes",
+        "metrics": {
+          "rotation_median_degrees": {
+            "point_estimate": 0.30449109088682685,
+            "lower": 0.28772949216274724,
+            "upper": 1.6079804241534514
+          },
+          "translation_median_degrees": {
+            "point_estimate": 11.159253495538929,
+            "lower": 0.7678575376463854,
+            "upper": 17.598452217841682
+          },
+          "depth_mean_abs_rel": {
+            "point_estimate": 0.020191702529176073,
+            "lower": 0.018392518950052224,
+            "upper": 0.04034567435117511
+          }
+        }
+      }
+    }
+  }
+}

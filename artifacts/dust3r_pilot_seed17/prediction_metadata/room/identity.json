@@ -1,0 +1,321 @@
+{
+  "model": "DUSt3R",
+  "scene_directory": "/opt/camcanon3r/data/pilot/room/identity",
+  "inputs": [
+    "no_overlap_1.png",
+    "no_overlap_2.png",
+    "no_overlap_3.png",
+    "no_overlap_4.png"
+  ],
+  "weights": "/opt/camcanon3r/checkpoints/dust3r-512-dpt",
+  "seed": 17,
+  "image_size": 512,
+  "batch_size": 1,
+  "scene_graph": "complete_symmetrized",
+  "alignment": {
+    "mode": "PointCloudOptimizer",
+    "init": "mst",
+    "niter": 300,
+    "schedule": "cosine",
+    "lr": 0.01,
+    "loss": 0.0030842283740639687
+  },
+  "spatial_transforms": [
+    {
+      "input": "no_overlap_1.png",
+      "input_size": [
+        512,
+        384
+      ],
+      "resized_size": [
+        512,
+        384
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        0,
+        512,
+        384
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "no_overlap_2.png",
+      "input_size": [
+        1280,
+        960
+      ],
+      "resized_size": [
+        512,
+        384
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        0,
+        512,
+        384
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.4,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.4,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "no_overlap_3.png",
+      "input_size": [
+        1280,
+        960
+      ],
+      "resized_size": [
+        512,
+        384
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        0,
+        512,
+        384
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.4,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.4,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "no_overlap_4.png",
+      "input_size": [
+        1280,
+        960
+      ],
+      "resized_size": [
+        512,
+        384
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        0,
+        512,
+        384
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.4,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.4,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "load_seconds": 32.45235304999915,
+  "model_reused_across_variants": true,
+  "pairwise_inference_seconds": 10.755837269998665,
+  "alignment_seconds": 8.961669504000383,
+  "peak_vram_bytes": 2772787712
+}

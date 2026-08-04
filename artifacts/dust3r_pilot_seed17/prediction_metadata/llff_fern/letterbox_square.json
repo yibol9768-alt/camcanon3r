@@ -1,0 +1,321 @@
+{
+  "model": "DUSt3R",
+  "scene_directory": "/opt/camcanon3r/data/pilot/llff_fern/letterbox_square",
+  "inputs": [
+    "000.png",
+    "001.png",
+    "002.png",
+    "003.png"
+  ],
+  "weights": "/opt/camcanon3r/checkpoints/dust3r-512-dpt",
+  "seed": 17,
+  "image_size": 512,
+  "batch_size": 1,
+  "scene_graph": "complete_symmetrized",
+  "alignment": {
+    "mode": "PointCloudOptimizer",
+    "init": "mst",
+    "niter": 300,
+    "schedule": "cosine",
+    "lr": 0.01,
+    "loss": 0.002559552900493145
+  },
+  "spatial_transforms": [
+    {
+      "input": "000.png",
+      "input_size": [
+        706,
+        706
+      ],
+      "resized_size": [
+        512,
+        512
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        64,
+        512,
+        448
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          -64.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          88.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          0.18130311614730488
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "001.png",
+      "input_size": [
+        706,
+        706
+      ],
+      "resized_size": [
+        512,
+        512
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        64,
+        512,
+        448
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          -64.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          88.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          0.18130311614730488
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "002.png",
+      "input_size": [
+        706,
+        706
+      ],
+      "resized_size": [
+        512,
+        512
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        64,
+        512,
+        448
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          -64.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          88.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          0.18130311614730488
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input": "003.png",
+      "input_size": [
+        706,
+        706
+      ],
+      "resized_size": [
+        512,
+        512
+      ],
+      "crop_left_top_right_bottom": [
+        0,
+        64,
+        512,
+        448
+      ],
+      "model_tensor_size": [
+        512,
+        384
+      ],
+      "model_preprocess_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          -64.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_affine": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          88.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_to_model_affine": [
+        [
+          0.7252124645892352,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7252124645892352,
+          0.18130311614730488
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "load_seconds": 32.45235304999915,
+  "model_reused_across_variants": true,
+  "pairwise_inference_seconds": 1.1580591339989041,
+  "alignment_seconds": 4.120257305999985,
+  "peak_vram_bytes": 2783808512
+}

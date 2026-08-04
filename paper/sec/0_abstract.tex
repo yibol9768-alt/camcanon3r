@@ -10,10 +10,10 @@ transforms, composes their exact pixel maps, and compares reconstructed
 cameras and depth on common source-image support.  In a controlled four-view
 VGGT diagnostic across three scenes, independently shifted 75\% crops produce
 median relative-rotation disagreement of \SIrange{3.79}{6.30}{\degree}, while
-an identity-repeat control is numerically exact.  Center crops and letterbox
-padding are substantially more scene dependent, implicating inconsistent
+an identity-repeat control is numerically exact.  A frozen DUSt3R replication
+independently yields \SIrange{5.74}{8.83}{\degree} on the same scenes.  Center
+crops and letterbox padding are more scene dependent, implicating inconsistent
 principal-point shifts rather than cropping alone.  These results establish a
-reproducible non-equivariance signal; ground-truth degradation, cross-model
-generality, failure detection, and repair remain explicit confirmatory gates
-for the full study.
+reproducible two-model non-equivariance signal; ground-truth degradation,
+failure detection, and repair remain explicit confirmatory gates.
 \end{abstract}

@@ -42,6 +42,15 @@ padding exceeds it in none. This transform-by-scene interaction is consistent
 with a view-specific principal-point mechanism, but severity sweeps and
 ground-truth tests are required to distinguish mechanism from correlation.
 
+We repeat the frozen matrix with DUSt3R without pooling models. Asymmetric-crop
+median rotation disagreement is 6.33, 8.83, and 5.74 degrees on Kitchen, Fern,
+and Room, respectively, exceeding the threshold in all three scenes. Center
+crop exceeds it in two scenes, while letterbox exceeds it in none. For the Fern
+center crop, DUSt3R collapses all four predicted camera centers to the same
+point; translation direction is therefore undefined and excluded from its
+scene bootstrap rather than replaced by zero. These measurements support
+cross-model non-equivariance in the diagnostic setting, not accuracy loss.
+
 \subsection{Confirmatory evaluation}
 The frozen confirmatory matrix uses VGGT and DUSt3R on ETH3D
 \cite{schops2017eth3d}.  We evaluate identity, center crop, asymmetric crop,

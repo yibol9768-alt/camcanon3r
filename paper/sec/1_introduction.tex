@@ -40,7 +40,10 @@ center crop is strongly scene dependent.  This pattern motivates a narrower
 mechanism hypothesis: view-specific principal-point shifts are more damaging
 than a shared crop policy.  Because these measurements compare two model runs
 rather than either run against a reference reconstruction, we do not yet call
-them accuracy degradation.
+them accuracy degradation.  A frozen DUSt3R replication supports the
+cross-model diagnostic boundary: the same asymmetric crops produce
+5.74--8.83 degrees median relative-rotation disagreement across the three
+scenes, exceeding two degrees in every scene.
 
 This draft makes three evidence-bounded contributions:
 \begin{itemize}
@@ -49,10 +52,10 @@ This draft makes three evidence-bounded contributions:
   \item We provide an affine-aware, gauge-invariant evaluation path that
         distinguishes model drift from bookkeeping error and includes an
         effectively exact repeat control.
-  \item We document a multi-scene VGGT diagnostic in which view-dependent
+  \item We document matched VGGT and DUSt3R diagnostics in which view-dependent
         asymmetric crops consistently change recovered relative pose, while
         symmetric transforms are substantially more scene dependent.
 \end{itemize}
-Ground-truth ETH3D evaluation, a second reconstruction family, reliability
-metrics, and a training-free consensus repair are pre-registered promotion
-gates, not contributions claimed by the present evidence.
+Ground-truth ETH3D evaluation, reliability metrics, and a training-free
+consensus repair are pre-registered promotion gates, not contributions claimed
+by the present evidence.

@@ -1,0 +1,103 @@
+{
+  "reference": "/opt/camcanon3r/outputs/dust3r/pilot/kitchen/identity.npz",
+  "candidate": "/opt/camcanon3r/outputs/dust3r/pilot/kitchen/asymmetric_crop_075.npz",
+  "reference_label": "identity",
+  "candidate_label": "asymmetric_crop_075",
+  "view_count": 4,
+  "pair_count": 6,
+  "rotation_degrees": {
+    "count": 6,
+    "median": 6.334731805668442,
+    "mean": 6.2969610718365665,
+    "p90": 9.822543041045648
+  },
+  "translation_direction_degrees": {
+    "count": 6,
+    "median": 16.253710064622936,
+    "mean": 17.826736214580674,
+    "p90": 35.525226631061
+  },
+  "aligned_depth_consistency": {
+    "scale": 0.8737984873972191,
+    "valid_pixels": 385166,
+    "mean_abs_rel": 0.12941607523759932,
+    "median_abs_rel": 0.0924792419702332,
+    "p90_abs_rel": 0.3090272038976519,
+    "per_view": [
+      {
+        "valid_pixels": 96516,
+        "valid_fraction": 0.56103515625,
+        "mean_abs_rel": 0.1738729636512542,
+        "median_abs_rel": 0.12127870117515205
+      },
+      {
+        "valid_pixels": 96133,
+        "valid_fraction": 0.5588088262648809,
+        "mean_abs_rel": 0.2593899199517497,
+        "median_abs_rel": 0.27865117856923466
+      },
+      {
+        "valid_pixels": 96384,
+        "valid_fraction": 0.5602678571428571,
+        "mean_abs_rel": 0.060050280315442676,
+        "median_abs_rel": 0.023124022430326907
+      },
+      {
+        "valid_pixels": 96133,
+        "valid_fraction": 0.5588088262648809,
+        "mean_abs_rel": 0.024355129690694453,
+        "median_abs_rel": 0.020758074101471412
+      }
+    ]
+  },
+  "per_pair": [
+    {
+      "views": [
+        0,
+        1
+      ],
+      "rotation_degrees": 8.55204036312053,
+      "translation_direction_degrees": 36.93814308729613
+    },
+    {
+      "views": [
+        0,
+        2
+      ],
+      "rotation_degrees": 4.222392350453593,
+      "translation_direction_degrees": 3.6022375131639315
+    },
+    {
+      "views": [
+        0,
+        3
+      ],
+      "rotation_degrees": 2.8141067561110886,
+      "translation_direction_degrees": 2.587883677592898
+    },
+    {
+      "views": [
+        1,
+        2
+      ],
+      "rotation_degrees": 11.093045718970764,
+      "translation_direction_degrees": 28.905182616081937
+    },
+    {
+      "views": [
+        1,
+        3
+      ],
+      "rotation_degrees": 8.44707126088329,
+      "translation_direction_degrees": 34.11231017482588
+    },
+    {
+      "views": [
+        2,
+        3
+      ],
+      "rotation_degrees": 2.653109981480127,
+      "translation_direction_degrees": 0.8146602185232784
+    }
+  ]
+}

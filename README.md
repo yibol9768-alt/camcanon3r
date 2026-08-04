@@ -12,11 +12,13 @@ and develops a training-free consistency repair.
 
 ## Status
 
-The frozen three-scene VGGT diagnostic found a consistent asymmetric-crop
-non-equivariance signal, with an effectively exact identity-repeat control.
-See [`docs/MULTISCENE_RESULTS.md`](docs/MULTISCENE_RESULTS.md) and its committed
-machine-readable evidence. This is not yet a ground-truth accuracy or
-multi-model claim.
+Frozen three-scene diagnostics found a consistent asymmetric-crop
+non-equivariance signal in both VGGT and DUSt3R. VGGT has an effectively exact
+identity-repeat control; DUSt3R independently exceeds the 2° rotation threshold
+in all three asymmetric-crop scenes. See
+[`docs/MULTISCENE_RESULTS.md`](docs/MULTISCENE_RESULTS.md),
+[`docs/DUST3R_RESULTS.md`](docs/DUST3R_RESULTS.md), and their committed
+machine-readable evidence. These are not yet ground-truth accuracy claims.
 
 Ground-truth experiments use only documented official datasets. See
 [`docs/DATA_PROVENANCE.md`](docs/DATA_PROVENANCE.md) for URLs, hashes, formats,

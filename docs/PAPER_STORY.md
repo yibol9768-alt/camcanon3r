@@ -39,7 +39,7 @@ support that promotion.
 | VGGT is non-equivariant to view-dependent 75% crops in the tested setting. | Three scenes, all above 2° median relative rotation; exact repeat control. | supported for diagnostic setting | severity sweep for broader claim |
 | Diagnostic uncertainty is auditable. | Deterministic 10,000-replicate scene bootstrap with an explicit fewer-than-10-scenes warning. | implemented | benchmark-scale scenes for inferential use |
 | Preprocessing reduces ground-truth reconstruction accuracy. | None yet. Cross-run disagreement is insufficient. | needs evidence | ETH3D pose/depth |
-| The failure generalizes beyond VGGT. | None yet. | needs evidence | DUSt3R confirmatory matrix |
+| The diagnostic failure generalizes beyond VGGT. | Frozen DUSt3R three-scene matrix; asymmetric crop exceeds 2° rotation in all scenes. | supported for the three-scene diagnostic | benchmark-scale multi-model GT accuracy |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
 | Reliability metrics are auditable. | Tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, and scene-cluster bootstrap are unit tested. | implemented, no effectiveness claim | populate with held-out GT cases |
 | Analytic canonical-camera repair restores source pixel coordinates. | Unit-tested inverse affine, identity control, masks, and manifests. | implemented, no effectiveness claim | paired GT gap recovery and clean cost |
@@ -53,7 +53,7 @@ support that promotion.
   reserve *accuracy degradation* for ground-truth comparisons.
 - **Unsupported claims:** no current text claims multi-model generality, AUROC,
   or repair gains.
-- **Missing evidence:** ETH3D GT, severity response, DUSt3R, reliability, repair,
+- **Missing evidence:** ETH3D GT, severity response, reliability, repair,
   benchmark-scale statistical power, compute-normalized baselines, and
   qualitative geometry.
 - **Statistical boundary:** scene bootstrap is implemented, but the current
