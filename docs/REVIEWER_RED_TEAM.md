@@ -61,7 +61,13 @@ The current score must not be rounded up because experiments are in progress.
 5. **Controlled crops may be dismissed as synthetic.** The camera intervention
    is causal and useful, but the paper still needs to connect it to realistic
    heterogeneous preprocessing pipelines without overstating prevalence.
-6. **The seven-page draft is still incomplete.** It lacks a compact
+6. **Crop support is a residual causal objection.** A crop changes coordinates
+   and removes context together. The canonical branch holds the observed RGB
+   support fixed and shows that missing context alone cannot explain the ETH3D
+   rotation drift, but fill and an extra interpolation step still differ. The
+   paper must preserve this boundary instead of calling cropping a lossless
+   coordinate-only intervention.
+7. **The seven-page draft is still incomplete.** It lacks a compact
    compute/VRAM comparison and a final cross-dataset table. The TODO in failure
    detection makes the current draft non-submittable.
 
@@ -115,6 +121,9 @@ The current score must not be rounded up because experiments are in progress.
 
 - [ ] Demonstrate breadth beyond two backbones or two datasets, or provide a
   detector/repair result strong enough to compensate.
+- [ ] Either add a lossless off-center coordinate control or keep the causal
+  conclusion limited to a camera-canvas contribution beyond missing context;
+  do not claim that support, fill, and interpolation are fully isolated.
 - [ ] Show that the central finding changes a practical design decision rather
   than only documenting a benchmark failure.
 - [ ] Survive a second blinded red-team with no unresolved selection,
