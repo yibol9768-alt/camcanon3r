@@ -29,7 +29,7 @@ if [[ ${#scenes[@]} -ne 13 || ${#variants[@]} -ne 11 ]]; then
 fi
 
 PYTHONPATH=src "${python_bin}" scripts/summarize_prediction_compute.py \
-  "outputs/eth3d_training/${model}/raw" \
+  "outputs/eth3d_training/${model}/raw_mechanism" \
   "results/eth3d_training/${model}/inference_compute.json" \
   --model "${model}" --dataset eth3d-training-raw \
   --scenes "${scenes[@]}" --variants "${variants[@]}"

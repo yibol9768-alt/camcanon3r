@@ -506,7 +506,9 @@ PYTHONPATH=src .venv/bin/python scripts/summarize_cross_dataset_table.py \
 Build the unified compute source without conflating model-only and end-to-end
 timings.  First derive the complete legacy ETH3D metadata summaries; their
 model compute and VRAM remain valid, while missing schema-1.2 end-to-end time
-is explicitly labeled `legacy_unavailable`:
+is explicitly labeled `legacy_unavailable`. The wrapper consumes the complete
+13-scene, 11-variant `raw_mechanism` prediction root (not the earlier
+four-variant `raw` pilot root):
 
 ```bash
 ./scripts/run_eth3d_compute_summary.sh vggt
