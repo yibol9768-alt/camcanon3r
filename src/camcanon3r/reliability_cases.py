@@ -18,6 +18,8 @@ GT_FIELDS = (
     "depth_mean_abs_rel",
     "point_accuracy_mean_meters",
     "point_completeness_mean_meters",
+    "point_accuracy_mean_millimeters",
+    "point_completeness_mean_millimeters",
 )
 
 
@@ -47,7 +49,9 @@ def _scene_predictions(
 ) -> dict[str, dict[str, Path]]:
     expected = set(variants)
     scenes: dict[str, dict[str, Path]] = {}
-    for scene_dir in sorted(path for path in prediction_root.iterdir() if path.is_dir()):
+    for scene_dir in sorted(
+        path for path in prediction_root.iterdir() if path.is_dir()
+    ):
         records = {path.stem: path for path in scene_dir.glob("*.npz")}
         if set(records) != expected:
             raise ValueError(
@@ -66,9 +70,7 @@ def _validate_evaluation_design(
     scenes: set[str],
     variants: tuple[str, ...],
 ) -> None:
-    result_scenes = {
-        path.name for path in result_root.iterdir() if path.is_dir()
-    }
+    result_scenes = {path.name for path in result_root.iterdir() if path.is_dir()}
     if result_scenes != scenes:
         raise ValueError(
             "evaluation scene design mismatch: "
@@ -77,9 +79,7 @@ def _validate_evaluation_design(
         )
     expected = {f"{variant}_vs_gt" for variant in variants}
     for scene in sorted(scenes):
-        records = {
-            path.stem for path in (result_root / scene).glob("*_vs_gt.json")
-        }
+        records = {path.stem for path in (result_root / scene).glob("*_vs_gt.json")}
         if records != expected:
             raise ValueError(
                 f"evaluation variant design mismatch for {scene}: "
@@ -113,9 +113,7 @@ def _pairwise_disagreement(first: Path, second: Path) -> dict[str, float]:
     )
     return {
         "rotation": float(np.median(pose["rotation_degrees"])),
-        "translation": float(
-            np.median(pose["translation_direction_degrees"])
-        ),
+        "translation": float(np.median(pose["translation_direction_degrees"])),
         "depth": float(
             np.mean(
                 [
@@ -137,6 +135,63 @@ def _evaluation_record(
     if record.get("scene") != scene or record.get("variant") != variant:
         raise ValueError(f"evaluation identity mismatch: {path}")
     return path, record
+
+
+def _nested_value(record: object, *path: str) -> object | None:
+    current = record
+    for field in path:
+        if not isinstance(current, dict) or field not in current:
+            return None
+        current = current[field]
+    return current
+
+
+def _ground_truth_metrics(evaluation: dict[str, object]) -> dict[str, object]:
+    """Normalize raw evaluator JSON and legacy flat fixtures to one case schema."""
+
+    ground_truth = {field: evaluation.get(field) for field in GT_FIELDS}
+    nested_fields = {
+        "rotation_median_degrees": ("relative_rotation_degrees", "median"),
+        "translation_median_degrees": (
+            "translation_direction_degrees",
+            "median",
+        ),
+        "focal_relative_error_median": (
+            "intrinsics",
+            "focal_relative_error",
+            "median",
+        ),
+        "principal_point_normalized_error_median": (
+            "intrinsics",
+            "principal_point_normalized_error",
+            "median",
+        ),
+        "depth_mean_abs_rel": ("depth", "mean_abs_rel"),
+        "point_accuracy_mean_meters": (
+            "point_cloud",
+            "accuracy_meters",
+            "mean",
+        ),
+        "point_completeness_mean_meters": (
+            "point_cloud",
+            "completeness_meters",
+            "mean",
+        ),
+        "point_accuracy_mean_millimeters": (
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean",
+        ),
+        "point_completeness_mean_millimeters": (
+            "point_cloud",
+            "completeness_millimeters",
+            "mean",
+        ),
+    }
+    for field, path in nested_fields.items():
+        if ground_truth[field] is None:
+            ground_truth[field] = _nested_value(evaluation, *path)
+    return ground_truth
 
 
 def build_reliability_cases(
@@ -167,9 +222,7 @@ def build_reliability_cases(
             for variant in variants
         }
         for first, second in combinations(variants, 2):
-            values = _pairwise_disagreement(
-                predictions[first], predictions[second]
-            )
+            values = _pairwise_disagreement(predictions[first], predictions[second])
             for variant in (first, second):
                 for metric, value in values.items():
                     disagreements[variant][metric].append(value)
@@ -179,7 +232,7 @@ def build_reliability_cases(
                 result_root, scene, variant
             )
             confidence_field, confidence = _native_confidence(predictions[variant])
-            gt = {field: evaluation.get(field) for field in GT_FIELDS}
+            gt = _ground_truth_metrics(evaluation)
             if gt["rotation_median_degrees"] is None:
                 raise ValueError(f"rotation GT is undefined: {evaluation_path}")
             cases.append(

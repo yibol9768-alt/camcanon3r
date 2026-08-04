@@ -6,7 +6,10 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from camcanon3r.reliability_cases import build_reliability_cases
+from camcanon3r.reliability_cases import (
+    _ground_truth_metrics,
+    build_reliability_cases,
+)
 
 VARIANTS = ("identity", "center_crop_075", "asymmetric_crop_075")
 
@@ -98,8 +101,7 @@ def test_build_reliability_cases_is_complete_and_unprivileged(
         dataset="test-data",
     )
     first_scores = {
-        case["variant"]: case["scores"]["depth_disagreement_abs_rel"]
-        for case in cases
+        case["variant"]: case["scores"]["depth_disagreement_abs_rel"] for case in cases
     }
     reversed_scores = {
         case["variant"]: case["scores"]["depth_disagreement_abs_rel"]
@@ -132,3 +134,50 @@ def test_build_reliability_cases_rejects_extra_evaluation(tmp_path: Path) -> Non
             model="test-model",
             dataset="test-data",
         )
+
+
+def test_ground_truth_metrics_normalize_actual_eth3d_evaluator_schema() -> None:
+    metrics = _ground_truth_metrics(
+        {
+            "intrinsics": {
+                "focal_relative_error": {"median": 0.02},
+                "principal_point_normalized_error": {"median": 0.03},
+            },
+            "relative_rotation_degrees": {"median": 4.0},
+            "translation_direction_degrees": {"median": 5.0},
+            "depth": {"mean_abs_rel": 0.06},
+            "point_cloud": {
+                "accuracy_meters": {"mean": 0.7},
+                "completeness_meters": {"mean": 0.8},
+            },
+        }
+    )
+    assert metrics["rotation_median_degrees"] == 4.0
+    assert metrics["translation_median_degrees"] == 5.0
+    assert metrics["focal_relative_error_median"] == 0.02
+    assert metrics["principal_point_normalized_error_median"] == 0.03
+    assert metrics["depth_mean_abs_rel"] == 0.06
+    assert metrics["point_accuracy_mean_meters"] == 0.7
+    assert metrics["point_accuracy_mean_millimeters"] is None
+
+
+def test_ground_truth_metrics_preserve_dtu_millimeter_units() -> None:
+    metrics = _ground_truth_metrics(
+        {
+            "intrinsics": {
+                "focal_relative_error": {"median": 0.02},
+                "principal_point_normalized_error": {"median": 0.03},
+            },
+            "relative_rotation_degrees": {"median": 4.0},
+            "translation_direction_degrees": {"median": 5.0},
+            "depth": None,
+            "point_cloud": {
+                "accuracy_millimeters": {"mean": 0.7},
+                "completeness_millimeters": {"mean": 0.8},
+            },
+        }
+    )
+    assert metrics["depth_mean_abs_rel"] is None
+    assert metrics["point_accuracy_mean_meters"] is None
+    assert metrics["point_accuracy_mean_millimeters"] == 0.7
+    assert metrics["point_completeness_mean_millimeters"] == 0.8
