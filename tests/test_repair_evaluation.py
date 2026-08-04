@@ -3,13 +3,12 @@ import pytest
 from camcanon3r.repair_evaluation import (
     evaluate_repair_records,
     one_metric_gap_recovery,
+    summarize_repair_evaluations,
 )
 
 
 def test_gap_recovery_reports_raw_values_and_unclipped_recovery() -> None:
-    result = one_metric_gap_recovery(
-        2.0, 6.0, 3.0, clean_control_error=2.02
-    )
+    result = one_metric_gap_recovery(2.0, 6.0, 3.0, clean_control_error=2.02)
     assert result["corruption_gap"] == 4.0
     assert result["recovered_gap"] == 3.0
     assert result["gap_recovery"] == 0.75
@@ -71,8 +70,90 @@ def test_repair_records_include_point_accuracy_and_completeness() -> None:
     ] == pytest.approx(2.0 / 3.0)
 
 
+def test_repair_records_include_dtu_point_units_without_conversion() -> None:
+    def record(accuracy: float, completeness: float):
+        return {
+            "point_cloud": {
+                "accuracy_millimeters": {"mean": accuracy},
+                "completeness_millimeters": {"mean": completeness},
+            }
+        }
+
+    result = evaluate_repair_records(
+        record(1.0, 2.0),
+        record(5.0, 8.0),
+        record(3.0, 4.0),
+    )
+    assert result["metrics"]["point_accuracy_mean_millimeters"][
+        "gap_recovery"
+    ] == pytest.approx(0.5)
+    assert result["metrics"]["point_completeness_mean_millimeters"][
+        "gap_recovery"
+    ] == pytest.approx(2.0 / 3.0)
+
+
 def test_gap_recovery_rejects_negative_errors() -> None:
     with pytest.raises(ValueError, match="finite and non-negative"):
         one_metric_gap_recovery(0.0, -1.0, 0.0)
     with pytest.raises(ValueError, match="finite and non-negative"):
         one_metric_gap_recovery(0.0, float("nan"), 0.0)
+
+
+def test_repair_summary_bootstraps_paired_aggregate_recovery() -> None:
+    def record(value: float):
+        return {
+            "prediction": f"prediction-{value}",
+            "relative_rotation_degrees": {"median": value},
+            "translation_direction_degrees": {"median": value * 2.0},
+            "depth": {"mean_abs_rel": value / 100.0},
+        }
+
+    scenes = {
+        "first": (record(1.0), record(5.0), record(3.0), record(1.01)),
+        "second": (record(2.0), record(8.0), record(4.0), record(2.02)),
+        "third": (record(3.0), record(7.0), record(4.0), record(3.03)),
+    }
+    summary = summarize_repair_evaluations(
+        scenes, bootstrap_replicates=200, bootstrap_seed=17
+    )
+    rotation = summary["by_metric"]["relative_rotation_median_degrees"]
+    assert rotation["scene_bootstrap"]["metrics"]["corruption_gap"][
+        "point_estimate"
+    ] == pytest.approx(4.0)
+    assert rotation["scene_bootstrap"]["metrics"]["recovered_gap"][
+        "point_estimate"
+    ] == pytest.approx(3.0)
+    assert rotation["gap_recovery"]["point_estimate"] == pytest.approx(0.75)
+    assert rotation["promotion_gate"]["point_recovery_pass"] is True
+    assert rotation["promotion_gate"]["point_clean_cost_pass"] is True
+    assert summary["by_metric"]["point_accuracy_mean_meters"]["status"] == (
+        "unavailable"
+    )
+
+
+def test_repair_summary_requires_clean_control_for_available_metric() -> None:
+    identity = {
+        "relative_rotation_degrees": {"median": 1.0},
+        "translation_direction_degrees": {"median": 2.0},
+        "depth": None,
+    }
+    corrupt = {
+        "relative_rotation_degrees": {"median": 4.0},
+        "translation_direction_degrees": {"median": 5.0},
+        "depth": None,
+    }
+    repaired = {
+        "relative_rotation_degrees": {"median": 2.0},
+        "translation_direction_degrees": {"median": 3.0},
+        "depth": None,
+    }
+    clean_missing = {
+        "relative_rotation_degrees": {"median": None},
+        "translation_direction_degrees": {"median": 2.0},
+        "depth": None,
+    }
+    with pytest.raises(ValueError, match="clean-control repair metric"):
+        summarize_repair_evaluations(
+            {"scene": (identity, corrupt, repaired, clean_missing)},
+            bootstrap_replicates=10,
+        )

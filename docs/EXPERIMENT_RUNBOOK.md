@@ -406,20 +406,32 @@ repair claim is promoted solely from paired ETH3D or DTU ground-truth gap
 recovery, with the clean cost and visible-support fraction reported alongside.
 
 After evaluating the original, corrupted, repaired, and repaired-identity
-predictions against the same GT, compute each metric's raw gap and recovery:
+predictions against the same GT, aggregate the complete paired scene design:
 
 ```bash
-PYTHONPATH=src .venv/bin/python scripts/evaluate_repair.py \
-  results/eth3d_office/raw/identity.json \
-  results/eth3d_office/raw/asymmetric_crop_075.json \
-  results/eth3d_office/raw_canonical/canonical_asymmetric_crop_075.json \
-  --clean-control results/eth3d_office/raw_canonical/identity.json \
-  --output results/eth3d_office/raw_canonical/repair_gap_075.json
+PYTHONPATH=src .venv/bin/python scripts/evaluate_repair_selection.py \
+  results/eth3d_training/vggt/raw \
+  results/eth3d_training/vggt/raw_canonical \
+  results/repair/eth3d_vggt_raw_asymmetric_crop_075.json \
+  --identity-variant identity \
+  --corrupt-variant asymmetric_crop_075 \
+  --clean-control-variant identity \
+  --repaired-variant canonical_asymmetric_crop_075 \
+  --model vggt --dataset eth3d-training-raw \
+  --recovery-threshold 0.30 --clean-relative-threshold 0.02 \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17
 ```
 
+Repeat without changing thresholds for DUSt3R and later DTU.  Aggregate gap
+recovery is the median paired recovered gap divided by the median paired
+corruption gap; bootstrap replicates resample scenes and recompute that ratio.
 The output never clips recovery to `[0, 1]`: negative repair and better-than-
-identity overshoot remain visible. A non-positive or noise-floor corruption gap
-is marked undefined, and pose-only ETH3D records keep depth unavailable.
+identity overshoot remain visible. A non-positive or noise-floor corruption
+gap is marked undefined. The registered point-estimate gate is at least 30%
+recovery and at most 2% median relative clean degradation; confidence-bound
+versions are reported separately and never silently substituted for the
+registered point-estimate rule. Pose-only records keep depth unavailable.
 
 ## Statistical aggregation
 
