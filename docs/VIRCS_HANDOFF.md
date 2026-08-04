@@ -106,6 +106,14 @@ only merge.  It never resets or force-checks out files.
 - The manifest freezes all 13 official ETH3D training scenes.  Before starting
   another downloader, inspect the current process, archive directory, log, and
   `download_report.json`; do not create a duplicate job.
+- Live verification on 2026-08-04 found no active `download_archives.py`
+  process and an empty archive directory.  The old log ended with a missing
+  local-Mihomo fallback error, but the preferred Windows scheduled-task backend
+  subsequently completed a proxied Git fetch.  Recheck, then the frozen
+  `./scripts/start_eth3d_download_my5090.sh` entry point may be started once.
+- Live asset sizes at handoff were approximately 4.7 GB for VGGT weights,
+  2.2 GB for DUSt3R weights, 85 MB for prepared data, and 212 MB for outputs.
+  Both machines passed all 47 CPU tests when `my5090` used `PYTHONPATH=src`.
 
 Re-verify every item live before reporting it as current.  Machine state and
 download progress are allowed to drift after this document is committed.

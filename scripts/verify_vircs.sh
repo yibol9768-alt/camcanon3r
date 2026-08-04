@@ -34,9 +34,14 @@ git rev-parse HEAD
 git status --short --branch
 printf 'gpu='
 nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader
+PYTHONPATH=src .venv/bin/python -m pytest -q
+printf '%s  %s\n' \
+  '7c300a89534113436bde52732d3151212bcbd90f0aa3c8d1496f86d84bfe4b42' \
+  'checkpoints/dust3r-512-dpt/model.safetensors' | sha256sum -c -
+du -sh checkpoints/VGGT-1B checkpoints/dust3r-512-dpt data outputs results
 df -h /opt /mnt/e
 printf 'active_downloads='
-pgrep -af download_archives.py || true
+pgrep -af '[d]ownload_archives.py' || true
 EOF
 "$remote" "$remote_command"
 
