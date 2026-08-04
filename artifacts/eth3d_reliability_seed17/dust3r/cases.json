@@ -1,0 +1,1483 @@
+{
+  "schema_version": "1.1",
+  "dataset": "eth3d-training-raw",
+  "model": "dust3r",
+  "source_roots": {
+    "predictions": "outputs/eth3d_training/dust3r/raw_mechanism",
+    "evaluations": "results/eth3d_training/dust3r/raw_mechanism"
+  },
+  "scene_count": 13,
+  "variant_count": 4,
+  "case_count": 52,
+  "variants": [
+    "identity",
+    "center_crop_075",
+    "asymmetric_crop_075",
+    "letterbox_square"
+  ],
+  "allow_extra_source_variants": true,
+  "score_protocol": {
+    "cross_transform": "candidate median across all other transforms",
+    "pairwise_depth": "mean of both directed, scale-aligned depth AbsRel values",
+    "native_uncertainty": "negative median native confidence",
+    "ground_truth_used_in_score": false
+  },
+  "cases": [
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "courtyard",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7518556427016252,
+        "translation_disagreement_degrees": 2.7839695494915366,
+        "depth_disagreement_abs_rel": 0.026446087967869004,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 12.616502285003662,
+        "native_uncertainty": -12.616502285003662
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.4786747677559854,
+        "translation_median_degrees": 1.3487239770550357,
+        "focal_relative_error_median": 0.10750910849861785,
+        "principal_point_normalized_error_median": 0.0017542371764291632,
+        "depth_mean_abs_rel": 0.017468575034561642,
+        "point_accuracy_mean_meters": 0.36758679767405483,
+        "point_completeness_mean_meters": 0.4086748519179106,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "courtyard/identity.npz",
+      "evaluation": "courtyard/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "courtyard",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7518556427016252,
+        "translation_disagreement_degrees": 2.7839695494915366,
+        "depth_disagreement_abs_rel": 0.026446087967869004,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 9.3296799659729,
+        "native_uncertainty": -9.3296799659729
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.1072159348168278,
+        "translation_median_degrees": 3.876961842407176,
+        "focal_relative_error_median": 0.08982501008837128,
+        "principal_point_normalized_error_median": 0.0017143478110893753,
+        "depth_mean_abs_rel": 0.0335800092453838,
+        "point_accuracy_mean_meters": 0.5226875359188329,
+        "point_completeness_mean_meters": 0.7708865252528275,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "courtyard/center_crop_075.npz",
+      "evaluation": "courtyard/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "courtyard",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 6.1409669288568045,
+        "translation_disagreement_degrees": 17.590884846714427,
+        "depth_disagreement_abs_rel": 0.06191385092748632,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 5.5924601554870605,
+        "native_uncertainty": -5.5924601554870605
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 6.197759537385579,
+        "translation_median_degrees": 17.364354162078904,
+        "focal_relative_error_median": 0.08252727572215304,
+        "principal_point_normalized_error_median": 0.038757121136465456,
+        "depth_mean_abs_rel": 0.05819920809322838,
+        "point_accuracy_mean_meters": 0.8369384180969521,
+        "point_completeness_mean_meters": 2.3271108741143665,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "courtyard/asymmetric_crop_075.npz",
+      "evaluation": "courtyard/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "courtyard",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.6378159203008927,
+        "translation_disagreement_degrees": 2.667415202504545,
+        "depth_disagreement_abs_rel": 0.02628751379169697,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.579925537109375,
+        "native_uncertainty": -10.579925537109375
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.5522117191642072,
+        "translation_median_degrees": 1.861868068607761,
+        "focal_relative_error_median": 0.09730403344273106,
+        "principal_point_normalized_error_median": 0.001737830563140755,
+        "depth_mean_abs_rel": 0.01779310608881627,
+        "point_accuracy_mean_meters": 0.2893039181397219,
+        "point_completeness_mean_meters": 0.3257469709665771,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "courtyard/letterbox_square.npz",
+      "evaluation": "courtyard/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "delivery_area",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.8363211914968098,
+        "translation_disagreement_degrees": 4.305421043189062,
+        "depth_disagreement_abs_rel": 0.028839928938182796,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 7.918548345565796,
+        "native_uncertainty": -7.918548345565796
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.6933815106405034,
+        "translation_median_degrees": 4.4560425327432505,
+        "focal_relative_error_median": 0.08295812115579113,
+        "principal_point_normalized_error_median": 0.0018096417506625897,
+        "depth_mean_abs_rel": 0.018028044044006878,
+        "point_accuracy_mean_meters": 0.3363099352156601,
+        "point_completeness_mean_meters": 0.3125411911880868,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "delivery_area/identity.npz",
+      "evaluation": "delivery_area/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "delivery_area",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.8363211914968098,
+        "translation_disagreement_degrees": 4.796433427153573,
+        "depth_disagreement_abs_rel": 0.028839928938182796,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.955065965652466,
+        "native_uncertainty": -6.955065965652466
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.381304491790986,
+        "translation_median_degrees": 2.2262096966412086,
+        "focal_relative_error_median": 0.027926417797664957,
+        "principal_point_normalized_error_median": 0.0017810811602454635,
+        "depth_mean_abs_rel": 0.027610773953356177,
+        "point_accuracy_mean_meters": 0.10996872663602256,
+        "point_completeness_mean_meters": 0.42380446426080637,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "delivery_area/center_crop_075.npz",
+      "evaluation": "delivery_area/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "delivery_area",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.6969209652946489,
+        "translation_disagreement_degrees": 13.191686623518908,
+        "depth_disagreement_abs_rel": 0.03147812535579239,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.943273067474365,
+        "native_uncertainty": -6.943273067474365
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.6238986997149256,
+        "translation_median_degrees": 12.11902343776038,
+        "focal_relative_error_median": 0.01588275225286573,
+        "principal_point_normalized_error_median": 0.038771405590969935,
+        "depth_mean_abs_rel": 0.03579405836483654,
+        "point_accuracy_mean_meters": 0.49509676875939607,
+        "point_completeness_mean_meters": 0.9226964921204343,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "delivery_area/asymmetric_crop_075.npz",
+      "evaluation": "delivery_area/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "delivery_area",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7756776560818419,
+        "translation_disagreement_degrees": 4.796433427153573,
+        "depth_disagreement_abs_rel": 0.03147812535579239,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 5.519464492797852,
+        "native_uncertainty": -5.519464492797852
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.6210316578501968,
+        "translation_median_degrees": 4.9751909388536975,
+        "focal_relative_error_median": 0.09251946046219733,
+        "principal_point_normalized_error_median": 0.001833231084844094,
+        "depth_mean_abs_rel": 0.023962491735704115,
+        "point_accuracy_mean_meters": 0.31164957369149343,
+        "point_completeness_mean_meters": 0.2939012130227434,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "delivery_area/letterbox_square.npz",
+      "evaluation": "delivery_area/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "electro",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7900020928084777,
+        "translation_disagreement_degrees": 3.9167168480837735,
+        "depth_disagreement_abs_rel": 0.02757259333175715,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.678874015808105,
+        "native_uncertainty": -10.678874015808105
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.559261155456885,
+        "translation_median_degrees": 3.371370624466403,
+        "focal_relative_error_median": 0.07231039502582265,
+        "principal_point_normalized_error_median": 0.0018639261494117479,
+        "depth_mean_abs_rel": 0.01844159025312409,
+        "point_accuracy_mean_meters": 0.1590009774624589,
+        "point_completeness_mean_meters": 0.17000801257212572,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "electro/identity.npz",
+      "evaluation": "electro/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "electro",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7900020928084777,
+        "translation_disagreement_degrees": 3.9167168480837735,
+        "depth_disagreement_abs_rel": 0.029861038243854207,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 9.909383773803711,
+        "native_uncertainty": -9.909383773803711
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.9688797246916663,
+        "translation_median_degrees": 2.0978503539617908,
+        "focal_relative_error_median": 0.016736659382040768,
+        "principal_point_normalized_error_median": 0.00182152622626521,
+        "depth_mean_abs_rel": 0.029751714096809552,
+        "point_accuracy_mean_meters": 0.27269997756157494,
+        "point_completeness_mean_meters": 0.3785354540335791,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "electro/center_crop_075.npz",
+      "evaluation": "electro/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "electro",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 6.688071127477485,
+        "translation_disagreement_degrees": 10.61917625695574,
+        "depth_disagreement_abs_rel": 0.0405245882314364,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.13875675201416,
+        "native_uncertainty": -8.13875675201416
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 6.542636859644707,
+        "translation_median_degrees": 12.599040973670448,
+        "focal_relative_error_median": 0.027550795521053304,
+        "principal_point_normalized_error_median": 0.03872868647971543,
+        "depth_mean_abs_rel": 0.045719716277492814,
+        "point_accuracy_mean_meters": 0.41082369219479814,
+        "point_completeness_mean_meters": 0.4672562354313433,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "electro/asymmetric_crop_075.npz",
+      "evaluation": "electro/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "electro",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7583123237925762,
+        "translation_disagreement_degrees": 3.2408527985908124,
+        "depth_disagreement_abs_rel": 0.029861038243854207,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.181466579437256,
+        "native_uncertainty": -10.181466579437256
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.5530581212742278,
+        "translation_median_degrees": 2.9478358957406314,
+        "focal_relative_error_median": 0.07214999711687452,
+        "principal_point_normalized_error_median": 0.0018290201504199141,
+        "depth_mean_abs_rel": 0.016897450182694243,
+        "point_accuracy_mean_meters": 0.15841910296738604,
+        "point_completeness_mean_meters": 0.16269905966610856,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "electro/letterbox_square.npz",
+      "evaluation": "electro/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "facade",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.3301913576029458,
+        "translation_disagreement_degrees": 16.77434238288115,
+        "depth_disagreement_abs_rel": 0.032910675976294324,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 12.618966579437256,
+        "native_uncertainty": -12.618966579437256
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.105651730756826,
+        "translation_median_degrees": 14.878641764057786,
+        "focal_relative_error_median": 0.0488136228680954,
+        "principal_point_normalized_error_median": 0.001864096556408441,
+        "depth_mean_abs_rel": 0.07919319952494254,
+        "point_accuracy_mean_meters": 0.8670187524820128,
+        "point_completeness_mean_meters": 0.8830041849205263,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "facade/identity.npz",
+      "evaluation": "facade/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "facade",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.3301913576029458,
+        "translation_disagreement_degrees": 16.77434238288115,
+        "depth_disagreement_abs_rel": 0.032910675976294324,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 13.231264114379883,
+        "native_uncertainty": -13.231264114379883
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.387259461979923,
+        "translation_median_degrees": 8.53289596921935,
+        "focal_relative_error_median": 0.04435557354942978,
+        "principal_point_normalized_error_median": 0.0018294548764700546,
+        "depth_mean_abs_rel": 0.08514851197455559,
+        "point_accuracy_mean_meters": 2.478566008116449,
+        "point_completeness_mean_meters": 2.9472648980373064,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "facade/center_crop_075.npz",
+      "evaluation": "facade/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "facade",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 5.171094864719784,
+        "translation_disagreement_degrees": 40.919754339477024,
+        "depth_disagreement_abs_rel": 0.05067497029765759,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 9.739727973937988,
+        "native_uncertainty": -9.739727973937988
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 4.485865549735603,
+        "translation_median_degrees": 27.166058086196806,
+        "focal_relative_error_median": 0.07212961540186331,
+        "principal_point_normalized_error_median": 0.03884014223168908,
+        "depth_mean_abs_rel": 0.11251506379236832,
+        "point_accuracy_mean_meters": 3.3976553513882255,
+        "point_completeness_mean_meters": 7.214560665690561,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "facade/asymmetric_crop_075.npz",
+      "evaluation": "facade/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "facade",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.1795353127002388,
+        "translation_disagreement_degrees": 16.543875435671914,
+        "depth_disagreement_abs_rel": 0.031234610260674076,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 11.597914218902588,
+        "native_uncertainty": -11.597914218902588
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.0761381343774032,
+        "translation_median_degrees": 13.928225433878048,
+        "focal_relative_error_median": 0.05222635567199777,
+        "principal_point_normalized_error_median": 0.0018558299862342096,
+        "depth_mean_abs_rel": 0.07084543936784608,
+        "point_accuracy_mean_meters": 0.5148904399793633,
+        "point_completeness_mean_meters": 0.5271417823967757,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "facade/letterbox_square.npz",
+      "evaluation": "facade/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "kicker",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.477019056782702,
+        "translation_disagreement_degrees": 5.0743911720037165,
+        "depth_disagreement_abs_rel": 0.04907932315855862,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.223617553710938,
+        "native_uncertainty": -8.223617553710938
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.1544154001882168,
+        "translation_median_degrees": 3.6738394881101333,
+        "focal_relative_error_median": 0.01837287242688854,
+        "principal_point_normalized_error_median": 0.0022094165801476895,
+        "depth_mean_abs_rel": 0.026713899995949038,
+        "point_accuracy_mean_meters": 0.07449434146430436,
+        "point_completeness_mean_meters": 0.062111913786159864,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "kicker/identity.npz",
+      "evaluation": "kicker/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "kicker",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.477019056782702,
+        "translation_disagreement_degrees": 5.0743911720037165,
+        "depth_disagreement_abs_rel": 0.04907932315855862,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.734373092651367,
+        "native_uncertainty": -6.734373092651367
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.1102432162696436,
+        "translation_median_degrees": 4.27653575022479,
+        "focal_relative_error_median": 0.07518632892835485,
+        "principal_point_normalized_error_median": 0.0021609883310457034,
+        "depth_mean_abs_rel": 0.03539286121217944,
+        "point_accuracy_mean_meters": 0.3877361824427416,
+        "point_completeness_mean_meters": 0.4345825072429547,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "kicker/center_crop_075.npz",
+      "evaluation": "kicker/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "kicker",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 7.373498016662193,
+        "translation_disagreement_degrees": 9.88733083547633,
+        "depth_disagreement_abs_rel": 0.06727757390436617,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.069169759750366,
+        "native_uncertainty": -6.069169759750366
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 7.93734778545717,
+        "translation_median_degrees": 9.891667283490788,
+        "focal_relative_error_median": 0.10850323973646736,
+        "principal_point_normalized_error_median": 0.03864398389450492,
+        "depth_mean_abs_rel": 0.04708465946004363,
+        "point_accuracy_mean_meters": 0.37911939517776677,
+        "point_completeness_mean_meters": 0.4785662668302249,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "kicker/asymmetric_crop_075.npz",
+      "evaluation": "kicker/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "kicker",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.3247144583248196,
+        "translation_disagreement_degrees": 4.650732184930603,
+        "depth_disagreement_abs_rel": 0.053487741644686324,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.184045791625977,
+        "native_uncertainty": -8.184045791625977
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.191319906688541,
+        "translation_median_degrees": 3.1683328414114458,
+        "focal_relative_error_median": 0.01998923890790555,
+        "principal_point_normalized_error_median": 0.0021286293721324992,
+        "depth_mean_abs_rel": 0.023257064211312864,
+        "point_accuracy_mean_meters": 0.05460977089851246,
+        "point_completeness_mean_meters": 0.04669732468923617,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "kicker/letterbox_square.npz",
+      "evaluation": "kicker/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "meadow",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.7873766021410775,
+        "translation_disagreement_degrees": 3.363313431098521,
+        "depth_disagreement_abs_rel": 0.05618281981206463,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.533071994781494,
+        "native_uncertainty": -10.533071994781494
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.4598462846590134,
+        "translation_median_degrees": 2.233856952286068,
+        "focal_relative_error_median": 0.10088368351808272,
+        "principal_point_normalized_error_median": 0.002394163695668862,
+        "depth_mean_abs_rel": 0.0425242032046058,
+        "point_accuracy_mean_meters": 0.3800746173413467,
+        "point_completeness_mean_meters": 0.40463579457182836,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "meadow/identity.npz",
+      "evaluation": "meadow/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "meadow",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.835276557686073,
+        "translation_disagreement_degrees": 3.363313431098521,
+        "depth_disagreement_abs_rel": 0.05740802929115017,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.066024780273438,
+        "native_uncertainty": -10.066024780273438
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.1308440088577805,
+        "translation_median_degrees": 2.1663409566670477,
+        "focal_relative_error_median": 0.011786154445716566,
+        "principal_point_normalized_error_median": 0.0023520454391077242,
+        "depth_mean_abs_rel": 0.030042916977453683,
+        "point_accuracy_mean_meters": 0.145560408492656,
+        "point_completeness_mean_meters": 0.22446441997313735,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "meadow/center_crop_075.npz",
+      "evaluation": "meadow/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "meadow",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 5.513839809124381,
+        "translation_disagreement_degrees": 5.385417029542799,
+        "depth_disagreement_abs_rel": 0.05328673773415611,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.140128135681152,
+        "native_uncertainty": -10.140128135681152
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 4.412051651519884,
+        "translation_median_degrees": 5.687085556499636,
+        "focal_relative_error_median": 0.020880024392637784,
+        "principal_point_normalized_error_median": 0.038625173476534165,
+        "depth_mean_abs_rel": 0.03126880465704306,
+        "point_accuracy_mean_meters": 0.3621824726420026,
+        "point_completeness_mean_meters": 0.3542645290261755,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "meadow/asymmetric_crop_075.npz",
+      "evaluation": "meadow/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "meadow",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.835276557686073,
+        "translation_disagreement_degrees": 2.5455079106098504,
+        "depth_disagreement_abs_rel": 0.06258485938988972,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 9.236849308013916,
+        "native_uncertainty": -9.236849308013916
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.5342699513615443,
+        "translation_median_degrees": 1.4256035037998411,
+        "focal_relative_error_median": 0.07317767610436271,
+        "principal_point_normalized_error_median": 0.0023299264356778267,
+        "depth_mean_abs_rel": 0.03597489720267117,
+        "point_accuracy_mean_meters": 0.34623689395455515,
+        "point_completeness_mean_meters": 0.3509540192260058,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "meadow/letterbox_square.npz",
+      "evaluation": "meadow/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "office",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.0934237328586378,
+        "translation_disagreement_degrees": 20.940188902720323,
+        "depth_disagreement_abs_rel": 0.04655809679677617,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.081850528717041,
+        "native_uncertainty": -8.081850528717041
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.9298103114717253,
+        "translation_median_degrees": 9.76603341783691,
+        "focal_relative_error_median": 0.021346629619385334,
+        "principal_point_normalized_error_median": 0.002232849683357659,
+        "depth_mean_abs_rel": 0.02396479128726474,
+        "point_accuracy_mean_meters": 0.053970823723781196,
+        "point_completeness_mean_meters": 0.05069477740189112,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "office/identity.npz",
+      "evaluation": "office/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "office",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.436577481477631,
+        "translation_disagreement_degrees": 30.74738404448667,
+        "depth_disagreement_abs_rel": 0.08314279740271384,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 7.569270849227905,
+        "native_uncertainty": -7.569270849227905
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.6007644057147896,
+        "translation_median_degrees": 23.22725099994939,
+        "focal_relative_error_median": 0.02700829165829812,
+        "principal_point_normalized_error_median": 0.0022413150403186363,
+        "depth_mean_abs_rel": 0.03730376391755978,
+        "point_accuracy_mean_meters": 0.5358243558212858,
+        "point_completeness_mean_meters": 0.8427464052232296,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "office/center_crop_075.npz",
+      "evaluation": "office/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "office",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 8.974130910147702,
+        "translation_disagreement_degrees": 102.75198993410439,
+        "depth_disagreement_abs_rel": 0.21361809415856203,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.259143352508545,
+        "native_uncertainty": -6.259143352508545
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 8.07960442731716,
+        "translation_median_degrees": 86.69868720828799,
+        "focal_relative_error_median": 0.14627305299307108,
+        "principal_point_normalized_error_median": 0.03880398823901325,
+        "depth_mean_abs_rel": 0.15763943456591195,
+        "point_accuracy_mean_meters": 0.970458978113168,
+        "point_completeness_mean_meters": 2.3596612846681215,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "office/asymmetric_crop_075.npz",
+      "evaluation": "office/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "office",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.436577481477631,
+        "translation_disagreement_degrees": 30.74738404448667,
+        "depth_disagreement_abs_rel": 0.08314279740271384,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.416732788085938,
+        "native_uncertainty": -8.416732788085938
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.791518072851912,
+        "translation_median_degrees": 7.932254070853618,
+        "focal_relative_error_median": 0.020074153058787694,
+        "principal_point_normalized_error_median": 0.0023734500046471607,
+        "depth_mean_abs_rel": 0.032935450813520145,
+        "point_accuracy_mean_meters": 0.18959639605522807,
+        "point_completeness_mean_meters": 0.1795224297574488,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "office/letterbox_square.npz",
+      "evaluation": "office/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "pipes",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.761391887757468,
+        "translation_disagreement_degrees": 3.8486332625507558,
+        "depth_disagreement_abs_rel": 0.02670168370280602,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.664567947387695,
+        "native_uncertainty": -8.664567947387695
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.46973071919231657,
+        "translation_median_degrees": 3.3029004712374714,
+        "focal_relative_error_median": 0.012074856168891507,
+        "principal_point_normalized_error_median": 0.001521589619892078,
+        "depth_mean_abs_rel": 0.021088779033698532,
+        "point_accuracy_mean_meters": 0.032656864412609475,
+        "point_completeness_mean_meters": 0.04061170016105652,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "pipes/identity.npz",
+      "evaluation": "pipes/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "pipes",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.761391887757468,
+        "translation_disagreement_degrees": 4.398171310504969,
+        "depth_disagreement_abs_rel": 0.03182570183560777,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 7.267430067062378,
+        "native_uncertainty": -7.267430067062378
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 3.1854524310584376,
+        "translation_median_degrees": 5.859157703611819,
+        "focal_relative_error_median": 0.08029731960276074,
+        "principal_point_normalized_error_median": 0.0016492807125836194,
+        "depth_mean_abs_rel": 0.03785603329256128,
+        "point_accuracy_mean_meters": 0.10865478588537096,
+        "point_completeness_mean_meters": 0.21398798729069254,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "pipes/center_crop_075.npz",
+      "evaluation": "pipes/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "pipes",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 3.047428933854556,
+        "translation_disagreement_degrees": 14.412056489321479,
+        "depth_disagreement_abs_rel": 0.02670168370280602,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 7.146372079849243,
+        "native_uncertainty": -7.146372079849243
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 3.8528643998150756,
+        "translation_median_degrees": 14.55534309315929,
+        "focal_relative_error_median": 0.10307021048679688,
+        "principal_point_normalized_error_median": 0.03927414617776811,
+        "depth_mean_abs_rel": 0.025828156525974994,
+        "point_accuracy_mean_meters": 0.20348314509936655,
+        "point_completeness_mean_meters": 0.37600783892821854,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "pipes/asymmetric_crop_075.npz",
+      "evaluation": "pipes/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "pipes",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.4996092625339172,
+        "translation_disagreement_degrees": 4.398171310504969,
+        "depth_disagreement_abs_rel": 0.027457741137475608,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.819089889526367,
+        "native_uncertainty": -8.819089889526367
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.7854047966781992,
+        "translation_median_degrees": 2.618110478525723,
+        "focal_relative_error_median": 0.031565881146676245,
+        "principal_point_normalized_error_median": 0.002104981750906088,
+        "depth_mean_abs_rel": 0.020272095976280234,
+        "point_accuracy_mean_meters": 0.04212894398304456,
+        "point_completeness_mean_meters": 0.06224509524408248,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "pipes/letterbox_square.npz",
+      "evaluation": "pipes/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "playground",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.6343783319826033,
+        "translation_disagreement_degrees": 4.784435829492538,
+        "depth_disagreement_abs_rel": 0.1336663291705809,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 2.6502654552459717,
+        "native_uncertainty": -2.6502654552459717
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.2756191998382733,
+        "translation_median_degrees": 5.177482713538554,
+        "focal_relative_error_median": 0.06338839802360122,
+        "principal_point_normalized_error_median": 0.0023726650662592133,
+        "depth_mean_abs_rel": 0.08226146724917574,
+        "point_accuracy_mean_meters": 0.20959284853936094,
+        "point_completeness_mean_meters": 0.20251393357509412,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "playground/identity.npz",
+      "evaluation": "playground/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "playground",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.6541349616295293,
+        "translation_disagreement_degrees": 4.784435829492538,
+        "depth_disagreement_abs_rel": 0.13333992927932353,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 2.727842688560486,
+        "native_uncertainty": -2.727842688560486
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.8814468893854532,
+        "translation_median_degrees": 1.7740801330811113,
+        "focal_relative_error_median": 0.12029491286296898,
+        "principal_point_normalized_error_median": 0.002187491871771473,
+        "depth_mean_abs_rel": 0.07467372489163628,
+        "point_accuracy_mean_meters": 0.2891097084168873,
+        "point_completeness_mean_meters": 0.40447483851516897,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "playground/center_crop_075.npz",
+      "evaluation": "playground/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "playground",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 4.873863942365629,
+        "translation_disagreement_degrees": 17.67630624535046,
+        "depth_disagreement_abs_rel": 0.13616444121346133,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 2.9938244819641113,
+        "native_uncertainty": -2.9938244819641113
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 5.797956925483786,
+        "translation_median_degrees": 17.546155542676903,
+        "focal_relative_error_median": 0.16934650023568992,
+        "principal_point_normalized_error_median": 0.03838206240739376,
+        "depth_mean_abs_rel": 0.08500712501791671,
+        "point_accuracy_mean_meters": 0.1665420915542542,
+        "point_completeness_mean_meters": 0.26601266435443904,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "playground/asymmetric_crop_075.npz",
+      "evaluation": "playground/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "playground",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.6541349616295293,
+        "translation_disagreement_degrees": 4.223440403729583,
+        "depth_disagreement_abs_rel": 0.13333992927932353,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 2.6867713928222656,
+        "native_uncertainty": -2.6867713928222656
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.5602166850281236,
+        "translation_median_degrees": 3.0325370464117376,
+        "focal_relative_error_median": 0.03815297202772393,
+        "principal_point_normalized_error_median": 0.001657712223657103,
+        "depth_mean_abs_rel": 0.07519584779203665,
+        "point_accuracy_mean_meters": 0.12053050999953649,
+        "point_completeness_mean_meters": 0.09246473820148474,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "playground/letterbox_square.npz",
+      "evaluation": "playground/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.34046515113061127,
+        "translation_disagreement_degrees": 3.1717722700596656,
+        "depth_disagreement_abs_rel": 0.009665337234632424,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 11.561860084533691,
+        "native_uncertainty": -11.561860084533691
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.8615714968423588,
+        "translation_median_degrees": 5.628161853366593,
+        "focal_relative_error_median": 0.04502433473351827,
+        "principal_point_normalized_error_median": 0.0020265283077049484,
+        "depth_mean_abs_rel": 0.022505295386244736,
+        "point_accuracy_mean_meters": 0.06335076990241462,
+        "point_completeness_mean_meters": 0.06610019796726413,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief/identity.npz",
+      "evaluation": "relief/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.5892387088788449,
+        "translation_disagreement_degrees": 3.1697547373800226,
+        "depth_disagreement_abs_rel": 0.013603350974901934,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 18.310057640075684,
+        "native_uncertainty": -18.310057640075684
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.056071303986414,
+        "translation_median_degrees": 6.983560272087245,
+        "focal_relative_error_median": 0.038458237895958855,
+        "principal_point_normalized_error_median": 0.0020662661041162132,
+        "depth_mean_abs_rel": 0.025370045001993243,
+        "point_accuracy_mean_meters": 0.04560040501365432,
+        "point_completeness_mean_meters": 0.18895753402711704,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief/center_crop_075.npz",
+      "evaluation": "relief/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.5633709495969628,
+        "translation_disagreement_degrees": 20.583535336235087,
+        "depth_disagreement_abs_rel": 0.020358189563822224,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 14.351884365081787,
+        "native_uncertainty": -14.351884365081787
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.4510323840430512,
+        "translation_median_degrees": 23.062964874946925,
+        "focal_relative_error_median": 0.06771311342431717,
+        "principal_point_normalized_error_median": 0.03893337286749841,
+        "depth_mean_abs_rel": 0.02360735934692053,
+        "point_accuracy_mean_meters": 0.5490859710024486,
+        "point_completeness_mean_meters": 0.6644095016962953,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief/asymmetric_crop_075.npz",
+      "evaluation": "relief/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.5892387088788449,
+        "translation_disagreement_degrees": 3.1717722700596656,
+        "depth_disagreement_abs_rel": 0.013603350974901934,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.311846256256104,
+        "native_uncertainty": -10.311846256256104
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.502507929913875,
+        "translation_median_degrees": 3.6094887154538386,
+        "focal_relative_error_median": 0.036619905218889116,
+        "principal_point_normalized_error_median": 0.002292055216705409,
+        "depth_mean_abs_rel": 0.01848217819726751,
+        "point_accuracy_mean_meters": 0.06661914787101218,
+        "point_completeness_mean_meters": 0.06707176713061269,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief/letterbox_square.npz",
+      "evaluation": "relief/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief_2",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7321161964789322,
+        "translation_disagreement_degrees": 6.341207651209859,
+        "depth_disagreement_abs_rel": 0.01753900115260139,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 10.730161666870117,
+        "native_uncertainty": -10.730161666870117
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.8870864127116738,
+        "translation_median_degrees": 8.870693473653184,
+        "focal_relative_error_median": 0.05388753131494822,
+        "principal_point_normalized_error_median": 0.002007033495013219,
+        "depth_mean_abs_rel": 0.021933187195475577,
+        "point_accuracy_mean_meters": 0.08707317189690572,
+        "point_completeness_mean_meters": 0.1062169973934806,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief_2/identity.npz",
+      "evaluation": "relief_2/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief_2",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7305341598046855,
+        "translation_disagreement_degrees": 6.015466913663263,
+        "depth_disagreement_abs_rel": 0.01877857764316819,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 12.462493419647217,
+        "native_uncertainty": -12.462493419647217
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.03391027988425,
+        "translation_median_degrees": 10.39715759601366,
+        "focal_relative_error_median": 0.017142709841822895,
+        "principal_point_normalized_error_median": 0.0020025262083179568,
+        "depth_mean_abs_rel": 0.027696680115889334,
+        "point_accuracy_mean_meters": 0.11180523781955604,
+        "point_completeness_mean_meters": 0.30363844996306794,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief_2/center_crop_075.npz",
+      "evaluation": "relief_2/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief_2",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 5.12736011625841,
+        "translation_disagreement_degrees": 25.361718298311207,
+        "depth_disagreement_abs_rel": 0.05019682334769415,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.961504697799683,
+        "native_uncertainty": -6.961504697799683
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 5.666775844286293,
+        "translation_median_degrees": 19.1818914030378,
+        "focal_relative_error_median": 0.021547526083296034,
+        "principal_point_normalized_error_median": 0.038798306296339825,
+        "depth_mean_abs_rel": 0.03836229467230278,
+        "point_accuracy_mean_meters": 0.43735279490318446,
+        "point_completeness_mean_meters": 0.5749104525141477,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief_2/asymmetric_crop_075.npz",
+      "evaluation": "relief_2/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "relief_2",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 0.7321161964789322,
+        "translation_disagreement_degrees": 6.341207651209859,
+        "depth_disagreement_abs_rel": 0.01877857764316819,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 8.365480899810791,
+        "native_uncertainty": -8.365480899810791
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.8301262983285114,
+        "translation_median_degrees": 8.393903050754552,
+        "focal_relative_error_median": 0.01976583810679812,
+        "principal_point_normalized_error_median": 0.0021099858103368805,
+        "depth_mean_abs_rel": 0.026919690298134666,
+        "point_accuracy_mean_meters": 0.13789245083591695,
+        "point_completeness_mean_meters": 0.1627742645218952,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "relief_2/letterbox_square.npz",
+      "evaluation": "relief_2/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrace",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.8942229090832472,
+        "translation_disagreement_degrees": 17.271482595295303,
+        "depth_disagreement_abs_rel": 0.07178037275222449,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 6.301242828369141,
+        "native_uncertainty": -6.301242828369141
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.2446504838080212,
+        "translation_median_degrees": 4.289979098975804,
+        "focal_relative_error_median": 0.06626790006037744,
+        "principal_point_normalized_error_median": 0.0015901319628365803,
+        "depth_mean_abs_rel": 0.03490323322869933,
+        "point_accuracy_mean_meters": 0.27627381839930515,
+        "point_completeness_mean_meters": 0.2259259202556921,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrace/identity.npz",
+      "evaluation": "terrace/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrace",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.8942229090832472,
+        "translation_disagreement_degrees": 16.717991942065495,
+        "depth_disagreement_abs_rel": 0.08345813096139479,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 5.014463424682617,
+        "native_uncertainty": -5.014463424682617
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 0.9003194389029294,
+        "translation_median_degrees": 19.05764874157838,
+        "focal_relative_error_median": 0.01141386055702658,
+        "principal_point_normalized_error_median": 0.0016243601417247266,
+        "depth_mean_abs_rel": 0.05962007090459708,
+        "point_accuracy_mean_meters": 0.35693632260117353,
+        "point_completeness_mean_meters": 0.4945335631685476,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrace/center_crop_075.npz",
+      "evaluation": "terrace/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrace",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 10.004772619698471,
+        "translation_disagreement_degrees": 19.9714028072828,
+        "depth_disagreement_abs_rel": 0.07178037275222449,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 5.154444932937622,
+        "native_uncertainty": -5.154444932937622
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 8.555103840357887,
+        "translation_median_degrees": 15.282369321503786,
+        "focal_relative_error_median": 0.0904626278879663,
+        "principal_point_normalized_error_median": 0.038926915149959974,
+        "depth_mean_abs_rel": 0.048234848509589666,
+        "point_accuracy_mean_meters": 0.2610302498711968,
+        "point_completeness_mean_meters": 0.34014378809370954,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrace/asymmetric_crop_075.npz",
+      "evaluation": "terrace/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrace",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 1.750822311271219,
+        "translation_disagreement_degrees": 16.091642707756172,
+        "depth_disagreement_abs_rel": 0.07793831154561587,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 5.720318555831909,
+        "native_uncertainty": -5.720318555831909
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 2.1053909485699993,
+        "translation_median_degrees": 4.284515016050452,
+        "focal_relative_error_median": 0.06323748479161456,
+        "principal_point_normalized_error_median": 0.0018156205739673548,
+        "depth_mean_abs_rel": 0.0368651601682611,
+        "point_accuracy_mean_meters": 0.3673285099321157,
+        "point_completeness_mean_meters": 0.32508457862320045,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrace/letterbox_square.npz",
+      "evaluation": "terrace/letterbox_square_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrains",
+      "variant": "identity",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.6799618163148935,
+        "translation_disagreement_degrees": 11.131993032122715,
+        "depth_disagreement_abs_rel": 0.02000990225444381,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 4.744729995727539,
+        "native_uncertainty": -4.744729995727539
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.292822551491228,
+        "translation_median_degrees": 5.395747146642493,
+        "focal_relative_error_median": 0.4919775050122229,
+        "principal_point_normalized_error_median": 0.0008341676975390094,
+        "depth_mean_abs_rel": 0.03647756542303992,
+        "point_accuracy_mean_meters": 0.6051362395944715,
+        "point_completeness_mean_meters": 0.54963599657113,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrains/identity.npz",
+      "evaluation": "terrains/identity_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrains",
+      "variant": "center_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.3082092205318148,
+        "translation_disagreement_degrees": 16.756701682325787,
+        "depth_disagreement_abs_rel": 0.03672739217363202,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 7.604522705078125,
+        "native_uncertainty": -7.604522705078125
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 3.2590766394877013,
+        "translation_median_degrees": 5.394244232199545,
+        "focal_relative_error_median": 0.1640339623264474,
+        "principal_point_normalized_error_median": 0.0007966704665897819,
+        "depth_mean_abs_rel": 0.02718518699421974,
+        "point_accuracy_mean_meters": 0.03528995061781507,
+        "point_completeness_mean_meters": 0.16412917708730296,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrains/center_crop_075.npz",
+      "evaluation": "terrains/center_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrains",
+      "variant": "asymmetric_crop_075",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.7792036349098854,
+        "translation_disagreement_degrees": 15.183093154961686,
+        "depth_disagreement_abs_rel": 0.027566628042602376,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 7.809028625488281,
+        "native_uncertainty": -7.809028625488281
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 3.417925687145278,
+        "translation_median_degrees": 11.922156561472551,
+        "focal_relative_error_median": 0.14356091110794428,
+        "principal_point_normalized_error_median": 0.03897178203631847,
+        "depth_mean_abs_rel": 0.029024526479932467,
+        "point_accuracy_mean_meters": 0.06444235242742535,
+        "point_completeness_mean_meters": 0.1780464938521077,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrains/asymmetric_crop_075.npz",
+      "evaluation": "terrains/asymmetric_crop_075_vs_gt.json"
+    },
+    {
+      "dataset": "eth3d-training-raw",
+      "model": "dust3r",
+      "scene": "terrains",
+      "variant": "letterbox_square",
+      "anchor_count": 3,
+      "scores": {
+        "rotation_disagreement_degrees": 2.3082092205318148,
+        "translation_disagreement_degrees": 15.183093154961686,
+        "depth_disagreement_abs_rel": 0.027566628042602376,
+        "native_confidence_field": "world_points_conf",
+        "native_confidence_median": 3.475866913795471,
+        "native_uncertainty": -3.475866913795471
+      },
+      "ground_truth": {
+        "rotation_median_degrees": 1.3335759003214336,
+        "translation_median_degrees": 9.994098122522642,
+        "focal_relative_error_median": 0.46822269346971634,
+        "principal_point_normalized_error_median": 0.000973331236850907,
+        "depth_mean_abs_rel": 0.05149688653455481,
+        "point_accuracy_mean_meters": 0.4311715691148019,
+        "point_completeness_mean_meters": 0.4054298996761063,
+        "point_accuracy_mean_millimeters": null,
+        "point_completeness_mean_millimeters": null
+      },
+      "prediction": "terrains/letterbox_square.npz",
+      "evaluation": "terrains/letterbox_square_vs_gt.json"
+    }
+  ]
+}
