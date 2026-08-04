@@ -4,6 +4,7 @@ import io
 import zipfile
 
 import pytest
+import requests
 
 from camcanon3r.http_zip import HTTPRangeReader
 
@@ -22,14 +23,24 @@ class _Response:
 
 
 class _Session:
-    def __init__(self, payload: bytes, *, etag: str = '"frozen"') -> None:
+    def __init__(
+        self,
+        payload: bytes,
+        *,
+        etag: str = '"frozen"',
+        failures: int = 0,
+    ) -> None:
         self.payload = payload
         self.etag = etag
+        self.failures = failures
         self.requests: list[tuple[int, int]] = []
         self.closed = False
 
     def get(self, url: str, **kwargs: object) -> _Response:
         assert url == "https://example.test/archive.zip"
+        if self.failures:
+            self.failures -= 1
+            raise requests.exceptions.ProxyError("transient proxy failure")
         range_header = kwargs["headers"]["Range"]  # type: ignore[index]
         start_text, end_text = str(range_header).removeprefix("bytes=").split("-")
         start, end = int(start_text), int(end_text)
@@ -88,3 +99,18 @@ def test_http_range_reader_rejects_identity_drift() -> None:
     )
     with pytest.raises(OSError, match="ETag changed"):
         source.read(1)
+
+
+def test_http_range_reader_retries_transient_proxy_failure() -> None:
+    payload = _zip_payload()
+    session = _Session(payload, failures=2)
+    source = HTTPRangeReader(
+        "https://example.test/archive.zip",
+        size=len(payload),
+        etag='"frozen"',
+        block_size=128,
+        max_attempts=3,
+        retry_delay_seconds=0,
+        session=session,
+    )
+    assert source.read(1) == payload[:1]

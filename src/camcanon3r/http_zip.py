@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import io
 import re
+import time
 from collections import OrderedDict
 from typing import Protocol
 
@@ -37,6 +38,8 @@ class HTTPRangeReader(io.RawIOBase):
         block_size: int = 4 * 1024 * 1024,
         cache_blocks: int = 8,
         timeout: tuple[float, float] = (30.0, 180.0),
+        max_attempts: int = 12,
+        retry_delay_seconds: float = 1.0,
         session: _RangeSession | None = None,
     ) -> None:
         super().__init__()
@@ -48,12 +51,18 @@ class HTTPRangeReader(io.RawIOBase):
             raise ValueError("block_size must be positive")
         if cache_blocks <= 0:
             raise ValueError("cache_blocks must be positive")
+        if max_attempts <= 0:
+            raise ValueError("max_attempts must be positive")
+        if retry_delay_seconds < 0:
+            raise ValueError("retry_delay_seconds must be non-negative")
         self.url = url
         self.size = int(size)
         self.etag = etag
         self.block_size = int(block_size)
         self.cache_blocks = int(cache_blocks)
         self.timeout = timeout
+        self.max_attempts = int(max_attempts)
+        self.retry_delay_seconds = float(retry_delay_seconds)
         self._position = 0
         self._cache: OrderedDict[int, bytes] = OrderedDict()
         self._session = session or requests.Session()
@@ -94,11 +103,33 @@ class HTTPRangeReader(io.RawIOBase):
         end = min(start + self.block_size, self.size) - 1
         if start >= self.size:
             return b""
-        response = self._session.get(
-            self.url,
-            headers={"Range": f"bytes={start}-{end}"},
-            timeout=self.timeout,
-        )
+        response = None
+        last_error: requests.RequestException | None = None
+        for attempt in range(self.max_attempts):
+            try:
+                candidate = self._session.get(
+                    self.url,
+                    headers={"Range": f"bytes={start}-{end}"},
+                    timeout=self.timeout,
+                )
+            except requests.RequestException as error:
+                last_error = error
+            else:
+                if candidate.status_code not in {408, 429} and not (
+                    500 <= candidate.status_code < 600
+                ):
+                    response = candidate
+                    break
+                last_error = requests.HTTPError(
+                    f"transient HTTP status {candidate.status_code}"
+                )
+            if attempt + 1 < self.max_attempts:
+                delay = min(self.retry_delay_seconds * 2**attempt, 10.0)
+                time.sleep(delay)
+        if response is None:
+            raise OSError(
+                f"HTTP range failed after {self.max_attempts} attempts"
+            ) from last_error
         if response.status_code != 206:
             raise OSError(
                 "server did not honor the frozen byte range: "
