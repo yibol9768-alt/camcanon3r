@@ -144,7 +144,7 @@ in the frozen design rather than being removed after inspection.
 
 | Claim | Required evidence | Current status |
 |---|---|---|
-| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Multi-model ETH3D raw GT supported for view-dependent 75% crop:** VGGT and DUSt3R each have 13 scenes and 52 complete evaluations with pose/intrinsics/depth/point-map metrics; a second dataset and a second transform family crossing the registered threshold remain required for the full hypothesis |
+| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Two families supported on multi-model ETH3D raw GT:** the complete 13-scene, 11-variant sweep crosses the registered rotation threshold for independent and shared off-center crops in both VGGT and DUSt3R; DTU remains required for the full two-dataset hypothesis |
 | Native confidence misses failures | calibration and risk-coverage comparison | needs evidence |
 | Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
 | CamCanon repairs geometry | paired baseline/ablation results and compute cost | needs evidence |
@@ -194,6 +194,35 @@ failure for the view-dependent crop, with consistent camera, depth, and
 completeness effects.  They do not satisfy the full two-transform,
 two-dataset hypothesis and do not support a claim that every metric degrades
 for every model.
+
+## Frozen mechanism snapshot: severity and crop scope on ETH3D
+
+The complete mechanism evidence is frozen in
+`artifacts/eth3d_mechanism_seed17/`: 13 scenes, 11 variants, and 143 GT
+evaluations per model. The first four variants retain the original design;
+the added 90/60% severity levels and shared-window controls use the seeds
+frozen in `configs/eth3d_mechanism_variants.json`. Models remain separate.
+
+Independent off-center rotation deltas at 90/75/60% retention are
+1.31/4.61/10.46 degrees for VGGT and 1.19/4.52/10.89 degrees for DUSt3R.
+The response is monotone for both. Shared off-center windows reduce the
+effect but form a second family over the registered threshold: 75% deltas are
+2.38 degrees ([1.12, 2.77]) and 2.18 degrees ([0.88, 2.38]); 60% deltas are
+3.71 degrees ([2.34, 6.29]) and 3.30 degrees ([1.50, 5.56]).
+
+At matched 90/75/60% retention, independent-minus-shared rotation contrasts
+are 0.58/2.01/4.37 degrees for VGGT and 0.41/2.60/7.07 degrees for DUSt3R;
+all six bootstrap intervals exclude zero. Thus view dependence amplifies the
+failure, but a shared off-center camera shift is itself sufficient at stronger
+severities. Center and letterbox families never cross a registered threshold.
+The 60% independent crop crosses the depth threshold for both models. One
+point alignment is undefined for each model at that severity and remains
+unimputed.
+
+This satisfies the two-family condition on ETH3D only. The conservative
+cross-dataset gate in `analysis.json` remains false until every supplied model
+crosses for two datasets; no threshold or family definition changes after this
+inspection.
 
 The aggregation code now enforces one identity per scene, a complete paired
 scene/variant design, separation of pose-only and depth protocols, and

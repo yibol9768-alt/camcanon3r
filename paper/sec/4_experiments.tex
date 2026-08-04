@@ -170,12 +170,56 @@ resampling or tensor-shape change necessarily damages the reconstruction.
   }
 \end{table}
 
-The claim boundary follows the frozen controls.  The two separate aggregates
-establish multi-model GT degradation under the registered view-dependent crop
-on ETH3D raw.  They do not establish generic crop sensitivity, a second
-transform family crossing the registered threshold, or cross-dataset
-generality.  Model-specific non-results remain visible rather than being
-hidden by pooling VGGT and DUSt3R.
+\paragraph{Severity and crop scope.}
+We next evaluate the frozen 90/75/60\% retained-fraction matrix, separating a
+center crop, one shared off-center window reused across views, and independently
+shifted off-center windows (Table~\ref{tab:mechanism}).  Independent cropping
+is monotone for both models and crosses two degrees at 75\% and 60\%.  Shared
+off-center cropping also crosses at those severities: its 75\% rotation delta
+is \SI{2.38}{\degree} ([1.12, 2.77]) for VGGT and
+\SI{2.18}{\degree} ([0.88, 2.38]) for DUSt3R.  At 60\%, the deltas reach
+\SI{3.71}{\degree} ([2.34, 6.29]) and \SI{3.30}{\degree} ([1.50, 5.56]).
+
+View dependence remains a separate amplifier.  At matched 90/75/60\%
+retention, independent-minus-shared rotation deltas are 0.58 ([0.06, 1.33]),
+2.01 ([0.29, 4.31]), and 4.37 ([3.54, 7.57]) degrees for VGGT, and 0.41
+([0.12, 1.00]), 2.60 ([1.05, 2.99]), and 7.07 ([2.48, 8.55]) degrees for
+DUSt3R.  Every interval excludes zero.  Center crops never cross a registered
+threshold; DUSt3R's center-crop rotation response is not monotone.  Letterbox
+remains a negative control.
+
+\begin{table}[t]
+  \centering
+  \caption{Paired rotation-error increase (degrees) across ETH3D scenes at
+  90/75/60\% retained fraction. Bold entries exceed the frozen 2-degree
+  point-estimate threshold. Models are not pooled.}
+  \label{tab:mechanism}
+  \setlength{\tabcolsep}{3pt}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{llrrr}
+    \toprule
+    Model & Crop scope & 90\% & 75\% & 60\% \\
+    \midrule
+    \multirow{3}{*}{VGGT}
+      & Independent off-center & 1.31 & \textbf{4.61} & \textbf{10.46} \\
+      & Shared off-center      & 0.70 & \textbf{2.38} & \textbf{3.71} \\
+      & Center                 & 0.29 & 0.48 & 0.92 \\
+    \midrule
+    \multirow{3}{*}{DUSt3R}
+      & Independent off-center & 1.19 & \textbf{4.52} & \textbf{10.89} \\
+      & Shared off-center      & 0.50 & \textbf{2.18} & \textbf{3.30} \\
+      & Center                 & 0.30 & 0.61 & 0.47 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+The 60\% independent crop also crosses the 0.05 depth-delta threshold for both
+models (0.068 and 0.076).  Its point-map alignment is undefined on one VGGT
+scene and one DUSt3R scene, so those point metrics are not bootstrapped or
+imputed.  The two separate aggregates therefore establish two off-center crop
+families on ETH3D, not generic crop sensitivity or cross-dataset generality.
+Model-specific non-results remain visible rather than being hidden by pooling.
 
 The canonical-camera repair is paired with each corrupted input and with an
 identity clean-cost control.  For an error metric $E$, we report raw errors and

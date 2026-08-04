@@ -44,8 +44,19 @@ point completeness error rises by \SI{0.369}{\meter} ([0.161, 0.756]) and
 increases by approximately 0.037 for both models, directly linking the
 intervention to the camera mechanism.  Letterbox depth and point-geometry
 intervals include zero for both models, while shared center crops have smaller,
-metric-dependent effects.  Thus the evidence supports a view-dependent-crop
-failure, not generic sensitivity to all spatial preprocessing.
+metric-dependent effects.
+
+A frozen 90/75/60\% severity and crop-scope sweep sharpens this mechanism.
+Independent off-center crops degrade rotation monotonically for both models;
+the paired deltas reach \SI{10.46}{\degree} for VGGT and
+\SI{10.89}{\degree} for DUSt3R at 60\% retention.  Reusing one off-center
+window across all views reduces but does not remove the failure: shared 75\%
+crops increase rotation by \SI{2.38}{\degree} and \SI{2.18}{\degree}, crossing
+the registered threshold on both models.  Independent-minus-shared contrasts
+remain positive at all three severities, whereas center crops and letterbox
+never cross a registered threshold.  The evidence therefore implicates
+off-center camera changes, with a distinct amplification from view dependence,
+rather than generic sensitivity to all spatial preprocessing.
 
 A separate diagnostic establishes replication boundaries without conflating
 cross-run disagreement and GT error.  On three four-view scenes, asymmetric
@@ -64,10 +75,10 @@ This draft makes three evidence-bounded contributions:
         depth, and point maps without fitting the surface ground truth.
   \item We establish on 13 ETH3D scenes per model that view-dependent 75\%
         cropping degrades VGGT and DUSt3R cameras, depth, and point
-        completeness, while matched letterbox controls remain close to
-        identity and model-specific exceptions remain explicit.
+        completeness; a matched severity/scope sweep isolates a second shared
+        off-center failure family while center and letterbox controls remain
+        below the registered threshold.
 \end{itemize}
-Cross-dataset GT results, a second transform family crossing the frozen
-failure threshold, reliability metrics, and a training-free consensus repair
-are pre-registered promotion gates, not contributions claimed by the present
-evidence.
+Cross-dataset GT results, reliability metrics, and a training-free consensus
+repair are pre-registered promotion gates, not contributions claimed by the
+present evidence.
