@@ -106,7 +106,7 @@ only merge.  It never resets or force-checks out files.
 ## Current frozen state
 
 - Control-plane baseline immediately before this update:
-  `ba892b782fb06c685300bd09140b0a454d5a34da` plus the evidence-bundle
+  `0730e134967a58d08ea1681a588ceb7830c61660` plus the DTU protocol-prose
   commit that contains this text.  `vircs` is clean and passes 144 CPU tests. While
   the DTU selection extractor owns the download proxy and data tree, the
   formal `my5090` checkout is intentionally left clean at `4029913`; it passes
@@ -162,7 +162,7 @@ only merge.  It never resets or force-checks out files.
   the frozen DTU evaluation remains the only held-out gate.
 - DTU acquisition is active under the single Windows task
   `CamCanon3R-DTUSelectionExtract`. At this edit, SampleSet is complete 58/58,
-  Rectified is in progress at 37/66, and Points has not started. The
+  Rectified is in progress at 38/66, and Points has not started. The
   extractor uses only the process-scoped proxy, is resumable, and now retries
   truncated HTTP 206 bodies. Do not launch a duplicate, sync the execution
   checkout, inspect GT outcomes, or start GPU work while this task is running.
@@ -171,6 +171,11 @@ only merge.  It never resets or force-checks out files.
   outputs bind input hashes and full timing; resume validates CRC and affines;
   evaluation performs audit-only prediction validation; and qualitative scene
   selection was frozen before outcomes.
+- The confirmatory paper prose now records the frozen DTU split, exact three
+  views and lighting condition, eleven-transform matrix, four point-map
+  variants, and the non-leaderboard boundary of the deterministic point-map
+  metric. The DTU benchmark's primary CVPR 2014 citation is included. No DTU
+  outcome was added to the draft before the held-out gate.
 - The previously missing DTU canonical-control chain is now frozen separately:
   neutral-gray preparation requires 22 scenes, two variants, 132 images and
   132 masks; each model runs 44 predictions; identity repeats, compute, and

@@ -53,12 +53,17 @@ cross-model non-equivariance in the diagnostic setting, not accuracy loss.
 
 \subsection{Confirmatory ground-truth evaluation}
 The frozen confirmatory matrix uses VGGT and DUSt3R on ETH3D
-\cite{schops2017eth3d}.  We evaluate identity, center crop, asymmetric crop,
-and letterbox variants against pose ground truth; raw images additionally use
-the matched raw-depth maps, whereas pre-undistorted images are pose-only.
-DUSt3R uses four views, complete symmetrized pairs, and its 300-iteration
-point-cloud optimizer.  Every model-specific resize and crop is composed with
-the registered intervention before evaluation.
+\cite{schops2017eth3d} and DTU~\cite{jensen2014large}.  ETH3D uses four fixed
+raw views from each of all 13 training scenes, with matched raw-depth maps.
+DTU is held out until all detector scores and thresholds are fixed: we use the
+standard 22 MVS evaluation scans, three pixelNeRF views (indices 22, 25, and
+28), and lighting condition 3.  The same ordered 11-transform severity/scope
+matrix is applied to both datasets.  All variants receive pose and intrinsic
+evaluation; point accuracy and completeness are computed for the four
+predeclared confirmatory variants on DTU and for all variants with available
+raw depth on ETH3D.  DUSt3R uses complete symmetrized pairs and its
+300-iteration point-cloud optimizer.  Every model-specific resize and crop is
+composed with the registered intervention before evaluation.
 
 All confirmatory comparisons are paired by model, scene, view set, and
 transform. We aggregate at the scene level and report deterministic 95\%
@@ -72,6 +77,13 @@ cannot reuse outputs from an older metric definition.
 Degenerate camera-center alignments remain explicitly undefined and are not
 imputed as zero; the corresponding scene metric is excluded from its aggregate
 interval while the other GT metrics remain available.
+
+DTU uses the same camera-pose-only orientation-preserving \mbox{Sim(3)} but no
+depth metric.  Its point-map evaluation follows the official observation-mask,
+ground-plane, and strict 20-mm directional filters with deterministic 0.2-mm
+voxelization and a 100,000-point cap.  Because our three-view point maps and
+deterministic cap differ from an official MVS submission, we report this as the
+\method deterministic DTU point-map metric rather than a leaderboard score.
 
 \paragraph{Matched multi-model results.}
 All 104 registered evaluations complete---52 per model---and every pose,
