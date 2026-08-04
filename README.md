@@ -27,12 +27,25 @@ gate, so no generic geometry-repair claim is made. The complete positive and
 negative evidence is in
 [`artifacts/eth3d_repair_seed17/`](artifacts/eth3d_repair_seed17/).
 
-Cross-transform disagreement also outperforms native uncertainty on exploratory
-ETH3D rotation failure detection, but ETH3D is development-only for this score.
-The detector decision and cross-dataset mechanism claim remain reserved for the
-frozen 22-scene DTU study. See
-[`artifacts/eth3d_reliability_seed17/`](artifacts/eth3d_reliability_seed17/)
-and [`docs/REVIEWER_RED_TEAM.md`](docs/REVIEWER_RED_TEAM.md).
+The held-out 22-scene DTU study is complete. Independent 75% crops increase
+paired rotation error by 5.19° for VGGT and 2.96° for DUSt3R; the shared
+off-center family also crosses the frozen threshold at stronger severity on
+both models. A support-preserving placement control keeps every source RGB
+pixel, scale, canvas, and padding count fixed yet increases rotation by
+5.69°--13.97° across all four model/dataset combinations. Missing support is
+therefore not necessary for the camera drift.
+
+On held-out DTU, cross-transform disagreement detects strict >2° rotation
+failures with AUROC 0.998 for VGGT and 0.855 for DUSt3R. It strongly beats
+VGGT native confidence but ties DUSt3R native AUROC, so universal superiority
+is not claimed. Neutral-gray canonicalization recovers 94.1% and 76.7% of the
+DTU rotation gap at zero measured clean cost. The complete lightweight DTU,
+support-control, reliability, repair, compute, figure, and provenance evidence
+is committed in [`artifacts/dtu_seed17/`](artifacts/dtu_seed17/); its bundle
+contains 833 copied files and hashes 782 large predictions.
+
+The no-TODO eight-page manuscript and second reviewer assessment are tracked in
+[`paper/`](paper/) and [`docs/REVIEWER_RED_TEAM.md`](docs/REVIEWER_RED_TEAM.md).
 
 Ground-truth experiments use only documented official datasets. See
 [`docs/DATA_PROVENANCE.md`](docs/DATA_PROVENANCE.md) for URLs, hashes, formats,

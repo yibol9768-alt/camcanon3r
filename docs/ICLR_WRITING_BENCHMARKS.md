@@ -44,8 +44,9 @@ paper with explicit robustness tests.
   imply that π³ already tested crop/resize camera equivariance.
 - **Against Cameras as Rays:** ray diffusion represents pose uncertainty by
   sampling learned modes. CamCanon3R's cross-transform disagreement is a
-  deterministic audit signal. Do not call it uncertainty estimation until
-  held-out GT AUROC and risk--coverage pass the registered gate.
+  deterministic audit signal. Held-out AUROC and risk--coverage support failure
+  ranking, but not probabilistic calibration or universal superiority to native
+  confidence (DUSt3R ties in AUROC).
 - **Against PF-LRM:** PF-LRM conditions on and explicitly lists known intrinsics
   as an assumption. CamCanon3R audits an upstream systems boundary where image
   preprocessing deterministically changes those intrinsics. This is a precise
@@ -78,21 +79,21 @@ Each major section must follow `claim -> mechanism -> evidence -> boundary`.
   accuracy/completeness, plus deltas from identity.
 - [x] VGGT and DUSt3R reported separately on a matched GT protocol.
 - [x] At least two transform families cross the frozen degradation threshold
-  on ETH3D; DTU remains required for the registered two-dataset hypothesis.
+  on both ETH3D and DTU for both models.
 - [x] Severity response and view-dependent-versus-shared crop ablation test the
   principal-point mechanism on both VGGT and DUSt3R.
-- [ ] Native confidence, transform disagreement, AUROC, risk--coverage, and
+- [x] Native confidence, transform disagreement, AUROC, risk--coverage, and
   scene-cluster intervals on held-out cases.
-- [ ] Analytic repair, consensus, clean-cost control, oracle selection, raw gap
+- [x] Analytic repair, consensus, clean-cost control, oracle selection, raw gap
   recovery, runtime, VRAM, and accuracy per unit compute.
-- [ ] Representative success and failure cases chosen without outcome-driven
+- [x] Representative success and failure cases chosen without outcome-driven
   scene filtering.
-- [ ] Support-preserving symmetric/shared-edge/independent-edge letterbox
+- [x] Support-preserving symmetric/shared-edge/independent-edge letterbox
   control completed on both models and datasets, with the unchanged gate and
   any negative result retained.
-- [ ] Abstract, title, contributions, tables, and conclusion regenerated only
+- [x] Abstract, title, contributions, tables, and conclusion regenerated only
   from frozen result artifacts.
-- [ ] Independent reviewer red-team finds no diagnostic/GT conflation, hidden
+- [x] Second paper-only reviewer red-team finds no diagnostic/GT conflation, hidden
   selection, missing undefined values, or unsupported generalization.
 
 ## Target-score interpretation

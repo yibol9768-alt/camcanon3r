@@ -2,18 +2,15 @@
 \label{sec:conclusion}
 
 Image preprocessing is part of the camera model, not merely input plumbing.
-\method makes this dependency explicit and measures whether a feed-forward 3D
-system respects the corresponding equivariance contract.  On 13 ETH3D scenes
-per model, paired ground-truth evaluation establishes that off-center crops
-degrade VGGT and DUSt3R cameras, depth, and point geometry.  The effect grows
-with severity, persists when one crop window is shared across views, and is
-amplified when windows vary independently; center and letterbox controls stay
-below the registered threshold.  Model-specific and undefined metrics remain
-explicit.  The present conclusion is therefore deliberately narrow: two
-registered off-center crop families cause a real multi-model accuracy failure
-on ETH3D.  Inverse-warping a known crop to its canonical camera canvas recovers
-96.6\% and 55.8\% of the rotation-error gap for VGGT and DUSt3R with zero
-measured clean cost, but it worsens depth for both models and cross-fill
-consensus fails to improve the DUSt3R analytic baseline.  The supported repair
-claim is therefore camera orientation only; cross-dataset generality and
-held-out failure prediction remain separate promotion gates.
+\method makes this dependency explicit and tests whether feed-forward 3D
+systems respect the resulting equivariance contract.  Across VGGT and DUSt3R
+on ETH3D and held-out DTU, two off-center transform families produce a paired
+GT orientation failure, while center and symmetric-letterbox controls stay
+below threshold.  A support-preserving placement experiment shows that missing
+pixels are not necessary: changing only where identical RGB support lies on a
+fixed canvas causes large camera drift.  Cross-transform disagreement detects
+held-out failures for both models, although it does not beat DUSt3R's native
+AUROC.  Canonical-camera warping recovers the cross-dataset rotation gap at zero
+measured clean cost, but it is not a general geometry repair.  The practical
+lesson is simple: log and compose every pixel map, propagate the induced camera,
+and canonicalize known mismatches before trusting reconstructed geometry.

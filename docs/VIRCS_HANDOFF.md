@@ -2,6 +2,19 @@
 
 Updated: 2026-08-04 (Asia/Shanghai)
 
+Post-handoff completion note (2026-08-05 Asia/Shanghai): the migration queue is
+fully executed. DTU extraction/rehash/preparation, 484 main predictions and GT
+records, both held-out reliability analyses, 88 repair predictions/evaluations,
+and all 210 support-control predictions/evaluations completed successfully.
+The combined mechanism, support, detector, and cross-dataset rotation-repair
+gates pass; the stronger all-model native-confidence superiority gate fails
+because DUSt3R ties. The 1,615-entry evidence design is frozen under
+`artifacts/dtu_seed17/` (833 copied files, 782 prediction hashes), and its
+834-file checksum list verifies locally. The paper is now an eight-page,
+no-TODO draft with final figures/tables and a second reviewer red-team at a
+central 7/10, plausible 6--8 band. The 157-test suite passes. The detailed
+runtime notes below are preserved as amendment chronology, not current work.
+
 Live execution note (2026-08-05 Asia/Shanghai): DTU extraction, independent
 146-file rehash, preparation, both 242-case inference sweeps, and the VGGT GT
 evaluation are complete. The DUSt3R GT evaluator stopped after 55 records when
@@ -34,14 +47,13 @@ paper, evidence, reproducibility package, and reviewer red-team jointly support
 an estimated ICLR-style score in the 6--8 range.  Report uncertainty honestly;
 never promote a claim beyond the committed evidence.
 
-The present paper is a seven-page working draft, not a finished submission.
-Its Related Work is calibrated against the frozen three-paper ICLR comparison;
-matched ETH3D mechanism, repair, and development-reliability evidence is
-integrated; and a vector method overview plus dedicated limitations section are
-present.  The remaining paper TODO is deliberately reserved for held-out DTU
-reliability.  The current red-team estimate remains 5--6, not the requested
-6--8, because cross-dataset GT, held-out detection, and result figures are not
-yet complete.
+The present paper is an eight-page evidence-complete draft. Its Related Work is
+calibrated against the frozen three-paper ICLR comparison; ETH3D and DTU
+mechanism, support, repair, held-out reliability, compute, and qualitative
+evidence are integrated; and no TODO remains. The second red-team estimate is
+central 7/10 with a plausible 6--8 band. This meets the requested honest score
+bar but does not turn optional third-backbone or deployed-pipeline replication
+into completed evidence.
 
 ## Two-machine contract
 
@@ -127,7 +139,7 @@ only merge.  It never resets or force-checks out files.
 - Do not copy the Mac proxy configuration, provider credentials, private keys,
   `.env` files, or `.private-download-proxy/` into Git or `vircs`.
 
-## Current frozen state
+## Historical execution snapshot (superseded by the completion note)
 
 - Control-plane baseline immediately before this update:
   `e6fcaff44c83511387479a36c7be54d224b782e7` plus the extraction-audit
@@ -261,26 +273,14 @@ download progress are allowed to drift after this document is committed.
 7. Update the paper only after claim gates in `docs/RESEARCH_CONTRACT.md`,
    `docs/PAPER_STORY.md`, and `docs/RELIABILITY_PROTOCOL.md` are satisfied.
 
-## Immediate research queue
+## Optional next research queue
 
-1. Let the existing DTU selection task finish exactly once; verify all three
-   reports and the selected tree before syncing the `my5090` checkout.
-2. Fast-forward `my5090`, run 154/154 tests, then complete the independent
-   146-file extraction audit and execute/audit DTU preparation. Start no GPU
-   task until two idle checks and no foreign owner.
-3. Run VGGT then DUSt3R over the exact 22 x 11 design, retaining schema-1.2
-   input hashes, compute/VRAM metadata, and audit-only resumability.
-4. Evaluate all pose/intrinsic cases and the four point-map variants, freeze
-   compact artifacts, then open the unchanged held-out reliability gate.
-5. Run the separate two-variant canonical-control chain for both models and
-   freeze DTU gap-recovery reports without changing the selected fill policy.
-6. Render the frozen severity, held-out risk--coverage, repair-ablation,
-   cross-dataset, compute, and outcome-independent qualitative evidence.
-7. Run the support-preserving letterbox control over both models and datasets,
-   then freeze its paired cross-dataset gate without changing its threshold.
-8. Replace the final TODO only from committed DTU artifacts, then run a second
-   paper-only reviewer red-team against the three ICLR writing benchmarks and
-   the honest 6--8 completion bar.
+1. Add one independently logged real preprocessing pipeline or a third
+   backbone using the existing frozen audit; do not alter the completed gates.
+2. Build a supplementary all-case qualitative atlas and minimal evidence-
+   reproduction walkthrough from the committed bundle.
+3. Re-run the support-preserving control independently if external replication
+   is available; preserve its post-ETH3D registration chronology.
 
 ## Handoff prompt for the vircs Codex session
 

@@ -1,31 +1,30 @@
 \section{Limitations}
 \label{sec:limitations}
 
-Our interventions are controlled affine camera changes, not a measurement of
-how often a particular crop occurs in deployed pipelines.  The current
-ground-truth evidence uses four fixed views from 13 ETH3D scenes and two model
-families; behavior may differ with view count, image content, resolution,
-training preprocessing, or other reconstruction systems.  Our ETH3D point-map
-metric uses raw scan-supported depth and camera-pose-only alignment and is not
-the official MVS leaderboard protocol.  The experiment excludes photometric
-corruptions and unrelated-view failures because they do not isolate the known
-camera intervention.
+Our interventions are controlled camera changes, not a prevalence study of
+deployed preprocessing bugs.  The GT evidence covers 13 ETH3D scenes, 22 DTU
+scans, three or four views, and two model families.  It does not establish the
+same severity for other view counts, resolutions, training preprocessors,
+domains, or reconstruction systems.  The support-preserving control makes the
+coordinate effect causal under its fixed canvases, but it was designed after
+the ETH3D crop study; its chronology is disclosed and it should be replicated
+independently.  Connecting the audit to logged failures in a production or
+user-captured pipeline remains important future evidence.
 
-Cropping changes coordinates and visible support together.  The canonical
-control holds the crop-supported RGB samples fixed and therefore tests whether
-camera-canvas placement contributes beyond missing context, but it also adds a
-fixed fill and another interpolation step.  It narrows rather than completely
-eliminates support, fill, and resampling as alternative explanations.  Our
-separately registered edge-letterbox control removes support loss and matches
-scale, canvas, and padding count, but was designed after the ETH3D mechanism
-results and must be interpreted with that chronology.
+Cropping changes coordinates and visible support together.  Canonical repair
+holds crop-supported RGB samples fixed while changing canvas placement, but it
+adds a fixed fill and another interpolation step and cannot reconstruct removed
+pixels.  Consistent with this boundary, it repairs camera orientation but
+worsens ETH3D depth for both models.  DTU offers no matched depth maps under our
+protocol, and strict observation/20-mm point filtering leaves some DUSt3R point
+directions undefined; we refuse a subset bootstrap.  The DTU point-map metric
+uses camera-pose alignment and a deterministic cap and is not the official MVS
+leaderboard protocol.
 
-Canonicalization can undo coordinates but cannot reconstruct pixels removed by
-a crop.  Consistent with that limit, it recovers camera rotation but worsens
-depth for both models, and the registered consensus selector is not promoted.
-Finally, ETH3D reliability is development evidence because its outcomes were
-available when the score was finalized.  Any detector claim requires the
-unchanged threshold and score to succeed on held-out DTU; until then,
-disagreement remains an audit metric.  DUSt3R additionally carries a
-non-commercial code and checkpoint license, so we distribute only our adapter
-and protocol.
+Cross-transform disagreement passes the held-out AUROC gate for both models,
+but it only ranks the frozen intervention cases and is not a calibrated
+probability.  It strongly beats VGGT's native score yet ties DUSt3R native AUROC,
+so universal superiority is unsupported.  Likewise, three-fill consensus does
+not beat the analytic baseline across both models.  Finally, DUSt3R carries a
+non-commercial code and checkpoint license; we distribute only our adapter,
+protocol, hashes, and lightweight evaluation evidence.

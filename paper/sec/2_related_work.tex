@@ -14,36 +14,47 @@
 \end{figure*}
 
 \paragraph{Feed-forward multi-view reconstruction.}
-DUSt3R~\cite{wang2024dust3r}, MASt3R~\cite{leroy2024mast3r}, and
-VGGT~\cite{wang2025vggt} replace substantial parts of classical geometric
-pipelines with feed-forward prediction of cameras, depth, point maps, or dense
-correspondence.  Their capability motivates a complementary systems question:
-whether the recovered 3D remains consistent when a known image-space camera
-transform is introduced and then exactly removed.  We study this contract
-rather than propose another reconstruction backbone.
+Classical SfM and MVS expose camera models explicitly but rely on matching,
+global optimization, and/or cost-volume inference~\cite{schonberger2016sfm,
+yao2018mvsnet}.  DUSt3R~\cite{wang2024dust3r},
+MASt3R~\cite{leroy2024mast3r}, VGGT~\cite{wang2025vggt},
+CUT3R~\cite{wang2025cut3r}, and Fast3R~\cite{yang2025fast3r} replace substantial
+parts of those pipelines with learned prediction of cameras, depth, point maps,
+or dense correspondence.  Their capability motivates a complementary systems
+question: whether recovered 3D remains consistent when a known image-space
+camera transform is introduced and removed.  We audit this contract rather
+than propose another reconstruction backbone.
 
-\paragraph{Equivariance and geometric consistency.}
+\paragraph{Permutation versus camera-coordinate equivariance.}
 \mbox{$\pi^3$}~\cite{wang2026pi3} removes the fixed reference view used by many
-feed-forward systems and evaluates permutation equivariance by changing input
-order and reference-frame selection.  This addresses an orthogonal symmetry:
-we keep view identity and order fixed while applying a known, potentially
-view-dependent image-coordinate map.  The required output change is then
-specified by $K'=AK$, rather than by a permutation of output slots.  CamCanon3R
-tests whether residual cameras and geometry agree after both the known pixel
-map and the global 3D gauge are removed.
+feed-forward systems and builds permutation equivariance into its pose and
+local-point-map representation.  It changes input order or reference-frame
+choice while the image set stays fixed.  We study the complementary axis: view
+identity and order stay fixed, but each image receives a known, potentially
+view-dependent coordinate map.  The required transformation is $K'=AK$, not a
+permutation of output slots.  Like $\pi^3$, we evaluate cameras, point maps,
+depth, robustness, ablations, compute, and failure cases; unlike it, our
+contribution is an audit and repair layer rather than a trained backbone.
 
-\paragraph{Camera representation, robustness, and uncertainty.}
+\paragraph{Ray cameras and failure uncertainty.}
 Cameras as Rays~\cite{zhang2024cameras} replaces global pose regression with a
-distributed ray bundle and uses diffusion to represent sparse-view pose
-ambiguity.  PF-LRM~\cite{wang2024pflrm} jointly predicts pose and shape and
-tests sensitivity to view count and segmentation noise, while conditioning on
-known intrinsics.  In contrast, our intervention is neither an unknown
-appearance corruption nor a sampled pose mode: it is a registered camera
-change induced by image preprocessing.  We evaluate native confidence and
-cross-transform disagreement as failure scores only against held-out
-ground-truth error, and reserve the term uncertainty estimator until those
-reliability tests succeed.
-Notably, Cameras as Rays takes tight square crops around per-view object boxes
-and adjusts the associated ray grid~\cite{zhang2024cameras}, illustrating a
-concrete modern pipeline in which view-specific crops are camera bookkeeping,
-not merely appearance augmentation.
+spatial ray bundle and uses diffusion to sample plausible modes under
+sparse-view ambiguity, following learned probabilistic pose estimators such as
+PoseDiffusion~\cite{wang2023posediffusion}.  CamCanon3R does not learn a pose distribution:
+cross-transform disagreement is a deterministic consistency score for a known
+camera intervention.  We therefore compare it with native confidence on
+held-out GT, report risk--coverage and oracle excess risk, and do not infer
+probabilistic calibration from AUROC.  Cameras as Rays also uses tight
+per-view object-box crops with corresponding ray-grid adjustment, illustrating
+a concrete modern pipeline where crop coordinates are camera bookkeeping.
+
+\paragraph{Joint pose--shape systems.}
+PF-LRM~\cite{wang2024pflrm} jointly predicts pose and shape from sparse unposed
+object views using image/object tokens and a differentiable PnP stage.  Its
+cross-dataset, variable-view, mask-noise, model-size, and objective ablations
+set a strong systems-evidence pattern.  Our task is different: PF-LRM lists
+known intrinsics as an assumption, while we test the upstream boundary where
+preprocessing deterministically changes those intrinsics.  We match its
+systems rigor with two datasets, two distinct backbones, causal coordinate
+controls, repair/compute ablations, and explicit negative outcomes rather than
+manufacturing a direct leaderboard comparison between incompatible tasks.

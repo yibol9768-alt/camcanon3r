@@ -1,96 +1,80 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Feed-forward reconstruction models promise to recover cameras and scene
-geometry directly from a small set of images, but every practical system first
-changes those images to fit a model-specific tensor shape.  Resizing,
-cropping, and padding are often treated as implementation details.  In
-multi-view geometry they are camera operations: for an image-space affine map
-$A$, the projection matrix $P=K[R\mid t]$ becomes $P'=AK[R\mid t]$.  A reliable
-system should therefore describe the same scene after this known camera update
-is inverted, up to its unavoidable global gauge.
+Feed-forward reconstruction models recover cameras and scene geometry directly
+from a few images, but every practical system first changes those images to fit
+a model-specific tensor shape.  Resizing, cropping, and padding are commonly
+treated as input plumbing.  In multi-view geometry they are camera operations:
+for an image affine $A$, the projection matrix $P=K[R\mid t]$ becomes
+$P'=AK[R\mid t]$.  A reliable system should therefore describe the same scene
+after this known camera update is removed, up to its unavoidable global gauge.
 
-This geometric contract is easy to state but difficult to audit in modern
-pipelines.  A user-level crop may be followed by a hidden resize and crop
-inside the model; views with different aspect ratios may receive different
-maps; and raw predictions cannot be compared until pixel coordinates, camera
-conventions, and global scale are reconciled.  Consequently, a change in the
-output may be caused by a real equivariance failure or by an incorrect
-evaluation map.  Existing corruption tests do not resolve this ambiguity
-because they generally treat preprocessing as appearance degradation rather
-than a known intervention on the camera.
+This contract is easy to state and surprisingly difficult to audit.  A
+user-level crop may be followed by a hidden resize or crop inside a model;
+different views may receive different maps; and raw predictions cannot be
+compared until pixel coordinates, camera conventions, and scale are reconciled.
+Consequently, output drift may indicate either a real model failure or an
+incorrect evaluation map.  Ordinary corruption tests do not resolve the
+ambiguity because they treat preprocessing mainly as appearance degradation,
+not as a controlled intervention with a known induced camera.
 
-We introduce \method, an audit protocol for preprocessing-induced geometry
+We introduce \method, an affine-aware audit of preprocessing-induced geometry
 drift.  For every view, \method records the intervention affine, the model's
-internal preprocessing affine, and their source-to-tensor composition.  It
-then maps predictions to a common image domain and evaluates relative camera
-motion, intrinsics, scale-aligned depth, and point geometry using only the
-minimal permitted gauge alignment.  The resulting disagreement is measurable
-without ground-truth 3D and can therefore serve as a candidate test-time
-failure signal; whether it predicts ground-truth error is treated as an
-empirical question rather than an assumption.
+internal preprocessing affine, and their composition.  It maps predictions to
+a common image domain and evaluates relative motion, intrinsics, scale-aligned
+depth, and point geometry after removing only the permitted global gauge.  The
+same machinery yields a test-time score: disagreement between reconstructions
+of known equivalent preprocessings.  Whether that score predicts ground-truth
+failure is tested on held-out data rather than assumed.
 
-The ground-truth study isolates a reproducible accuracy failure.  We freeze
-four lexicographically selected views from each of all 13 ETH3D training
-scenes, apply four registered preprocessing variants, and evaluate 52 complete
-runs per model.  Relative to paired identity predictions, independently
-shifted 75\% crops increase median rotation error by \SI{4.61}{\degree} for
-VGGT (95\% CI [3.13, 6.17]) and \SI{4.52}{\degree} for DUSt3R
-([2.13, 5.72]); translation-direction error rises by \SI{9.49}{\degree}
-([5.06, 13.55]) and \SI{10.99}{\degree} ([7.66, 12.37]).  Depth AbsRel
-increases by 0.0230 ([0.0119, 0.0295]) and 0.0164 ([0.0027, 0.0273]), while
-point completeness error rises by \SI{0.369}{\meter} ([0.161, 0.756]) and
-\SI{0.416}{\meter} ([0.114, 0.610]).  The normalized principal-point error
-increases by approximately 0.037 for both models, directly linking the
-intervention to the camera mechanism.  Letterbox depth and point-geometry
-intervals include zero for both models, while shared center crops have smaller,
-metric-dependent effects.
+Our confirmatory study contains 770 complete ground-truth evaluations: eleven
+registered transforms, VGGT and DUSt3R, all 13 ETH3D training scenes, and 22
+held-out DTU evaluation scans.  The principal failure replicates across both
+datasets and models.  Independently shifted 75\% crops increase paired median
+rotation error by \SI{4.61}{\degree} for VGGT and \SI{4.52}{\degree} for
+DUSt3R on ETH3D, and by \SI{5.19}{\degree} and \SI{2.96}{\degree} on DTU.
+Translation and principal-point errors rise in the same conditions; on ETH3D,
+depth AbsRel increases by 0.0230 and 0.0164 and point completeness by
+\SI{0.369}{\meter} and \SI{0.416}{\meter}.  On DTU, VGGT point accuracy and
+completeness rise by 2.74 and \SI{2.50}{\milli\meter}.  Strict DTU filtering
+makes some DUSt3R point metrics undefined, which we retain rather than impute.
 
-A frozen 90/75/60\% severity and crop-scope sweep sharpens this mechanism.
-Independent off-center crops degrade rotation monotonically for both models;
-the paired deltas reach \SI{10.46}{\degree} for VGGT and
-\SI{10.89}{\degree} for DUSt3R at 60\% retention.  Reusing one off-center
-window across all views reduces but does not remove the failure: shared 75\%
-crops increase rotation by \SI{2.38}{\degree} and \SI{2.18}{\degree}, crossing
-the registered threshold on both models.  Independent-minus-shared contrasts
-remain positive at all three severities, whereas center crops and letterbox
-never cross a registered threshold.  The evidence therefore implicates
-off-center camera changes, with a distinct amplification from view dependence,
-rather than generic sensitivity to all spatial preprocessing.
+A 90/75/60\% severity and scope sweep identifies two off-center failure
+families.  Reusing one off-center window across all views reduces but does not
+remove the effect; independently shifting each view amplifies it.  Both
+families cross the frozen two-degree threshold on both datasets and models,
+whereas center crops and symmetric letterbox do not.  We then remove the
+strongest remaining alternative explanation.  A separately registered control
+places every source RGB pixel, byte-for-byte and at scale one, at centered,
+shared-edge, or independently sampled positions on the same square canvas.
+Independent placement raises paired rotation error by 5.69--13.97 degrees in
+all four model--dataset combinations.  Thus missing support is not necessary:
+image-canvas coordinates themselves causally change the recovered cameras.
 
-A separate diagnostic establishes replication boundaries without conflating
-cross-run disagreement and GT error.  On three four-view scenes, asymmetric
-crops produce 3.79--6.30 degrees median relative-rotation disagreement for
-VGGT; an identity repeat is numerically exact.  The frozen DUSt3R replication
-yields 5.74--8.83 degrees on the same scenes.  These diagnostics provide an
-independent repeat control and agree with the subsequent matched GT result;
-they are not substituted for it.
+The audit signal also survives a held-out reliability test.  On four frozen
+DTU cases per scan, disagreement detects rotation failures with AUROC 0.998
+(95\% CI [0.990, 1.000]) for VGGT and 0.855 ([0.732, 0.949]) for DUSt3R.  It
+beats the VGGT native score (0.647) but ties the DUSt3R native AUROC (0.855), so
+we claim a useful detector, not universal superiority to model confidence.
+Finally, inverse-warping a known crop to its canonical camera canvas recovers
+94.1\% and 76.7\% of the held-out rotation-error gap for VGGT and DUSt3R with
+zero measured clean cost.  The repair also works for ETH3D orientation, but
+ETH3D depth worsens and some DTU point aggregates remain undefined; our repair
+claim is therefore deliberately restricted to camera orientation.
 
-Known affine maps also permit a narrow test-time intervention: inverse-warp
-the crop onto its source camera canvas before inference.  On ETH3D this
-neutral-gray canonicalization recovers 96.6\% and 55.8\% of the paired
-rotation-error gap for VGGT and DUSt3R, respectively, with byte-exact identity
-controls.  It does not repair depth, and a three-fill disagreement selector
-does not improve the DUSt3R analytic baseline.  We therefore claim camera
-orientation recovery only and retain the geometry and consensus failures as
-boundaries.
-
-This draft makes four evidence-bounded contributions:
+Our contributions follow the same claim--mechanism--evidence--boundary pattern
+used by strong recent geometry systems:
 \begin{itemize}
-  \item We formulate image preprocessing as a falsifiable 3D equivariance
-        contract with the exact camera update $K' = AK$.
-  \item We provide an affine-aware, gauge-invariant evaluation path that
-        resolves raw ETH3D calibration per view and evaluates pose, intrinsics,
-        depth, and point maps without fitting the surface ground truth.
-  \item We establish on 13 ETH3D scenes per model that view-dependent 75\%
-        cropping degrades VGGT and DUSt3R cameras, depth, and point
-        completeness; a matched severity/scope sweep isolates a second shared
-        off-center failure family while center and letterbox controls remain
-        below the registered threshold.
-  \item We show that a known-affine canonical canvas recovers the registered
-        rotation gap on both models at zero measured clean cost, while matched
-        depth and consensus controls delimit the result.
+  \item We formulate preprocessing as a falsifiable 3D equivariance contract
+        with the exact induced camera update $K'=AK$.
+  \item We provide an affine-aware, gauge-invariant protocol with frozen
+        complete-design checks, ground-truth camera/depth/point evaluation,
+        scene-cluster uncertainty, and auditable undefined values.
+  \item We establish a two-model, two-dataset off-center coordinate failure and
+        isolate it with severity, shared-window, center, letterbox, repeat, and
+        support-preserving placement controls.
+  \item We validate cross-transform disagreement as a held-out failure detector
+        and canonical-camera warping as a cross-dataset orientation repair,
+        while retaining the native-score tie and geometry failures as explicit
+        limits.
 \end{itemize}
-Cross-dataset GT results and held-out reliability metrics remain pre-registered
-promotion gates; training-free consensus repair is not promoted by the present
-evidence.

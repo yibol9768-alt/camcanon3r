@@ -187,13 +187,13 @@ in the frozen design rather than being removed after inspection.
 
 | Claim | Required evidence | Current status |
 |---|---|---|
-| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Two families supported on multi-model ETH3D raw GT:** the complete 13-scene, 11-variant sweep crosses the registered rotation threshold for independent and shared off-center crops in both VGGT and DUSt3R; DTU remains required for the full two-dataset hypothesis |
-| Native confidence misses failures | calibration and risk-coverage comparison | **Promising development evidence only:** ETH3D rotation AUROC is 0.665 for VGGT and 0.597 for DUSt3R, below disagreement for both; held-out DTU remains mandatory |
-| Disagreement detects failures | held-out AUROC with confidence intervals | **Exploratory ETH3D pipeline result:** rotation AUROC is 0.924 ([0.816, 1.000]) for VGGT and 0.908 ([0.802, 0.973]) for DUSt3R; no detector claim until frozen DTU evaluation |
-| Known-affine canonicalization repairs crop-induced camera rotation | paired baseline/ablation results and compute cost | **Supported on ETH3D for both models at the registered point-estimate gate:** neutral-gray recovery is 0.966 for VGGT and 0.558 for DUSt3R with zero measured clean cost; the DUSt3R lower confidence bound is 0.267, so uncertainty remains explicit and DTU is required for cross-dataset promotion |
+| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Supported for two off-center families on both datasets and models:** independent 75% rotation deltas are 4.61°/4.52° on ETH3D and 5.19°/2.96° on DTU for VGGT/DUSt3R; the shared family crosses at registered severities on all four model/dataset aggregates |
+| Native confidence misses failures | calibration and risk-coverage comparison | **Model-specific:** held-out disagreement strongly beats VGGT native AUROC (0.998 vs 0.647), but ties DUSt3R native AUROC at 0.855; the universal-superiority gate fails and remains a negative result |
+| Disagreement detects failures | held-out AUROC with confidence intervals | **Supported on held-out DTU at the absolute gate:** AUROC is 0.998 ([0.990, 1.000]) for VGGT and 0.855 ([0.732, 0.949]) for DUSt3R, both above 0.75; risk--coverage, oracle AURC, ties, clustering, and provenance are reported |
+| Known-affine canonicalization repairs crop-induced camera rotation | paired baseline/ablation results and compute cost | **Supported across ETH3D and DTU for both models:** ETH3D recovery is 0.966/0.558 and held-out DTU recovery is 0.941/0.767 for VGGT/DUSt3R, with zero measured clean cost; both DTU confidence lower bounds exceed 0.30 |
 | CamCanon repairs generic geometry | paired depth/point baseline and ablations | **Not supported:** all three fills worsen median depth AbsRel on both ETH3D models; point-geometry outcomes are mixed |
 | Consensus improves over analytic canonicalization | paired three-fill selector, analytic baseline, oracle, and compute | **Fails the frozen multi-model ETH3D gate:** it slightly improves VGGT rotation but ties neutral gray for DUSt3R at roughly three times model compute |
-| Camera-canvas placement fails without removing source support | paired symmetric/shared-edge/independent-edge letterboxes with exact RGB and padding audits | **Registered after ETH3D mechanism evidence and before DTU GT; control outcomes pending:** three variants x 13 ETH3D and 22 DTU scenes x two models; primary gate is a >2-degree independent-edge delta on every model/dataset |
+| Camera-canvas placement fails without removing source support | paired symmetric/shared-edge/independent-edge letterboxes with exact RGB and padding audits | **Supported on every model/dataset combination:** independent-edge deltas are 13.97°/10.90° on ETH3D and 10.78°/5.69° on DTU for VGGT/DUSt3R, with all intervals above 2°; chronology remains post-ETH3D-mechanism, pre-control-outcome and pre-DTU-GT |
 
 ## Frozen confirmatory snapshot: VGGT and DUSt3R on ETH3D raw
 
@@ -265,15 +265,18 @@ The 60% independent crop crosses the depth threshold for both models. One
 point alignment is undefined for each model at that severity and remains
 unimputed.
 
-This satisfies the two-family condition on ETH3D only. The conservative
-cross-dataset gate in `analysis.json` remains false until every supplied model
-crosses for two datasets; no threshold or family definition changes after this
-inspection.
+The subsequently frozen DTU analysis replicates both families without changing
+any threshold or family definition. Independent 90/75/60% rotation deltas are
+1.32/5.19/9.69 degrees for VGGT and 0.97/2.96/6.17 degrees for DUSt3R.
+Shared-family deltas reach 3.76 and 4.59 degrees at 60% retention. The combined
+`artifacts/dtu_seed17/combined/mechanism_analysis.json` therefore passes the
+two-family, two-dataset gate for every supplied model.
 
-The aggregation code now enforces one identity per scene, a complete paired
+The aggregation code enforces one identity per scene, a complete paired
 scene/variant design, separation of pose-only and depth protocols, and
-deterministic scene-level bootstrap intervals. This is statistical
-infrastructure, not evidence that any pending hypothesis passes.
+deterministic scene-level bootstrap intervals. This infrastructure did not by
+itself pass a hypothesis; the frozen DTU and support outcomes above supply the
+subsequent evidence.
 
 Reliability score construction and evaluation are now frozen. Each candidate's
 score is its median disagreement with every other registered transform of the
@@ -283,9 +286,9 @@ ETH3D is development-only because its outcomes were already inspected, while
 DTU is the held-out promotion dataset. Evaluation uses average-rank AUROC for
 tied scores, complete tie blocks for risk--coverage, oracle and excess AURC,
 and a scene-cluster bootstrap. Single-class AUROC and invalid bootstrap
-replicates remain explicit undefined values. Detector promotion still requires
+replicates remain explicit undefined values. Detector promotion requires
 held-out AUROC at least 0.75; implementation and exploratory ETH3D results alone
-do not satisfy that gate.
+do not satisfy that gate, so the later DTU result is reported separately below.
 
 The complete exploratory reliability evidence is frozen in
 `artifacts/eth3d_reliability_seed17/`.  The exact four-transform matrix contains
@@ -299,9 +302,9 @@ versus native values 0.679 and 0.694.
 
 These values are development evidence only: ETH3D outcomes had been inspected
 before the score was frozen. They validate case construction, score direction,
-ties, clustering, and provenance but cannot pass the detector gate. DTU
-remains the untouched held-out promotion dataset, and its threshold, score
-fields, and 0.75 gate do not change after seeing these results.
+ties, clustering, and provenance but cannot pass the detector gate. DTU was
+then opened with the same threshold, score fields, and 0.75 gate; its final
+held-out outcome is reported below.
 
 The repair protocol is likewise frozen before any repaired prediction was
 evaluated against ground truth. It uses only the cropped pixels and known
@@ -348,10 +351,50 @@ runs.  It therefore fails the frozen multi-model promotion condition.
 Black fill performs better for DUSt3R in hindsight, but it cannot replace the
 predeclared neutral-gray baseline.
 
-The supported claim is consequently limited to recovery of crop-induced camera
-rotation on ETH3D.  The evidence does not support repaired depth, generic
-geometry repair, or a promoted consensus selector.  DTU remains required for
-cross-dataset repair evidence.
+The ETH3D claim is consequently limited to crop-induced camera rotation.  The
+evidence does not support repaired depth, generic geometry repair, or a
+promoted consensus selector.  Cross-dataset orientation transfer is evaluated
+separately below without changing the ETH3D-selected neutral fill.
+
+## Frozen held-out DTU and final evidence snapshot
+
+The complete lightweight evidence is frozen in `artifacts/dtu_seed17/`. Its
+bundle contains 1,615 designed entries: 833 copied lightweight sources and 782
+SHA-256-only large predictions. `SHA256SUMS` verifies all 834 physical evidence
+files plus bundle metadata. The final claim auditor reports
+`evidence_complete: true` and preserves failed gates as negative results rather
+than converting them into a paper score.
+
+The 22-scene, 11-variant DTU sweep contains 242 evaluations per model. The
+independent 75% crop raises paired median rotation error by 5.19 degrees
+([4.44, 6.02]) for VGGT and 2.96 degrees ([1.69, 4.08]) for DUSt3R. Translation
+increases by 3.63 and 2.60 degrees, and normalized principal-point error by
+0.0439 for both. VGGT point accuracy and completeness increase by 2.74 mm
+([1.30, 6.02]) and 2.50 mm ([1.77, 4.66]). Strict observation-mask and 20-mm
+filters leave one or two DUSt3R point directions undefined, so no incomplete
+subset aggregate is reported. All camera/intrinsic records remain available.
+
+The later-registered support-preserving control passes its unchanged gate in
+all four model/dataset combinations. Independent edge placement increases
+rotation relative to symmetric letterbox by 13.97 degrees ([9.80, 15.33]) and
+10.90 degrees ([8.11, 16.28]) on ETH3D, and by 10.78 degrees
+([10.02, 11.30]) and 5.69 degrees ([4.98, 5.93]) on DTU for VGGT/DUSt3R.
+Every decoded RGB pixel, source scale, canvas size, and black-padding count is
+preserved; support loss is therefore not a necessary cause.
+
+Held-out reliability contains 88 frozen cases per model. Disagreement AUROC is
+0.998 ([0.990, 1.000]) for VGGT and 0.855 ([0.732, 0.949]) for DUSt3R, so both
+pass the absolute 0.75 gate. Native AUROC is 0.647 and 0.855 respectively.
+The stronger all-model superiority gate fails because DUSt3R ties; that result
+must remain explicit anywhere the detector is promoted.
+
+Neutral-gray DTU canonicalization changes VGGT rotation error from 5.581 to
+0.499 degrees relative to a 0.459-degree identity baseline, for recovery 0.941
+([0.888, 1.042]). DUSt3R changes from 5.448 to 3.366 degrees relative to 2.051,
+for recovery 0.767 ([0.421, 1.251]). Both confidence lower bounds exceed 0.30
+and identity clean cost is zero. This supports cross-dataset camera-orientation
+repair only. VGGT point completeness also recovers, but VGGT accuracy lacks a
+confidence-bound pass and DUSt3R point aggregates are incomplete.
 
 No abstract or introduction may promote a claim whose status remains "needs
 evidence" or whose frozen gate failed.

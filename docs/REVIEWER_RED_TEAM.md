@@ -1,174 +1,141 @@
 # Reviewer red-team
 
 Updated: 2026-08-04
-Checkpoint: living pre-DTU review
-Status: provisional review; not a final score
+Checkpoint: second review from the frozen eight-page manuscript
+Status: final evidence review; independent replication still desirable
 
-## Current recommendation
+## Recommendation
 
-**ICLR-style estimate: 5--6 (borderline reject to weak accept).**
+**ICLR-style estimate: central 7/10 (weak accept), plausible reviewer band
+6--8. Confidence: 4/5.**
 
-The paper already has a crisp and technically correct systems finding, unusually
-strong provenance, two substantially different reconstruction systems, paired
-ground-truth camera/depth/point evidence, mechanism controls, and honest
-negative repair results. That is enough for a credible paper. It is not yet an
-honest 6--8 case because all promoted accuracy and repair evidence comes from
-one dataset, detector effectiveness has only been measured on a development
-set, and the draft still lacks held-out quantitative curves and a qualitative
-result figure.  The method overview and dedicated limitations section are now
-present.
-
-The current score must not be rounded up because experiments are in progress.
+The honest floor has moved from the earlier 5--6 draft into the requested
+6--8 band. The paper now has a precise new systems question, a causal result,
+two substantially different reconstruction models, two geometry datasets,
+held-out reliability, cross-dataset orientation repair, strong negative
+boundaries, outcome-independent figures, compute, and unusually complete
+provenance. A skeptical reviewer can still assign 6 because the intervention
+suite is controlled rather than deployed, the detector covers transform-induced
+failures rather than arbitrary real failures, and the repair is not a general
+geometry method. An 8 is plausible for a reviewer who values correctness and
+systems impact, but it is not the conservative prediction.
 
 ## Strongest acceptance case
 
-1. **The overlooked assumption is exact and consequential.** A crop is not a
-   generic corruption: it induces the known camera update `K' = AK`. The paper
-   converts this observation into a falsifiable equivariance contract.
-2. **The failure is ground-truth, paired, and multi-model.** On 13 ETH3D scenes,
-   independently shifted 75% crops increase median rotation by 4.61 degrees for
-   VGGT and 4.52 degrees for DUSt3R, with matched translation, depth,
-   principal-point, and completeness effects.
-3. **The mechanism is better isolated than in a typical corruption study.**
-   Retained-fraction sweeps, shared versus independent windows, center crops,
-   letterbox, exact repeats, and per-model intervals separate off-center camera
-   change from generic resampling and view-dependent amplification.
-4. **Negative evidence is retained.** Canonicalization repairs rotation but
-   worsens depth; consensus fails its multi-model promotion gate; undefined
-   metrics are neither zero-filled nor silently dropped.
-5. **Reproducibility is a real contribution.** Frozen protocols, resumable
-   inference, source/config hashes, byte-exact identity audits, complete-design
-   checks, and committed machine-readable evidence make the claims unusually
-   auditable.
+1. **The overlooked variable is exact.** Preprocessing induces the camera
+   update `K' = AK`; the paper turns a common implementation detail into a
+   falsifiable equivariance contract instead of a generic corruption study.
+2. **The main failure is replicated.** The full design has 770 GT records over
+   13 ETH3D scenes, 22 held-out DTU scans, eleven transforms, VGGT, and DUSt3R.
+   Independent 75% crop deltas are 4.61°/4.52° on ETH3D and 5.19°/2.96° on
+   DTU; both off-center families cross the frozen gate on all model/dataset
+   aggregates.
+3. **The causal objection is unusually well controlled.** The edge-letterbox
+   study preserves every source RGB byte, scale, canvas, and padding count yet
+   produces 5.69°--13.97° rotation increases. Missing content is not necessary.
+4. **The response mechanisms are useful but bounded.** Held-out disagreement
+   AUROC is 0.998 and 0.855, and DTU rotation recovery is 0.941 and 0.767 at
+   zero measured clean cost. Native-score ties, depth failure, and incomplete
+   point aggregates are not hidden.
+5. **The evidence is auditable.** Complete-design checks, scene-cluster
+   intervals, source/config hashes, exact repeats, frozen qualitative scenes,
+   explicit undefined values, compute boundaries, and a 1,615-entry bundle
+   make post-hoc selection difficult.
+6. **The paper reads as one argument.** Problem, mechanism, evidence, and
+   boundary align across abstract, introduction, related work, experiments,
+   limitations, and conclusion; there is no remaining TODO or future-tense
+   promotion gate.
 
 ## Strongest rejection case
 
-1. **One-dataset promotion is not broad enough.** ETH3D alone cannot establish
-   the registered two-dataset mechanism hypothesis or cross-dataset repair.
-2. **The detector is not yet a contribution.** ETH3D AUROC is promising
-   development evidence, but the score was frozen after ETH3D outcomes were
-   known. Without DTU held-out performance, the paper has an audit signal, not
-   a validated failure detector.
-3. **The repair contribution is narrow.** Rotation recovery is useful, but all
-   registered fills worsen depth for both models and three-run consensus does
-   not beat the analytic DUSt3R baseline. The title correctly avoids claiming a
-   general repair method.
-4. **The results remain visually under-evidenced.** The overview diagram now
-   makes the protocol legible, but there is no representative success/failure
-   reconstruction figure, held-out risk--coverage plot, or final two-dataset
-   severity curve. Tables alone do not yet make the empirical story easy to
-   verify.
-5. **Controlled crops may be dismissed as synthetic.** The camera intervention
-   is causal and useful, but the paper still needs to connect it to realistic
-   heterogeneous preprocessing pipelines without overstating prevalence.
-6. **Crop support is a residual causal objection.** A crop changes coordinates
-   and removes context together. The canonical branch holds the observed RGB
-   support fixed and shows that missing context alone cannot explain the ETH3D
-   rotation drift, but fill and an extra interpolation step still differ. The
-   paper must preserve this boundary instead of calling cropping a lossless
-   coordinate-only intervention.
-7. **The seven-page draft is still incomplete.** It lacks a compact
-   compute/VRAM comparison and a final cross-dataset table. The TODO in failure
-   detection makes the current draft non-submittable.
+1. **Deployment relevance is inferred, not measured.** The interventions are
+   realistic camera operations, but the paper does not quantify how often an
+   actual product or user pipeline commits the audited mismatch.
+2. **Breadth stops at two backbones and two datasets.** This is sufficient for
+   a strong systems finding but weaker than a new reconstruction model tested
+   across many tasks and domains.
+3. **Held-out detection is intervention-bounded.** The 88 DTU cases per model
+   come from the frozen transform set; AUROC does not establish calibration or
+   detection of unrelated natural failure modes. DUSt3R only ties native AUROC.
+4. **Repair is narrow.** Rotation recovers, but ETH3D depth worsens, DUSt3R DTU
+   point aggregates are incomplete, and three-fill consensus fails. This is a
+   safety response, not a general reconstruction improvement.
+5. **The strongest control was designed after ETH3D mechanism results.** Its
+   own outcomes and DTU GT remained prospective, and chronology is disclosed,
+   but a fully independent preregistered replication would be stronger.
+6. **Strict DTU metrics expose missingness.** One or two DUSt3R point directions
+   are undefined under the frozen observation/20-mm filters. Refusing subset
+   aggregation is correct, but it leaves cross-model DTU point evidence uneven.
+7. **This is an audit paper, not a new backbone.** Reviewers who require a
+   learned architectural advance may undervalue the practical systems result.
 
 ## Scorecard
 
-| Dimension | Current | Evidence | Needed for 6--8 |
+| Dimension | Score | Evidence | Main residual risk |
 |---|---:|---|---|
-| Novelty | 6 | Precise preprocessing-equivariance contract and affine-aware audit | Clarify practical prevalence and contrast with adjacent robustness/equivariance work |
-| Correctness | 7 | Exact maps, minimal gauge, paired GT, controls, hashes, 123 tests | Complete DTU audit without protocol drift |
-| Significance | 5 | Large failure on two major model families | Cross-dataset replication and a useful held-out detector or broader practical consequence |
-| Empirical strength | 5 | 13 scenes, 286 mechanism evaluations, repair and development reliability | DTU 22 scenes x 11 variants x 2 models, held-out reliability, qualitative and compute views |
-| Presentation | 5 | Clear claim boundaries, compact tables, overview, and dedicated limitations | Result figures and final no-TODO narrative |
-| Reproducibility | 7 | Frozen protocols and committed evidence | Freeze DTU artifacts and final paper-number provenance |
+| Novelty | 7 | Exact preprocessing-equivariance contract and support-preserving causal intervention | Adjacent robustness reviewers may call the camera algebra obvious |
+| Correctness | 8 | Exact maps, minimal gauge, paired GT, frozen thresholds, undefined-value discipline, post-signal amendments disclosed | DTU point protocol is deterministic but not a leaderboard protocol |
+| Significance | 6 | Large camera drift across two leading model families; actionable preprocessing rule | No deployed incidence study or third backbone |
+| Empirical strength | 7 | 35 scenes, 770 main records, 210 support controls, repair, reliability, compute, qualitative cases | Limited view counts and intervention-bounded failures |
+| Presentation | 7 | Eight-page no-TODO narrative, four figures, five compact tables, explicit boundaries | Dense qualitative panels and no supplementary full-case atlas yet |
+| Reproducibility | 8 | 157 tests, runbook, hashes, frozen cases, prediction digests, 833-file evidence bundle | Full data/weights remain external and DUSt3R license is non-commercial |
 
-## Mandatory completion gates
+## Three-ICLR benchmark comparison
 
-### P0: blocks an honest 6
+### π³: Permutation-Equivariant Visual Geometry Learning
 
-- [ ] Complete and audit the exact 22-scene DTU preparation.
-- [ ] Run VGGT and DUSt3R sequentially over all 11 frozen variants.
-- [ ] Evaluate all 242 pose/intrinsic cases per model and the 88 frozen
-  point-map cases per model.
-- [ ] Recompute the two-family/two-dataset mechanism gate without changing
-  thresholds or transform definitions.
-- [ ] Build the four frozen DTU reliability cases per scene and report
-  disagreement/native AUROC, risk--coverage, oracle AURC, excess AURC, and
-  scene-cluster intervals for each model.
-- [x] Freeze the primary qualitative scene set without model outputs or GT
-  outcomes; all selected results and undefined cases must remain visible.
-- [ ] Remove every TODO after held-out results are frozen.
-- [x] Add a dedicated limitations section covering intervention, evaluation,
-  repair, detector, dataset/model, and license boundaries.
+π³ defines a symmetry, builds a representation around it, and validates pose,
+point maps, depth, ordering, components, speed, and qualitative outcomes.
+CamCanon3R now matches that evidence shape for a complementary symmetry:
+known image coordinates rather than input permutation/reference frame. π³ has
+the stronger learned-model and task-breadth contribution; CamCanon3R has the
+stronger causal audit, chronology, negative-result, and artifact-provenance
+story. The manuscript states complementarity and never claims π³ tested crops.
 
-### P1: separates a 6 from a plausible 7
+### Cameras as Rays: Pose Estimation via Ray Diffusion
 
-- [ ] Put ETH3D and DTU main outcomes into one compact cross-dataset table.
-- [ ] Run the frozen two-variant DTU canonical-control sweep and report paired
-  orientation/point gap recovery without changing the ETH3D-selected
-  neutral-gray baseline.
-- [ ] Add a severity curve that shows center/shared/independent behavior for
-  both models and both datasets.
-- [ ] Add a held-out risk--coverage plot with native confidence and oracle.
-- [ ] Report end-to-end compute, model-only compute, peak VRAM, and
-  accuracy/recovery per model run.
-- [ ] Present neutral, black, image-mean, native selection, consensus, and
-  oracle repair in one ablation table, including the negative depth boundary.
-- [x] Add a documented modern pipeline example: Cameras as Rays uses tight
-  per-view object-box crops and adjusts the corresponding ray grid.
+Cameras as Rays motivates a distributed ray representation and samples learned
+pose ambiguity. CamCanon3R's signal is deliberately narrower: deterministic
+disagreement under equivalent preprocessing. The held-out AUROC/risk--coverage
+plot now gives that signal a legitimate narrative role, while the DUSt3R tie
+prevents it from being advertised as a universally superior uncertainty model.
+The related-work contrast is precise and includes the practical per-view crop
+and ray-grid example.
 
-### P2: needed before claiming 8
+### PF-LRM: Pose-Free Large Reconstruction Model
 
-- [ ] Demonstrate breadth beyond two backbones or two datasets, or provide a
-  detector/repair result strong enough to compensate.
-- [ ] Complete the now-frozen support-preserving edge-letterbox control on both
-  models and both datasets. Promote a coordinate-only failure only if its
-  unchanged two-degree gate passes; otherwise retain it as a negative result.
-  State that it was registered after the ETH3D mechanism results, while still
-  being prospective for all support-control outcomes and DTU GT.
-- [ ] Show that the central finding changes a practical design decision rather
-  than only documenting a benchmark failure.
-- [ ] Survive a second blinded red-team with no unresolved selection,
-  alignment, leakage, or baseline objection.
+PF-LRM supports a joint pose/shape system with broad cross-dataset and
+robustness experiments while assuming known intrinsics. CamCanon3R audits the
+upstream boundary that deterministically changes those intrinsics. It cannot
+match PF-LRM's learned-model and object-dataset breadth, but it now compensates
+with cross-dataset/cross-model GT, causal controls, held-out detection, repair,
+compute, qualitative evidence, and stricter provenance. The paper does not
+construct an invalid numerical leaderboard between the two tasks.
 
-## Comparison with the three ICLR writing benchmarks
+## Gate audit
 
-### π³
+- [x] DTU extraction, 146-file independent rehash, preparation, and exact
+  22-scene x 11-variant design audited.
+- [x] VGGT and DUSt3R complete separately; all camera/intrinsic records and all
+  frozen point records retained.
+- [x] Two-family/two-dataset mechanism gate passes unchanged.
+- [x] Support-preserving control passes on all four model/dataset combinations.
+- [x] Held-out detector exceeds AUROC 0.75 for both models; native tie retained.
+- [x] Cross-dataset rotation repair passes for both models at zero clean cost;
+  generic geometry and consensus remain negative.
+- [x] Severity, risk--coverage, compute, cross-dataset, and frozen qualitative
+  evidence are in the manuscript.
+- [x] Every paper number is traceable to `artifacts/dtu_seed17/` or the earlier
+  frozen ETH3D bundles.
+- [x] No diagnostic/GT conflation, hidden scene selection, zero imputation,
+  unsupported all-metric claim, or remaining TODO was found.
 
-π³ defines one symmetry, builds its representation around that symmetry, then
-supports it with camera, point-map, depth, permutation robustness, component
-ablation, speed, qualitative results, and explicit limitations. CamCanon3R is
-already competitive in causal audit rigor, negative controls, and explicit
-limitations, but it is behind in dataset/task breadth and visual evidence. DTU
-and the severity plot are the minimum remaining structural match.
+## What would make 8 more robust
 
-### Cameras as Rays
-
-Cameras as Rays makes a single representation change easy to understand,
-compares it with direct pose regression, sweeps 2--8 views, ablates ray
-resolution, and visualizes sampled ambiguous modes. CamCanon3R has an equally
-clean camera-level mechanism and a stronger registered causal intervention,
-but its disagreement signal must be validated on held-out GT and visualized
-through risk--coverage and representative cases before it can play the same
-narrative role.
-
-### PF-LRM
-
-PF-LRM supports a systems claim with cross-dataset evaluation, variable-view
-and mask-noise robustness, model/objective/pose-solver ablations, qualitative
-reconstructions, and a concrete limitations list. CamCanon3R should not mimic
-its leaderboard because the task differs. It must instead compensate with
-cross-dataset, cross-model audit breadth; a complete baseline/compute table;
-and explicit limits around missing pixels, synthetic interventions, model
-licenses, and rotation-only repair.
-
-## Final-review rule
-
-After DTU artifacts and figures are frozen, rerun this review from the paper
-alone before reading the authors' intended claim map. A 6 requires that the
-main finding survives the second dataset and that every promoted sentence is
-traceable to a frozen artifact. A 7 requires either held-out detector success
-with useful coverage or a comparably strong practical result in addition to
-the audit. An 8 is not presumed and should be assigned only if breadth,
-impact, and presentation match the stronger ICLR benchmarks rather than merely
-meeting the registered thresholds.
+The highest-value addition is one independently logged real preprocessing
+pipeline or a third backbone evaluated with the existing audit. A second
+independent replication of the support-preserving control would reduce the
+post-ETH3D-registration concern. A supplement with all qualitative cases and a
+minimal artifact-reproduction walkthrough would further help, but these are
+improvements beyond the current weak-accept completion bar rather than blockers
+for an honest 6--8 estimate.

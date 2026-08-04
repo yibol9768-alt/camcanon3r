@@ -1,30 +1,25 @@
 \begin{abstract}
-Feed-forward 3D reconstruction systems routinely resize, crop, and pad their
-input images, although these operations change the image formation model.  An
-image-space affine transform $A$ changes the camera matrix from $K[R\mid t]$
-to $AK[R\mid t]$; after this known update is accounted for, the recovered
-scene should remain unchanged up to the model's global gauge.  We formulate
-this requirement as a preprocessing-equivariance contract and introduce an
-auditable protocol that records both user-level and model-internal image
-transforms, composes their exact pixel maps, and compares reconstructed
-cameras, intrinsics, depth, and point geometry against ground truth.  Across
-13 ETH3D scenes and 286 complete evaluations, independently shifted 75\%
-crops increase median rotation error by \SI{4.61}{\degree} for VGGT and
-\SI{4.52}{\degree} for DUSt3R relative to paired identity runs; translation
-error rises by \SI{9.49}{\degree} and \SI{10.99}{\degree}.  Depth AbsRel
-increases by 2.30 and 1.64 percentage points, and point-cloud completeness
-error by \SI{0.369}{\meter} and \SI{0.416}{\meter}; all eight corresponding
-scene-bootstrap intervals exclude zero.  In contrast, letterbox depth and
-point-geometry deltas are statistically indistinguishable from identity for
-both models.  Severity and crop-scope controls reveal a second failure family:
-one shared off-center window at 75\% retention raises rotation error by
-\SI{2.38}{\degree} and \SI{2.18}{\degree}, while independent windows remain
-significantly worse at every matched severity.  Center crops never cross the
-registered threshold.  Known-affine canonicalization recovers 0.966 and 0.558
-of the paired rotation-error gap for VGGT and DUSt3R with zero measured clean
-cost, but worsens depth for both; a three-run consensus does not improve the
-DUSt3R analytic baseline.  Thus the failure is tied to off-center camera
-changes and amplified by view dependence, not generic resampling.  The repair
-evidence is limited to camera orientation on ETH3D; cross-dataset generality
-and held-out failure detection remain separate empirical claims.
+Feed-forward 3D reconstruction systems resize, crop, and pad their inputs, even
+though these operations change the image formation model.  An image affine
+$A$ changes the camera from $K[R\mid t]$ to $AK[R\mid t]$; after accounting for
+this known update, the recovered scene should remain unchanged up to global
+gauge.  We formulate this requirement as a preprocessing-equivariance contract
+and introduce an auditable protocol that composes user and model pixel maps and
+evaluates cameras, intrinsics, depth, and point geometry against ground truth.
+Across 770 registered evaluations of VGGT and DUSt3R on 13 ETH3D and 22 held-out
+DTU scenes, independently shifted 75\% crops increase paired median rotation
+error by \SI{4.61}{\degree} and \SI{4.52}{\degree} on ETH3D, and by
+\SI{5.19}{\degree} and \SI{2.96}{\degree} on DTU.  A severity/scope sweep finds
+a second shared off-center failure family on both datasets, while center crops
+and symmetric letterbox stay below the frozen threshold.  More decisively,
+moving unchanged RGB support to independently sampled positions on the same
+canvas raises rotation error by 5.69--13.97 degrees in all four model--dataset
+combinations, ruling out support loss as a necessary cause.  On held-out DTU,
+cross-transform disagreement detects $>\!2$-degree failures with AUROC 0.998
+for VGGT and 0.855 for DUSt3R; it strongly exceeds native confidence for VGGT
+but ties it for DUSt3R.  Known-affine canonicalization recovers 0.941 and 0.767
+of the DTU rotation-error gap with zero measured clean cost.  Thus image-canvas
+coordinates are a causal systems variable for modern feed-forward 3D models;
+the supported repair claim is limited to camera orientation, not generic
+geometry recovery.
 \end{abstract}

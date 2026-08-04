@@ -67,13 +67,16 @@ Processing identity through the same path provides the clean-cost control.
 
 \subsection{Disagreement and repair}
 The analytic repair is evaluated before any learned or ensemble component.
-We will promote cross-transform disagreement to a failure score only if it
-predicts held-out ground-truth error, and promote consensus selection or fusion
-only if it improves over Eq.~\eqref{eq:canonical-repair} at a matched compute
-budget.  Until those gates pass, disagreement remains an audit metric rather
-than a claimed uncertainty estimator.
-For evaluation, larger scores always denote greater uncertainty. We use
-average-rank AUROC for tied scores and construct risk--coverage curves by
-adding complete equal-score blocks, avoiding dependence on arbitrary row
-order. Oracle ranking by ground-truth error defines the minimum reference AURC,
-and we report both raw and excess AURC.
+Cross-transform disagreement is the median pairwise rotation difference among
+reconstructions of frozen equivalent preprocessings.  We promote it as a
+failure score only after testing the unchanged score and $>\!2$-degree GT
+failure threshold on held-out DTU.  This is a deterministic consistency signal,
+not a posterior uncertainty distribution.
+
+Larger scores always denote greater uncertainty.  We use average-rank AUROC
+for ties and construct risk--coverage curves by adding complete equal-score
+blocks, avoiding dependence on arbitrary row order.  Oracle ranking by GT
+error defines the minimum reference AURC; we report raw and excess AURC and
+resample complete scenes as clusters.  Consensus selection is separately
+eligible only if it beats Eq.~\eqref{eq:canonical-repair} for both models at a
+matched compute budget; its failure cannot invalidate the analytic repair.

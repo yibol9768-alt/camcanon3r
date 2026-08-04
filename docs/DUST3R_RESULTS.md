@@ -46,6 +46,7 @@ alignment took 3.68--4.12 s per case. Peak allocated VRAM was approximately
 summary are stored in
 [`artifacts/dust3r_pilot_seed17`](../artifacts/dust3r_pilot_seed17).
 
-This result promotes cross-model diagnostic generality only. ETH3D or DTU
-ground-truth accuracy, held-out failure detection, and repair remain pending
-claim gates.
+At this diagnostic checkpoint the result promoted cross-model disagreement
+only. The later frozen ETH3D/DTU GT, held-out detection, and repair gates are
+reported separately in `artifacts/dtu_seed17/` and the final paper; they do not
+retroactively turn this pilot disagreement into an accuracy measurement.

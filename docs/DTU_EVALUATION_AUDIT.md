@@ -3,6 +3,13 @@
 Updated: 2026-08-04  
 Status: frozen before any CamCanon3R DTU ground-truth outcome was computed
 
+Completion note: both 242-record model sweeps and both 44-record repair sweeps
+subsequently finished. All camera/intrinsic records and all requested point
+records are retained. Strict filtering makes a small number of DUSt3R point
+directions undefined; no case is dropped and no incomplete scene subset is
+bootstrapped. The final records and summaries are frozen under
+`artifacts/dtu_seed17/`.
+
 ## Runtime failure-handling amendment (2026-08-05 Asia/Shanghai)
 
 The frozen threshold and evaluated cases are unchanged. After the complete

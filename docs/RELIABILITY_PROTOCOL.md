@@ -1,8 +1,8 @@
 # Reliability and failure-detection protocol
 
-Status: score construction and evaluator frozen; empirical detector claim
-pending. ETH3D is development-only because its outcomes were inspected before
-this score was frozen. DTU is the held-out promotion dataset.
+Status: score construction and evaluator frozen; held-out DTU evaluation
+complete. ETH3D remains development-only because its outcomes were inspected
+before this score was frozen. DTU is the held-out promotion dataset.
 
 ## Case and split unit
 
@@ -112,3 +112,19 @@ interval, native-confidence and oracle comparisons, risk--coverage, and case
 provenance all reported. No scoring, threshold, or split change is allowed
 after inspecting DTU reliability outcomes. Implementing this evaluator and
 reporting exploratory ETH3D values are not evidence that the gate passes.
+
+## Frozen held-out outcome
+
+The unchanged four-case-per-scene DTU design contains 88 cases per model. At
+the strict `rotation_median_degrees > 2.0` failure definition, VGGT has 23
+failures and DUSt3R has 59. Cross-transform disagreement obtains AUROC 0.998
+(95% scene-cluster CI [0.990, 1.000]) for VGGT and 0.855 ([0.732, 0.949]) for
+DUSt3R. Both pass the absolute 0.75 gate.
+
+Native uncertainty obtains 0.647 ([0.576, 0.722]) and 0.855
+([0.743, 0.933]). Disagreement excess AURC is 0.068 for VGGT versus 0.649
+native, and 0.652 for DUSt3R versus 0.742 native. Therefore disagreement is a
+supported held-out failure score for both models, but the stronger all-model
+claim that it exceeds native AUROC fails because DUSt3R ties. Cases, score
+reports, curves, source hashes, and the final claim audit are frozen under
+`artifacts/dtu_seed17/`.
