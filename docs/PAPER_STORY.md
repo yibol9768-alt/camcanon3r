@@ -72,3 +72,7 @@ support that promotion.
 
 The working title remains audit-only.  Add "and Repairing" only after the
 registered repair thresholds are met.
+
+The final prose and evidence layout are calibrated against the frozen
+three-paper ICLR comparison in `docs/ICLR_WRITING_BENCHMARKS.md`. Those papers
+are structural benchmarks, not a shared numerical leaderboard.

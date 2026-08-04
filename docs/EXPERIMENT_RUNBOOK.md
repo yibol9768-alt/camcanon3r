@@ -66,6 +66,31 @@ Use a separate `data/eth3d_training/undistorted` root with
 `--domain undistorted` for the pose-only protocol; never mix those summaries
 with raw-depth results.
 
+After inference, evaluate the complete frozen selection in one resumable pass.
+The evaluator rejects missing predictions, reordered views, stale result files,
+extra evaluations outside the frozen design, and mixed raw/pose-only summaries:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/evaluate_eth3d_selection.py \
+  /mnt/e/camcanon3r-data/eth3d_selected \
+  outputs/eth3d_training/vggt/raw results/eth3d_training/vggt/raw \
+  --domain raw \
+  --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
+  --bootstrap-replicates 10000 --bootstrap-seed 17 --resume
+
+PYTHONPATH=src .venv/bin/python scripts/evaluate_eth3d_selection.py \
+  /mnt/e/camcanon3r-data/eth3d_selected \
+  outputs/eth3d_training/vggt/undistorted \
+  results/eth3d_training/vggt/undistorted \
+  --domain undistorted \
+  --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
+  --bootstrap-replicates 10000 --bootstrap-seed 17 --resume
+```
+
+Each per-run result and the aggregate summary is written atomically. Resume is
+allowed only when the existing record resolves to the same scene, variant,
+domain, prediction, calibration, and depth source.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and

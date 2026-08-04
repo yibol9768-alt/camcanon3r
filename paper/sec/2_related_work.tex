@@ -11,11 +11,23 @@ transform is introduced and then exactly removed.  We study this contract
 rather than propose another reconstruction backbone.
 
 \paragraph{Equivariance and geometric consistency.}
-\TODO{Review camera-aware equivariance, test-time consistency, and geometric
-self-consistency.  Identify whether prior work explicitly composes hidden
-preprocessing affines and measures gauge-invariant 3D disagreement.}
+\mbox{$\pi^3$}~\cite{wang2026pi3} removes the fixed reference view used by many
+feed-forward systems and evaluates permutation equivariance by changing input
+order and reference-frame selection.  This addresses an orthogonal symmetry:
+we keep view identity and order fixed while applying a known, potentially
+view-dependent image-coordinate map.  The required output change is then
+specified by $K'=AK$, rather than by a permutation of output slots.  CamCanon3R
+tests whether residual cameras and geometry agree after both the known pixel
+map and the global 3D gauge are removed.
 
-\paragraph{Robustness and uncertainty in 3D vision.}
-\TODO{Distinguish appearance corruptions and generic uncertainty estimation
-from a known, invertible camera intervention.  Compare native confidence,
-risk--coverage, and disagreement-based failure detection.}
+\paragraph{Camera representation, robustness, and uncertainty.}
+Cameras as Rays~\cite{zhang2024cameras} replaces global pose regression with a
+distributed ray bundle and uses diffusion to represent sparse-view pose
+ambiguity.  PF-LRM~\cite{wang2024pflrm} jointly predicts pose and shape and
+tests sensitivity to view count and segmentation noise, while conditioning on
+known intrinsics.  In contrast, our intervention is neither an unknown
+appearance corruption nor a sampled pose mode: it is a registered camera
+change induced by image preprocessing.  We evaluate native confidence and
+cross-transform disagreement as failure scores only against held-out
+ground-truth error, and reserve the term uncertainty estimator until those
+reliability tests succeed.
