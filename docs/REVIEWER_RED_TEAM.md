@@ -86,8 +86,8 @@ The current score must not be rounded up because experiments are in progress.
 - [ ] Build the four frozen DTU reliability cases per scene and report
   disagreement/native AUROC, risk--coverage, oracle AURC, excess AURC, and
   scene-cluster intervals for each model.
-- [ ] Freeze representative qualitative successes and failures by a declared
-  rule that does not select only favorable scenes.
+- [x] Freeze the primary qualitative scene set without model outputs or GT
+  outcomes; all selected results and undefined cases must remain visible.
 - [ ] Remove every TODO after held-out results are frozen.
 - [x] Add a dedicated limitations section covering intervention, evaluation,
   repair, detector, dataset/model, and license boundaries.

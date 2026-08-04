@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_dtu_gt_inspection": true,
+  "selection_rule": {
+    "description": "Select indices 0, floor((n-1)/3), floor(2(n-1)/3), and n-1 from each frozen ordered scene list.",
+    "uses_model_outputs": false,
+    "uses_ground_truth_outcomes": false,
+    "replacement_allowed": false
+  },
+  "models": ["vggt", "dust3r"],
+  "variants": [
+    "identity",
+    "asymmetric_crop_075",
+    "canonical_asymmetric_crop_075"
+  ],
+  "datasets": {
+    "eth3d-training-raw": {
+      "ordered_scene_count": 13,
+      "selected_indices_zero_based": [0, 4, 8, 12],
+      "selected_scenes": [
+        "courtyard",
+        "kicker",
+        "playground",
+        "terrains"
+      ]
+    },
+    "dtu-held-out": {
+      "ordered_scene_count": 22,
+      "selected_indices_zero_based": [0, 7, 14, 21],
+      "selected_scenes": ["scan1", "scan15", "scan48", "scan118"],
+      "camera_ids_one_based": [23, 26, 29],
+      "lighting_index": 3
+    }
+  },
+  "display_contract": {
+    "retain_all_selected_scenes": true,
+    "show_undefined_metrics": true,
+    "models_are_separate": true,
+    "geometry_alignment": "the same camera-pose-only orientation-preserving Sim(3) used by the registered evaluator",
+    "no_surface_gt_fitting": true,
+    "no_per_scene_axis_or_colormap_tuning": true
+  }
+}
