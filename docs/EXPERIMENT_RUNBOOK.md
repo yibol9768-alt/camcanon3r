@@ -427,6 +427,24 @@ file design, every image and binary validity mask, source-affine provenance,
 identity pixel equality, fill pixels outside valid support, per-image valid
 fractions, and a deterministic tree hash.
 
+After the neutral-gray predictions finish, compare the original and
+canonical-identity prediction arrays before GT evaluation:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/audit_prediction_repeat.py \
+  outputs/eth3d_training/vggt/raw \
+  outputs/eth3d_training/vggt/raw_canonical \
+  --scenes courtyard delivery_area electro facade kicker meadow office \
+    pipes playground relief relief_2 terrace terrains \
+  --variant identity \
+  --output results/repair/eth3d_vggt_identity_repeat_audit.json
+```
+
+Repeat for DUSt3R. The audit requires identical protocol metadata and records
+exact equality plus maximum numerical drift for every NPZ array. Runtime and
+path fields are intentionally excluded. A mismatch remains visible and does
+not get replaced by an assumed zero clean cost.
+
 Before any repair GT result is inspected, prepare and audit the two additional
 frozen fill policies in separate roots. Include identity in each root so the
 standard GT evaluator retains a complete paired design:
