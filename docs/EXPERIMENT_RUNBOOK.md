@@ -154,6 +154,23 @@ planes, selected calibration files, and the official evaluation code. Do not
 inspect DTU GT metrics until the reliability cases, score fields, failure
 threshold, and AUROC gate in `docs/RELIABILITY_PROTOCOL.md` are frozen.
 
+After the single extraction task exits and all three reports say `complete`,
+independently reopen and rehash the exact 146-file tree. Run this disk-heavy
+check as its own Windows task after the execution checkout has been safely
+fast-forwarded; the auditor rejects missing, changed, duplicate, or extra
+files:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUExtractionAudit \
+  'cd /opt/camcanon3r; PYTHONPATH=src .venv/bin/python \
+  scripts/audit_dtu_extraction.py \
+  /mnt/e/camcanon3r-data/dtu_mvs/selections \
+  /mnt/e/camcanon3r-data/dtu_selected \
+  /mnt/e/camcanon3r-data/dtu_mvs \
+  --output results/dtu/extraction_audit.json \
+  > results/dtu/extraction_audit.log 2>&1'
+```
+
 Once all three extraction reports are complete, prepare all eleven frozen
 mechanism variants. Preparation independently revalidates the exact 22 x 3
 source-image design and checkpoints its protocol and extraction-report hashes.

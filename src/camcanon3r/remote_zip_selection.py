@@ -12,6 +12,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 from .http_zip import HTTPRangeReader, _RangeSession
+from .prediction import write_json_atomic
 
 
 @dataclass(frozen=True)
@@ -33,9 +34,12 @@ class RemoteZipSelection:
 def _relative_target(value: object) -> PurePosixPath:
     text = str(value)
     target = PurePosixPath(text)
-    if target.is_absolute() or not target.parts or any(
-        part in {"", ".", ".."} for part in target.parts
-    ) or "\\" in text:
+    if (
+        target.is_absolute()
+        or not target.parts
+        or any(part in {"", ".", ".."} for part in target.parts)
+        or "\\" in text
+    ):
         raise ValueError(f"member target must be a safe relative path: {value!r}")
     return target
 
@@ -166,7 +170,9 @@ def extract_remote_zip_selection(
     for record in report_members:
         target_key = str(record["target"])
         if target_key not in expected_targets:
-            raise ValueError(f"extraction report contains an extra target: {target_key}")
+            raise ValueError(
+                f"extraction report contains an extra target: {target_key}"
+            )
         if target_key in completed:
             raise ValueError(
                 f"extraction report contains a duplicate target: {target_key}"
@@ -174,20 +180,27 @@ def extract_remote_zip_selection(
         completed[target_key] = record
 
     output_root.mkdir(parents=True, exist_ok=True)
-    with HTTPRangeReader(
-        selection.url,
-        size=selection.expected_bytes,
-        etag=selection.etag,
-        block_size=block_size,
-        session=session,
-    ) as source, zipfile.ZipFile(source) as archive:
+    with (
+        HTTPRangeReader(
+            selection.url,
+            size=selection.expected_bytes,
+            etag=selection.etag,
+            block_size=block_size,
+            session=session,
+        ) as source,
+        zipfile.ZipFile(source) as archive,
+    ):
         archive_infos = {info.filename: info for info in archive.infolist()}
         for member in selection.members:
             info = archive_infos.get(member.source)
             if info is None:
-                raise FileNotFoundError(f"remote ZIP member is missing: {member.source}")
+                raise FileNotFoundError(
+                    f"remote ZIP member is missing: {member.source}"
+                )
             if info.is_dir():
-                raise ValueError(f"selected remote ZIP member is a directory: {member.source}")
+                raise ValueError(
+                    f"selected remote ZIP member is a directory: {member.source}"
+                )
             if info.file_size != member.expected_bytes or info.CRC != member.crc32:
                 raise ValueError(
                     f"remote ZIP member identity mismatch: {member.source}"
@@ -205,7 +218,9 @@ def extract_remote_zip_selection(
                 if size != member.expected_bytes or crc32 != member.crc32:
                     raise ValueError(f"existing selected output is invalid: {target}")
                 if previous is not None and previous.get("sha256") != sha256:
-                    raise ValueError(f"existing output changed after extraction: {target}")
+                    raise ValueError(
+                        f"existing output changed after extraction: {target}"
+                    )
                 if previous is None:
                     record = {
                         "source": member.source,
@@ -239,7 +254,9 @@ def extract_remote_zip_selection(
             crc &= 0xFFFFFFFF
             if size != member.expected_bytes or crc != member.crc32:
                 temporary.unlink(missing_ok=True)
-                raise ValueError(f"extracted member failed identity check: {member.source}")
+                raise ValueError(
+                    f"extracted member failed identity check: {member.source}"
+                )
             temporary.replace(target)
             record = {
                 "source": member.source,
@@ -264,3 +281,116 @@ def extract_remote_zip_selection(
     report["completed_members"] = len(completed)
     _write_report(report_path, report)
     return report
+
+
+def audit_remote_zip_extractions(
+    archives: Mapping[str, tuple[Path, Path]],
+    output_root: Path,
+    *,
+    output_path: Path | None = None,
+) -> dict[str, object]:
+    """Rehash completed selective extractions and reject tree drift."""
+
+    if not archives:
+        raise ValueError("at least one remote ZIP extraction is required")
+    expected_targets: set[str] = set()
+    archive_reports: dict[str, object] = {}
+    tree_records: list[tuple[str, int, str, str]] = []
+    for archive_id, (selection_path, report_path) in archives.items():
+        selection = load_remote_zip_selection(selection_path)
+        selection_sha256 = hashlib.sha256(selection_path.read_bytes()).hexdigest()
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        expected_archive = {
+            "url": selection.url,
+            "expected_bytes": selection.expected_bytes,
+            "etag": selection.etag,
+        }
+        if (
+            report.get("schema_version") != "1.0"
+            or report.get("status") != "complete"
+            or Path(str(report.get("selection"))).resolve() != selection_path.resolve()
+            or report.get("selection_sha256") != selection_sha256
+            or report.get("archive") != expected_archive
+            or report.get("member_count") != len(selection.members)
+            or report.get("completed_members") != len(selection.members)
+        ):
+            raise ValueError(
+                f"incomplete or mismatched extraction report: {report_path}"
+            )
+        reported_members = report.get("members")
+        if not isinstance(reported_members, list) or len(reported_members) != len(
+            selection.members
+        ):
+            raise ValueError(f"extraction report member count drift: {report_path}")
+        if any(not isinstance(record, Mapping) for record in reported_members):
+            raise TypeError(f"extraction report member is not an object: {report_path}")
+        expected_order = [member.target.as_posix() for member in selection.members]
+        actual_order = [str(record.get("target")) for record in reported_members]
+        if actual_order != expected_order:
+            raise ValueError(f"extraction report member order drift: {report_path}")
+
+        archive_digest = hashlib.sha256()
+        for member, record in zip(selection.members, reported_members, strict=True):
+            target_key = member.target.as_posix()
+            if target_key in expected_targets:
+                raise ValueError(
+                    f"duplicate extraction target across archives: {target_key}"
+                )
+            expected_targets.add(target_key)
+            target = output_root.joinpath(*member.target.parts)
+            size, sha256, crc32 = _hash_and_crc(target)
+            expected_record = {
+                "source": member.source,
+                "target": target_key,
+                "bytes": member.expected_bytes,
+                "crc32": f"{member.crc32:08x}",
+                "sha256": sha256,
+            }
+            if (
+                record != expected_record
+                or size != member.expected_bytes
+                or crc32 != member.crc32
+            ):
+                raise ValueError(f"extracted member identity drift: {target}")
+            encoded = target_key.encode("utf-8") + b"\0"
+            archive_digest.update(encoded)
+            archive_digest.update(bytes.fromhex(sha256))
+            tree_records.append((target_key, size, f"{crc32:08x}", sha256))
+        archive_reports[archive_id] = {
+            "selection": str(selection_path.resolve()),
+            "selection_sha256": selection_sha256,
+            "report": str(report_path.resolve()),
+            "report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
+            "member_count": len(selection.members),
+            "tree_sha256": archive_digest.hexdigest(),
+        }
+
+    actual_targets = {
+        path.relative_to(output_root).as_posix()
+        for path in output_root.rglob("*")
+        if path.is_file()
+    }
+    if actual_targets != expected_targets:
+        raise ValueError(
+            "selected extraction tree drift: "
+            f"missing={sorted(expected_targets - actual_targets)}, "
+            f"extra={sorted(actual_targets - expected_targets)}"
+        )
+    combined_digest = hashlib.sha256()
+    for target, size, crc32, sha256 in sorted(tree_records):
+        combined_digest.update(target.encode("utf-8") + b"\0")
+        combined_digest.update(str(size).encode("ascii") + b"\0")
+        combined_digest.update(crc32.encode("ascii") + b"\0")
+        combined_digest.update(bytes.fromhex(sha256))
+    result = {
+        "schema_version": "remote-zip-extraction-audit-1.0",
+        "status": "complete",
+        "output_root": str(output_root.resolve()),
+        "archive_count": len(archives),
+        "member_count": len(expected_targets),
+        "tree_sha256": combined_digest.hexdigest(),
+        "archives": archive_reports,
+    }
+    if output_path is not None:
+        write_json_atomic(output_path, result)
+    return result

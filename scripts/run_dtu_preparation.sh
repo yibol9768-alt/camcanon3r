@@ -7,9 +7,10 @@ archive_root="/mnt/e/camcanon3r-data/dtu_mvs"
 selection_root="/mnt/e/camcanon3r-data/dtu_selected"
 prepared_root="${repo_root}/data/dtu/rectified_mechanism"
 audit_output="${repo_root}/results/dtu/rectified_mechanism_preparation_audit.json"
+extraction_audit="${repo_root}/results/dtu/extraction_audit.json"
 
 cd "${repo_root}"
-"${python_bin}" - "${archive_root}" <<'PY'
+"${python_bin}" - "${archive_root}" "${extraction_audit}" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -25,6 +26,16 @@ for name in ("sampleset", "rectified", "points"):
         or report.get("completed_members") != report.get("member_count")
     ):
         raise RuntimeError(f"DTU extraction is incomplete: {path}")
+audit_path = Path(sys.argv[2])
+if not audit_path.is_file():
+    raise FileNotFoundError(f"DTU independent extraction audit is missing: {audit_path}")
+audit = json.loads(audit_path.read_text(encoding="utf-8"))
+if (
+    audit.get("status") != "complete"
+    or audit.get("archive_count") != 3
+    or audit.get("member_count") != 146
+):
+    raise RuntimeError(f"DTU independent extraction audit is incomplete: {audit_path}")
 PY
 
 PYTHONPATH=src "${python_bin}" scripts/prepare_dtu_selection.py \

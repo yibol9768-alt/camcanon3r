@@ -5,6 +5,7 @@
     {"source": "/mnt/e/camcanon3r-data/dtu_mvs/sampleset_extraction_report.json", "target": "acquisition/sampleset_extraction_report.json"},
     {"source": "/mnt/e/camcanon3r-data/dtu_mvs/rectified_extraction_report.json", "target": "acquisition/rectified_extraction_report.json"},
     {"source": "/mnt/e/camcanon3r-data/dtu_mvs/points_extraction_report.json", "target": "acquisition/points_extraction_report.json"},
+    {"source": "results/dtu/extraction_audit.json", "target": "acquisition/independent_extraction_audit.json"},
     {"source": "results/dtu/rectified_mechanism_preparation_audit.json", "target": "preparation/rectified_mechanism_audit.json"},
     {"source": "results/dtu/rectified_canonical_preparation_audit.json", "target": "preparation/rectified_canonical_audit.json"},
     {"source": "results/dtu/rectified_canonical_preparation_compute.json", "target": "preparation/rectified_canonical_compute.json"},

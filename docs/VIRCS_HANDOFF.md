@@ -106,8 +106,8 @@ only merge.  It never resets or force-checks out files.
 ## Current frozen state
 
 - Control-plane baseline immediately before this update:
-  `152316fb6805adfa9911b2a41f147e9a0c63e842` plus the support-control
-  commit that contains this text. `vircs` is clean and passes 152 CPU tests.
+  `e6fcaff44c83511387479a36c7be54d224b782e7` plus the extraction-audit
+  commit that contains this text. `vircs` is clean and passes 154 CPU tests.
   While the DTU selection extractor owns the download proxy and data tree, the
   formal `my5090` checkout is intentionally left clean at `4029913`; it passes
   its then-current 123 tests.  Fast-forward it only after extraction exits.
@@ -162,7 +162,7 @@ only merge.  It never resets or force-checks out files.
   the frozen DTU evaluation remains the only held-out gate.
 - DTU acquisition is active under the single Windows task
   `CamCanon3R-DTUSelectionExtract`. At this edit, SampleSet is complete 58/58,
-  Rectified is in progress at 52/66, and Points has not started. The
+  Rectified is in progress at 56/66, and Points has not started. The
   extractor uses only the process-scoped proxy, is resumable, and now retries
   truncated HTTP 206 bodies. Do not launch a duplicate, sync the execution
   checkout, inspect GT outcomes, or start GPU work while this task is running.
@@ -171,6 +171,10 @@ only merge.  It never resets or force-checks out files.
   outputs bind input hashes and full timing; resume validates CRC and affines;
   evaluation performs audit-only prediction validation; and qualitative scene
   selection was frozen before outcomes.
+- A separate post-extraction auditor must rehash the exact 146 selected DTU
+  files against all three frozen selections and complete reports before
+  preparation. It rejects content, report, membership, order, or extra-file
+  drift, writes one tree digest, and is included in the final evidence bundle.
 - The confirmatory paper prose now records the frozen DTU split, exact three
   views and lighting condition, eleven-transform matrix, four point-map
   variants, and the non-leaderboard boundary of the deterministic point-map
@@ -237,8 +241,9 @@ download progress are allowed to drift after this document is committed.
 
 1. Let the existing DTU selection task finish exactly once; verify all three
    reports and the selected tree before syncing the `my5090` checkout.
-2. Fast-forward `my5090`, run 152/152 tests, then execute and audit DTU
-   preparation. Start no GPU task until two idle checks and no foreign owner.
+2. Fast-forward `my5090`, run 154/154 tests, then complete the independent
+   146-file extraction audit and execute/audit DTU preparation. Start no GPU
+   task until two idle checks and no foreign owner.
 3. Run VGGT then DUSt3R over the exact 22 x 11 design, retaining schema-1.2
    input hashes, compute/VRAM metadata, and audit-only resumability.
 4. Evaluate all pose/intrinsic cases and the four point-map variants, freeze

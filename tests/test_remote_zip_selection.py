@@ -9,6 +9,7 @@ import pytest
 import requests
 
 from camcanon3r.remote_zip_selection import (
+    audit_remote_zip_extractions,
     extract_remote_zip_selection,
     load_remote_zip_selection,
 )
@@ -33,9 +34,7 @@ class _Session:
         range_header = kwargs["headers"]["Range"]  # type: ignore[index]
         start_text, end_text = str(range_header).removeprefix("bytes=").split("-")
         start, end = int(start_text), int(end_text)
-        return _Response(
-            self.payload[start : end + 1], start, end, len(self.payload)
-        )  # type: ignore[return-value]
+        return _Response(self.payload[start : end + 1], start, end, len(self.payload))  # type: ignore[return-value]
 
     def close(self) -> None:
         pass
@@ -121,3 +120,49 @@ def test_remote_zip_selection_rejects_unsafe_target(tmp_path: Path) -> None:
     _selection(selection, payload, target="../escape.txt")
     with pytest.raises(ValueError, match="safe relative path"):
         load_remote_zip_selection(selection)
+
+
+def test_remote_zip_extraction_audit_rehashes_exact_tree(tmp_path: Path) -> None:
+    payload = _archive()
+    selection = tmp_path / "selection.json"
+    output = tmp_path / "output"
+    extraction_report = tmp_path / "report.json"
+    audit_report = tmp_path / "audit.json"
+    _selection(selection, payload)
+    extract_remote_zip_selection(
+        selection,
+        output,
+        extraction_report,
+        block_size=64,
+        session=_Session(payload),
+    )
+    report = audit_remote_zip_extractions(
+        {"test": (selection, extraction_report)},
+        output,
+        output_path=audit_report,
+    )
+    assert report["status"] == "complete"
+    assert report["member_count"] == 1
+    assert json.loads(audit_report.read_text(encoding="utf-8")) == report
+
+    (output / "extra.txt").write_text("unexpected", encoding="utf-8")
+    with pytest.raises(ValueError, match="tree drift"):
+        audit_remote_zip_extractions({"test": (selection, extraction_report)}, output)
+
+
+def test_remote_zip_extraction_audit_rejects_content_drift(tmp_path: Path) -> None:
+    payload = _archive()
+    selection = tmp_path / "selection.json"
+    output = tmp_path / "output"
+    extraction_report = tmp_path / "report.json"
+    _selection(selection, payload)
+    extract_remote_zip_selection(
+        selection,
+        output,
+        extraction_report,
+        block_size=64,
+        session=_Session(payload),
+    )
+    (output / "scan/one.txt").write_bytes(b"wrong payload")
+    with pytest.raises(ValueError, match="identity drift"):
+        audit_remote_zip_extractions({"test": (selection, extraction_report)}, output)
