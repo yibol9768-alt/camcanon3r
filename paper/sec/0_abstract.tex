@@ -8,17 +8,17 @@ this requirement as a preprocessing-equivariance contract and introduce an
 auditable protocol that records both user-level and model-internal image
 transforms, composes their exact pixel maps, and compares reconstructed
 cameras, intrinsics, depth, and point geometry against ground truth.  Across
-13 ETH3D scenes and 52 complete VGGT evaluations, independently shifted 75\%
-crops increase median rotation and translation-direction error by
-\SI{4.61}{\degree} and \SI{9.49}{\degree}, respectively, relative to paired
-identity runs.  They also increase depth AbsRel by 2.30 percentage points and
-point-cloud accuracy and completeness error by \SI{0.259}{\meter} and
-\SI{0.369}{\meter}; all five scene-bootstrap intervals exclude zero.  In
-contrast, letterbox depth and point-geometry deltas are statistically
-indistinguishable from identity.  A frozen three-scene DUSt3R diagnostic
-reproduces the cross-run rotation signal, but matched DUSt3R ground-truth
-evaluation remains the gate for cross-model promotion.  The evidence therefore
-establishes a specific VGGT accuracy failure under view-dependent cropping,
-not generic fragility to every resize or crop; failure detection and repair
-remain separate empirical claims.
+13 ETH3D scenes and 104 complete evaluations, independently shifted 75\%
+crops increase median rotation error by \SI{4.61}{\degree} for VGGT and
+\SI{4.52}{\degree} for DUSt3R relative to paired identity runs; translation
+error rises by \SI{9.49}{\degree} and \SI{10.99}{\degree}.  Depth AbsRel
+increases by 2.30 and 1.64 percentage points, and point-cloud completeness
+error by \SI{0.369}{\meter} and \SI{0.416}{\meter}; all eight corresponding
+scene-bootstrap intervals exclude zero.  In contrast, letterbox depth and
+point-geometry deltas are statistically indistinguishable from identity for
+both models.  Point accuracy degrades decisively for VGGT but not DUSt3R,
+preventing an all-metrics claim.  The evidence therefore establishes a
+specific multi-model accuracy failure under view-dependent cropping, not
+generic fragility to every resize or crop; cross-dataset generality, failure
+detection, and repair remain separate empirical claims.
 \end{abstract}

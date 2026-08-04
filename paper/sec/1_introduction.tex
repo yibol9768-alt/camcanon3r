@@ -33,24 +33,27 @@ empirical question rather than an assumption.
 The ground-truth study isolates a reproducible accuracy failure.  We freeze
 four lexicographically selected views from each of all 13 ETH3D training
 scenes, apply four registered preprocessing variants, and evaluate 52 complete
-VGGT runs.  Relative to paired identity predictions, independently shifted
-75\% crops increase median rotation error by \SI{4.61}{\degree} (95\% CI
-[3.13, 6.17]), translation-direction error by \SI{9.49}{\degree}
-([5.06, 13.55]), depth AbsRel by 0.0230 ([0.0119, 0.0295]), point accuracy
-error by \SI{0.259}{\meter} ([0.133, 0.589]), and point completeness error by
-\SI{0.369}{\meter} ([0.161, 0.756]).  The normalized principal-point error
-increase is 0.0371 ([0.0368, 0.0372]), directly linking the intervention to
-the camera mechanism.  Letterbox depth and point-geometry intervals include
-zero, while a shared center crop has smaller, metric-dependent effects.  Thus
-the evidence supports a view-dependent-crop failure, not generic sensitivity
-to all spatial preprocessing.
+runs per model.  Relative to paired identity predictions, independently
+shifted 75\% crops increase median rotation error by \SI{4.61}{\degree} for
+VGGT (95\% CI [3.13, 6.17]) and \SI{4.52}{\degree} for DUSt3R
+([2.13, 5.72]); translation-direction error rises by \SI{9.49}{\degree}
+([5.06, 13.55]) and \SI{10.99}{\degree} ([7.66, 12.37]).  Depth AbsRel
+increases by 0.0230 ([0.0119, 0.0295]) and 0.0164 ([0.0027, 0.0273]), while
+point completeness error rises by \SI{0.369}{\meter} ([0.161, 0.756]) and
+\SI{0.416}{\meter} ([0.114, 0.610]).  The normalized principal-point error
+increases by approximately 0.037 for both models, directly linking the
+intervention to the camera mechanism.  Letterbox depth and point-geometry
+intervals include zero for both models, while shared center crops have smaller,
+metric-dependent effects.  Thus the evidence supports a view-dependent-crop
+failure, not generic sensitivity to all spatial preprocessing.
 
 A separate diagnostic establishes replication boundaries without conflating
 cross-run disagreement and GT error.  On three four-view scenes, asymmetric
 crops produce 3.79--6.30 degrees median relative-rotation disagreement for
 VGGT; an identity repeat is numerically exact.  The frozen DUSt3R replication
-yields 5.74--8.83 degrees on the same scenes.  This is a two-model diagnostic
-signal, but only VGGT currently has benchmark-scale matched GT evidence.
+yields 5.74--8.83 degrees on the same scenes.  These diagnostics provide an
+independent repeat control and agree with the subsequent matched GT result;
+they are not substituted for it.
 
 This draft makes three evidence-bounded contributions:
 \begin{itemize}
@@ -59,11 +62,12 @@ This draft makes three evidence-bounded contributions:
   \item We provide an affine-aware, gauge-invariant evaluation path that
         resolves raw ETH3D calibration per view and evaluates pose, intrinsics,
         depth, and point maps without fitting the surface ground truth.
-  \item We establish on 13 ETH3D scenes that view-dependent 75\% cropping
-        degrades VGGT cameras, depth, and point geometry, while matched
-        letterbox controls remain close to identity; two-model diagnostics
-        further delimit the replication target.
+  \item We establish on 13 ETH3D scenes per model that view-dependent 75\%
+        cropping degrades VGGT and DUSt3R cameras, depth, and point
+        completeness, while matched letterbox controls remain close to
+        identity and model-specific exceptions remain explicit.
 \end{itemize}
-Matched multi-model and multi-dataset GT results, reliability metrics, and a
-training-free consensus repair are pre-registered promotion gates, not
-contributions claimed by the present evidence.
+Cross-dataset GT results, a second transform family crossing the frozen
+failure threshold, reliability metrics, and a training-free consensus repair
+are pre-registered promotion gates, not contributions claimed by the present
+evidence.

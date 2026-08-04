@@ -4,8 +4,8 @@
 
 Known image preprocessing changes the camera matrix, yet feed-forward 3D
 systems can return different scene geometry after the exact camera update is
-removed; CamCanon3R audits this equivariance contract, demonstrates a
-multi-scene VGGT accuracy failure under view-dependent cropping, and will
+removed; CamCanon3R audits this equivariance contract, demonstrates a matched
+VGGT/DUSt3R accuracy failure under view-dependent cropping on ETH3D, and will
 promote disagreement to a detector or repair signal only if held-out evidence
 supports that promotion.
 
@@ -17,12 +17,11 @@ supports that promotion.
    confound model drift with incorrect coordinate bookkeeping.
 3. **Method:** log and compose exact affines, map predictions to a common
    domain, and compare cameras/depth with gauge-invariant metrics.
-4. **Evidence:** 13-scene ETH3D GT pose, intrinsics, depth, and point geometry;
-   three-scene DUSt3R diagnostics support replication without substituting for
-   matched GT.
-5. **Contributions/boundary:** audit formulation and VGGT/ETH3D degradation are
-   supported; multi-model/dataset generality, detection, and repair remain
-   promotion gates.
+4. **Evidence:** separate 13-scene VGGT and DUSt3R ETH3D GT pose, intrinsics,
+   depth, and point geometry, plus an exact repeat diagnostic control.
+5. **Contributions/boundary:** audit formulation and multi-model ETH3D
+   degradation are supported; cross-dataset generality, detection, and repair
+   remain promotion gates.
 
 ## Reverse outline
 
@@ -31,8 +30,8 @@ supports that promotion.
 | 1 | Practical preprocessing changes the camera. | $P'=AK[R\mid t]$ and gauge requirement. |
 | 2 | Auditing is non-trivial because transforms compose. | Hidden model maps, aspect ratio, common coordinates. |
 | 3 | CamCanon3R makes the contract measurable. | Stored $A$, $B$, $BA$; relative pose and depth alignment. |
-| 4 | Current GT evidence isolates view-dependent crop degradation. | 13 ETH3D scenes; paired identity, center-crop, asymmetric-crop, and letterbox runs. |
-| 5 | Contributions are intentionally evidence bounded. | Supported VGGT result; explicit cross-model, cross-dataset, detection, and repair gates. |
+| 4 | Current GT evidence isolates view-dependent crop degradation. | 13 ETH3D scenes per model; separate paired VGGT and DUSt3R aggregates. |
+| 5 | Contributions are intentionally evidence bounded. | Supported multi-model ETH3D result; explicit second-transform, cross-dataset, detection, and repair gates. |
 
 ## Claim-evidence map
 
@@ -40,9 +39,10 @@ supports that promotion.
 |---|---|---|---|
 | Exact preprocessing transforms define a 3D equivariance contract. | Camera algebra and unit-tested affine composition. | supported | none |
 | VGGT is non-equivariant to view-dependent 75% crops in the tested setting. | Three-scene cross-run diagnostic plus exact repeat control. | supported for diagnostic setting | severity sweep for broader mechanism claim |
-| Confirmatory uncertainty is auditable. | Deterministic 10,000-replicate scene bootstrap across all 13 ETH3D training scenes. | supported for the frozen VGGT/ETH3D matrix | matched replication for each promoted model/dataset |
+| Confirmatory uncertainty is auditable. | Deterministic 10,000-replicate scene bootstrap across all 13 ETH3D training scenes, reported separately for VGGT and DUSt3R. | supported for both frozen ETH3D matrices | matched replication for each additional promoted dataset |
 | View-dependent 75% crops reduce VGGT ground-truth reconstruction accuracy on ETH3D raw. | Paired 13-scene GT pose/intrinsics/depth/point evaluation; all registered deltas available and decisive degradation intervals exclude zero. | supported | none for this narrow model/dataset/transform claim |
-| The diagnostic failure generalizes beyond VGGT. | Frozen DUSt3R three-scene matrix; asymmetric crop exceeds 2° rotation in all scenes. | supported for the three-scene diagnostic | benchmark-scale multi-model GT accuracy |
+| View-dependent 75% crops reduce DUSt3R ground-truth reconstruction accuracy on ETH3D raw. | Paired 13-scene GT evaluation; rotation, translation, depth, principal-point, and completeness deltas exclude zero, while point accuracy and focal deltas do not. | supported with metric-level boundary | none for this narrow model/dataset/transform claim |
+| The GT failure generalizes beyond one model. | Separate complete VGGT and DUSt3R ETH3D aggregates under protocol 2.1. | supported on ETH3D | matched second-dataset replication |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
 | Reliability metrics are auditable. | Tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, and scene-cluster bootstrap are unit tested. | implemented, no effectiveness claim | populate with held-out GT cases |
 | Analytic canonical-camera repair restores source pixel coordinates. | Unit-tested inverse affine, identity control, masks, and manifests. | implemented, no effectiveness claim | paired GT gap recovery and clean cost |
@@ -54,13 +54,13 @@ supports that promotion.
 - **Flow:** camera change -> audit ambiguity -> protocol -> evidence -> boundary.
 - **Terminology:** use *preprocessing non-equivariance* for cross-run
   diagnostics and *accuracy degradation* only for the frozen GT comparison.
-- **Unsupported claims:** no current text claims multi-model or multi-dataset
-  GT generality, AUROC, or repair gains.
-- **Missing evidence:** matched DUSt3R GT, a second geometry dataset, severity
-  response, reliability, repair, compute-normalized baselines, and qualitative
-  geometry.
+- **Unsupported claims:** no current text claims multi-dataset GT generality,
+  that every transform/metric degrades, AUROC, or repair gains.
+- **Missing evidence:** a second geometry dataset, a second transform family
+  crossing the frozen failure threshold, severity response, reliability,
+  repair, compute-normalized baselines, and qualitative geometry.
 - **Statistical boundary:** the three-scene diagnostics remain descriptive;
-  the 13-scene VGGT/ETH3D intervals support only their registered paired
+  the two separate 13-scene ETH3D aggregates support only their registered
   model/dataset/transform claims.
 
 ## Method reverse outline

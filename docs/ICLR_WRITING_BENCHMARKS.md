@@ -72,11 +72,11 @@ Each major section must follow `claim -> mechanism -> evidence -> boundary`.
 
 ## Evidence-gap checklist before reviewer red-team
 
-- [ ] At least 10 held-out ETH3D scenes with deterministic view selection and
+- [x] At least 10 held-out ETH3D scenes with deterministic view selection and
   complete paired variants.
-- [ ] Absolute GT pose, intrinsics, raw-depth, and aligned point-cloud
+- [x] Absolute GT pose, intrinsics, raw-depth, and aligned point-cloud
   accuracy/completeness, plus deltas from identity.
-- [ ] VGGT and DUSt3R reported separately on a matched GT protocol.
+- [x] VGGT and DUSt3R reported separately on a matched GT protocol.
 - [ ] At least two transform families cross the frozen degradation threshold;
   otherwise narrow hypothesis 1 rather than changing the threshold.
 - [ ] Severity response and view-dependent-versus-shared crop ablation test the

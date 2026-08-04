@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "result_scope": "ETH3D training split, raw distorted images, DUSt3R ground-truth evaluation",
+  "model": {
+    "family": "DUSt3R",
+    "weights": "checkpoints/dust3r-512-dpt",
+    "weights_sha256": "7c300a89534113436bde52732d3151212bcbd90f0aa3c8d1496f86d84bfe4b42",
+    "image_size": 512,
+    "scene_graph": "complete_symmetrized",
+    "optimizer": {
+      "mode": "PointCloudOptimizer",
+      "initialization": "mst",
+      "iterations": 300,
+      "schedule": "cosine",
+      "learning_rate": 0.01
+    },
+    "gpu": "NVIDIA GeForce RTX 5090"
+  },
+  "repo_commit": "aaae779bf542e584794da0920eea159f7dfb4726",
+  "evaluation_protocol_version": "2.1",
+  "design": {
+    "dataset": "ETH3D training split",
+    "domain": "raw",
+    "scene_count": 13,
+    "views_per_scene": 4,
+    "variant_count": 4,
+    "evaluation_count": 52,
+    "scenes": [
+      "courtyard",
+      "delivery_area",
+      "electro",
+      "facade",
+      "kicker",
+      "meadow",
+      "office",
+      "pipes",
+      "playground",
+      "relief",
+      "relief_2",
+      "terrace",
+      "terrains"
+    ],
+    "variants": [
+      "identity",
+      "center_crop_075",
+      "asymmetric_crop_075",
+      "letterbox_square"
+    ],
+    "seed": 17
+  },
+  "bootstrap": {
+    "resampling_unit": "scene",
+    "statistic": "median",
+    "interval_method": "percentile",
+    "confidence_level": 0.95,
+    "replicates": 10000,
+    "seed": 17
+  },
+  "metric_availability": {
+    "depth": "52/52 available",
+    "point_cloud": "52/52 available",
+    "all_reported_scene_metrics": "13/13 available for every variant"
+  },
+  "provenance": {
+    "selection_report_sha256": "d839fe2e3c0a724daed19bc16f5065e3d279e5d6c05a2bdffa72ae43667043f6",
+    "source_summary_sha256": "221f6ac681e259852cf46de8e6e6e4722e3d88d6c91311c6facbfaa76866dd21",
+    "prediction_tree_sha256": "332d90aed731921493630e79b0f6354f8d872ebe276d10fe7fdc97675579ebf3",
+    "source_summary": "results/eth3d_training/dust3r/raw/summary.json",
+    "prediction_root": "outputs/eth3d_training/dust3r/raw"
+  },
+  "metric_encoding": [
+    "point_estimate",
+    "95%_ci_lower",
+    "95%_ci_upper"
+  ],
+  "by_variant": {
+    "identity": {
+      "rotation_median_degrees": [1.2756191998382733, 0.8615714968423588, 1.9298103114717253],
+      "rotation_delta_from_identity_degrees": [0.0, 0.0, 0.0],
+      "translation_median_degrees": [4.4560425327432505, 3.371370624466403, 5.628161853366593],
+      "translation_delta_from_identity_degrees": [0.0, 0.0, 0.0],
+      "focal_relative_error_median": [0.06338839802360122, 0.04502433473351827, 0.08295812115579113],
+      "focal_relative_error_delta_from_identity": [0.0, 0.0, 0.0],
+      "principal_point_normalized_error_median": [0.001864096556408441, 0.0017542371764291632, 0.0022094165801476895],
+      "principal_point_normalized_error_delta_from_identity": [0.0, 0.0, 0.0],
+      "depth_mean_abs_rel": [0.02396479128726474, 0.021088779033698532, 0.03647756542303992],
+      "depth_abs_rel_delta_from_identity": [0.0, 0.0, 0.0],
+      "point_accuracy_mean_meters": [0.20959284853936094, 0.07449434146430436, 0.36758679767405483],
+      "point_accuracy_delta_from_identity_meters": [0.0, 0.0, 0.0],
+      "point_completeness_mean_meters": [0.20251393357509412, 0.06610019796726413, 0.40463579457182836],
+      "point_completeness_delta_from_identity_meters": [0.0, 0.0, 0.0]
+    },
+    "center_crop_075": {
+      "rotation_median_degrees": [1.381304491790986, 1.056071303986414, 2.1102432162696436],
+      "rotation_delta_from_identity_degrees": [0.6058276895471799, -0.5903814307652187, 0.6879229811504827],
+      "translation_median_degrees": [5.394244232199545, 2.2262096966412086, 8.53289596921935],
+      "translation_delta_from_identity_degrees": [0.6026962621146565, -1.273520270504612, 2.5282378653521405],
+      "focal_relative_error_median": [0.038458237895958855, 0.017142709841822895, 0.08029731960276074],
+      "focal_relative_error_delta_from_identity": [-0.017684098410246568, -0.05503170335812617, 0.0056616620389127875],
+      "principal_point_normalized_error_median": [0.0018294548764700546, 0.0017143478110893753, 0.0021609883310457034],
+      "principal_point_normalized_error_delta_from_identity": [-3.464167993838638e-05, -4.211825656113763e-05, 8.465356960977305e-06],
+      "depth_mean_abs_rel": [0.0335800092453838, 0.027696680115889334, 0.03785603329256128],
+      "depth_abs_rel_delta_from_identity": [0.0086789612162304, 0.0028647496157485075, 0.013338972630295043],
+      "point_accuracy_mean_meters": [0.27269997756157494, 0.10996872663602256, 0.3877361824427416],
+      "point_accuracy_delta_from_identity_meters": [0.07951685987752638, -0.0177503648887603, 0.15510073824477805],
+      "point_completeness_mean_meters": [0.40447483851516897, 0.22446441997313735, 0.4945335631685476],
+      "point_completeness_delta_from_identity_meters": [0.20196090494007485, 0.12285733605985291, 0.36221167333491694]
+    },
+    "asymmetric_crop_075": {
+      "rotation_median_degrees": [5.666775844286293, 3.8528643998150756, 6.542636859644707],
+      "rotation_delta_from_identity_degrees": [4.522337725645512, 2.12510313565405, 5.7190847696295934],
+      "translation_median_degrees": [15.282369321503786, 12.11902343776038, 19.1818914030378],
+      "translation_delta_from_identity_degrees": [10.992390222527982, 7.662980905017129, 12.36867282913835],
+      "focal_relative_error_median": [0.08252727572215304, 0.027550795521053304, 0.10850323973646736],
+      "focal_relative_error_delta_from_identity": [0.022688778690798897, -0.04475959950476935, 0.09013036730957882],
+      "principal_point_normalized_error_median": [0.038798306296339825, 0.03872868647971543, 0.038926915149959974],
+      "principal_point_normalized_error_delta_from_identity": [0.036906844559793456, 0.036571138555655594, 0.037002883960036294],
+      "depth_mean_abs_rel": [0.045719716277492814, 0.03126880465704306, 0.05819920809322838],
+      "depth_abs_rel_delta_from_identity": [0.016429107476827205, 0.0027456577687409722, 0.027278126024368726],
+      "point_accuracy_mean_meters": [0.41082369219479814, 0.2610302498711968, 0.5490859710024486],
+      "point_accuracy_delta_from_identity_meters": [0.25182271473233925, -0.015243568528108375, 0.4693516204228973],
+      "point_completeness_mean_meters": [0.4785662668302249, 0.3542645290261755, 0.9226964921204343],
+      "point_completeness_delta_from_identity_meters": [0.41645435304406503, 0.11421786783801743, 0.6101553009323475]
+    },
+    "letterbox_square": {
+      "rotation_median_degrees": [1.3335759003214336, 0.7854047966781992, 1.791518072851912],
+      "rotation_delta_from_identity_degrees": [-0.006203034182657108, -0.07234985279030659, 0.0735369514082218],
+      "translation_median_degrees": [3.6094887154538386, 2.9478358957406314, 7.932254070853618],
+      "translation_delta_from_identity_degrees": [-0.5055066466986875, -0.9504163301797384, -0.005464082925351832],
+      "focal_relative_error_median": [0.05222635567199777, 0.031565881146676245, 0.07317767610436271],
+      "focal_relative_error_delta_from_identity": [-0.0030304152687628816, -0.023754811542506582, 0.0016163664810170085],
+      "principal_point_normalized_error_median": [0.0018558299862342096, 0.0018156205739673548, 0.0021286293721324992],
+      "principal_point_normalized_error_delta_from_identity": [2.3589334181504376e-05, -3.4905998991833706e-05, 0.0001406003212895018],
+      "depth_mean_abs_rel": [0.026919690298134666, 0.020272095976280234, 0.0368651601682611],
+      "depth_abs_rel_delta_from_identity": [-0.0008166830574182979, -0.004023117188977226, 0.004986503102659089],
+      "point_accuracy_mean_meters": [0.18959639605522807, 0.12053050999953649, 0.34623689395455515],
+      "point_accuracy_delta_from_identity_meters": [-0.019884570565791904, -0.07828287953433294, 0.009472079570435082],
+      "point_completeness_mean_meters": [0.1795224297574488, 0.09246473820148474, 0.3257469709665771],
+      "point_completeness_delta_from_identity_meters": [-0.01541458909692369, -0.08292788095133347, 0.021633395083025954]
+    }
+  },
+  "interpretation_boundary": "This artifact provides matched multi-model ground-truth evidence on ETH3D when read beside the VGGT artifact. Cross-dataset generalization, reliability, and repair remain untested."
+}

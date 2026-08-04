@@ -2,7 +2,7 @@
 
 Updated: 2026-08-04
 Target: 3DV 2027, paper deadline 2026-08-28 11:00 PDT  
-Status: frozen contract; first confirmatory VGGT result complete, promotion gates active
+Status: frozen contract; matched VGGT/DUSt3R ETH3D result complete, promotion gates active
 
 ## Paper claim
 
@@ -132,12 +132,12 @@ in the frozen design rather than being removed after inspection.
 
 | Claim | Required evidence | Current status |
 |---|---|---|
-| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **VGGT/ETH3D raw GT supported for view-dependent 75% crop:** 13 scenes, 52 complete evaluations, pose/intrinsics/depth/point-map metrics all available; matched DUSt3R GT and a second dataset remain required for the full claim |
+| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Multi-model ETH3D raw GT supported for view-dependent 75% crop:** VGGT and DUSt3R each have 13 scenes and 52 complete evaluations with pose/intrinsics/depth/point-map metrics; a second dataset and a second transform family crossing the registered threshold remain required for the full hypothesis |
 | Native confidence misses failures | calibration and risk-coverage comparison | needs evidence |
 | Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
 | CamCanon repairs geometry | paired baseline/ablation results and compute cost | needs evidence |
 
-## Frozen confirmatory snapshot: VGGT on ETH3D raw
+## Frozen confirmatory snapshot: VGGT and DUSt3R on ETH3D raw
 
 The first benchmark-scale result is frozen in
 `artifacts/eth3d_vggt_raw_seed17/summary.json`.  It evaluates four fixed views
@@ -160,9 +160,28 @@ deltas are -0.0074 m ([-0.0204, 0.0210]) and -0.0019 m
 ([-0.0288, 0.0228]), respectively, and its depth delta also includes zero.
 Shared center crop has no detectable depth increase, but it increases point
 completeness error by 0.145 m ([0.0979, 0.1772]) and rotation error by 0.480
-degrees ([0.130, 0.787]).  Therefore this snapshot supports a strong
-view-dependent-crop failure for VGGT, not a claim that every crop or resize is
-harmful and not yet a multi-model or multi-dataset conclusion.
+degrees ([0.130, 0.787]).  Therefore the VGGT artifact supports a strong
+view-dependent-crop failure, not a claim that every crop or resize is harmful;
+the matched-model boundary is evaluated separately below.
+
+The matched DUSt3R artifact is frozen in
+`artifacts/eth3d_dust3r_raw_seed17/summary.json` under the same 13-scene,
+four-variant, seed-17 evaluator.  The asymmetric crop increases rotation error
+by 4.52 degrees ([2.13, 5.72]), translation-direction error by 10.99 degrees
+([7.66, 12.37]), depth AbsRel by 0.0164 ([0.00275, 0.0273]), and point
+completeness error by 0.416 m ([0.114, 0.610]).  Its point-accuracy delta is
+0.252 m ([-0.015, 0.469]) and is therefore not promoted as decisive for this
+model.  Shared center cropping decisively increases DUSt3R depth AbsRel by
+0.00868 ([0.00286, 0.0133]) and completeness error by 0.202 m
+([0.123, 0.362]), but it does not cross the registered two-degree pose or 5%
+absolute-depth thresholds.  Letterbox depth and both point-geometry intervals
+include zero.
+
+Read together, the two artifacts establish a multi-model ETH3D accuracy
+failure for the view-dependent crop, with consistent camera, depth, and
+completeness effects.  They do not satisfy the full two-transform,
+two-dataset hypothesis and do not support a claim that every metric degrades
+for every model.
 
 The aggregation code now enforces one identity per scene, a complete paired
 scene/variant design, separation of pose-only and depth protocols, and
