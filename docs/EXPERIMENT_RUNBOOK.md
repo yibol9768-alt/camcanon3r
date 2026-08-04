@@ -180,7 +180,12 @@ the batch runner's validation.
 
 The model-neutral launcher re-runs the strict preparation audit, reads the 22
 scenes and 11 variants directly from the frozen JSON files, refuses concurrent
-CamCanon3R model inference, and selects the correct model environment:
+CamCanon3R model inference, and selects the correct model environment.  A
+resumed run does not trust filename existence alone: every skipped NPZ/JSON
+pair must pass archive CRC, required-array, view-order, weight, seed, and affine
+composition checks.  New schema-1.1 predictions additionally bind the ordered
+prepared inputs by SHA-256, so a same-name input replacement cannot silently
+reuse stale GPU output:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-DTUVGGT \

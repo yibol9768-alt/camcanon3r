@@ -16,7 +16,12 @@ from vggt.models.vggt import VGGT
 from vggt.utils.load_fn import load_and_preprocess_images
 from vggt.utils.pose_enc import pose_encoding_to_extri_intri
 
-from camcanon3r.prediction import save_npz_compressed_atomic, write_json_atomic
+from camcanon3r.prediction import (
+    PREDICTION_SCHEMA_VERSION,
+    input_sha256_records,
+    save_npz_compressed_atomic,
+    write_json_atomic,
+)
 from camcanon3r.protocol import list_images, protocol_affines
 from camcanon3r.vggt_preprocess import plan_vggt_preprocessing
 
@@ -84,9 +89,8 @@ def run_scene(
     prepared_affines = protocol_affines(scene_dir, image_paths)
     model_affines = [spec.affine.matrix for spec in preprocess_specs]
     source_to_model = [
-        model @ prepared for model, prepared in zip(
-            model_affines, prepared_affines, strict=True
-        )
+        model @ prepared
+        for model, prepared in zip(model_affines, prepared_affines, strict=True)
     ]
     dtype = (
         torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
@@ -116,8 +120,10 @@ def run_scene(
         source_to_model_affine=np.stack(source_to_model),
     )
     metadata = {
+        "prediction_schema_version": PREDICTION_SCHEMA_VERSION,
         "scene_directory": str(scene_dir.resolve()),
         "inputs": [path.name for path in image_paths],
+        "input_sha256": input_sha256_records(image_paths),
         "weights": str(weights.resolve()),
         "preprocess": preprocess,
         "seed": seed,

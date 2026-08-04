@@ -11,6 +11,7 @@ from pathlib import Path
 
 from run_dust3r import load_model, run_scene
 
+from camcanon3r.prediction import validate_prediction_pair
 from camcanon3r.sweep import plan_prediction_sweep
 
 
@@ -44,6 +45,15 @@ def main() -> None:
         resume=args.resume,
         overwrite=args.overwrite,
     )
+    for run in planned:
+        if run.skip:
+            validate_prediction_pair(
+                run.output,
+                run.prepared_dir,
+                max_views=args.max_views,
+                seed=args.seed,
+                weights=args.weights,
+            )
     pending = [run for run in planned if not run.skip]
     if not pending:
         print(
@@ -97,9 +107,7 @@ def main() -> None:
             "scene": run.scene,
             "variant": run.variant,
             "status": "executed",
-            "pairwise_inference_seconds": metadata[
-                "pairwise_inference_seconds"
-            ],
+            "pairwise_inference_seconds": metadata["pairwise_inference_seconds"],
             "alignment_seconds": metadata["alignment_seconds"],
             "peak_vram_bytes": metadata["peak_vram_bytes"],
         }

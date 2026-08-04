@@ -12,6 +12,7 @@ from pathlib import Path
 import torch
 from run_vggt import load_model, run_scene
 
+from camcanon3r.prediction import validate_prediction_pair
 from camcanon3r.sweep import plan_prediction_sweep
 
 
@@ -53,6 +54,15 @@ def main() -> None:
         resume=args.resume,
         overwrite=args.overwrite,
     )
+    for run in planned:
+        if run.skip:
+            validate_prediction_pair(
+                run.output,
+                run.prepared_dir,
+                max_views=args.max_views,
+                seed=args.seed,
+                weights=args.weights,
+            )
     pending = [run for run in planned if not run.skip]
     if not pending:
         print(

@@ -14,6 +14,8 @@ from PIL import Image, ImageOps
 
 from camcanon3r.dust3r_preprocess import plan_dust3r_preprocessing
 from camcanon3r.prediction import (
+    PREDICTION_SCHEMA_VERSION,
+    input_sha256_records,
     save_npz_compressed_atomic,
     stack_equal_shapes,
     world_to_camera_from_camera_to_world,
@@ -137,14 +139,10 @@ def run_scene(
             model_affines, prepared_affines, strict=True
         )
     ]
-    pairs = make_pairs(
-        images, scene_graph="complete", prefilter=None, symmetrize=True
-    )
+    pairs = make_pairs(images, scene_graph="complete", prefilter=None, symmetrize=True)
     torch.cuda.reset_peak_memory_stats(device)
     inference_start = time.perf_counter()
-    pairwise = inference(
-        pairs, model, device, batch_size=batch_size, verbose=False
-    )
+    pairwise = inference(pairs, model, device, batch_size=batch_size, verbose=False)
     torch.cuda.synchronize(device)
     pairwise_seconds = time.perf_counter() - inference_start
 
@@ -188,9 +186,11 @@ def run_scene(
         source_to_model_affine=np.stack(source_to_model),
     )
     metadata: dict[str, object] = {
+        "prediction_schema_version": PREDICTION_SCHEMA_VERSION,
         "model": "DUSt3R",
         "scene_directory": str(scene_dir.resolve()),
         "inputs": [path.name for path in image_paths],
+        "input_sha256": input_sha256_records(image_paths),
         "weights": str(weights.resolve()),
         "seed": seed,
         "image_size": image_size,
@@ -209,9 +209,7 @@ def run_scene(
                 "input": path.name,
                 "input_size": list(spec.affine.source_size),
                 "resized_size": list(spec.resized_size),
-                "crop_left_top_right_bottom": list(
-                    spec.crop_left_top_right_bottom
-                ),
+                "crop_left_top_right_bottom": list(spec.crop_left_top_right_bottom),
                 "model_tensor_size": list(spec.affine.target_size),
                 "model_preprocess_affine": spec.affine.matrix.tolist(),
                 "protocol_affine": prepared.tolist(),
