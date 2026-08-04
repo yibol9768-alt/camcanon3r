@@ -56,8 +56,9 @@ The frozen confirmatory matrix uses VGGT and DUSt3R on ETH3D
 \cite{schops2017eth3d} and DTU~\cite{jensen2014large}.  ETH3D uses four fixed
 raw views from each of all 13 training scenes, with matched raw-depth maps.
 DTU is held out until all detector scores and thresholds are fixed: we use the
-standard 22 MVS evaluation scans, three pixelNeRF views (indices 22, 25, and
-28), and lighting condition 3.  The same ordered 11-transform severity/scope
+standard 22 MVS evaluation scans, three pixelNeRF~\cite{yu2021pixelnerf} views
+(indices 22, 25, and 28), and lighting condition 3.  The same ordered
+11-transform severity/scope
 matrix is applied to both datasets.  All variants receive pose and intrinsic
 evaluation; point accuracy and completeness are computed for the four
 predeclared confirmatory variants on DTU and for all variants with available
