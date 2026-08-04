@@ -11,6 +11,12 @@ the official MVS leaderboard protocol.  The experiment excludes photometric
 corruptions and unrelated-view failures because they do not isolate the known
 camera intervention.
 
+Cropping changes coordinates and visible support together.  The canonical
+control holds the crop-supported RGB samples fixed and therefore tests whether
+camera-canvas placement contributes beyond missing context, but it also adds a
+fixed fill and another interpolation step.  It narrows rather than completely
+eliminates support, fill, and resampling as alternative explanations.
+
 Canonicalization can undo coordinates but cannot reconstruct pixels removed by
 a crop.  Consistent with that limit, it recovers camera rotation but worsens
 depth for both models, and the registered consensus selector is not promoted.

@@ -256,6 +256,14 @@ arrays for each model, so measured clean rotation degradation is zero.  A
 single repaired run takes a median 0.155 seconds per scene for VGGT and 4.80
 seconds for DUSt3R, excluding separately reported model loading.
 
+The direct-crop and canonical branches contain the same crop-supported RGB
+samples; canonicalization changes their camera-canvas placement and adds only
+the registered fill outside that support.  The rotation recovery therefore
+makes missing context alone insufficient to explain the direct-crop error.
+It does not remove differences from interpolation or filled support, which we
+retain as a limitation rather than treating this comparison as a lossless
+image transform.
+
 \begin{table}[t]
   \centering
   \caption{Known-affine canonicalization on the independently shifted 75\%
