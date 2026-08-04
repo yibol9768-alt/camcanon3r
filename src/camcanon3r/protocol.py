@@ -144,6 +144,7 @@ def prepare_scene(
     *,
     variants: Iterable[str],
     seed: int,
+    scene_name: str | None = None,
     max_views: int | None = None,
     resume: bool = False,
 ) -> dict[str, object]:
@@ -184,7 +185,7 @@ def prepare_scene(
 
     manifest = {
         "protocol_version": "0.1.0",
-        "scene": scene_dir.name,
+        "scene": scene_name or scene_dir.name,
         "seed": seed,
         "source_directory": str(scene_dir.resolve()),
         "variants": [asdict(record) for record in variant_records],
@@ -196,9 +197,15 @@ def prepare_scene(
     if resume and manifest_path.exists():
         existing_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if existing_manifest != normalized_manifest:
-            raise ValueError(
-                "existing manifest does not match the requested scene preparation"
+            legacy_manifest = dict(normalized_manifest)
+            legacy_manifest["scene"] = scene_dir.name
+            legacy_scene_only = (
+                scene_name is not None and existing_manifest == legacy_manifest
             )
+            if not legacy_scene_only:
+                raise ValueError(
+                    "existing manifest does not match the requested scene preparation"
+                )
 
     for source, transform, output_path in render_plans:
         output_path.parent.mkdir(parents=True, exist_ok=True)

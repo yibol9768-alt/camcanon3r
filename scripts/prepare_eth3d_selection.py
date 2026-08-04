@@ -54,6 +54,7 @@ def main() -> None:
             output_dir,
             variants=args.variants,
             seed=args.seed,
+            scene_name=scene,
             max_views=len(expected_names),
             resume=args.resume,
         )

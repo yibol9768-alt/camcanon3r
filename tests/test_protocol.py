@@ -111,6 +111,33 @@ def test_prepare_scene_resume_skips_valid_outputs(
     assert resumed == expected
 
 
+def test_prepare_scene_resume_migrates_explicit_scene_name_only(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = tmp_path / "dslr_images"
+    output = tmp_path / "courtyard"
+    _write_scene(source)
+    legacy = prepare_scene(
+        source, output, variants=("identity",), seed=17
+    )
+    assert legacy["scene"] == "dslr_images"
+
+    def fail_if_rendered(*args: object, **kwargs: object) -> Image.Image:
+        raise AssertionError("scene-name migration must not rewrite images")
+
+    monkeypatch.setattr(protocol_module, "apply_affine", fail_if_rendered)
+    migrated = prepare_scene(
+        source,
+        output,
+        variants=("identity",),
+        seed=17,
+        scene_name="courtyard",
+        resume=True,
+    )
+    assert migrated["scene"] == "courtyard"
+    assert json.loads((output / "manifest.json").read_text()) == migrated
+
+
 def test_prepare_scene_resume_repairs_invalid_output(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
