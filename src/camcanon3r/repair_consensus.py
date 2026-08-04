@@ -38,6 +38,44 @@ def _prediction_fields(path: Path) -> tuple[np.ndarray, str, float]:
     raise KeyError(f"prediction has no supported native confidence field: {path}")
 
 
+def _prediction_compute(path: Path) -> dict[str, object]:
+    metadata_path = path.with_suffix(".json")
+    if not metadata_path.is_file():
+        raise FileNotFoundError(
+            f"repair prediction metadata is missing: {metadata_path}"
+        )
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if metadata.get("inference_seconds") is not None:
+        components = {
+            "inference_seconds": float(metadata["inference_seconds"]),
+        }
+    elif (
+        metadata.get("pairwise_inference_seconds") is not None
+        and metadata.get("alignment_seconds") is not None
+    ):
+        components = {
+            "pairwise_inference_seconds": float(metadata["pairwise_inference_seconds"]),
+            "alignment_seconds": float(metadata["alignment_seconds"]),
+        }
+    else:
+        raise ValueError(f"repair prediction has no supported runtime fields: {path}")
+    if any(not np.isfinite(value) or value < 0.0 for value in components.values()):
+        raise ValueError(f"repair prediction runtime is invalid: {path}")
+    peak_vram = int(metadata["peak_vram_bytes"])
+    load_seconds = float(metadata["load_seconds"])
+    if peak_vram < 0 or not np.isfinite(load_seconds) or load_seconds < 0.0:
+        raise ValueError(f"repair prediction compute metadata is invalid: {path}")
+    return {
+        "model_compute_seconds": float(sum(components.values())),
+        "components": components,
+        "load_seconds": load_seconds,
+        "model_reused_across_variants": bool(
+            metadata.get("model_reused_across_variants")
+        ),
+        "peak_vram_bytes": peak_vram,
+    }
+
+
 def select_repair_candidates(
     candidates: Mapping[str, tuple[Path, Mapping[str, Any]]],
     *,
@@ -130,6 +168,7 @@ def summarize_consensus_repair(
     if not scenes:
         raise ValueError("at least one consensus-repair scene is required")
     selections: dict[str, dict[str, object]] = {}
+    candidate_compute_by_scene: dict[str, dict[str, dict[str, object]]] = {}
     method_records: dict[str, dict[str, tuple[Mapping[str, Any], ...]]] = {
         method: {}
         for method in (
@@ -147,6 +186,11 @@ def summarize_consensus_repair(
         selection = select_repair_candidates(
             candidates, candidate_order=candidate_order
         )
+        candidate_compute_by_scene[scene] = {
+            label: _prediction_compute(candidates[label][0])
+            for label in candidate_order
+        }
+        selection["candidate_compute"] = candidate_compute_by_scene[scene]
         selections[scene] = selection
         selected = selection["selected"]
         assert isinstance(selected, Mapping)
@@ -182,6 +226,58 @@ def summarize_consensus_repair(
         )
         for method in method_records
     }
+    candidate_compute = {}
+    for label in candidate_order:
+        records = [candidate_compute_by_scene[scene][label] for scene in sorted(scenes)]
+        model_compute = np.asarray(
+            [record["model_compute_seconds"] for record in records], dtype=np.float64
+        )
+        load_seconds = np.asarray(
+            [record["load_seconds"] for record in records], dtype=np.float64
+        )
+        candidate_compute[label] = {
+            "scene_count": len(records),
+            "median_model_compute_seconds_per_scene": float(np.median(model_compute)),
+            "total_model_compute_seconds": float(np.sum(model_compute)),
+            "model_load_seconds": float(np.median(load_seconds)),
+            "model_load_seconds_consistent_across_scene_metadata": bool(
+                np.allclose(load_seconds, load_seconds[0], atol=1e-9)
+            ),
+            "maximum_peak_vram_bytes": max(
+                int(record["peak_vram_bytes"]) for record in records
+            ),
+        }
+    per_scene_all_candidate_compute = np.asarray(
+        [
+            sum(
+                float(candidate_compute_by_scene[scene][label]["model_compute_seconds"])
+                for label in candidate_order
+            )
+            for scene in sorted(scenes)
+        ]
+    )
+    first_label = str(candidate_order[0])
+    method_compute = {
+        "analytic_single_pass": {
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": candidate_compute[first_label][
+                "median_model_compute_seconds_per_scene"
+            ],
+            "total_model_compute_seconds": candidate_compute[first_label][
+                "total_model_compute_seconds"
+            ],
+        }
+    }
+    for method in ("consensus", "native_confidence", "oracle"):
+        method_compute[method] = {
+            "model_runs_per_scene": len(candidate_order),
+            "median_model_compute_seconds_per_scene": float(
+                np.median(per_scene_all_candidate_compute)
+            ),
+            "total_model_compute_seconds": float(
+                np.sum(per_scene_all_candidate_compute)
+            ),
+        }
     primary = "relative_rotation_median_degrees"
     consensus_metric = method_summaries["consensus"]["by_metric"][primary]
     analytic_metric = method_summaries["analytic_single_pass"]["by_metric"][primary]
@@ -205,6 +301,13 @@ def summarize_consensus_repair(
         and promotion["recovery_pass"]
         and promotion["clean_cost_pass"]
     )
+    recovery = consensus_metric["gap_recovery"]["point_estimate"]
+    promotion["recovery_per_model_compute_second"] = (
+        None
+        if recovery is None
+        else float(recovery)
+        / float(method_compute["consensus"]["median_model_compute_seconds_per_scene"])
+    )
     return {
         "schema_version": "1.0",
         "scene_count": len(scenes),
@@ -212,6 +315,8 @@ def summarize_consensus_repair(
         "candidate_order": list(candidate_order),
         "selections": selections,
         "selection_frequencies": selection_frequencies,
+        "candidate_compute": candidate_compute,
+        "method_compute": method_compute,
         "method_summaries": method_summaries,
         "promotion": promotion,
     }

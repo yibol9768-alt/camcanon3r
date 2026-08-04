@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -7,6 +8,7 @@ import pytest
 from scipy.spatial.transform import Rotation
 
 from camcanon3r.repair_consensus import (
+    _prediction_compute,
     select_repair_candidates,
     summarize_consensus_repair,
 )
@@ -26,6 +28,17 @@ def _prediction(path: Path, rotation_degrees: float, confidence: float) -> None:
         extrinsic=extrinsic,
         world_points_conf=np.full((2, 2, 2), confidence),
     )
+    path.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "inference_seconds": 0.5 + rotation_degrees / 100.0,
+                "load_seconds": 2.0,
+                "model_reused_across_variants": True,
+                "peak_vram_bytes": 1024,
+            }
+        ),
+        encoding="utf-8",
+    )
 
 
 def _evaluation(rotation: float) -> dict[str, object]:
@@ -35,6 +48,32 @@ def _evaluation(rotation: float) -> dict[str, object]:
         "translation_direction_degrees": {"median": rotation * 2.0},
         "depth": {"mean_abs_rel": rotation / 100.0},
     }
+
+
+def test_prediction_compute_supports_dust3r_pairwise_and_alignment(
+    tmp_path: Path,
+) -> None:
+    prediction = tmp_path / "dust3r.npz"
+    prediction.touch()
+    prediction.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "pairwise_inference_seconds": 1.25,
+                "alignment_seconds": 3.75,
+                "load_seconds": 4.0,
+                "model_reused_across_variants": True,
+                "peak_vram_bytes": 2048,
+            }
+        ),
+        encoding="utf-8",
+    )
+    compute = _prediction_compute(prediction)
+    assert compute["model_compute_seconds"] == pytest.approx(5.0)
+    assert compute["components"] == {
+        "pairwise_inference_seconds": 1.25,
+        "alignment_seconds": 3.75,
+    }
+    assert compute["peak_vram_bytes"] == 2048
 
 
 def test_consensus_native_and_oracle_use_separate_frozen_signals(
@@ -105,3 +144,10 @@ def test_consensus_summary_keeps_methods_and_models_unpooled(tmp_path: Path) -> 
     assert summary["selection_frequencies"]["native_confidence"] == {"image_mean": 3}
     assert summary["promotion"]["beats_single_pass_analytic_repair"] is True
     assert summary["promotion"]["all_point_estimate_gates_pass"] is True
+    assert (
+        summary["method_compute"]["analytic_single_pass"]["model_runs_per_scene"] == 1
+    )
+    assert summary["method_compute"]["consensus"]["model_runs_per_scene"] == 3
+    assert (
+        summary["candidate_compute"]["neutral_gray"]["maximum_peak_vram_bytes"] == 1024
+    )
