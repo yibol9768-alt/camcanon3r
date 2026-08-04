@@ -127,6 +127,10 @@ def main() -> None:
             "status": "executed",
             "pairwise_inference_seconds": metadata["pairwise_inference_seconds"],
             "alignment_seconds": metadata["alignment_seconds"],
+            "model_compute_seconds": metadata["model_compute_seconds"],
+            "end_to_end_seconds": metadata[
+                "end_to_end_seconds_excluding_model_load_and_metadata_write"
+            ],
             "peak_vram_bytes": metadata["peak_vram_bytes"],
         }
         summaries.append(event)

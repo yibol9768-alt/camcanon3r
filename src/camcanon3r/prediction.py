@@ -15,7 +15,8 @@ from PIL import Image
 
 from .protocol import list_images
 
-PREDICTION_SCHEMA_VERSION = "1.1"
+PREDICTION_SCHEMA_VERSION = "1.2"
+SUPPORTED_PREDICTION_SCHEMA_VERSIONS = {"1.1", PREDICTION_SCHEMA_VERSION}
 
 
 def save_npz_compressed_atomic(path: Path, **arrays: ArrayLike) -> None:
@@ -70,8 +71,8 @@ def validate_prediction_pair(
 ) -> dict[str, object]:
     """Validate a completed prediction before a resumable sweep skips it.
 
-    Legacy records remain resumable after structural checks. Records written by
-    schema 1.1 additionally bind the exact input bytes, preventing a same-name
+    Legacy records remain resumable after structural checks. Versioned records
+    additionally bind the exact input bytes, preventing a same-name
     prepared image replacement from silently reusing stale predictions.
     """
 
@@ -125,9 +126,9 @@ def validate_prediction_pair(
             )
 
     schema = metadata.get("prediction_schema_version")
-    if schema is not None and schema != PREDICTION_SCHEMA_VERSION:
+    if schema is not None and schema not in SUPPORTED_PREDICTION_SCHEMA_VERSIONS:
         raise ValueError(f"unsupported prediction schema version: {schema}")
-    if schema == PREDICTION_SCHEMA_VERSION:
+    if schema in SUPPORTED_PREDICTION_SCHEMA_VERSIONS:
         expected_hashes = input_sha256_records(image_paths)
         if metadata.get("input_sha256") != expected_hashes:
             raise ValueError(

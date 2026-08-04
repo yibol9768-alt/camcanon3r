@@ -61,3 +61,10 @@ case "${model}" in
       --niter 300 --schedule cosine --lr 0.01 --seed 17 --resume
     ;;
 esac
+
+PYTHONPATH=src "${base_python}" scripts/summarize_prediction_compute.py \
+  "outputs/dtu/${model}/rectified_mechanism" \
+  "results/dtu/${model}/inference_compute.json" \
+  --model "${model}" --dataset dtu-held-out \
+  --scenes "${scenes[@]}" --variants "${variants[@]}" \
+  --require-end-to-end

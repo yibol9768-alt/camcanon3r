@@ -69,6 +69,7 @@ def run_scene(
     model_reused: bool,
     print_metadata: bool = True,
 ) -> dict[str, object]:
+    scene_start = time.perf_counter()
     torch.manual_seed(seed)
     np.random.seed(seed)
     image_paths = list_images(scene_dir, max_views=max_views)
@@ -122,6 +123,7 @@ def run_scene(
         protocol_affine=np.stack(prepared_affines),
         source_to_model_affine=np.stack(source_to_model),
     )
+    end_to_end_seconds = time.perf_counter() - scene_start
     metadata = {
         "prediction_schema_version": PREDICTION_SCHEMA_VERSION,
         "scene_directory": str(scene_dir.resolve()),
@@ -156,8 +158,13 @@ def run_scene(
         "gpu": torch.cuda.get_device_name(device),
         "dtype": str(dtype),
         "load_seconds": model_load_seconds,
+        "model_load_seconds": model_load_seconds,
         "model_reused_across_variants": model_reused,
         "inference_seconds": inference_seconds,
+        "model_compute_seconds": inference_seconds,
+        "end_to_end_seconds_excluding_model_load_and_metadata_write": (
+            end_to_end_seconds
+        ),
         "peak_vram_bytes": torch.cuda.max_memory_allocated(device),
     }
     metadata_path = output.with_suffix(".json")

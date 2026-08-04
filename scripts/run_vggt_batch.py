@@ -137,6 +137,10 @@ def main() -> None:
             "variant": run.variant,
             "status": "executed",
             "inference_seconds": metadata["inference_seconds"],
+            "model_compute_seconds": metadata["model_compute_seconds"],
+            "end_to_end_seconds": metadata[
+                "end_to_end_seconds_excluding_model_load_and_metadata_write"
+            ],
             "peak_vram_bytes": metadata["peak_vram_bytes"],
         }
         summaries.append(event)

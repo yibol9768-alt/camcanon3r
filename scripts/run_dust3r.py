@@ -97,6 +97,7 @@ def run_scene(
     from dust3r.inference import inference
     from dust3r.utils.image import load_images
 
+    scene_start = time.perf_counter()
     if max_views < 3:
         raise ValueError("confirmatory DUSt3R runs require at least three views")
     if niter <= 0 or batch_size <= 0 or lr <= 0:
@@ -188,6 +189,7 @@ def run_scene(
         protocol_affine=np.stack(prepared_affines),
         source_to_model_affine=np.stack(source_to_model),
     )
+    end_to_end_seconds = time.perf_counter() - scene_start
     metadata: dict[str, object] = {
         "prediction_schema_version": PREDICTION_SCHEMA_VERSION,
         "model": "DUSt3R",
@@ -230,9 +232,14 @@ def run_scene(
         "cuda": torch.version.cuda,
         "gpu": torch.cuda.get_device_name(device),
         "load_seconds": model_load_seconds,
+        "model_load_seconds": model_load_seconds,
         "model_reused_across_variants": model_reused,
         "pairwise_inference_seconds": pairwise_seconds,
         "alignment_seconds": alignment_seconds,
+        "model_compute_seconds": pairwise_seconds + alignment_seconds,
+        "end_to_end_seconds_excluding_model_load_and_metadata_write": (
+            end_to_end_seconds
+        ),
         "peak_vram_bytes": torch.cuda.max_memory_allocated(device),
     }
     write_json_atomic(output.with_suffix(".json"), metadata)

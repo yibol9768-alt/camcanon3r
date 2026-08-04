@@ -183,9 +183,12 @@ scenes and 11 variants directly from the frozen JSON files, refuses concurrent
 CamCanon3R model inference, and selects the correct model environment.  A
 resumed run does not trust filename existence alone: every skipped NPZ/JSON
 pair must pass archive CRC, required-array, view-order, weight, seed, and affine
-composition checks.  New schema-1.1 predictions additionally bind the ordered
+composition checks.  New schema-1.2 predictions additionally bind the ordered
 prepared inputs by SHA-256, so a same-name input replacement cannot silently
-reuse stale GPU output:
+reuse stale GPU output. Each new record separately times one-time model load,
+model compute, and the per-scene end-to-end path through compressed NPZ write,
+and records peak VRAM. On successful completion the wrapper validates the
+exact metadata design and writes `results/dtu/<model>/inference_compute.json`:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-DTUVGGT \
