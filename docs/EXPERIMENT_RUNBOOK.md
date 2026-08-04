@@ -99,7 +99,9 @@ point-map protocol samples and backprojects the selected raw depth through the
 pixels have finite scan support, and fits one orientation-preserving Sim(3)
 using camera poses only. Paired rotations determine the global rotation, then
 camera centers determine positive scale and translation; this remains stable
-for nearly collinear camera paths. It then applies a 1 cm voxel grid and deterministic
+for nearly collinear camera paths. Calibration ID, intrinsics, and image size
+are resolved per view because a frozen scene subset may span multiple COLMAP
+cameras. It then applies a 1 cm voxel grid and deterministic
 100,000-point pooled cap and reports untruncated prediction-to-GT accuracy plus
 GT-to-prediction completeness (mean, median, and p90 in meters). Before
 pooling, raw-resolution computation is bounded by deterministically sampling at

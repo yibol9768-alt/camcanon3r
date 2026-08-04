@@ -98,6 +98,10 @@ sampled to at most 100,000 finite supported pixels before pooling. This is a
 raw-depth-derived point-map metric, not the official ETH3D MVS leaderboard
 protocol.
 
+All ETH3D camera matrices and image sizes are resolved per view. A scene is not
+assumed to use one COLMAP camera ID, and mixed-camera four-view subsets remain
+in the frozen design rather than being removed after inspection.
+
 ## 72-hour kill-test
 
 1. **0-8 h:** install VGGT on my5090, cache weights, freeze three example scenes,

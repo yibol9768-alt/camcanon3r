@@ -10,7 +10,7 @@ from pathlib import Path
 from camcanon3r.eth3d import evaluate_eth3d_prediction
 from camcanon3r.summary import summarize_eth3d_evaluations
 
-EVALUATION_PROTOCOL_VERSION = "2.0"
+EVALUATION_PROTOCOL_VERSION = "2.1"
 
 
 def parse_args() -> argparse.Namespace:

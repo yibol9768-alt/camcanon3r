@@ -114,11 +114,14 @@ def test_depth_to_source_ground_truth_recovers_scale() -> None:
 def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> None:
     calibration = tmp_path / "calibration"
     calibration.mkdir()
-    (calibration / "cameras.txt").write_text("0 PINHOLE 3 2 10 10 1 1\n")
+    (calibration / "cameras.txt").write_text(
+        "0 PINHOLE 3 2 10 10 1 1\n"
+        "1 PINHOLE 3 2 12 12 1 1\n"
+    )
     (calibration / "images.txt").write_text(
         "1 1 0 0 0 0 0 0 0 images/a.JPG\n\n"
         "2 1 0 0 0 1 0 0 0 images/b.JPG\n\n"
-        "3 1 0 0 0 0 1 0 0 images/c.JPG\n\n"
+        "3 1 0 0 0 0 1 0 1 images/c.JPG\n\n"
     )
     depth_dir = tmp_path / "depth"
     depth_dir.mkdir()
@@ -135,23 +138,33 @@ def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> No
         ]
     )
     grid_y, grid_x = np.mgrid[:2, :3]
-    camera_points = np.stack(
-        [(grid_x - 1.0) / 10.0, (grid_y - 1.0) / 10.0, np.ones((2, 3))],
-        axis=-1,
-    )
+    camera_points = [
+        np.stack(
+            [
+                (grid_x - 1.0) / focal,
+                (grid_y - 1.0) / focal,
+                np.ones((2, 3)),
+            ],
+            axis=-1,
+        )
+        for focal in (10.0, 10.0, 12.0)
+    ]
     world_points = np.stack(
-        [camera_points - item[:, 3] for item in extrinsic]
+        [
+            points - item[:, 3]
+            for points, item in zip(camera_points, extrinsic, strict=True)
+        ]
+    )
+    predicted_intrinsics = np.stack(
+        [
+            [[focal, 0.0, 1.0], [0.0, focal, 1.0], [0.0, 0.0, 1.0]]
+            for focal in (10.0, 10.0, 12.0)
+        ]
     )
     np.savez(
         prediction,
         extrinsic=extrinsic,
-        intrinsic=np.repeat(
-            np.asarray([[10.0, 0.0, 1.0], [0.0, 10.0, 1.0], [0.0, 0.0, 1.0]])[
-                None
-            ],
-            3,
-            axis=0,
-        ),
+        intrinsic=predicted_intrinsics,
         depth=np.full((3, 2, 3), 1.0),
         world_points=world_points,
         source_to_model_affine=np.repeat(np.eye(3)[None], 3, axis=0),
@@ -167,6 +180,7 @@ def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> No
         prediction, calibration, depth_dir=depth_dir
     )
     assert pose_only["depth"] is None
+    assert pose_only["camera_ids"] == [0, 0, 1]
     assert pose_only["variant"] == "prediction"
     assert pose_only["relative_rotation_degrees"]["median"] == 0.0
     assert pose_only["intrinsics"]["focal_relative_error"]["median"] == 0.0
@@ -183,13 +197,7 @@ def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> No
     np.savez(
         prediction,
         extrinsic=np.repeat(extrinsic[:1], 3, axis=0),
-        intrinsic=np.repeat(
-            np.asarray(
-                [[10.0, 0.0, 1.0], [0.0, 10.0, 1.0], [0.0, 0.0, 1.0]]
-            )[None],
-            3,
-            axis=0,
-        ),
+        intrinsic=predicted_intrinsics,
         depth=np.full((3, 2, 3), 1.0),
         world_points=world_points,
         source_to_model_affine=np.repeat(np.eye(3)[None], 3, axis=0),

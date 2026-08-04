@@ -315,14 +315,14 @@ def _depth_points_in_world(
 
 def _target_point_cloud(
     source_depths: list[np.ndarray],
-    camera: ColmapCamera,
+    cameras: list[ColmapCamera],
     extrinsics: np.ndarray,
     *,
     maximum_points: int,
 ) -> np.ndarray:
     depth_paths = tuple(str(getattr(depth, "filename", "")) for depth in source_depths)
     key: tuple[object, ...] = (
-        camera,
+        tuple(cameras),
         extrinsics.tobytes(),
         depth_paths,
         maximum_points,
@@ -339,7 +339,9 @@ def _target_point_cloud(
                 extrinsic,
                 maximum_points=per_view_maximum,
             )
-            for depth, extrinsic in zip(source_depths, extrinsics, strict=True)
+            for depth, camera, extrinsic in zip(
+                source_depths, cameras, extrinsics, strict=True
+            )
         ]
     )
     if not len(points):
@@ -433,9 +435,7 @@ def evaluate_eth3d_prediction(
     inputs = metadata["inputs"]
     matched = [images[Path(name).stem] for name in inputs]
     ground_truth_extrinsics = np.stack([item.extrinsic for item in matched])
-    camera = cameras[matched[0].camera_id]
-    if any(item.camera_id != camera.camera_id for item in matched):
-        raise RuntimeError("the selected ETH3D views do not share one camera model")
+    matched_cameras = [cameras[item.camera_id] for item in matched]
 
     with np.load(prediction_path) as prediction:
         pose_errors = pairwise_relative_pose_errors(
@@ -465,21 +465,26 @@ def evaluate_eth3d_prediction(
         source_intrinsics = np.linalg.solve(
             source_to_model, predicted_intrinsics
         )
-        target_intrinsics = colmap_camera_matrix(camera)
         focal_errors = np.asarray(
             [
-                focal_relative_error(intrinsics, target_intrinsics)
-                for intrinsics in source_intrinsics
+                focal_relative_error(
+                    intrinsics, colmap_camera_matrix(target_camera)
+                )
+                for intrinsics, target_camera in zip(
+                    source_intrinsics, matched_cameras, strict=True
+                )
             ]
         )
         principal_point_errors = np.asarray(
             [
                 principal_point_error(
                     intrinsics,
-                    target_intrinsics,
-                    (camera.width, camera.height),
+                    colmap_camera_matrix(target_camera),
+                    (target_camera.width, target_camera.height),
                 )
-                for intrinsics in source_intrinsics
+                for intrinsics, target_camera in zip(
+                    source_intrinsics, matched_cameras, strict=True
+                )
             ]
         )
         depth = None
@@ -488,10 +493,12 @@ def evaluate_eth3d_prediction(
             source_depths = [
                 open_eth3d_depth(
                     depth_dir / f"{Path(name).stem}.JPG",
-                    width=camera.width,
-                    height=camera.height,
+                    width=target_camera.width,
+                    height=target_camera.height,
                 )
-                for name in inputs
+                for name, target_camera in zip(
+                    inputs, matched_cameras, strict=True
+                )
             ]
             depth = aligned_depth_to_source_ground_truth(
                 prediction["depth"],
@@ -506,7 +513,7 @@ def evaluate_eth3d_prediction(
             )
             target_points = _target_point_cloud(
                 source_depths,
-                camera,
+                matched_cameras,
                 ground_truth_extrinsics,
                 maximum_points=100_000,
             )
@@ -554,8 +561,27 @@ def evaluate_eth3d_prediction(
         "prediction": str(prediction_path.resolve()),
         "variant": prediction_path.stem,
         "inputs": inputs,
-        "camera_model": camera.model,
-        "camera_size": [camera.width, camera.height],
+        "camera_model": (
+            matched_cameras[0].model
+            if len({camera.model for camera in matched_cameras}) == 1
+            else None
+        ),
+        "camera_size": (
+            [matched_cameras[0].width, matched_cameras[0].height]
+            if len(
+                {
+                    (camera.width, camera.height)
+                    for camera in matched_cameras
+                }
+            )
+            == 1
+            else None
+        ),
+        "camera_ids": [camera.camera_id for camera in matched_cameras],
+        "camera_models": [camera.model for camera in matched_cameras],
+        "camera_sizes": [
+            [camera.width, camera.height] for camera in matched_cameras
+        ],
         "intrinsics": {
             "focal_relative_error": _finite_summary(focal_errors),
             "principal_point_normalized_error": _finite_summary(
@@ -564,13 +590,20 @@ def evaluate_eth3d_prediction(
             "per_view": [
                 {
                     "input": name,
+                    "camera_id": target_camera.camera_id,
+                    "camera_model": target_camera.model,
+                    "camera_size": [
+                        target_camera.width,
+                        target_camera.height,
+                    ],
                     "focal_relative_error": float(focal_error),
                     "principal_point_normalized_error": float(
                         principal_point_error_value
                     ),
                 }
-                for name, focal_error, principal_point_error_value in zip(
+                for name, target_camera, focal_error, principal_point_error_value in zip(
                     inputs,
+                    matched_cameras,
                     focal_errors,
                     principal_point_errors,
                     strict=True,
