@@ -77,10 +77,10 @@ Each major section must follow `claim -> mechanism -> evidence -> boundary`.
 - [x] Absolute GT pose, intrinsics, raw-depth, and aligned point-cloud
   accuracy/completeness, plus deltas from identity.
 - [x] VGGT and DUSt3R reported separately on a matched GT protocol.
-- [ ] At least two transform families cross the frozen degradation threshold;
-  otherwise narrow hypothesis 1 rather than changing the threshold.
-- [ ] Severity response and view-dependent-versus-shared crop ablation test the
-  principal-point mechanism.
+- [x] At least two transform families cross the frozen degradation threshold
+  on ETH3D; DTU remains required for the registered two-dataset hypothesis.
+- [x] Severity response and view-dependent-versus-shared crop ablation test the
+  principal-point mechanism on both VGGT and DUSt3R.
 - [ ] Native confidence, transform disagreement, AUROC, risk--coverage, and
   scene-cluster intervals on held-out cases.
 - [ ] Analytic repair, consensus, clean-cost control, oracle selection, raw gap
