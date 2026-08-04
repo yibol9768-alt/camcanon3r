@@ -6,8 +6,10 @@ Status: frozen contract; matched VGGT/DUSt3R ETH3D mechanism and repair results 
 
 ## Paper claim
 
-Feed-forward 3D reconstruction models should be equivariant to known,
-invertible image preprocessing once the induced camera update is accounted for.
+Feed-forward 3D reconstruction models should be equivariant to known
+nonsingular image-coordinate maps on their shared visible support once the
+induced camera update is accounted for. Crops may still irreversibly remove
+image content; the contract does not assume otherwise.
 CamCanon3R measures violations of this contract and evaluates two test-time
 responses without ground-truth 3D: known-affine canonicalization and
 cross-transform agreement.  Current evidence supports the former only for
@@ -19,9 +21,11 @@ is preprocessing-induced camera drift and its known geometric correction.
 
 ## Formal contract
 
-Let a view have camera matrix `P = K [R | t]`. An invertible image-space affine
-map `A` changes the image formation equation to `P' = A K [R | t]`. A model run
-on transformed images should therefore recover the same extrinsics and scene
+Let a view have camera matrix `P = K [R | t]`. A nonsingular image-coordinate
+affine map `A` changes the image formation equation to `P' = A K [R | t]`.
+Nonsingularity makes the coordinate bookkeeping exact; it does not make a
+finite crop information-preserving. On shared visible support, a model run on
+transformed images should therefore recover the same extrinsics and scene
 geometry, with intrinsics mapped by `K' = A K`, up to the model's unavoidable
 global gauge. After mapping predictions back and applying one declared global
 Sim(3) alignment, residual differences measure preprocessing non-equivariance.

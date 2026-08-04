@@ -40,8 +40,10 @@ and the raw-versus-undistorted ETH3D boundary.
 
 ## Core protocol
 
-For each multi-view scene, compare the original input with controlled,
-invertible image transforms:
+For each multi-view scene, compare the original input with controlled spatial
+transforms whose coordinate affines are nonsingular. Crop-induced loss of
+finite image support is recorded explicitly and is not claimed to be
+invertible:
 
 - center and asymmetric crop-resize;
 - isotropic and anisotropic resize;

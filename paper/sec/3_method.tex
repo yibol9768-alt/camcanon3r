@@ -13,14 +13,16 @@ repair paths.
 
 \subsection{Preprocessing-equivariance contract}
 Let source image $I_i$ have camera matrix
-$P_i=K_i[R_i\mid t_i]$.  A controlled invertible image-space affine
+$P_i=K_i[R_i\mid t_i]$.  A controlled nonsingular image-coordinate affine
 $A_i\in\R^{3\times3}$ produces $I'_i$ and changes the camera to
 \begin{equation}
   P'_i=A_iK_i[R_i\mid t_i].
 \end{equation}
 If the model applies an internal pixel map $B_i$, the complete source-to-model
-map is $C_i=B_iA_i$.  We store $A_i$, $B_i$, and $C_i$ rather than infer them
-after prediction.
+map is $C_i=B_iA_i$.  Nonsingularity concerns coordinates, not image content:
+a crop restricts the sampled domain and is therefore not information
+invertible.  We store $A_i$, $B_i$, $C_i$, and the valid source support rather
+than infer them after prediction.
 
 \subsection{Common-domain comparison}
 The contract is only measurable after both pixel coordinates and 3D gauge are
