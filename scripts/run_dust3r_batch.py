@@ -68,9 +68,13 @@ def main() -> None:
     summaries: list[dict[str, object]] = []
     for run in planned:
         if run.skip:
-            summaries.append(
-                {"scene": run.scene, "variant": run.variant, "status": "skipped"}
-            )
+            event = {
+                "scene": run.scene,
+                "variant": run.variant,
+                "status": "skipped",
+            }
+            summaries.append(event)
+            print(json.dumps({"event": "run_complete", **event}), flush=True)
             continue
         metadata = run_scene(
             scene_dir=run.prepared_dir,
@@ -89,18 +93,18 @@ def main() -> None:
             model_reused=True,
             print_metadata=False,
         )
-        summaries.append(
-            {
-                "scene": run.scene,
-                "variant": run.variant,
-                "status": "executed",
-                "pairwise_inference_seconds": metadata[
-                    "pairwise_inference_seconds"
-                ],
-                "alignment_seconds": metadata["alignment_seconds"],
-                "peak_vram_bytes": metadata["peak_vram_bytes"],
-            }
-        )
+        event = {
+            "scene": run.scene,
+            "variant": run.variant,
+            "status": "executed",
+            "pairwise_inference_seconds": metadata[
+                "pairwise_inference_seconds"
+            ],
+            "alignment_seconds": metadata["alignment_seconds"],
+            "peak_vram_bytes": metadata["peak_vram_bytes"],
+        }
+        summaries.append(event)
+        print(json.dumps({"event": "run_complete", **event}), flush=True)
         gc.collect()
         torch.cuda.empty_cache()
     print(
