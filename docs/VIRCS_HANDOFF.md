@@ -24,10 +24,11 @@ non-equivariance, not yet a ground-truth accuracy or multi-model result.
 | Code source of truth | GitHub | `yibol9768-alt/camcanon3r`, branch `main` |
 
 Do not copy model weights or full datasets onto `vircs`.  It has no visible
-NVIDIA GPU and, at handoff time, its 48 GB root filesystem had only about
-1.3 GB free.  Do not delete code, `/root/.claude`, or remote-development data
-to make space.  If cleanup becomes necessary, obtain explicit user approval
-and use a rebuildable-cache whitelist.
+NVIDIA GPU.  Its 48 GB root filesystem had only about 1.3 GB free during the
+initial check and about 16 GB at final verification after space was reclaimed
+outside this migration; treat that capacity as volatile.  Do not delete code,
+`/root/.claude`, or remote-development data to make space.  If cleanup becomes
+necessary, obtain explicit user approval and use a rebuildable-cache whitelist.
 
 ## Start here on vircs
 
@@ -80,7 +81,8 @@ only merge.  It never resets or force-checks out files.
 
 - The stable control path is `vircs -> my5090` over the existing SSH alias and
   dedicated key.  Keep long runs detached on `my5090`; loss of the controller
-  session must not kill an experiment.
+  session must not kill an experiment.  Five fresh control probes succeeded at
+  handoff, with new-connection latency between about 2.9 and 5.2 seconds.
 - Git commits are pushed from `vircs` to GitHub, then fast-forwarded on
   `my5090`.  Commit lightweight summaries and provenance, not weights, raw
   datasets, or large prediction archives.
