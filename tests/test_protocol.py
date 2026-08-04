@@ -57,6 +57,24 @@ def test_asymmetric_crop_is_seed_deterministic(tmp_path: Path) -> None:
     assert first_matrices == second_matrices
 
 
+def test_shared_asymmetric_crop_reuses_one_window(tmp_path: Path) -> None:
+    scene = tmp_path / "scene"
+    _write_scene(scene)
+    manifest = prepare_scene(
+        scene,
+        tmp_path / "prepared",
+        variants=("shared_asymmetric_crop_075", "asymmetric_crop_075"),
+        seed=17,
+    )
+
+    shared = manifest["variants"][0]["images"]
+    independent = manifest["variants"][1]["images"]
+    np.testing.assert_allclose(shared[0]["matrix"], shared[1]["matrix"])
+    assert not np.allclose(
+        independent[0]["matrix"], independent[1]["matrix"]
+    )
+
+
 def test_crop_fraction_variants_encode_frozen_severities() -> None:
     import random
 

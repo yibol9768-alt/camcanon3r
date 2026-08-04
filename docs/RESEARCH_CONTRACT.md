@@ -43,7 +43,8 @@ previously undocumented failure with clear practical consequences.
 ## Transform families
 
 - center crop followed by resize;
-- asymmetric crop followed by resize;
+- asymmetric crop followed by resize, with either one normalized off-center
+  window shared across views or independently sampled windows per view;
 - isotropic and anisotropic resize;
 - aspect-preserving resize plus symmetric letterbox padding;
 - different transforms per view in the same input set.

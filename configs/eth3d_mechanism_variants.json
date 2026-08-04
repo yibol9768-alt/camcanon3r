@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_benchmark_scale_mechanism_results": true,
+  "dataset": "ETH3D training split",
+  "domain": "raw",
+  "base_seed": 17,
+  "variant_seed_stride": 10007,
+  "ordered_variants": [
+    "identity",
+    "center_crop_075",
+    "asymmetric_crop_075",
+    "letterbox_square",
+    "center_crop_090",
+    "center_crop_060",
+    "asymmetric_crop_090",
+    "asymmetric_crop_060",
+    "shared_asymmetric_crop_090",
+    "shared_asymmetric_crop_075",
+    "shared_asymmetric_crop_060"
+  ],
+  "variant_seeds": {
+    "identity": 17,
+    "center_crop_075": 10024,
+    "asymmetric_crop_075": 20031,
+    "letterbox_square": 30038,
+    "center_crop_090": 40045,
+    "center_crop_060": 50052,
+    "asymmetric_crop_090": 60059,
+    "asymmetric_crop_060": 70066,
+    "shared_asymmetric_crop_090": 80073,
+    "shared_asymmetric_crop_075": 90080,
+    "shared_asymmetric_crop_060": 100087
+  },
+  "controls": {
+    "identity": "no user-level spatial intervention",
+    "letterbox_square": "aspect-preserving resize plus symmetric padding",
+    "center_crop": "same centered crop policy in every view",
+    "shared_asymmetric_crop": "one normalized off-center crop window reused in every view",
+    "asymmetric_crop": "independently sampled off-center crop window per view"
+  },
+  "interpretation_gate": "Compare severity within a family and shared versus independent off-center windows at matched retained fraction. Do not call a second family a frozen-threshold failure unless its paired rotation delta exceeds 2 degrees or its depth AbsRel delta exceeds 0.05 on both registered datasets."
+}

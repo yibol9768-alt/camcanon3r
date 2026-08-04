@@ -140,6 +140,48 @@ loads the model once for all nine pending runs, rejects partial outputs, and
 supports exact resume. The second command compares each candidate with its
 scene's identity prediction and writes `results/pilot/summary.json`.
 
+## Benchmark-scale severity and crop-scope matrix
+
+The pre-result design is frozen in
+`configs/eth3d_mechanism_variants.json`.  Preserve its exact variant order:
+the first four entries intentionally reproduce the completed seed-17
+confirmatory transforms, and the appended entries receive fixed seeds via the
+10,007 stride.  Reordering the list changes stochastic crop windows and is a
+different experiment.
+
+```bash
+variants=(
+  identity center_crop_075 asymmetric_crop_075 letterbox_square
+  center_crop_090 center_crop_060
+  asymmetric_crop_090 asymmetric_crop_060
+  shared_asymmetric_crop_090 shared_asymmetric_crop_075
+  shared_asymmetric_crop_060
+)
+
+PYTHONPATH=src .venv/bin/python scripts/prepare_eth3d_selection.py \
+  /mnt/e/camcanon3r-data/eth3d_selected \
+  data/eth3d_training/raw_mechanism --domain raw \
+  --variants "${variants[@]}" --seed 17 --resume
+```
+
+Run VGGT and DUSt3R in separate Windows-owned background tasks using the same
+ordered array, then evaluate each model separately with
+`scripts/evaluate_eth3d_selection.py`.  Never pool the model summaries.  The
+mechanism contrasts are:
+
+- retained fraction 90%, 75%, and 60% within center, shared off-center, and
+  independently shifted crop families;
+- shared versus independent off-center windows at matched retained fraction;
+- identity and letterbox negative controls.
+
+`shared_asymmetric_crop_*` resets the registered RNG for every view, so its
+normalized crop window is identical across the set even if source resolutions
+differ.  `asymmetric_crop_*` advances the RNG and remains view dependent.  A
+second transform family passes the frozen hypothesis threshold only if its
+paired rotation degradation exceeds 2 degrees or its depth AbsRel increase
+exceeds 0.05 on both registered datasets; a significant but smaller effect is
+reported without moving the threshold.
+
 ## ETH3D office preparation
 
 The selected raw and pre-undistorted source links contain `DSC_0219` through

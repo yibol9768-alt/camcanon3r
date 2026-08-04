@@ -116,6 +116,12 @@ def build_transform(
         return resize(source_size, source_size)
     if variant.startswith("center_crop_"):
         return _center_crop(source_size, _fraction_suffix(variant, "center_crop_"))
+    if variant.startswith("shared_asymmetric_crop_"):
+        return _asymmetric_crop(
+            source_size,
+            _fraction_suffix(variant, "shared_asymmetric_crop_"),
+            rng,
+        )
     if variant.startswith("asymmetric_crop_"):
         return _asymmetric_crop(
             source_size, _fraction_suffix(variant, "asymmetric_crop_"), rng
@@ -153,14 +159,20 @@ def prepare_scene(
     render_plans: list[tuple[Path, ImageAffine, Path]] = []
 
     for variant_index, variant in enumerate(variants):
-        rng = random.Random(seed + 10_007 * variant_index)
+        variant_seed = seed + 10_007 * variant_index
+        rng = random.Random(variant_seed)
         variant_dir = output_dir / variant
         image_records: list[TransformRecord] = []
 
         for source in sources:
             with Image.open(source) as opened:
                 source_size = opened.size
-            transform = build_transform(variant, source_size, rng=rng)
+            transform_rng = (
+                random.Random(variant_seed)
+                if variant.startswith("shared_asymmetric_crop_")
+                else rng
+            )
+            transform = build_transform(variant, source_size, rng=transform_rng)
             output_name = f"{source.stem}.png"
             output_path = variant_dir / output_name
             render_plans.append((source, transform, output_path))
@@ -177,7 +189,7 @@ def prepare_scene(
         variant_records.append(
             VariantRecord(
                 name=variant,
-                seed=seed + 10_007 * variant_index,
+                seed=variant_seed,
                 interpolation="Pillow bicubic",
                 images=image_records,
             )
