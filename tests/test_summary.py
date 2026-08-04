@@ -84,6 +84,12 @@ def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
                 {
                     "prediction": f"/outputs/{variant}.npz",
                     "variant": variant,
+                    "intrinsics": {
+                        "focal_relative_error": {"median": rotation / 100},
+                        "principal_point_normalized_error": {
+                            "median": rotation / 200
+                        },
+                    },
                     "relative_rotation_degrees": {"median": rotation},
                     "translation_direction_degrees": {"median": translation},
                     "depth": {
@@ -99,6 +105,12 @@ def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
     crop = next(row for row in summary["evaluations"] if row["variant"] == "crop")
     assert crop["rotation_delta_from_identity_degrees"] == 2.5
     assert crop["translation_delta_from_identity_degrees"] == 6.0
+    assert crop["focal_relative_error_delta_from_identity"] == pytest.approx(
+        0.025
+    )
+    assert crop[
+        "principal_point_normalized_error_delta_from_identity"
+    ] == pytest.approx(0.0125)
     assert crop["depth_abs_rel_delta_from_identity"] == pytest.approx(0.06)
     assert summary["scene_count"] == 1
     assert summary["by_variant"]["crop"]["scene_bootstrap"]["scene_count"] == 1
@@ -120,6 +132,12 @@ def test_eth3d_summary_pairs_identity_within_each_scene(tmp_path: Path) -> None:
                     {
                         "prediction": f"/outputs/{scene}/{variant}.npz",
                         "variant": variant,
+                        "intrinsics": {
+                            "focal_relative_error": {"median": rotation / 100},
+                            "principal_point_normalized_error": {
+                                "median": rotation / 200
+                            },
+                        },
                         "relative_rotation_degrees": {"median": rotation},
                         "translation_direction_degrees": {"median": rotation * 2},
                         "depth": {"mean_abs_rel": rotation / 100, "valid_pixels": 10},
@@ -151,6 +169,10 @@ def test_eth3d_summary_rejects_duplicate_scene_variant(tmp_path: Path) -> None:
     record = {
         "prediction": "/outputs/identity.npz",
         "variant": "identity",
+        "intrinsics": {
+            "focal_relative_error": {"median": 0.1},
+            "principal_point_normalized_error": {"median": 0.01},
+        },
         "relative_rotation_degrees": {"median": 1.0},
         "translation_direction_degrees": {"median": 2.0},
         "depth": None,
@@ -178,6 +200,12 @@ def test_eth3d_summary_rejects_incomplete_paired_design(tmp_path: Path) -> None:
                     {
                         "prediction": f"/outputs/{scene}/{variant}.npz",
                         "variant": variant,
+                        "intrinsics": {
+                            "focal_relative_error": {"median": 0.1},
+                            "principal_point_normalized_error": {
+                                "median": 0.01
+                            },
+                        },
                         "relative_rotation_degrees": {"median": 1.0},
                         "translation_direction_degrees": {"median": 2.0},
                         "depth": None,
@@ -187,3 +215,45 @@ def test_eth3d_summary_rejects_incomplete_paired_design(tmp_path: Path) -> None:
             paths.append(path)
     with pytest.raises(ValueError, match="incomplete paired ETH3D design"):
         summarize_eth3d_evaluations(paths)
+
+
+def test_eth3d_summary_preserves_undefined_pose_metric(tmp_path: Path) -> None:
+    paths = []
+    for scene in ("office", "courtyard"):
+        scene_dir = tmp_path / scene
+        scene_dir.mkdir()
+        for variant in ("identity", "crop"):
+            translation = None if scene == "courtyard" and variant == "crop" else 2.0
+            path = scene_dir / f"{variant}_vs_gt.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "prediction": f"/outputs/{scene}/{variant}.npz",
+                        "variant": variant,
+                        "intrinsics": {
+                            "focal_relative_error": {"median": 0.1},
+                            "principal_point_normalized_error": {
+                                "median": 0.01
+                            },
+                        },
+                        "relative_rotation_degrees": {"median": 1.0},
+                        "translation_direction_degrees": {
+                            "median": translation
+                        },
+                        "depth": None,
+                    }
+                )
+            )
+            paths.append(path)
+
+    summary = summarize_eth3d_evaluations(paths)
+    crop = summary["by_variant"]["crop"]
+    availability = crop["metric_availability"][
+        "translation_median_degrees"
+    ]
+    assert availability["valid_scene_count"] == 1
+    assert availability["undefined_scene_count"] == 1
+    assert availability["included_in_scene_bootstrap"] is False
+    assert "translation_median_degrees" not in crop["scene_bootstrap"][
+        "metrics"
+    ]

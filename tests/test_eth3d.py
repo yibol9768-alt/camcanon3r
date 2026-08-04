@@ -3,6 +3,8 @@ from pathlib import Path
 import numpy as np
 
 from camcanon3r.eth3d import (
+    ColmapCamera,
+    colmap_camera_matrix,
     evaluate_eth3d_prediction,
     open_eth3d_depth,
     quaternion_to_rotation,
@@ -26,6 +28,20 @@ def test_eth3d_colmap_readers_and_depth_shape(tmp_path: Path) -> None:
     np.testing.assert_allclose(image.extrinsic[:, 3], [1, 2, 3])
     np.testing.assert_allclose(depth, [[0, 1, 2], [3, 4, 5]])
     np.testing.assert_allclose(quaternion_to_rotation((2, 0, 0, 0)), np.eye(3))
+
+
+def test_colmap_camera_matrix_supports_eth3d_models() -> None:
+    pinhole = ColmapCamera(0, "PINHOLE", 100, 80, (90, 91, 50, 40))
+    raw = ColmapCamera(
+        0,
+        "THIN_PRISM_FISHEYE",
+        100,
+        80,
+        (90, 91, 50, 40, 0, 0, 0, 0, 0, 0, 0, 0),
+    )
+    expected = np.asarray([[90, 0, 50], [0, 91, 40], [0, 0, 1]])
+    np.testing.assert_allclose(colmap_camera_matrix(pinhole), expected)
+    np.testing.assert_allclose(colmap_camera_matrix(raw), expected)
 
 
 def test_depth_to_source_ground_truth_recovers_scale() -> None:
@@ -61,6 +77,13 @@ def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> No
     np.savez(
         prediction,
         extrinsic=extrinsic,
+        intrinsic=np.repeat(
+            np.asarray([[10.0, 0.0, 1.0], [0.0, 10.0, 1.0], [0.0, 0.0, 1.0]])[
+                None
+            ],
+            2,
+            axis=0,
+        ),
         depth=np.full((2, 2, 3), 1.0),
         source_to_model_affine=np.repeat(np.eye(3)[None], 2, axis=0),
     )
@@ -77,5 +100,10 @@ def test_eth3d_prediction_supports_pose_only_and_raw_depth(tmp_path: Path) -> No
     assert pose_only["depth"] is None
     assert pose_only["variant"] == "prediction"
     assert pose_only["relative_rotation_degrees"]["median"] == 0.0
+    assert pose_only["intrinsics"]["focal_relative_error"]["median"] == 0.0
+    assert (
+        pose_only["intrinsics"]["principal_point_normalized_error"]["median"]
+        == 0.0
+    )
     assert with_depth["depth"]["mean_abs_rel"] == 0.0
     assert with_depth["depth"]["scale"] == 2.0

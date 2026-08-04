@@ -145,6 +145,7 @@ def summarize_eth3d_evaluations(
     for path in sorted(paths):
         record = json.loads(path.read_text(encoding="utf-8"))
         depth = record["depth"]
+        intrinsics = record["intrinsics"]
         rows.append(
             {
                 "scene": str(record.get("scene", path.parent.name)),
@@ -154,6 +155,12 @@ def summarize_eth3d_evaluations(
                 ],
                 "translation_median_degrees": record[
                     "translation_direction_degrees"
+                ]["median"],
+                "focal_relative_error_median": intrinsics[
+                    "focal_relative_error"
+                ]["median"],
+                "principal_point_normalized_error_median": intrinsics[
+                    "principal_point_normalized_error"
                 ]["median"],
                 "depth_mean_abs_rel": depth["mean_abs_rel"] if depth else None,
                 "valid_depth_pixels": depth["valid_pixels"] if depth else None,
@@ -200,13 +207,23 @@ def summarize_eth3d_evaluations(
                 raise ValueError(
                     f"inconsistent depth availability in ETH3D scene {scene!r}"
                 )
-            row["rotation_delta_from_identity_degrees"] = float(
-                row["rotation_median_degrees"]
-                - identity["rotation_median_degrees"]
+            row["rotation_delta_from_identity_degrees"] = _optional_difference(
+                row["rotation_median_degrees"],
+                identity["rotation_median_degrees"],
             )
-            row["translation_delta_from_identity_degrees"] = float(
-                row["translation_median_degrees"]
-                - identity["translation_median_degrees"]
+            row["translation_delta_from_identity_degrees"] = _optional_difference(
+                row["translation_median_degrees"],
+                identity["translation_median_degrees"],
+            )
+            row["focal_relative_error_delta_from_identity"] = _optional_difference(
+                row["focal_relative_error_median"],
+                identity["focal_relative_error_median"],
+            )
+            row[
+                "principal_point_normalized_error_delta_from_identity"
+            ] = _optional_difference(
+                row["principal_point_normalized_error_median"],
+                identity["principal_point_normalized_error_median"],
             )
             if row["depth_mean_abs_rel"] is None:
                 row["depth_abs_rel_delta_from_identity"] = None
@@ -232,35 +249,71 @@ def summarize_eth3d_evaluations(
     for variant, variant_rows in sorted(grouped_variants.items()):
         variant_rows = sorted(variant_rows, key=lambda row: str(row["scene"]))
         scenes = [str(row["scene"]) for row in variant_rows]
-        metrics: dict[str, list[float]] = {
+        metric_values: dict[str, list[object]] = {
             "rotation_median_degrees": [
-                float(row["rotation_median_degrees"]) for row in variant_rows
+                row["rotation_median_degrees"] for row in variant_rows
             ],
             "translation_median_degrees": [
-                float(row["translation_median_degrees"]) for row in variant_rows
+                row["translation_median_degrees"] for row in variant_rows
+            ],
+            "focal_relative_error_median": [
+                row["focal_relative_error_median"] for row in variant_rows
+            ],
+            "principal_point_normalized_error_median": [
+                row["principal_point_normalized_error_median"]
+                for row in variant_rows
             ],
             "rotation_delta_from_identity_degrees": [
-                float(row["rotation_delta_from_identity_degrees"])
+                row["rotation_delta_from_identity_degrees"]
                 for row in variant_rows
             ],
             "translation_delta_from_identity_degrees": [
-                float(row["translation_delta_from_identity_degrees"])
+                row["translation_delta_from_identity_degrees"]
+                for row in variant_rows
+            ],
+            "focal_relative_error_delta_from_identity": [
+                row["focal_relative_error_delta_from_identity"]
+                for row in variant_rows
+            ],
+            "principal_point_normalized_error_delta_from_identity": [
+                row["principal_point_normalized_error_delta_from_identity"]
                 for row in variant_rows
             ],
         }
         if depth_evaluated:
-            metrics["depth_mean_abs_rel"] = [
-                float(row["depth_mean_abs_rel"]) for row in variant_rows
+            metric_values["depth_mean_abs_rel"] = [
+                row["depth_mean_abs_rel"] for row in variant_rows
             ]
-            metrics["depth_abs_rel_delta_from_identity"] = [
-                float(row["depth_abs_rel_delta_from_identity"])
+            metric_values["depth_abs_rel_delta_from_identity"] = [
+                row["depth_abs_rel_delta_from_identity"]
                 for row in variant_rows
             ]
+        metric_arrays = {
+            label: np.asarray(values, dtype=np.float64)
+            for label, values in metric_values.items()
+        }
+        complete_metrics = {
+            label: values
+            for label, values in metric_arrays.items()
+            if np.isfinite(values).all()
+        }
         by_variant[variant] = {
             "scene_count": len(scenes),
             "scenes": scenes,
+            "metric_availability": {
+                label: {
+                    "valid_scene_count": int(
+                        np.count_nonzero(np.isfinite(values))
+                    ),
+                    "undefined_scene_count": int(
+                        np.count_nonzero(~np.isfinite(values))
+                    ),
+                    "included_in_scene_bootstrap": label in complete_metrics,
+                }
+                for label, values in metric_arrays.items()
+            },
             "scene_bootstrap": scene_bootstrap_summary(
-                metrics,
+                complete_metrics,
                 scenes=scenes,
                 replicates=bootstrap_replicates,
                 confidence_level=confidence_level,
@@ -277,3 +330,10 @@ def summarize_eth3d_evaluations(
         "evaluations": rows,
         "by_variant": by_variant,
     }
+
+
+def _optional_difference(value: object, reference: object) -> float | None:
+    if value is None or reference is None:
+        return None
+    difference = float(value) - float(reference)
+    return difference if np.isfinite(difference) else None

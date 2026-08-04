@@ -10,7 +10,9 @@ import numpy as np
 
 from .metrics import (
     aligned_depth_to_source_ground_truth,
+    focal_relative_error,
     pairwise_relative_pose_errors,
+    principal_point_error,
 )
 
 
@@ -113,6 +115,33 @@ def open_eth3d_depth(path: Path, *, width: int, height: int) -> np.memmap:
     return np.memmap(path, mode="r", dtype="<f4", shape=(height, width))
 
 
+def colmap_camera_matrix(camera: ColmapCamera) -> np.ndarray:
+    """Return the pinhole component shared by supported COLMAP models."""
+
+    if camera.model in {"PINHOLE", "OPENCV", "FULL_OPENCV", "THIN_PRISM_FISHEYE"}:
+        if len(camera.parameters) < 4:
+            raise ValueError(
+                f"camera model {camera.model} requires fx, fy, cx, and cy"
+            )
+        fx, fy, cx, cy = camera.parameters[:4]
+    elif camera.model in {
+        "SIMPLE_PINHOLE",
+        "SIMPLE_RADIAL",
+        "RADIAL",
+        "SIMPLE_RADIAL_FISHEYE",
+    }:
+        if len(camera.parameters) < 3:
+            raise ValueError(f"camera model {camera.model} requires f, cx, and cy")
+        focal, cx, cy = camera.parameters[:3]
+        fx = fy = focal
+    else:
+        raise ValueError(f"unsupported COLMAP camera model: {camera.model}")
+    return np.asarray(
+        [[fx, 0.0, cx], [0.0, fy, cy], [0.0, 0.0, 1.0]],
+        dtype=np.float64,
+    )
+
+
 def _finite_summary(values: np.ndarray) -> dict[str, float | int | None]:
     finite = values[np.isfinite(values)]
     return {
@@ -149,6 +178,47 @@ def evaluate_eth3d_prediction(
         pose_errors = pairwise_relative_pose_errors(
             ground_truth_extrinsics, prediction["extrinsic"]
         )
+        predicted_intrinsics = np.asarray(
+            prediction["intrinsic"], dtype=np.float64
+        )
+        while predicted_intrinsics.ndim > 3 and predicted_intrinsics.shape[0] == 1:
+            predicted_intrinsics = predicted_intrinsics[0]
+        source_to_model = np.asarray(
+            prediction["source_to_model_affine"], dtype=np.float64
+        )
+        while source_to_model.ndim > 3 and source_to_model.shape[0] == 1:
+            source_to_model = source_to_model[0]
+        expected_shape = (len(inputs), 3, 3)
+        if predicted_intrinsics.shape != expected_shape:
+            raise ValueError(
+                "prediction intrinsics must have shape "
+                f"{expected_shape}, got {predicted_intrinsics.shape}"
+            )
+        if source_to_model.shape != expected_shape:
+            raise ValueError(
+                "source-to-model affines must have shape "
+                f"{expected_shape}, got {source_to_model.shape}"
+            )
+        source_intrinsics = np.linalg.solve(
+            source_to_model, predicted_intrinsics
+        )
+        target_intrinsics = colmap_camera_matrix(camera)
+        focal_errors = np.asarray(
+            [
+                focal_relative_error(intrinsics, target_intrinsics)
+                for intrinsics in source_intrinsics
+            ]
+        )
+        principal_point_errors = np.asarray(
+            [
+                principal_point_error(
+                    intrinsics,
+                    target_intrinsics,
+                    (camera.width, camera.height),
+                )
+                for intrinsics in source_intrinsics
+            ]
+        )
         depth = None
         if depth_dir is not None:
             source_depths = [
@@ -171,6 +241,27 @@ def evaluate_eth3d_prediction(
         "inputs": inputs,
         "camera_model": camera.model,
         "camera_size": [camera.width, camera.height],
+        "intrinsics": {
+            "focal_relative_error": _finite_summary(focal_errors),
+            "principal_point_normalized_error": _finite_summary(
+                principal_point_errors
+            ),
+            "per_view": [
+                {
+                    "input": name,
+                    "focal_relative_error": float(focal_error),
+                    "principal_point_normalized_error": float(
+                        principal_point_error_value
+                    ),
+                }
+                for name, focal_error, principal_point_error_value in zip(
+                    inputs,
+                    focal_errors,
+                    principal_point_errors,
+                    strict=True,
+                )
+            ],
+        },
         "relative_rotation_degrees": _finite_summary(
             pose_errors["rotation_degrees"]
         ),
