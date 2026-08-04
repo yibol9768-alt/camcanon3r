@@ -97,7 +97,9 @@ samples the official raw z-depth at inverse-affine-mapped tensor pixels. The
 point-map protocol samples and backprojects the selected raw depth through the
 `THIN_PRISM_FISHEYE` model, retains predicted world points whose mapped raw
 pixels have finite scan support, and fits one orientation-preserving Sim(3)
-using camera centers only. It then applies a 1 cm voxel grid and deterministic
+using camera poses only. Paired rotations determine the global rotation, then
+camera centers determine positive scale and translation; this remains stable
+for nearly collinear camera paths. It then applies a 1 cm voxel grid and deterministic
 100,000-point pooled cap and reports untruncated prediction-to-GT accuracy plus
 GT-to-prediction completeness (mean, median, and p90 in meters). Before
 pooling, raw-resolution computation is bounded by deterministically sampling at
@@ -105,7 +107,7 @@ most 100,000 finite supported pixels per view. These numbers must be described
 as CamCanon3R's raw-depth-derived point-map metrics, not as official ETH3D MVS
 leaderboard scores.
 
-If a model collapses all predicted camera centers, the camera-only Sim(3) is
+If a model collapses all predicted camera centers, the pose-only Sim(3) scale is
 undefined. The evaluator keeps pose and depth results, emits an explicit
 `undefined_degenerate_camera_center_alignment` point-map status, and excludes
 that incomplete scene metric from the bootstrap instead of substituting zero.

@@ -86,9 +86,11 @@ For the ETH3D raw protocol, point maps are evaluated against a target cloud
 backprojected from the selected raw z-depth maps with the official
 `THIN_PRISM_FISHEYE` camera model. Predicted geometry is restricted to tensor
 pixels that map to finite scan-supported raw pixels. One orientation-preserving
-Sim(3), fitted only from predicted and ground-truth camera centers, maps the
-prediction into metric coordinates; surface ground truth never optimizes this
-alignment. Both clouds are voxelized at 1 cm, deterministically capped at
+Sim(3), fitted only from predicted and ground-truth camera poses, maps the
+prediction into metric coordinates: the chordal mean of paired camera
+rotations fixes global rotation, then camera centers fit positive scale and
+translation. Surface ground truth never optimizes this alignment. Both clouds
+are voxelized at 1 cm, deterministically capped at
 100,000 points, and evaluated with untruncated bidirectional nearest-neighbor
 distance (prediction-to-GT accuracy and GT-to-prediction completeness). To
 bound raw-resolution backprojection, each view is first deterministically

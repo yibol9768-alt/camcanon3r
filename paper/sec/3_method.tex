@@ -32,8 +32,10 @@ the numerical noise floor.
 For raw ETH3D point maps, we backproject the original-image z-depth through its
 thin-prism fisheye calibration and retain predicted points only where the
 inverse pixel map lands on finite scan-supported depth.  We fit one
-orientation-preserving Sim(3) from predicted to ground-truth camera centers;
-ground-truth surface points do not optimize the alignment.  We sample at most
+orientation-preserving Sim(3) using camera poses only: the chordal mean of
+paired rotations fixes global rotation, then camera centers determine positive
+scale and translation. Ground-truth surface points do not optimize the
+alignment.  We sample at most
 100k finite supported pixels per view, then apply a \SI{1}{cm} voxel grid and
 deterministic 100k-point pooled cap.  Untruncated bidirectional nearest-neighbor
 distances give accuracy and completeness.  This is a raw-depth-derived

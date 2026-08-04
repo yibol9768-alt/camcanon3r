@@ -5,6 +5,7 @@ from camcanon3r.metrics import (
     aligned_depth_consistency,
     aligned_point_cloud_accuracy_completeness,
     camera_centers_from_extrinsics,
+    camera_pose_similarity,
     focal_relative_error,
     pairwise_relative_pose_errors,
     principal_point_error,
@@ -148,6 +149,40 @@ def test_camera_centers_and_umeyama_similarity() -> None:
     np.testing.assert_allclose(fitted["translation"], [4.0, -2.0, 1.0])
 
 
+def test_camera_pose_similarity_uses_rotation_then_centers() -> None:
+    predicted_centers = np.asarray(
+        [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [2.0, 0.0, 0.0]]
+    )
+    gauge_rotation = np.asarray(
+        [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+    )
+    target_centers = 2.0 * (gauge_rotation @ predicted_centers.T).T + [3, 4, 5]
+    target_rotations = np.repeat(np.eye(3)[None], 3, axis=0)
+    predicted_rotations = np.asarray(
+        [target_rotation @ gauge_rotation for target_rotation in target_rotations]
+    )
+    predicted_extrinsics = np.stack(
+        [
+            np.column_stack([rotation, -rotation @ center])
+            for rotation, center in zip(
+                predicted_rotations, predicted_centers, strict=True
+            )
+        ]
+    )
+    target_extrinsics = np.stack(
+        [
+            np.column_stack([rotation, -rotation @ center])
+            for rotation, center in zip(
+                target_rotations, target_centers, strict=True
+            )
+        ]
+    )
+    fitted = camera_pose_similarity(predicted_extrinsics, target_extrinsics)
+    assert fitted["scale"] == pytest.approx(2.0)
+    np.testing.assert_allclose(fitted["rotation"], gauge_rotation, atol=1e-12)
+    np.testing.assert_allclose(fitted["translation"], [3.0, 4.0, 5.0])
+
+
 def test_aligned_point_cloud_accuracy_and_completeness() -> None:
     controls = np.asarray(
         [
@@ -167,11 +202,17 @@ def test_aligned_point_cloud_accuracy_and_completeness() -> None:
     )
     target_controls = controls * 3.0 + [1.0, 2.0, 3.0]
     target_points = points * 3.0 + [1.0, 2.0, 3.0]
+    predicted_extrinsics = np.stack(
+        [np.column_stack([np.eye(3), -center]) for center in controls]
+    )
+    target_extrinsics = np.stack(
+        [np.column_stack([np.eye(3), -center]) for center in target_controls]
+    )
     result = aligned_point_cloud_accuracy_completeness(
         points,
         target_points,
-        controls,
-        target_controls,
+        predicted_extrinsics,
+        target_extrinsics,
         voxel_size=0.01,
         maximum_points=100,
     )

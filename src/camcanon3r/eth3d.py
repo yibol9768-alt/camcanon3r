@@ -11,7 +11,6 @@ import numpy as np
 from .metrics import (
     aligned_depth_to_source_ground_truth,
     aligned_point_cloud_accuracy_completeness,
-    camera_centers_from_extrinsics,
     focal_relative_error,
     pairwise_relative_pose_errors,
     principal_point_error,
@@ -523,17 +522,27 @@ def evaluate_eth3d_prediction(
                 point_cloud = aligned_point_cloud_accuracy_completeness(
                     predicted_points,
                     target_points,
-                    camera_centers_from_extrinsics(prediction["extrinsic"]),
-                    camera_centers_from_extrinsics(ground_truth_extrinsics),
+                    prediction["extrinsic"],
+                    ground_truth_extrinsics,
                     voxel_size=0.01,
                     maximum_points=100_000,
                 )
             except ValueError as error:
-                if "degenerate for Sim(3)" not in str(error):
+                reason = str(error)
+                alignment_failure = (
+                    "degenerate for Sim(3)" in reason
+                    or "camera-pose Sim(3) has a non-positive scale" in reason
+                )
+                if not alignment_failure:
                     raise
+                status = (
+                    "undefined_degenerate_camera_center_alignment"
+                    if "degenerate for Sim(3)" in reason
+                    else "undefined_nonpositive_camera_pose_scale"
+                )
                 point_cloud = {
-                    "status": "undefined_degenerate_camera_center_alignment",
-                    "reason": str(error),
+                    "status": status,
+                    "reason": reason,
                     "accuracy_meters": _finite_summary(np.asarray([])),
                     "completeness_meters": _finite_summary(np.asarray([])),
                 }

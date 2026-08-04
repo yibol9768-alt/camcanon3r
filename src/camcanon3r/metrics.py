@@ -183,6 +183,58 @@ def umeyama_similarity(
     }
 
 
+def camera_pose_similarity(
+    predicted_extrinsics: ArrayLike,
+    target_extrinsics: ArrayLike,
+) -> dict[str, np.ndarray | float]:
+    """Fit a gauge Sim(3) using camera poses and no surface geometry.
+
+    Each world-to-camera rotation pair votes for the global world-frame
+    rotation. Their orientation-preserving chordal mean fixes rotation even
+    for nearly collinear trajectories; positive scale and translation are
+    then least-squares fitted from the corresponding camera centers.
+    """
+
+    predicted = _extrinsics34(predicted_extrinsics)
+    target = _extrinsics34(target_extrinsics)
+    if predicted.shape != target.shape:
+        raise ValueError("predicted and target camera poses must have equal shape")
+    if len(predicted) < 2:
+        raise ValueError("at least two camera poses are required for Sim(3)")
+    predicted_rotations = predicted[:, :, :3]
+    target_rotations = target[:, :, :3]
+    rotation_votes = np.einsum(
+        "vji,vjk->vik", target_rotations, predicted_rotations
+    )
+    left, _, right_transposed = np.linalg.svd(np.sum(rotation_votes, axis=0))
+    signs = np.ones(3, dtype=np.float64)
+    if np.linalg.det(left) * np.linalg.det(right_transposed) < 0:
+        signs[-1] = -1.0
+    rotation = left @ np.diag(signs) @ right_transposed
+
+    predicted_centers = camera_centers_from_extrinsics(predicted)
+    target_centers = camera_centers_from_extrinsics(target)
+    predicted_mean = np.mean(predicted_centers, axis=0)
+    target_mean = np.mean(target_centers, axis=0)
+    predicted_centered = predicted_centers - predicted_mean
+    target_centered = target_centers - target_mean
+    coordinate_scale = float(np.max(np.abs(predicted_centers)))
+    coordinate_tolerance = np.finfo(np.float64).eps * coordinate_scale
+    if float(np.max(np.abs(predicted_centered))) <= coordinate_tolerance:
+        raise ValueError("source camera centers are degenerate for Sim(3)")
+    rotated_centers = (rotation @ predicted_centered.T).T
+    denominator = float(np.sum(predicted_centered**2))
+    scale = float(np.sum(rotated_centers * target_centered) / denominator)
+    if not np.isfinite(scale) or scale <= 0.0:
+        raise ValueError("fitted camera-pose Sim(3) has a non-positive scale")
+    translation = target_mean - scale * (rotation @ predicted_mean)
+    return {
+        "scale": scale,
+        "rotation": rotation,
+        "translation": translation,
+    }
+
+
 def _deterministic_point_cap(points: np.ndarray, maximum: int) -> np.ndarray:
     if maximum <= 0:
         raise ValueError("maximum point count must be positive")
@@ -212,18 +264,18 @@ def _distance_summary(values: np.ndarray) -> dict[str, float | int]:
 def aligned_point_cloud_accuracy_completeness(
     predicted_points: ArrayLike,
     target_points: ArrayLike,
-    predicted_control_points: ArrayLike,
-    target_control_points: ArrayLike,
+    predicted_extrinsics: ArrayLike,
+    target_extrinsics: ArrayLike,
     *,
     voxel_size: float = 0.01,
     maximum_points: int = 100_000,
 ) -> dict[str, object]:
     """Compute bidirectional nearest-neighbor distances after camera Sim(3).
 
-    The Sim(3) is fitted only from the supplied control points (camera centers
-    in the ETH3D protocol), so target surface geometry is not used to optimize
-    alignment. Point sets are voxelized in target metric units before a
-    deterministic cap, and distances are not clipped.
+    The Sim(3) is fitted only from the supplied camera poses, so target surface
+    geometry is not used to optimize alignment. Point sets are voxelized in
+    target metric units before a deterministic cap, and distances are not
+    clipped.
     """
 
     from scipy.spatial import cKDTree
@@ -237,9 +289,7 @@ def aligned_point_cloud_accuracy_completeness(
             raise ValueError(f"{label} point cloud is empty")
         if not np.isfinite(points).all():
             raise ValueError(f"{label} point cloud contains a non-finite value")
-    similarity = umeyama_similarity(
-        predicted_control_points, target_control_points
-    )
+    similarity = camera_pose_similarity(predicted_extrinsics, target_extrinsics)
     aligned = (
         float(similarity["scale"])
         * (np.asarray(similarity["rotation"]) @ predicted.T).T
@@ -259,7 +309,7 @@ def aligned_point_cloud_accuracy_completeness(
     completeness = np.asarray(predicted_tree.query(target, workers=1)[0])
     return {
         "alignment": {
-            "source": "camera_centers",
+            "source": "camera_pose_rotation_then_center_scale_translation",
             "scale": float(similarity["scale"]),
             "rotation": np.asarray(similarity["rotation"]).tolist(),
             "translation": np.asarray(similarity["translation"]).tolist(),
