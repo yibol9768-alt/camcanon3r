@@ -2,10 +2,35 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Iterable
+from pathlib import Path
+from typing import Any
 
 import numpy as np
 from numpy.typing import ArrayLike
+
+
+def save_npz_compressed_atomic(path: Path, **arrays: ArrayLike) -> None:
+    """Write a compressed prediction archive without exposing partial output."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp")
+    with temporary.open("wb") as stream:
+        np.savez_compressed(stream, **arrays)
+    temporary.replace(path)
+
+
+def write_json_atomic(path: Path, payload: Any) -> None:
+    """Write JSON through a same-directory temporary file and atomic replace."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp")
+    temporary.write_text(
+        json.dumps(payload, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    temporary.replace(path)
 
 
 def world_to_camera_from_camera_to_world(cam2world: ArrayLike) -> np.ndarray:

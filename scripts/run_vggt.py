@@ -16,6 +16,7 @@ from vggt.models.vggt import VGGT
 from vggt.utils.load_fn import load_and_preprocess_images
 from vggt.utils.pose_enc import pose_encoding_to_extri_intri
 
+from camcanon3r.prediction import save_npz_compressed_atomic, write_json_atomic
 from camcanon3r.protocol import list_images, protocol_affines
 from camcanon3r.vggt_preprocess import plan_vggt_preprocessing
 
@@ -101,8 +102,7 @@ def run_scene(
         predictions["pose_enc"], images.shape[-2:]
     )
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(
+    save_npz_compressed_atomic(
         output,
         pose_enc=to_numpy(predictions["pose_enc"]),
         extrinsic=to_numpy(extrinsic),
@@ -152,7 +152,7 @@ def run_scene(
         "peak_vram_bytes": torch.cuda.max_memory_allocated(device),
     }
     metadata_path = output.with_suffix(".json")
-    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+    write_json_atomic(metadata_path, metadata)
     if print_metadata:
         print(json.dumps(metadata))
     return metadata

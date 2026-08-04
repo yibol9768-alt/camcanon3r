@@ -14,8 +14,10 @@ from PIL import Image, ImageOps
 
 from camcanon3r.dust3r_preprocess import plan_dust3r_preprocessing
 from camcanon3r.prediction import (
+    save_npz_compressed_atomic,
     stack_equal_shapes,
     world_to_camera_from_camera_to_world,
+    write_json_atomic,
 )
 from camcanon3r.protocol import list_images, protocol_affines
 
@@ -172,8 +174,7 @@ def run_scene(
         (to_numpy(item) for item in scene.im_conf), label="confidence"
     )
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(
+    save_npz_compressed_atomic(
         output,
         cam2world=cam2world,
         extrinsic=extrinsic,
@@ -233,9 +234,7 @@ def run_scene(
         "alignment_seconds": alignment_seconds,
         "peak_vram_bytes": torch.cuda.max_memory_allocated(device),
     }
-    output.with_suffix(".json").write_text(
-        json.dumps(metadata, indent=2) + "\n", encoding="utf-8"
-    )
+    write_json_atomic(output.with_suffix(".json"), metadata)
     if print_metadata:
         print(json.dumps(metadata))
     return metadata
