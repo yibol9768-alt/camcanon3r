@@ -413,6 +413,58 @@ file design, every image and binary validity mask, source-affine provenance,
 identity pixel equality, fill pixels outside valid support, per-image valid
 fractions, and a deterministic tree hash.
 
+Before any repair GT result is inspected, prepare and audit the two additional
+frozen fill policies in separate roots. Include identity in each root so the
+standard GT evaluator retains a complete paired design:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/canonicalize_sweep.py \
+  data/eth3d_training/raw data/eth3d_training/raw_canonical_black \
+  --scenes courtyard delivery_area electro facade kicker meadow office \
+    pipes playground relief relief_2 terrace terrains \
+  --variants identity asymmetric_crop_075 \
+  --prefix canonical_black_ --fill-policy black --resume
+
+PYTHONPATH=src .venv/bin/python scripts/canonicalize_sweep.py \
+  data/eth3d_training/raw data/eth3d_training/raw_canonical_mean \
+  --scenes courtyard delivery_area electro facade kicker meadow office \
+    pipes playground relief relief_2 terrace terrains \
+  --variants identity asymmetric_crop_075 \
+  --prefix canonical_mean_ --fill-policy image_mean --resume
+```
+
+Audit each root with `scripts/audit_canonical_repairs.py`, using the matching
+prefix and the two source variants. Run VGGT and DUSt3R sequentially on each
+root, then evaluate each root against ETH3D GT. The three repaired candidate
+names and order must exactly match `configs/repair_consensus_protocol.json`.
+Finally run the matched selection analysis, separately per model:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/evaluate_consensus_repair.py \
+  results/eth3d_training/vggt/raw \
+  results/eth3d_training/vggt/raw_canonical \
+  results/repair/eth3d_vggt_raw_consensus.json \
+  --protocol configs/repair_consensus_protocol.json \
+  --candidate neutral_gray canonical_asymmetric_crop_075 \
+    outputs/eth3d_training/vggt/raw_canonical \
+    results/eth3d_training/vggt/raw_canonical \
+  --candidate black canonical_black_asymmetric_crop_075 \
+    outputs/eth3d_training/vggt/raw_canonical_black \
+    results/eth3d_training/vggt/raw_canonical_black \
+  --candidate image_mean canonical_mean_asymmetric_crop_075 \
+    outputs/eth3d_training/vggt/raw_canonical_mean \
+    results/eth3d_training/vggt/raw_canonical_mean \
+  --model vggt --dataset eth3d-training-raw \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17
+```
+
+Repeat for DUSt3R by changing all model-specific roots and `--model`. This
+single report compares neutral-gray analytic repair, cross-fill consensus,
+native-confidence selection, and the GT-rotation oracle. Consensus and the two
+matched baselines all consume the same three predictions; selection frequency,
+runtime, peak VRAM, and recovery per model-compute second remain explicit.
+
 This diagnostic only shows whether canonicalization reduces disagreement. The
 repair claim is promoted solely from paired ETH3D or DTU ground-truth gap
 recovery, with the clean cost and visible-support fraction reported alongside.
