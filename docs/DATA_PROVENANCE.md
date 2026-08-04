@@ -50,6 +50,14 @@ length checked, hashed after completion, and run at low CPU/I/O priority
 through the command-scoped proxy. Download completion does not authorize
 automatic extraction or preprocessing while another project owns the machine.
 
+The benchmark-scale four-view evaluation freezes the first four
+lexicographically sorted DSLR filenames within every scene before any model
+outcome is inspected. Selected raw images, pre-undistorted images, calibration,
+and matching raw depth are extracted to
+`/mnt/e/camcanon3r-data/eth3d_selected`. The machine-local
+`selection_report.json` records archive provenance, member byte lengths,
+per-file SHA-256 values, and exact selected filenames.
+
 ## Frozen office four-view pilot
 
 The first confirmatory set is `DSC_0219` through `DSC_0222`. Live validation on

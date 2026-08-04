@@ -35,6 +35,37 @@ SHA-256 values are checkpointed after every archive in
 `download_report.json`. This stage downloads only. Do not extract or prepare
 full-resolution PNG variants until CPU and disk contention is safe.
 
+After `download_report.json` has a non-null completion time and every archive
+is verified, extract the frozen first four lexicographically sorted DSLR views
+per scene, their raw and undistorted calibration, and matching raw depth. The
+selection is independent of model outcomes and writes per-file hashes:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/extract_eth3d_selection.py \
+  configs/eth3d_training_archives.json \
+  /mnt/e/camcanon3r-data/eth3d_archives \
+  /mnt/e/camcanon3r-data/eth3d_selected \
+  --views-per-scene 4 --resume
+```
+
+The extractor refuses an incomplete download report, validates archive member
+coverage before extraction, and checks every extracted byte length before
+atomically writing `selection_report.json`.
+
+Prepare the benchmark-scale raw sweep with atomic resumable PNG writes:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/prepare_eth3d_selection.py \
+  /mnt/e/camcanon3r-data/eth3d_selected data/eth3d_training/raw \
+  --domain raw \
+  --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
+  --seed 17 --resume
+```
+
+Use a separate `data/eth3d_training/undistorted` root with
+`--domain undistorted` for the pose-only protocol; never mix those summaries
+with raw-depth results.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and
