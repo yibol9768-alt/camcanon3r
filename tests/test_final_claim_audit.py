@@ -2,6 +2,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts.audit_final_claims import audit_final_claims
 
 
@@ -9,7 +11,7 @@ def _write(path: Path, payload: dict[str, object]) -> None:
     path.write_text(json.dumps(payload), encoding="utf-8")
 
 
-def _fixture(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
+def _fixture(tmp_path: Path) -> tuple[Path, Path, Path, Path, Path]:
     mechanism = tmp_path / "mechanism.json"
     _write(
         mechanism,
@@ -127,22 +129,73 @@ def _fixture(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
             },
         },
     )
-    return mechanism, disagreement, native, repair
+    support_summaries = []
+    for dataset, scene_count in (("eth3d", 13), ("dtu", 22)):
+        path = tmp_path / f"support_{dataset}.json"
+        _write(path, {"dataset": dataset, "scene_count": scene_count})
+        support_summaries.append((dataset, scene_count, path))
+    support_protocol = tmp_path / "support_protocol.json"
+    _write(support_protocol, {"minimum_rotation_delta_degrees": 2.0})
+    support = tmp_path / "support.json"
+    _write(
+        support,
+        {
+            "status": "complete",
+            "models_are_separate": True,
+            "datasets_are_separate": True,
+            "protocol": str(support_protocol),
+            "protocol_sha256": hashlib.sha256(
+                support_protocol.read_bytes()
+            ).hexdigest(),
+            "analyses": [
+                {
+                    "model": "vggt",
+                    "dataset": dataset,
+                    "scene_count": scene_count,
+                    "variants": [
+                        "letterbox_square",
+                        "shared_asymmetric_letterbox_square",
+                        "asymmetric_letterbox_square",
+                    ],
+                    "source": str(path),
+                    "source_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                }
+                for dataset, scene_count, path in support_summaries
+            ],
+            "promotion_gate": {
+                "variant": "asymmetric_letterbox_square",
+                "rotation_delta_threshold_degrees": 2.0,
+                "support": [
+                    {
+                        "model": "vggt",
+                        "dataset": dataset,
+                        "rotation_delta": {"point_estimate": 3.0},
+                        "crosses_point_estimate_threshold": True,
+                    }
+                    for dataset, _, _ in support_summaries
+                ],
+                "passes_all_models_and_datasets": True,
+            },
+        },
+    )
+    return mechanism, disagreement, native, repair, support
 
 
 def test_final_claim_audit_keeps_completeness_and_promotion_separate(
     tmp_path: Path,
 ) -> None:
-    mechanism, disagreement, native, repair = _fixture(tmp_path)
+    mechanism, disagreement, native, repair, support = _fixture(tmp_path)
     report = audit_final_claims(
         mechanism,
         [("vggt", disagreement, native)],
         [("vggt", repair)],
+        support_control_path=support,
         expected_models=["vggt"],
     )
     assert report["evidence_complete"] is True
     assert report["claim_gates"] == {
         "two_family_two_dataset_mechanism": True,
+        "support_preserving_coordinate_control_all_models_datasets": True,
         "held_out_detector_all_models": True,
         "held_out_detector_exceeds_native_all_models": True,
         "cross_dataset_rotation_repair_all_models": True,
@@ -150,10 +203,25 @@ def test_final_claim_audit_keeps_completeness_and_promotion_separate(
     assert report["held_out_repair"][0]["confidence_bound_recovery_pass"] is False
 
 
+def test_final_claim_audit_rejects_tampered_support_gate(tmp_path: Path) -> None:
+    mechanism, disagreement, native, repair, support = _fixture(tmp_path)
+    payload = json.loads(support.read_text(encoding="utf-8"))
+    payload["promotion_gate"]["support"][0]["rotation_delta"]["point_estimate"] = 1.0
+    _write(support, payload)
+    with pytest.raises(ValueError, match="promotion decision is inconsistent"):
+        audit_final_claims(
+            mechanism,
+            [("vggt", disagreement, native)],
+            [("vggt", repair)],
+            support_control_path=support,
+            expected_models=["vggt"],
+        )
+
+
 def test_final_claim_audit_retains_failed_detector_as_negative_result(
     tmp_path: Path,
 ) -> None:
-    mechanism, disagreement, native, repair = _fixture(tmp_path)
+    mechanism, disagreement, native, repair, support = _fixture(tmp_path)
     payload = json.loads(disagreement.read_text(encoding="utf-8"))
     payload["auroc"]["point_estimate"] = 0.70
     _write(disagreement, payload)
@@ -161,6 +229,7 @@ def test_final_claim_audit_retains_failed_detector_as_negative_result(
         mechanism,
         [("vggt", disagreement, native)],
         [("vggt", repair)],
+        support_control_path=support,
         expected_models=["vggt"],
     )
     assert report["evidence_complete"] is True

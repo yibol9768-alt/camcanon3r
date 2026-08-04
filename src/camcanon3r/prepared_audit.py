@@ -57,6 +57,9 @@ def audit_prepared_sweep(
 ) -> dict[str, object]:
     config = json.loads(variant_config_path.read_text(encoding="utf-8"))
     variants = [str(value) for value in config["ordered_variants"]]
+    support_control = (
+        config.get("experiment_role") == "support_preserving_coordinate_control"
+    )
     variant_seeds = {
         str(key): int(value) for key, value in config["variant_seeds"].items()
     }
@@ -87,6 +90,8 @@ def audit_prepared_sweep(
     png_count = 0
     reference_match_count = 0
     shared_variant_count = 0
+    support_content_matches = 0
+    support_padding_matches = 0
     for scene in sorted(expected_scenes):
         scene_dir = prepared_root / scene
         manifest_path = scene_dir / "manifest.json"
@@ -103,6 +108,7 @@ def audit_prepared_sweep(
             raise ValueError(f"prepared variant design mismatch: {manifest_path}")
         expected_sources = list(scene_images[scene])
         expected_outputs: set[Path] = {Path("manifest.json")}
+        support_placements: dict[str, list[tuple[float, float]]] = {}
 
         reference_records: dict[str, object] = {}
         if reference_root is not None:
@@ -159,6 +165,17 @@ def audit_prepared_sweep(
                     )
                 shared_variant_count += 1
 
+            if support_control:
+                if variant not in {
+                    "letterbox_square",
+                    "shared_asymmetric_letterbox_square",
+                    "asymmetric_letterbox_square",
+                }:
+                    raise ValueError(
+                        f"unexpected support-control variant: {scene}/{variant}"
+                    )
+                support_placements[variant] = []
+
             for image_record in images:
                 output = Path(str(image_record["output"]))
                 expected_output = (
@@ -179,6 +196,86 @@ def audit_prepared_sweep(
                             f"prepared image shape/mode mismatch: {image_path}"
                         )
                     image.verify()
+                if support_control:
+                    source_path = Path(str(manifest["source_directory"])) / str(
+                        image_record["source"]
+                    )
+                    if not source_path.is_file():
+                        raise FileNotFoundError(
+                            f"support-control source is missing: {source_path}"
+                        )
+                    source_width, source_height = (
+                        int(value) for value in image_record["source_size"]
+                    )
+                    side = max(source_width, source_height)
+                    matrix = np.asarray(image_record["matrix"], dtype=np.float64)
+                    pad_x = float(matrix[0, 2])
+                    pad_y = float(matrix[1, 2])
+                    free_x = side - source_width
+                    free_y = side - source_height
+                    if tuple(int(value) for value in image_record["target_size"]) != (
+                        side,
+                        side,
+                    ) or not np.allclose(
+                        matrix,
+                        [
+                            [1.0, 0.0, pad_x],
+                            [0.0, 1.0, pad_y],
+                            [0.0, 0.0, 1.0],
+                        ],
+                        atol=1e-12,
+                    ):
+                        raise ValueError(
+                            f"support control changes source scale: {scene}/{variant}"
+                        )
+                    expected_positions = (
+                        {(free_x / 2.0, free_y / 2.0)}
+                        if variant == "letterbox_square"
+                        else {
+                            (0.0, 0.0),
+                            (float(free_x), 0.0),
+                            (0.0, float(free_y)),
+                        }
+                    )
+                    if (pad_x, pad_y) not in expected_positions:
+                        raise ValueError(
+                            f"support-control padding placement drift: "
+                            f"{scene}/{variant}/{output}"
+                        )
+                    if not (pad_x.is_integer() and pad_y.is_integer()):
+                        raise ValueError(
+                            f"support control requires integer placement: "
+                            f"{scene}/{variant}/{output}"
+                        )
+                    with Image.open(source_path) as source_image:
+                        source_pixels = np.asarray(source_image.convert("RGB"))
+                    with Image.open(image_path) as prepared_image:
+                        prepared_pixels = np.asarray(prepared_image.convert("RGB"))
+                    x0, y0 = int(pad_x), int(pad_y)
+                    restored = prepared_pixels[
+                        y0 : y0 + source_height, x0 : x0 + source_width
+                    ]
+                    if not np.array_equal(restored, source_pixels):
+                        raise ValueError(
+                            f"support-control RGB content changed: "
+                            f"{scene}/{variant}/{output}"
+                        )
+                    padding_mask = np.ones((side, side), dtype=bool)
+                    padding_mask[y0 : y0 + source_height, x0 : x0 + source_width] = (
+                        False
+                    )
+                    if np.any(prepared_pixels[padding_mask] != 0):
+                        raise ValueError(
+                            f"support-control padding is not black: "
+                            f"{scene}/{variant}/{output}"
+                        )
+                    support_content_matches += 1
+                    support_padding_matches += 1
+                    normalized = (
+                        pad_x / free_x if free_x else 0.5,
+                        pad_y / free_y if free_y else 0.5,
+                    )
+                    support_placements[variant].append(normalized)
                 digest = _sha256(image_path)
                 relative = image_path.relative_to(prepared_root).as_posix()
                 tree_digest.update(relative.encode("utf-8") + b"\0")
@@ -191,6 +288,19 @@ def audit_prepared_sweep(
                             f"prepared reference image changed: {image_path}"
                         )
                     reference_match_count += 1
+
+        if support_control:
+            shared = support_placements["shared_asymmetric_letterbox_square"]
+            independent = support_placements["asymmetric_letterbox_square"]
+            if not np.allclose(shared, shared[0], atol=1e-12):
+                raise ValueError(
+                    f"shared support-control placement differs across views: {scene}"
+                )
+            if len(set(independent)) < 2:
+                raise ValueError(
+                    f"independent support-control placement has no view variation: "
+                    f"{scene}"
+                )
 
         actual_outputs = {
             path.relative_to(scene_dir)
@@ -222,6 +332,9 @@ def audit_prepared_sweep(
         "reference_variant_count": len(reference_variants),
         "reference_image_matches": reference_match_count,
         "shared_variant_scene_count": shared_variant_count,
+        "support_control": support_control,
+        "support_content_matches": support_content_matches,
+        "support_padding_matches": support_padding_matches,
     }
     if output_path is not None:
         write_json_atomic(output_path, report)

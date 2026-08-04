@@ -81,3 +81,26 @@ def test_evidence_bundle_refuses_changed_or_extra_resumed_files(
     (output / "extra.txt").write_text("unexpected", encoding="utf-8")
     with pytest.raises(ValueError, match="unexpected files"):
         freeze_bundle(manifest, output, resume=True)
+
+
+def test_repository_evidence_bundle_freezes_support_control_counts() -> None:
+    manifest = json.loads(
+        Path("configs/dtu_evidence_bundle.json").read_text(encoding="utf-8")
+    )
+    assert manifest["frozen_before_final_dtu_results"] is True
+    file_targets = [record["target"] for record in manifest["files"]]
+    tree_targets = [record["target"] for record in manifest["trees"]]
+    assert len(file_targets) == len(set(file_targets))
+    assert len(tree_targets) == len(set(tree_targets))
+    copied_records = sum(
+        record["expected_count"]
+        for record in manifest["trees"]
+        if record["mode"] == "copy"
+    )
+    hashed_predictions = sum(
+        record["expected_count"]
+        for record in manifest["trees"]
+        if record["mode"] == "hash_only"
+    )
+    assert copied_records == 782
+    assert hashed_predictions == 782

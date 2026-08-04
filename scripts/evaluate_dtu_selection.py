@@ -62,8 +62,18 @@ def _load_design(
         protocol_path, protocol["variant_config"]
     )
     variant_config = json.loads(variant_config_path.read_text(encoding="utf-8"))
-    if not variant_config.get("frozen_before_benchmark_scale_mechanism_results"):
-        raise ValueError("DTU variant config was not frozen before benchmark results")
+    main_mechanism_registration = bool(
+        variant_config.get("frozen_before_benchmark_scale_mechanism_results")
+    )
+    support_control_registration = (
+        variant_config.get("experiment_role") == "support_preserving_coordinate_control"
+        and variant_config.get("registered_after_eth3d_mechanism_results") is True
+        and variant_config.get("frozen_before_support_control_results") is True
+        and variant_config.get("frozen_before_benchmark_scale_mechanism_results")
+        is False
+    )
+    if not (main_mechanism_registration or support_control_registration):
+        raise ValueError("DTU variant config does not have a valid result-free freeze")
     expected_variants = [str(value) for value in variant_config["ordered_variants"]]
     expected_point_variants = [
         str(value) for value in protocol["confirmatory_variants"]

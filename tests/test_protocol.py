@@ -70,9 +70,43 @@ def test_shared_asymmetric_crop_reuses_one_window(tmp_path: Path) -> None:
     shared = manifest["variants"][0]["images"]
     independent = manifest["variants"][1]["images"]
     np.testing.assert_allclose(shared[0]["matrix"], shared[1]["matrix"])
-    assert not np.allclose(
-        independent[0]["matrix"], independent[1]["matrix"]
+    assert not np.allclose(independent[0]["matrix"], independent[1]["matrix"])
+
+
+def test_asymmetric_letterbox_preserves_support_and_freezes_scope(
+    tmp_path: Path,
+) -> None:
+    scene = tmp_path / "scene"
+    scene.mkdir()
+    for index in range(4):
+        array = np.full((40, 60, 3), 20 + index, dtype=np.uint8)
+        array[5:35, 10:50, 1] = 100 + index
+        Image.fromarray(array).save(scene / f"view_{index}.png")
+    prepared = tmp_path / "prepared"
+    manifest = prepare_scene(
+        scene,
+        prepared,
+        variants=(
+            "letterbox_square",
+            "shared_asymmetric_letterbox_square",
+            "asymmetric_letterbox_square",
+        ),
+        seed=17,
     )
+    symmetric, shared, independent = manifest["variants"]
+    assert {image["matrix"][1][2] for image in shared["images"]} == {0.0}
+    assert {image["matrix"][1][2] for image in independent["images"]} == {
+        0.0,
+        20.0,
+    }
+    assert {image["matrix"][1][2] for image in symmetric["images"]} == {10.0}
+
+    source = np.asarray(Image.open(scene / "view_0.png").convert("RGB"))
+    for variant in manifest["variants"]:
+        record = variant["images"][0]
+        pad_y = int(record["matrix"][1][2])
+        rendered = np.asarray(Image.open(prepared / record["output"]).convert("RGB"))
+        np.testing.assert_array_equal(rendered[pad_y : pad_y + 40], source)
 
 
 def test_crop_fraction_variants_encode_frozen_severities() -> None:
@@ -135,9 +169,7 @@ def test_prepare_scene_resume_migrates_explicit_scene_name_only(
     source = tmp_path / "dslr_images"
     output = tmp_path / "courtyard"
     _write_scene(source)
-    legacy = prepare_scene(
-        source, output, variants=("identity",), seed=17
-    )
+    legacy = prepare_scene(source, output, variants=("identity",), seed=17)
     assert legacy["scene"] == "dslr_images"
 
     def fail_if_rendered(*args: object, **kwargs: object) -> Image.Image:
@@ -175,9 +207,7 @@ def test_prepare_scene_resume_repairs_invalid_output(
         return original_apply(image, transform, **kwargs)
 
     monkeypatch.setattr(protocol_module, "apply_affine", record_render)
-    prepare_scene(
-        scene, output, variants=("identity",), seed=17, resume=True
-    )
+    prepare_scene(scene, output, variants=("identity",), seed=17, resume=True)
 
     assert rendered_sources == [(60, 40)]
     with Image.open(damaged) as repaired:

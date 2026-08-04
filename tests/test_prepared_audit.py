@@ -102,3 +102,34 @@ def test_audit_prepared_sweep_rejects_extra_file(tmp_path: Path) -> None:
             config,
             {"first": [f"image_{index}.jpg" for index in range(3)]},
         )
+
+
+def test_audit_support_control_proves_exact_rgb_and_padding(tmp_path: Path) -> None:
+    source = _source(tmp_path / "sources", "first")
+    prepared = tmp_path / "prepared"
+    variants = (
+        "letterbox_square",
+        "shared_asymmetric_letterbox_square",
+        "asymmetric_letterbox_square",
+    )
+    prepare_scene(
+        source,
+        prepared / "first",
+        variants=variants,
+        seed=17,
+        scene_name="first",
+    )
+    config = Path("configs/support_control_variants.json")
+    scene_images = {"first": [f"image_{index}.jpg" for index in range(3)]}
+    report = audit_prepared_sweep(prepared, config, scene_images)
+    assert report["support_control"] is True
+    assert report["support_content_matches"] == 9
+    assert report["support_padding_matches"] == 9
+
+    damaged = prepared / "first/asymmetric_letterbox_square/image_0.png"
+    with Image.open(damaged) as image:
+        pixels = image.copy()
+    pixels.putpixel((0, 0), (255, 0, 0))
+    pixels.save(damaged)
+    with pytest.raises(ValueError, match="padding is not black"):
+        audit_prepared_sweep(prepared, config, scene_images)

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("output", type=Path)
     parser.add_argument("--mechanism", type=Path, required=True)
+    parser.add_argument("--support-control", type=Path, required=True)
     parser.add_argument(
         "--reliability",
         action="append",
@@ -107,6 +109,71 @@ def _audit_mechanism(path: Path, *, expected_models: list[str]) -> dict[str, obj
         "meets_two_family_two_dataset_gate": bool(
             gate["meets_two_family_two_dataset_gate"]
         ),
+    }
+
+
+def _audit_support_control(
+    path: Path, *, expected_models: list[str]
+) -> dict[str, object]:
+    report = _read(path)
+    analyses = report.get("analyses")
+    if (
+        report.get("status") != "complete"
+        or not report.get("models_are_separate")
+        or not report.get("datasets_are_separate")
+        or not isinstance(analyses, list)
+    ):
+        raise ValueError("support-control analysis is incomplete or pooled")
+    expected = {
+        (model, dataset) for model in expected_models for dataset in ("eth3d", "dtu")
+    }
+    actual = {(str(item["model"]), str(item["dataset"])) for item in analyses}
+    if len(actual) != len(analyses) or actual != expected:
+        raise ValueError("support-control model/dataset design mismatch")
+    for record in analyses:
+        dataset = str(record["dataset"])
+        if int(record["scene_count"]) != (13 if dataset == "eth3d" else 22) or tuple(
+            record["variants"]
+        ) != (
+            "letterbox_square",
+            "shared_asymmetric_letterbox_square",
+            "asymmetric_letterbox_square",
+        ):
+            raise ValueError("support-control scene/variant design mismatch")
+        source = _resolve_source(record["source"], path)
+        if _sha256(source) != record["source_sha256"]:
+            raise ValueError("support-control summary SHA-256 mismatch")
+    protocol = _resolve_source(report["protocol"], path)
+    if _sha256(protocol) != report.get("protocol_sha256"):
+        raise ValueError("support-control protocol SHA-256 mismatch")
+    gate = report["promotion_gate"]
+    support = gate.get("support")
+    if (
+        gate.get("variant") != "asymmetric_letterbox_square"
+        or float(gate.get("rotation_delta_threshold_degrees", -1.0)) != 2.0
+        or not isinstance(support, list)
+        or len(support) != len(expected)
+        or {(str(item["model"]), str(item["dataset"])) for item in support} != expected
+    ):
+        raise ValueError("support-control promotion gate has drifted")
+    gate_results = []
+    for item in support:
+        point_estimate = float(item["rotation_delta"]["point_estimate"])
+        expected_pass = math.isfinite(point_estimate) and point_estimate > 2.0
+        if item.get("crosses_point_estimate_threshold") is not expected_pass:
+            raise ValueError("support-control promotion decision is inconsistent")
+        gate_results.append(expected_pass)
+    if bool(gate.get("passes_all_models_and_datasets")) != all(gate_results):
+        raise ValueError("support-control aggregate promotion decision is inconsistent")
+    return {
+        "source": str(path),
+        "source_sha256": _sha256(path),
+        "protocol": str(protocol),
+        "protocol_sha256": _sha256(protocol),
+        "models": expected_models,
+        "datasets": ["eth3d", "dtu"],
+        "support": support,
+        "passes_all_models_and_datasets": bool(gate["passes_all_models_and_datasets"]),
     }
 
 
@@ -269,6 +336,7 @@ def audit_final_claims(
     reliability_paths: list[tuple[str, Path, Path]],
     repair_paths: list[tuple[str, Path]],
     *,
+    support_control_path: Path,
     expected_models: list[str],
     detector_auroc_threshold: float = 0.75,
     repair_recovery_threshold: float = 0.30,
@@ -288,6 +356,9 @@ def audit_final_claims(
     ):
         raise ValueError("final held-out model inputs do not match expected models")
     mechanism = _audit_mechanism(mechanism_path, expected_models=expected_models)
+    support_control = _audit_support_control(
+        support_control_path, expected_models=expected_models
+    )
     reliability = [
         _audit_reliability_pair(
             model,
@@ -311,17 +382,21 @@ def audit_final_claims(
     )
     repair_pass = all(record["point_estimate_gate_pass"] for record in repair)
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "status": "complete",
         "evidence_complete": True,
         "models": expected_models,
         "mechanism": mechanism,
+        "support_preserving_coordinate_control": support_control,
         "held_out_reliability": reliability,
         "held_out_repair": repair,
         "claim_gates": {
             "two_family_two_dataset_mechanism": mechanism[
                 "meets_two_family_two_dataset_gate"
             ],
+            "support_preserving_coordinate_control_all_models_datasets": (
+                support_control["passes_all_models_and_datasets"]
+            ),
             "held_out_detector_all_models": detector_pass,
             "held_out_detector_exceeds_native_all_models": detector_beats_native,
             "cross_dataset_rotation_repair_all_models": repair_pass,
@@ -352,6 +427,7 @@ def main() -> None:
             for model, disagreement, native in args.reliability
         ],
         [(model, Path(path)) for model, path in args.repair],
+        support_control_path=args.support_control,
         expected_models=args.expected_models,
         detector_auroc_threshold=args.detector_auroc_threshold,
         repair_recovery_threshold=args.repair_recovery_threshold,

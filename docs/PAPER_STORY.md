@@ -52,6 +52,7 @@ held-out evidence supports it.
 | Analytic canonical-camera repair recovers crop-induced camera rotation on ETH3D. | Paired 13-scene VGGT/DUSt3R GT evaluation; rotation recovery 0.966 and 0.558; zero clean cost with 130/130 byte-exact repeat arrays per model. | supported for camera rotation on ETH3D; DUSt3R lower CI is 0.267 | matched DTU replication for cross-dataset promotion |
 | Analytic canonicalization repairs generic geometry. | Every registered fill worsens median depth AbsRel for both models; metric-level point results are mixed. | contradicted on current ETH3D evidence | no generic claim; report as boundary |
 | Cross-fill consensus improves over one-pass analytic repair. | VGGT improves 1.449° to 1.416°; DUSt3R remains 2.934° while compute triples. | fails frozen multi-model promotion gate | retain as negative result; do not promote |
+| Camera-canvas placement alone can induce drift. | Separately registered symmetric/shared-edge/independent-edge letterboxes preserve all source RGB, scale, canvas, and padding count. | registered after ETH3D mechanism results; all control outcomes pending | >2° independent-edge rotation delta for both models on ETH3D and DTU |
 
 ## Self-review
 
@@ -64,7 +65,8 @@ held-out evidence supports it.
   generic geometry repair, or successful consensus. Development AUROC values
   are labeled exploratory wherever they appear.
 - **Missing evidence:** a second geometry dataset, held-out reliability,
-  cross-dataset repair replication, and qualitative geometry.
+  cross-dataset repair replication, the support-preserving coordinate control,
+  and qualitative geometry.
 - **Limitations:** the draft now names controlled-versus-deployed prevalence,
   fixed view/model scope, non-leaderboard point metrics, irreversible missing
   pixels, negative depth/consensus repair, development-set reliability, and

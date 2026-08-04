@@ -121,9 +121,11 @@ The current score must not be rounded up because experiments are in progress.
 
 - [ ] Demonstrate breadth beyond two backbones or two datasets, or provide a
   detector/repair result strong enough to compensate.
-- [ ] Either add a lossless off-center coordinate control or keep the causal
-  conclusion limited to a camera-canvas contribution beyond missing context;
-  do not claim that support, fill, and interpolation are fully isolated.
+- [ ] Complete the now-frozen support-preserving edge-letterbox control on both
+  models and both datasets. Promote a coordinate-only failure only if its
+  unchanged two-degree gate passes; otherwise retain it as a negative result.
+  State that it was registered after the ETH3D mechanism results, while still
+  being prospective for all support-control outcomes and DTU GT.
 - [ ] Show that the central finding changes a practical design decision rather
   than only documenting a benchmark failure.
 - [ ] Survive a second blinded red-team with no unresolved selection,

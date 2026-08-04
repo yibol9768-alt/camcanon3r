@@ -19,6 +19,16 @@ The work does **not** claim generic uncertainty estimation, robustness to
 unrelated views, or a new reconstruction backbone. The contribution boundary
 is preprocessing-induced camera drift and its known geometric correction.
 
+A separate support-preserving control was frozen before DTU GT inspection in
+`configs/support_control_variants.json`. It retains every source RGB pixel at
+the same scale on the same square canvas with the same black-padding count,
+and changes only whether padding is centered, placed at one shared edge, or
+placed at independently sampled edges across views. It is not added to or used
+to redefine the eleven-variant primary mechanism matrix. This control was
+registered after the ETH3D mechanism outcomes were known, but before any
+support-control outcome; it is prospective for the complete two-model,
+two-dataset control and is not presented as preregistered ETH3D evidence.
+
 ## Formal contract
 
 Let a view have camera matrix `P = K [R | t]`. A nonsingular image-coordinate
@@ -40,10 +50,17 @@ Sim(3) alignment, residual differences measure preprocessing non-equivariance.
    0.75 without ground-truth 3D at test time.
 4. A training-free consensus repair recovers at least 30% of the original-to-
    transformed performance gap while keeping clean degradation below 2%.
+5. In the separately registered support-preserving control, independently
+   placed edge letterboxes increase paired rotation error by more than 2
+   degrees relative to symmetric letterbox on both models and both datasets.
 
 If hypothesis 1 fails, the paper direction stops. If 1 holds but 3 or 4 fails,
 the output is an evaluation paper only if the benchmark reveals a stable,
 previously undocumented failure with clear practical consequences.
+
+Hypothesis 5 sharpens causal interpretation but does not retroactively change
+hypothesis 1. If it fails, the result is reported as evidence that support loss
+or crop-specific resampling remains necessary for the observed failure.
 
 ## Transform families
 
@@ -155,6 +172,7 @@ in the frozen design rather than being removed after inspection.
 | Known-affine canonicalization repairs crop-induced camera rotation | paired baseline/ablation results and compute cost | **Supported on ETH3D for both models at the registered point-estimate gate:** neutral-gray recovery is 0.966 for VGGT and 0.558 for DUSt3R with zero measured clean cost; the DUSt3R lower confidence bound is 0.267, so uncertainty remains explicit and DTU is required for cross-dataset promotion |
 | CamCanon repairs generic geometry | paired depth/point baseline and ablations | **Not supported:** all three fills worsen median depth AbsRel on both ETH3D models; point-geometry outcomes are mixed |
 | Consensus improves over analytic canonicalization | paired three-fill selector, analytic baseline, oracle, and compute | **Fails the frozen multi-model ETH3D gate:** it slightly improves VGGT rotation but ties neutral gray for DUSt3R at roughly three times model compute |
+| Camera-canvas placement fails without removing source support | paired symmetric/shared-edge/independent-edge letterboxes with exact RGB and padding audits | **Registered after ETH3D mechanism evidence and before DTU GT; control outcomes pending:** three variants x 13 ETH3D and 22 DTU scenes x two models; primary gate is a >2-degree independent-edge delta on every model/dataset |
 
 ## Frozen confirmatory snapshot: VGGT and DUSt3R on ETH3D raw
 

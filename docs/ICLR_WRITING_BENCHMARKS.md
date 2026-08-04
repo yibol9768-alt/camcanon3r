@@ -87,6 +87,9 @@ Each major section must follow `claim -> mechanism -> evidence -> boundary`.
   recovery, runtime, VRAM, and accuracy per unit compute.
 - [ ] Representative success and failure cases chosen without outcome-driven
   scene filtering.
+- [ ] Support-preserving symmetric/shared-edge/independent-edge letterbox
+  control completed on both models and datasets, with the unchanged gate and
+  any negative result retained.
 - [ ] Abstract, title, contributions, tables, and conclusion regenerated only
   from frozen result artifacts.
 - [ ] Independent reviewer red-team finds no diagnostic/GT conflation, hidden

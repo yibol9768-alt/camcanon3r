@@ -12,7 +12,7 @@ import numpy as np
 from PIL import Image
 
 from .image_ops import apply_affine
-from .transforms import ImageAffine, crop_resize, letterbox, resize
+from .transforms import ImageAffine, crop_resize, letterbox, placed_letterbox, resize
 
 SUPPORTED_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 
@@ -47,9 +47,7 @@ def list_images(scene_dir: Path, max_views: int | None = None) -> list[Path]:
     return images
 
 
-def protocol_affines(
-    scene_dir: Path, image_paths: list[Path]
-) -> list[np.ndarray]:
+def protocol_affines(scene_dir: Path, image_paths: list[Path]) -> list[np.ndarray]:
     """Read the exact source-to-prepared transform for selected inputs.
 
     Hand-authored image folders are treated as their own source domain. A
@@ -62,9 +60,7 @@ def protocol_affines(
     if not manifest_path.exists():
         return [np.eye(3, dtype=np.float64) for _ in image_paths]
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    variants = [
-        item for item in manifest["variants"] if item["name"] == scene_dir.name
-    ]
+    variants = [item for item in manifest["variants"] if item["name"] == scene_dir.name]
     if len(variants) != 1:
         raise RuntimeError(f"manifest has no unique variant named {scene_dir.name}")
     records = {Path(item["output"]).name: item for item in variants[0]["images"]}
@@ -106,6 +102,18 @@ def _asymmetric_crop(
     return crop_resize(source_size, (x, y, crop_width, crop_height), source_size)
 
 
+def _edge_letterbox(source_size: tuple[int, int], rng: random.Random) -> ImageAffine:
+    """Keep all source pixels while placing the only padded axis at one edge."""
+
+    width, height = source_size
+    side = max(source_size)
+    if width == height:
+        raise ValueError("edge letterbox requires a non-square source image")
+    edge = 0.0 if rng.random() < 0.5 else 1.0
+    placement = (edge, 0.5) if width < height else (0.5, edge)
+    return placed_letterbox(source_size, (side, side), placement)
+
+
 def build_transform(
     variant: str,
     source_size: tuple[int, int],
@@ -126,6 +134,11 @@ def build_transform(
         return _asymmetric_crop(
             source_size, _fraction_suffix(variant, "asymmetric_crop_"), rng
         )
+    if variant in {
+        "shared_asymmetric_letterbox_square",
+        "asymmetric_letterbox_square",
+    }:
+        return _edge_letterbox(source_size, rng)
     if variant == "letterbox_square":
         side = max(source_size)
         return letterbox(source_size, (side, side))
@@ -169,7 +182,9 @@ def prepare_scene(
                 source_size = opened.size
             transform_rng = (
                 random.Random(variant_seed)
-                if variant.startswith("shared_asymmetric_crop_")
+                if variant.startswith(
+                    ("shared_asymmetric_crop_", "shared_asymmetric_letterbox_")
+                )
                 else rng
             )
             transform = build_transform(variant, source_size, rng=transform_rng)
@@ -237,9 +252,7 @@ def prepare_scene(
     return normalized_manifest
 
 
-def _valid_prepared_image(
-    path: Path, expected_size: tuple[int, int]
-) -> bool:
+def _valid_prepared_image(path: Path, expected_size: tuple[int, int]) -> bool:
     if not path.is_file():
         return False
     try:

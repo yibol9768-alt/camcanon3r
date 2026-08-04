@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_benchmark_scale_mechanism_results": false,
+  "registered_after_eth3d_mechanism_results": true,
+  "frozen_before_support_control_results": true,
+  "frozen_before_dtu_gt_inspection": true,
+  "experiment_role": "support_preserving_coordinate_control",
+  "base_seed": 17,
+  "variant_seed_stride": 10007,
+  "ordered_variants": [
+    "letterbox_square",
+    "shared_asymmetric_letterbox_square",
+    "asymmetric_letterbox_square"
+  ],
+  "variant_seeds": {
+    "letterbox_square": 17,
+    "shared_asymmetric_letterbox_square": 10024,
+    "asymmetric_letterbox_square": 20031
+  },
+  "anchor_variant": "letterbox_square",
+  "primary_variant": "asymmetric_letterbox_square",
+  "secondary_variant": "shared_asymmetric_letterbox_square",
+  "controls": {
+    "letterbox_square": "all source RGB pixels on a centered square canvas",
+    "shared_asymmetric_letterbox_square": "the same edge placement in every view",
+    "asymmetric_letterbox_square": "a deterministic edge placement sampled independently per view"
+  },
+  "matched_properties": [
+    "all source RGB pixels",
+    "source-image scale",
+    "square target size",
+    "black padding pixel count"
+  ],
+  "primary_metric": "paired relative-rotation error delta from symmetric letterbox",
+  "promotion_gate": {
+    "minimum_rotation_delta_degrees": 2.0,
+    "required_variant": "asymmetric_letterbox_square",
+    "required_models": ["vggt", "dust3r"],
+    "required_datasets": ["eth3d", "dtu"],
+    "models_are_separate": true,
+    "datasets_are_separate": true
+  },
+  "interpretation": "This registered control isolates camera-canvas placement without cropping source support. Degradation under independent edge placement supports a coordinate-placement mechanism; a non-result remains a negative boundary and does not invalidate the separate crop finding."
+}

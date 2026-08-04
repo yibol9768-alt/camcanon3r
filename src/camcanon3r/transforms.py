@@ -125,18 +125,36 @@ def crop_resize(
     return ImageAffine(matrix, source_size, target_size)
 
 
-def letterbox(
-    source_size: tuple[int, int], target_size: tuple[int, int]
+def placed_letterbox(
+    source_size: tuple[int, int],
+    target_size: tuple[int, int],
+    placement: tuple[float, float],
 ) -> ImageAffine:
-    """Aspect-preserving resize followed by symmetric target-space padding."""
+    """Aspect-preserving resize with normalized placement in free target space.
+
+    ``placement=(0, 0)`` anchors the resized source at the top-left,
+    ``(1, 1)`` anchors it at the bottom-right, and ``(0.5, 0.5)`` is the
+    conventional symmetric letterbox.  The placement is immaterial on an axis
+    without free padding.
+    """
 
     source_width, source_height = source_size
     target_width, target_height = target_size
+    if len(placement) != 2 or not all(0.0 <= value <= 1.0 for value in placement):
+        raise ValueError("letterbox placement must lie in [0, 1]^2")
     scale = min(target_width / source_width, target_height / source_height)
-    pad_x = (target_width - scale * source_width) / 2.0
-    pad_y = (target_height - scale * source_height) / 2.0
+    pad_x = (target_width - scale * source_width) * placement[0]
+    pad_y = (target_height - scale * source_height) * placement[1]
     matrix = np.array(
         [[scale, 0.0, pad_x], [0.0, scale, pad_y], [0.0, 0.0, 1.0]],
         dtype=np.float64,
     )
     return ImageAffine(matrix, source_size, target_size)
+
+
+def letterbox(
+    source_size: tuple[int, int], target_size: tuple[int, int]
+) -> ImageAffine:
+    """Aspect-preserving resize followed by symmetric target-space padding."""
+
+    return placed_letterbox(source_size, target_size, (0.5, 0.5))

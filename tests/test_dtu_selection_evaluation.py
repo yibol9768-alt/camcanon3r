@@ -143,6 +143,35 @@ def test_dtu_job_plan_rejects_variant_or_view_drift(tmp_path: Path) -> None:
         )
 
 
+def test_dtu_job_plan_accepts_honest_later_support_registration(
+    tmp_path: Path,
+) -> None:
+    selection, predictions, results, protocol, variants, point_variants = _fixture(
+        tmp_path
+    )
+    protocol_record = json.loads(protocol.read_text(encoding="utf-8"))
+    variant_config = Path(protocol_record["variant_config"])
+    variant_record = json.loads(variant_config.read_text(encoding="utf-8"))
+    variant_record.update(
+        {
+            "frozen_before_benchmark_scale_mechanism_results": False,
+            "experiment_role": "support_preserving_coordinate_control",
+            "registered_after_eth3d_mechanism_results": True,
+            "frozen_before_support_control_results": True,
+        }
+    )
+    variant_config.write_text(json.dumps(variant_record), encoding="utf-8")
+    jobs, _ = _expected_jobs(
+        selection,
+        predictions,
+        results,
+        protocol,
+        variants=variants,
+        point_variants=point_variants,
+    )
+    assert len(jobs) == 44
+
+
 def test_dtu_resume_rejects_stale_protocol_hash(tmp_path: Path) -> None:
     selection, predictions, results, protocol, variants, point_variants = _fixture(
         tmp_path

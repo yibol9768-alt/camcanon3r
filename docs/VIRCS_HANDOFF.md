@@ -106,9 +106,9 @@ only merge.  It never resets or force-checks out files.
 ## Current frozen state
 
 - Control-plane baseline immediately before this update:
-  `0730e134967a58d08ea1681a588ceb7830c61660` plus the DTU protocol-prose
-  commit that contains this text.  `vircs` is clean and passes 144 CPU tests. While
-  the DTU selection extractor owns the download proxy and data tree, the
+  `152316fb6805adfa9911b2a41f147e9a0c63e842` plus the support-control
+  commit that contains this text. `vircs` is clean and passes 152 CPU tests.
+  While the DTU selection extractor owns the download proxy and data tree, the
   formal `my5090` checkout is intentionally left clean at `4029913`; it passes
   its then-current 123 tests.  Fast-forward it only after extraction exits.
 - VGGT weights already reside on `my5090`.
@@ -162,7 +162,7 @@ only merge.  It never resets or force-checks out files.
   the frozen DTU evaluation remains the only held-out gate.
 - DTU acquisition is active under the single Windows task
   `CamCanon3R-DTUSelectionExtract`. At this edit, SampleSet is complete 58/58,
-  Rectified is in progress at 38/66, and Points has not started. The
+  Rectified is in progress at 52/66, and Points has not started. The
   extractor uses only the process-scoped proxy, is resumable, and now retries
   truncated HTTP 206 bodies. Do not launch a duplicate, sync the execution
   checkout, inspect GT outcomes, or start GPU work while this task is running.
@@ -194,12 +194,20 @@ only merge.  It never resets or force-checks out files.
   an unaccounted resumed output.
 - The final claim auditor now distinguishes a complete negative result from a
   promoted claim. It reopens and hashes held-out cases, enforces the frozen
-  mechanism/reliability/repair designs, and reports four gates without turning
+  mechanism/reliability/repair designs, and reports five gates without turning
   them into an automated reviewer score.
-- The final evidence-bundle manifest is frozen. It copies all 572 lightweight
-  GT evaluation records plus summaries, cases, compute, audits, and figures,
-  while hashing the 572 large prediction archives without copying them into
-  Git. Bundle writes are atomic and safely resumable.
+- A separate support-preserving coordinate control is now frozen before DTU
+  GT inspection. Symmetric, shared-edge, and independent-edge letterboxes keep
+  every source RGB pixel, source scale, square canvas, and black-padding count
+  identical. Strict audits bind the symmetric anchor to the main preparation;
+  the primary two-degree gate remains separate from the eleven-variant matrix.
+  It was registered after the existing ETH3D mechanism results but before any
+  support-control outcome, and must be described with that exact chronology.
+- The final evidence-bundle manifest now copies 782 lightweight GT evaluation
+  records: the original 572 DTU mechanism/repair records plus 210 registered
+  ETH3D/DTU support-control records. It hashes the corresponding 782 large
+  predictions without copying them into Git. Bundle writes remain atomic and
+  safely resumable.
 - Latest idle GPU check after all jobs: 0% utilization and 1336 MiB baseline
   memory.  Live sizes were 4.7 GB for VGGT weights and 2.2 GB for DUSt3R
   weights.
@@ -229,7 +237,7 @@ download progress are allowed to drift after this document is committed.
 
 1. Let the existing DTU selection task finish exactly once; verify all three
    reports and the selected tree before syncing the `my5090` checkout.
-2. Fast-forward `my5090`, run 144/144 tests, then execute and audit DTU
+2. Fast-forward `my5090`, run 152/152 tests, then execute and audit DTU
    preparation. Start no GPU task until two idle checks and no foreign owner.
 3. Run VGGT then DUSt3R over the exact 22 x 11 design, retaining schema-1.2
    input hashes, compute/VRAM metadata, and audit-only resumability.
@@ -239,7 +247,9 @@ download progress are allowed to drift after this document is committed.
    freeze DTU gap-recovery reports without changing the selected fill policy.
 6. Render the frozen severity, held-out risk--coverage, repair-ablation,
    cross-dataset, compute, and outcome-independent qualitative evidence.
-7. Replace the final TODO only from committed DTU artifacts, then run a second
+7. Run the support-preserving letterbox control over both models and datasets,
+   then freeze its paired cross-dataset gate without changing its threshold.
+8. Replace the final TODO only from committed DTU artifacts, then run a second
    paper-only reviewer red-team against the three ICLR writing benchmarks and
    the honest 6--8 completion bar.
 

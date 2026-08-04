@@ -494,6 +494,14 @@ PYTHONPATH=src .venv/bin/python scripts/summarize_compute_table.py \
     results/dtu/vggt/repair_inference_compute.json \
   --sweep dust3r dtu-held-out-repair canonical_repair \
     results/dtu/dust3r/repair_inference_compute.json \
+  --sweep vggt eth3d-training-raw-support-control support_control \
+    results/eth3d_training/vggt/support_control_inference_compute.json \
+  --sweep dust3r eth3d-training-raw-support-control support_control \
+    results/eth3d_training/dust3r/support_control_inference_compute.json \
+  --sweep vggt dtu-held-out-support-control support_control \
+    results/dtu/vggt/support_control_inference_compute.json \
+  --sweep dust3r dtu-held-out-support-control support_control \
+    results/dtu/dust3r/support_control_inference_compute.json \
   --canonicalization \
     results/dtu/rectified_canonical_preparation_compute.json \
   --repair-ablation artifacts/eth3d_repair_seed17/ablation_summary.json
@@ -505,6 +513,88 @@ canonicalization section separately reports decode, inverse warp, mask/PNG
 write, and manifest-update wall time by source variant.  Never add that
 preprocessing time into model compute or present legacy ETH3D model timing as
 end-to-end timing.
+
+## Support-preserving coordinate control
+
+The crop study changes coordinates and visible support together. Before DTU
+GT inspection, a separate control was frozen in
+`configs/support_control_variants.json`: symmetric letterbox, one edge
+placement shared across views, and independently sampled edge placements. All
+three retain every source RGB pixel byte-for-byte, use scale one on the same
+square canvas, and contain the same number of black padding pixels. The strict
+audit checks those properties and binds the symmetric anchor bytewise to the
+main mechanism preparation. This control remains separate from the frozen
+eleven-variant mechanism matrix. Its registration is intentionally labeled as
+later than the existing ETH3D mechanism results and earlier than every result
+from this support-control sweep; do not describe it as preregistered before the
+ETH3D mechanism study.
+
+Prepare it only after the corresponding main ETH3D/DTU mechanism roots have
+passed their audits. Keep these disk-heavy preparation tasks sequential; start
+the DTU task only after the ETH3D task is Ready with exit code 0:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-ETHSupportPreparation \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_preparation.sh eth3d \
+  > results/eth3d_training/support_control_preparation.log 2>&1'
+
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUSupportPreparation \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_preparation.sh dtu \
+  > results/dtu/support_control_preparation.log 2>&1'
+```
+
+Run all model sweeps sequentially. Each ETH3D sweep contains 13 x 3 = 39
+predictions and each DTU sweep contains 22 x 3 = 66 predictions:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-ETHSupportVGGT \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_inference.sh vggt eth3d \
+  > results/eth3d_training/vggt_support_control_inference.log 2>&1'
+./scripts/start_my5090_background_job.sh CamCanon3R-ETHSupportDUSt3R \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_inference.sh dust3r eth3d \
+  > results/eth3d_training/dust3r_support_control_inference.log 2>&1'
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUSupportVGGT \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_inference.sh vggt dtu \
+  > results/dtu/vggt_support_control_inference.log 2>&1'
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUSupportDUSt3R \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_inference.sh dust3r dtu \
+  > results/dtu/dust3r_support_control_inference.log 2>&1'
+```
+
+Evaluate with the matching wrappers, again sequentially. DTU computes the
+registered deterministic point-map metric for all three variants:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-ETHSupportVGGTEval \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_evaluation.sh vggt eth3d \
+  > results/eth3d_training/vggt_support_control_evaluation.log 2>&1'
+./scripts/start_my5090_background_job.sh CamCanon3R-ETHSupportDUSt3REval \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_evaluation.sh dust3r eth3d \
+  > results/eth3d_training/dust3r_support_control_evaluation.log 2>&1'
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUSupportVGGTEval \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_evaluation.sh vggt dtu \
+  > results/dtu/vggt_support_control_evaluation.log 2>&1'
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUSupportDUSt3REval \
+  'cd /opt/camcanon3r; ./scripts/run_support_control_evaluation.sh dust3r dtu \
+  > results/dtu/dust3r_support_control_evaluation.log 2>&1'
+```
+
+Open the combined gate only after all four summaries exist:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/analyze_support_control.py \
+  configs/support_control_variants.json results/support_control/analysis.json \
+  --summary vggt eth3d results/eth3d_training/vggt/raw_support_control/summary.json \
+  --summary dust3r eth3d results/eth3d_training/dust3r/raw_support_control/summary.json \
+  --summary vggt dtu results/dtu/vggt/rectified_support_control/summary.json \
+  --summary dust3r dtu results/dtu/dust3r/rectified_support_control/summary.json \
+  --bootstrap-replicates 10000 --confidence-level 0.95 --bootstrap-seed 17
+```
+
+The primary gate is the paired independent-edge rotation delta from symmetric
+letterbox, strictly above two degrees for every model/dataset. A failure is a
+complete negative result and narrows the crop mechanism; it never changes the
+primary transform definitions or threshold.
 
 ## ETH3D office preparation
 
@@ -861,6 +951,7 @@ fail:
 PYTHONPATH=src .venv/bin/python scripts/audit_final_claims.py \
   results/paper/final_claim_audit.json \
   --mechanism results/mechanism/analysis.json \
+  --support-control results/support_control/analysis.json \
   --reliability vggt \
     results/reliability/dtu_vggt_seed17/rotation_disagreement.json \
     results/reliability/dtu_vggt_seed17/rotation_native_uncertainty.json \
@@ -879,11 +970,12 @@ separate `claim_gates` only to decide which claims are promoted.  The audit
 deliberately does not turn those gates into an automated reviewer score.
 
 Freeze the final evidence only after the claim audit and all four figures are
-present.  The bundle manifest copies the 572 lightweight per-scene GT records,
-summaries, reliability cases, audits, compute, and figure assets.  It hashes
-all 572 large prediction NPZ files into `BUNDLE.json` without copying them into
-Git.  Exact counts, safe relative targets, copied bytes, and bundle checksums
-are mandatory:
+present. The bundle manifest copies 782 lightweight per-scene GT records: 572
+from the DTU mechanism/repair design plus 210 support-control records across
+ETH3D and DTU. It copies summaries, reliability cases, audits, compute, and
+figure assets, and hashes the matching 782 large prediction NPZ files into
+`BUNDLE.json` without copying them into Git. Exact counts, safe relative
+targets, copied bytes, and bundle checksums are mandatory:
 
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/freeze_evidence_bundle.py \
