@@ -191,6 +191,21 @@ the already verified model weights. Keep each sweep in a Windows-owned
 background task and use `--resume` only after its existing NPZ/JSON pairs pass
 the batch runner's validation.
 
+The model-neutral launcher re-runs the strict preparation audit, reads the 22
+scenes and 11 variants directly from the frozen JSON files, refuses concurrent
+CamCanon3R model inference, and selects the correct model environment:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUVGGT \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_inference.sh vggt \
+  > results/dtu/vggt_inference.log 2>&1'
+
+# Start only after the VGGT task is Ready with exit code 0.
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUDUSt3R \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_inference.sh dust3r \
+  > results/dtu/dust3r_inference.log 2>&1'
+```
+
 After both prediction sweeps complete, evaluate each model into a separate
 result root. The command below intentionally requires all eleven variants in
 frozen order and exactly the four predeclared point-map variants:
