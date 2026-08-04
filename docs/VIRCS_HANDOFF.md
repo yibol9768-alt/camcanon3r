@@ -106,8 +106,8 @@ only merge.  It never resets or force-checks out files.
 ## Current frozen state
 
 - Control-plane baseline immediately before this update:
-  `5d5337f61b793b3b3e591b4c637afcc3ae77ab35` plus the qualitative-renderer
-  commit that contains this text.  `vircs` is clean and passes 135 CPU tests. While
+  `0ad800a8a3647c4af8529426bc57f9bb79ec03a1` plus the compute-accounting
+  commit that contains this text.  `vircs` is clean and passes 140 CPU tests. While
   the DTU selection extractor owns the download proxy and data tree, the
   formal `my5090` checkout is intentionally left clean at `4029913`; it passes
   its then-current 123 tests.  Fast-forward it only after extraction exits.
@@ -183,6 +183,11 @@ only merge.  It never resets or force-checks out files.
   target-camera projection, 25,000 points per view, 320 x 240 z-buffer,
   camera-baseline depth normalization, viridis range, and canonical mask
   insets. Real ETH3D/DTU figures remain pending the formal DTU results.
+- Compute accounting now has one provenance-bound table source. DTU schema-1.2
+  model-only/end-to-end timing, model load, and VRAM stay separate; legacy
+  ETH3D end-to-end time remains explicitly unavailable. DTU inverse-warp
+  preparation atomically checkpoints its own decode/warp/write time and refuses
+  an unaccounted resumed output.
 - Latest idle GPU check after all jobs: 0% utilization and 1336 MiB baseline
   memory.  Live sizes were 4.7 GB for VGGT weights and 2.2 GB for DUSt3R
   weights.
@@ -212,7 +217,7 @@ download progress are allowed to drift after this document is committed.
 
 1. Let the existing DTU selection task finish exactly once; verify all three
    reports and the selected tree before syncing the `my5090` checkout.
-2. Fast-forward `my5090`, run 135/135 tests, then execute and audit DTU
+2. Fast-forward `my5090`, run 140/140 tests, then execute and audit DTU
    preparation. Start no GPU task until two idle checks and no foreign owner.
 3. Run VGGT then DUSt3R over the exact 22 x 11 design, retaining schema-1.2
    input hashes, compute/VRAM metadata, and audit-only resumability.

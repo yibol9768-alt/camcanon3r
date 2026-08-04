@@ -10,6 +10,7 @@ prepared_root="${repo_root}/data/dtu/rectified_mechanism"
 repaired_root="${repo_root}/data/dtu/rectified_canonical"
 mechanism_audit="${repo_root}/results/dtu/rectified_mechanism_preparation_audit.json"
 repair_audit="${repo_root}/results/dtu/rectified_canonical_preparation_audit.json"
+compute_report="${repo_root}/results/dtu/rectified_canonical_preparation_compute.json"
 
 cd "${repo_root}"
 PYTHONPATH=src "${python_bin}" scripts/audit_dtu_mechanism.py \
@@ -42,19 +43,20 @@ fi
 PYTHONPATH=src "${python_bin}" scripts/canonicalize_sweep.py \
   "${prepared_root}" "${repaired_root}" \
   --scenes "${scenes[@]}" --variants "${source_variants[@]}" \
-  --fill-policy "${fill_policy}" --resume
+  --fill-policy "${fill_policy}" --report "${compute_report}" --resume
 
 PYTHONPATH=src "${python_bin}" scripts/audit_canonical_repairs.py \
   "${prepared_root}" "${repaired_root}" \
   --scenes "${scenes[@]}" --source-variants "${source_variants[@]}" \
   --fill-policy "${fill_policy}" --output "${repair_audit}" >/dev/null
 
-"${python_bin}" - "${repair_audit}" <<'PY'
+"${python_bin}" - "${repair_audit}" "${compute_report}" <<'PY'
 import json
 import sys
 from pathlib import Path
 
 report = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+compute = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
 assert report["status"] == "complete"
 assert report["scene_count"] == 22
 assert report["source_variants"] == ["identity", "asymmetric_crop_075"]
@@ -66,6 +68,9 @@ assert report["fill_policy"] == "neutral_gray"
 assert report["image_count"] == 132
 assert report["mask_count"] == 132
 assert report["identity_pixel_matches"] == 66
+assert compute["status"] == "complete"
+assert compute["record_count"] == 44
+assert compute["canonicalization_seconds"]["count"] == 44
 print(
     json.dumps(
         {
@@ -74,6 +79,7 @@ print(
             "image_count": report["image_count"],
             "mask_count": report["mask_count"],
             "tree_sha256": report["tree_sha256"],
+            "canonicalization_seconds": compute["canonicalization_seconds"],
         }
     )
 )

@@ -258,7 +258,9 @@ variant mechanism sweep.  Its registered design is neutral-gray fill over
 `identity` and `asymmetric_crop_075`, producing exactly 22 x 2 x 3 = 132
 images plus 132 validity masks.  Preparation re-audits the main DTU input tree,
 enforces the fill policy, verifies identity pixels exactly, and records a tree
-hash:
+hash.  It also atomically checkpoints inverse-warp wall time after every
+scene/variant; a resumed output without its timing record is rejected rather
+than reported as complete compute:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-DTURepairPreparation \
@@ -468,6 +470,41 @@ PYTHONPATH=src .venv/bin/python scripts/summarize_cross_dataset_table.py \
   --summary vggt dtu results/dtu/vggt/rectified_mechanism/summary.json \
   --summary dust3r dtu results/dtu/dust3r/rectified_mechanism/summary.json
 ```
+
+Build the unified compute source without conflating model-only and end-to-end
+timings.  First derive the complete legacy ETH3D metadata summaries; their
+model compute and VRAM remain valid, while missing schema-1.2 end-to-end time
+is explicitly labeled `legacy_unavailable`:
+
+```bash
+./scripts/run_eth3d_compute_summary.sh vggt
+./scripts/run_eth3d_compute_summary.sh dust3r
+
+PYTHONPATH=src .venv/bin/python scripts/summarize_compute_table.py \
+  results/paper/compute_table.json \
+  --sweep vggt eth3d-training-raw mechanism \
+    results/eth3d_training/vggt/inference_compute.json \
+  --sweep dust3r eth3d-training-raw mechanism \
+    results/eth3d_training/dust3r/inference_compute.json \
+  --sweep vggt dtu-held-out mechanism \
+    results/dtu/vggt/inference_compute.json \
+  --sweep dust3r dtu-held-out mechanism \
+    results/dtu/dust3r/inference_compute.json \
+  --sweep vggt dtu-held-out-repair canonical_repair \
+    results/dtu/vggt/repair_inference_compute.json \
+  --sweep dust3r dtu-held-out-repair canonical_repair \
+    results/dtu/dust3r/repair_inference_compute.json \
+  --canonicalization \
+    results/dtu/rectified_canonical_preparation_compute.json \
+  --repair-ablation artifacts/eth3d_repair_seed17/ablation_summary.json
+```
+
+The output keeps model load, model-only median/p90/total, schema-1.2
+end-to-end median/p90/total, view count, and peak GiB separate.  The
+canonicalization section separately reports decode, inverse warp, mask/PNG
+write, and manifest-update wall time by source variant.  Never add that
+preprocessing time into model compute or present legacy ETH3D model timing as
+end-to-end timing.
 
 ## ETH3D office preparation
 
