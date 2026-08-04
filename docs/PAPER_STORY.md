@@ -47,8 +47,8 @@ held-out evidence supports it.
 | View-dependent 75% crops reduce DUSt3R ground-truth reconstruction accuracy on ETH3D raw. | Paired 13-scene GT evaluation; rotation, translation, depth, principal-point, and completeness deltas exclude zero, while point accuracy and focal deltas do not. | supported with metric-level boundary | none for this narrow model/dataset/transform claim |
 | The GT failure generalizes beyond one model. | Separate complete VGGT and DUSt3R ETH3D aggregates under protocol 2.1. | supported on ETH3D | matched second-dataset replication |
 | Shared off-center crops form a second failure family, while view-dependent offsets amplify it. | Frozen 90/75/60% severity and matched shared/independent-window sweep; all six independent-minus-shared rotation intervals exclude zero. | supported on ETH3D for both models | matched DTU replication for the full hypothesis |
-| Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
-| Reliability metrics are auditable. | Tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, and scene-cluster bootstrap are unit tested. | implemented, no effectiveness claim | populate with held-out GT cases |
+| Cross-transform disagreement detects high-error cases. | ETH3D development rotation AUROC is 0.924 for VGGT and 0.908 for DUSt3R, versus 0.665 and 0.597 for native uncertainty; depth is secondary and also exploratory. | promising development evidence, no detector claim | frozen held-out DTU AUROC and risk--coverage |
+| Reliability metrics are auditable. | 104 complete ETH3D development cases; tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, scene-cluster bootstrap, relative provenance, and cases SHA-256. | implemented and populated for pipeline validation | held-out DTU effectiveness |
 | Analytic canonical-camera repair recovers crop-induced camera rotation on ETH3D. | Paired 13-scene VGGT/DUSt3R GT evaluation; rotation recovery 0.966 and 0.558; zero clean cost with 130/130 byte-exact repeat arrays per model. | supported for camera rotation on ETH3D; DUSt3R lower CI is 0.267 | matched DTU replication for cross-dataset promotion |
 | Analytic canonicalization repairs generic geometry. | Every registered fill worsens median depth AbsRel for both models; metric-level point results are mixed. | contradicted on current ETH3D evidence | no generic claim; report as boundary |
 | Cross-fill consensus improves over one-pass analytic repair. | VGGT improves 1.449° to 1.416°; DUSt3R remains 2.934° while compute triples. | fails frozen multi-model promotion gate | retain as negative result; do not promote |
@@ -60,8 +60,9 @@ held-out evidence supports it.
 - **Terminology:** use *preprocessing non-equivariance* for cross-run
   diagnostics and *accuracy degradation* only for the frozen GT comparison.
 - **Unsupported claims:** no current text claims multi-dataset GT generality,
-  that every transform/metric degrades, AUROC, generic geometry repair, or
-  successful consensus.
+  that every transform/metric degrades, held-out detector effectiveness,
+  generic geometry repair, or successful consensus. Development AUROC values
+  are labeled exploratory wherever they appear.
 - **Missing evidence:** a second geometry dataset, held-out reliability,
   cross-dataset repair replication, and qualitative geometry.
 - **Statistical boundary:** the three-scene diagnostics remain descriptive;

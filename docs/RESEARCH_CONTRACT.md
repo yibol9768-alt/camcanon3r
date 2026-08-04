@@ -146,8 +146,8 @@ in the frozen design rather than being removed after inspection.
 | Claim | Required evidence | Current status |
 |---|---|---|
 | Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Two families supported on multi-model ETH3D raw GT:** the complete 13-scene, 11-variant sweep crosses the registered rotation threshold for independent and shared off-center crops in both VGGT and DUSt3R; DTU remains required for the full two-dataset hypothesis |
-| Native confidence misses failures | calibration and risk-coverage comparison | needs evidence |
-| Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
+| Native confidence misses failures | calibration and risk-coverage comparison | **Promising development evidence only:** ETH3D rotation AUROC is 0.665 for VGGT and 0.597 for DUSt3R, below disagreement for both; held-out DTU remains mandatory |
+| Disagreement detects failures | held-out AUROC with confidence intervals | **Exploratory ETH3D pipeline result:** rotation AUROC is 0.924 ([0.816, 1.000]) for VGGT and 0.908 ([0.802, 0.973]) for DUSt3R; no detector claim until frozen DTU evaluation |
 | Known-affine canonicalization repairs crop-induced camera rotation | paired baseline/ablation results and compute cost | **Supported on ETH3D for both models at the registered point-estimate gate:** neutral-gray recovery is 0.966 for VGGT and 0.558 for DUSt3R with zero measured clean cost; the DUSt3R lower confidence bound is 0.267, so uncertainty remains explicit and DTU is required for cross-dataset promotion |
 | CamCanon repairs generic geometry | paired depth/point baseline and ablations | **Not supported:** all three fills worsen median depth AbsRel on both ETH3D models; point-geometry outcomes are mixed |
 | Consensus improves over analytic canonicalization | paired three-fill selector, analytic baseline, oracle, and compute | **Fails the frozen multi-model ETH3D gate:** it slightly improves VGGT rotation but ties neutral gray for DUSt3R at roughly three times model compute |
@@ -243,6 +243,22 @@ and a scene-cluster bootstrap. Single-class AUROC and invalid bootstrap
 replicates remain explicit undefined values. Detector promotion still requires
 held-out AUROC at least 0.75; implementation and exploratory ETH3D results alone
 do not satisfy that gate.
+
+The complete exploratory reliability evidence is frozen in
+`artifacts/eth3d_reliability_seed17/`.  The exact four-transform matrix contains
+52 cases per model.  At the strict two-degree rotation-failure threshold,
+cross-transform disagreement obtains AUROC 0.924 ([0.816, 1.000]) for VGGT and
+0.908 ([0.802, 0.973]) for DUSt3R, while native uncertainty obtains 0.665
+([0.477, 0.865]) and 0.597 ([0.414, 0.795]).  Disagreement also has lower
+excess AURC for both models.  At the secondary 0.05 depth threshold,
+disagreement AUROC is 0.900 ([0.785, 0.986]) and 0.797 ([0.551, 1.000]),
+versus native values 0.679 and 0.694.
+
+These values are development evidence only: ETH3D outcomes had been inspected
+before the score was frozen. They validate case construction, score direction,
+ties, clustering, and provenance but cannot pass the detector gate. DTU
+remains the untouched held-out promotion dataset, and its threshold, score
+fields, and 0.75 gate do not change after seeing these results.
 
 The repair protocol is likewise frozen before any repaired prediction was
 evaluated against ground truth. It uses only the cropped pixels and known

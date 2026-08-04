@@ -277,5 +277,16 @@ equal-score blocks and reports raw AURC, oracle AURC, and their difference.
 Confidence intervals resample scenes as clusters, carrying all view-set and
 transform cases together. Single-class AUROC replicates are omitted and
 counted rather than assigned a numerical value.
+
+\paragraph{Development-set pipeline validation.}
+On the four-transform ETH3D development matrix, rotation disagreement obtains
+AUROC 0.924 (95\% CI [0.816, 1.000]) for VGGT and 0.908 ([0.802, 0.973]) for
+DUSt3R, compared with 0.665 ([0.477, 0.865]) and 0.597 ([0.414, 0.795]) for
+native uncertainty.  There are 15/52 and 23/52 rotation failures,
+respectively.  For the secondary 0.05 depth threshold, disagreement AUROC is
+0.900 ([0.785, 0.986]) and 0.797 ([0.551, 1.000]), again above the native
+point estimates.  These outcomes were available during score development and
+are therefore exploratory; they validate the complete pipeline but do not
+promote a detector.  That decision remains reserved for the frozen DTU test.
 \TODO{Report native confidence, cross-transform disagreement, AUROC, and
 risk--coverage on held-out DTU.}
