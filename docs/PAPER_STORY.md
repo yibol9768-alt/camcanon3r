@@ -4,9 +4,10 @@
 
 Known image preprocessing changes the camera matrix, yet feed-forward 3D
 systems can return different scene geometry after the exact camera update is
-removed; CamCanon3R audits this equivariance contract and will promote
-disagreement to a detector or repair signal only if ground-truth experiments
-support that promotion.
+removed; CamCanon3R audits this equivariance contract, demonstrates a
+multi-scene VGGT accuracy failure under view-dependent cropping, and will
+promote disagreement to a detector or repair signal only if held-out evidence
+supports that promotion.
 
 ## Introduction mini-outline and paragraph roles
 
@@ -16,10 +17,12 @@ support that promotion.
    confound model drift with incorrect coordinate bookkeeping.
 3. **Method:** log and compose exact affines, map predictions to a common
    domain, and compare cameras/depth with gauge-invariant metrics.
-4. **Evidence:** three-scene asymmetric-crop signal plus exact identity control;
-   center-crop scene dependence narrows the mechanism hypothesis.
-5. **Contributions/boundary:** audit formulation and protocol are supported;
-   GT degradation, generality, detection, and repair are promotion gates.
+4. **Evidence:** 13-scene ETH3D GT pose, intrinsics, depth, and point geometry;
+   three-scene DUSt3R diagnostics support replication without substituting for
+   matched GT.
+5. **Contributions/boundary:** audit formulation and VGGT/ETH3D degradation are
+   supported; multi-model/dataset generality, detection, and repair remain
+   promotion gates.
 
 ## Reverse outline
 
@@ -28,17 +31,17 @@ support that promotion.
 | 1 | Practical preprocessing changes the camera. | $P'=AK[R\mid t]$ and gauge requirement. |
 | 2 | Auditing is non-trivial because transforms compose. | Hidden model maps, aspect ratio, common coordinates. |
 | 3 | CamCanon3R makes the contract measurable. | Stored $A$, $B$, $BA$; relative pose and depth alignment. |
-| 4 | Current evidence isolates view-dependent crop drift. | Three scenes and identity-repeat control. |
-| 5 | Contributions are intentionally evidence bounded. | Supported protocol; explicit confirmatory gates. |
+| 4 | Current GT evidence isolates view-dependent crop degradation. | 13 ETH3D scenes; paired identity, center-crop, asymmetric-crop, and letterbox runs. |
+| 5 | Contributions are intentionally evidence bounded. | Supported VGGT result; explicit cross-model, cross-dataset, detection, and repair gates. |
 
 ## Claim-evidence map
 
 | Claim | Evidence | Status | Promotion gate |
 |---|---|---|---|
 | Exact preprocessing transforms define a 3D equivariance contract. | Camera algebra and unit-tested affine composition. | supported | none |
-| VGGT is non-equivariant to view-dependent 75% crops in the tested setting. | Three scenes, all above 2° median relative rotation; exact repeat control. | supported for diagnostic setting | severity sweep for broader claim |
-| Diagnostic uncertainty is auditable. | Deterministic 10,000-replicate scene bootstrap with an explicit fewer-than-10-scenes warning. | implemented | benchmark-scale scenes for inferential use |
-| Preprocessing reduces ground-truth reconstruction accuracy. | None yet. Cross-run disagreement is insufficient. | needs evidence | ETH3D pose/depth |
+| VGGT is non-equivariant to view-dependent 75% crops in the tested setting. | Three-scene cross-run diagnostic plus exact repeat control. | supported for diagnostic setting | severity sweep for broader mechanism claim |
+| Confirmatory uncertainty is auditable. | Deterministic 10,000-replicate scene bootstrap across all 13 ETH3D training scenes. | supported for the frozen VGGT/ETH3D matrix | matched replication for each promoted model/dataset |
+| View-dependent 75% crops reduce VGGT ground-truth reconstruction accuracy on ETH3D raw. | Paired 13-scene GT pose/intrinsics/depth/point evaluation; all registered deltas available and decisive degradation intervals exclude zero. | supported | none for this narrow model/dataset/transform claim |
 | The diagnostic failure generalizes beyond VGGT. | Frozen DUSt3R three-scene matrix; asymmetric crop exceeds 2° rotation in all scenes. | supported for the three-scene diagnostic | benchmark-scale multi-model GT accuracy |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
 | Reliability metrics are auditable. | Tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, and scene-cluster bootstrap are unit tested. | implemented, no effectiveness claim | populate with held-out GT cases |
@@ -49,16 +52,16 @@ support that promotion.
 
 - **Clarity:** each introduction paragraph has one explicit role.
 - **Flow:** camera change -> audit ambiguity -> protocol -> evidence -> boundary.
-- **Terminology:** use *preprocessing non-equivariance* for current results;
-  reserve *accuracy degradation* for ground-truth comparisons.
-- **Unsupported claims:** no current text claims multi-model generality, AUROC,
-  or repair gains.
-- **Missing evidence:** ETH3D GT, severity response, reliability, repair,
-  benchmark-scale statistical power, compute-normalized baselines, and
-  qualitative geometry.
-- **Statistical boundary:** scene bootstrap is implemented, but the current
-  three-scene interval is descriptive; benchmark-scale GT evidence remains
-  missing.
+- **Terminology:** use *preprocessing non-equivariance* for cross-run
+  diagnostics and *accuracy degradation* only for the frozen GT comparison.
+- **Unsupported claims:** no current text claims multi-model or multi-dataset
+  GT generality, AUROC, or repair gains.
+- **Missing evidence:** matched DUSt3R GT, a second geometry dataset, severity
+  response, reliability, repair, compute-normalized baselines, and qualitative
+  geometry.
+- **Statistical boundary:** the three-scene diagnostics remain descriptive;
+  the 13-scene VGGT/ETH3D intervals support only their registered paired
+  model/dataset/transform claims.
 
 ## Method reverse outline
 

@@ -51,7 +51,7 @@ point; translation direction is therefore undefined and excluded from its
 scene bootstrap rather than replaced by zero. These measurements support
 cross-model non-equivariance in the diagnostic setting, not accuracy loss.
 
-\subsection{Confirmatory evaluation}
+\subsection{Confirmatory ground-truth evaluation}
 The frozen confirmatory matrix uses VGGT and DUSt3R on ETH3D
 \cite{schops2017eth3d}.  We evaluate identity, center crop, asymmetric crop,
 and letterbox variants against pose ground truth; raw images additionally use
@@ -73,6 +73,80 @@ Degenerate camera-center alignments remain explicitly undefined and are not
 imputed as zero; the corresponding scene metric is excluded from its aggregate
 interval while the other GT metrics remain available.
 
+\paragraph{VGGT results.}
+All 52 registered VGGT evaluations complete, and every pose, intrinsic, depth,
+and point-map metric is available.  Table~\ref{tab:eth3d-vggt-camera} reports
+absolute GT error together with the paired delta from each scene's identity
+run.  A view-dependent 75\% crop increases median rotation error by
+\SI{4.61}{\degree} (95\% CI [3.13, 6.17]), translation-direction error by
+\SI{9.49}{\degree} ([5.06, 13.55]), and depth AbsRel by 2.30 percentage points
+([1.19, 2.95]).  Its normalized principal-point error rises by 3.71 percentage
+points ([3.68, 3.72]), as expected from independently shifted crop windows.
+Focal relative error is 0.0444 with a paired increase of 0.0250
+([0.0174, 0.0721]); the camera effect is therefore not confined to a single
+reported parameter.
+
+\begin{table}[t]
+  \centering
+  \caption{VGGT on 13 ETH3D raw scenes.  Each entry is the median across scene
+  metrics as \emph{absolute error / paired delta from identity}; paired-delta
+  medians need not equal the difference of marginal medians.  Depth and
+  normalized principal-point (PP) errors are percentages.}
+  \label{tab:eth3d-vggt-camera}
+  \setlength{\tabcolsep}{3.5pt}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{lrrrr}
+    \toprule
+    Transform & Rot. (\si{\degree}) & Trans. (\si{\degree}) & Depth (\%) & PP (\%) \\
+    \midrule
+    Identity         & 0.81 / 0.00 & 1.98 / 0.00 & 2.34 / 0.00 & 0.19 / 0.00 \\
+    Center crop      & 1.40 / +0.48 & 2.43 / +0.44 & 2.18 / +0.02 & 0.19 / 0.00 \\
+    Asymmetric crop  & 5.27 / +4.61 & 13.14 / +9.49 & 4.09 / +2.30 & 3.90 / +3.71 \\
+    Letterbox        & 0.99 / +0.09 & 1.89 / +0.28 & 1.94 / +0.05 & 0.19 / $\sim$0 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+The same failure persists in metric point geometry
+(Table~\ref{tab:eth3d-vggt-points}).  Asymmetric cropping increases
+prediction-to-GT accuracy error by \SI{0.259}{\meter} ([0.133, 0.589]) and
+GT-to-prediction completeness error by \SI{0.369}{\meter}
+([0.161, 0.756]).  Surface GT is not used to fit the Sim(3), so these increases
+cannot be hidden by a geometry-optimized alignment.  Shared center cropping
+has a smaller but decisive completeness increase of \SI{0.145}{\meter}
+([0.098, 0.177]); its accuracy interval includes zero.  Letterbox accuracy,
+completeness, and depth deltas are $-0.007$ m ([-0.020, 0.021]), $-0.002$ m
+([-0.029, 0.023]), and 0.00048 ([-0.00095, 0.00261]), respectively.  These
+negative controls rule out the explanation that any resampling or tensor-shape
+change necessarily damages the reconstruction.
+
+\begin{table}[t]
+  \centering
+  \caption{Aligned VGGT point-map errors in meters on the same 13 scenes,
+  reported as \emph{absolute / paired delta from identity}.  Alignment uses
+  camera poses only; lower is better.}
+  \label{tab:eth3d-vggt-points}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{lrr}
+    \toprule
+    Transform & Accuracy & Completeness \\
+    \midrule
+    Identity         & 0.113 / 0.000 & 0.127 / 0.000 \\
+    Center crop      & 0.195 / +0.084 & 0.277 / +0.145 \\
+    Asymmetric crop  & 0.339 / +0.259 & 0.549 / +0.369 \\
+    Letterbox        & 0.106 / $-0.007$ & 0.110 / $-0.002$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The claim boundary follows the frozen controls.  The data establish GT
+degradation for VGGT under the registered view-dependent crop on ETH3D raw,
+not generic crop sensitivity, a second-dataset result, or cross-model GT
+generality.  The matched DUSt3R aggregate is reported only after all 52 cases
+complete under the same evaluator; partial scenes are never pooled with the
+VGGT result.
+
 The canonical-camera repair is paired with each corrupted input and with an
 identity clean-cost control.  For an error metric $E$, we report raw errors and
 gap recovery
@@ -84,7 +158,8 @@ gap recovery
 The repair claim requires at least 30\% recovery while identity degradation
 remains below 2\%; denominators at or below the identity noise floor are
 reported as undefined rather than clipped.  Results remain pending and no
-accuracy claim is drawn from Table~\ref{tab:pilot}.
+repair claim is drawn from the diagnostic in Table~\ref{tab:pilot} or from an
+unfinished baseline.
 
 \subsection{Failure detection and repair}
 Failure thresholds are frozen before held-out testing and use the strict rule

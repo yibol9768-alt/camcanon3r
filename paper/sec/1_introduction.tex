@@ -24,38 +24,46 @@ We introduce \method, an audit protocol for preprocessing-induced geometry
 drift.  For every view, \method records the intervention affine, the model's
 internal preprocessing affine, and their source-to-tensor composition.  It
 then maps predictions to a common image domain and evaluates relative camera
-motion, scale-aligned depth, and eventually point geometry using only the
+motion, intrinsics, scale-aligned depth, and point geometry using only the
 minimal permitted gauge alignment.  The resulting disagreement is measurable
 without ground-truth 3D and can therefore serve as a candidate test-time
 failure signal; whether it predicts ground-truth error is treated as an
 empirical question rather than an assumption.
 
-Our current controlled diagnostic isolates a reproducible failure mode.  On
-three four-view scenes, independently shifted 75\% crops cause median
-relative-rotation disagreement of 3.79--6.30 degrees relative to the identity
-run.  A repeated identity run yields zero median rotation disagreement,
-$4.3\times10^{-7}$ degrees median translation-direction disagreement, and
-effectively zero aligned depth discrepancy.  In contrast, the effect of a
-center crop is strongly scene dependent.  This pattern motivates a narrower
-mechanism hypothesis: view-specific principal-point shifts are more damaging
-than a shared crop policy.  Because these measurements compare two model runs
-rather than either run against a reference reconstruction, we do not yet call
-them accuracy degradation.  A frozen DUSt3R replication supports the
-cross-model diagnostic boundary: the same asymmetric crops produce
-5.74--8.83 degrees median relative-rotation disagreement across the three
-scenes, exceeding two degrees in every scene.
+The ground-truth study isolates a reproducible accuracy failure.  We freeze
+four lexicographically selected views from each of all 13 ETH3D training
+scenes, apply four registered preprocessing variants, and evaluate 52 complete
+VGGT runs.  Relative to paired identity predictions, independently shifted
+75\% crops increase median rotation error by \SI{4.61}{\degree} (95\% CI
+[3.13, 6.17]), translation-direction error by \SI{9.49}{\degree}
+([5.06, 13.55]), depth AbsRel by 0.0230 ([0.0119, 0.0295]), point accuracy
+error by \SI{0.259}{\meter} ([0.133, 0.589]), and point completeness error by
+\SI{0.369}{\meter} ([0.161, 0.756]).  The normalized principal-point error
+increase is 0.0371 ([0.0368, 0.0372]), directly linking the intervention to
+the camera mechanism.  Letterbox depth and point-geometry intervals include
+zero, while a shared center crop has smaller, metric-dependent effects.  Thus
+the evidence supports a view-dependent-crop failure, not generic sensitivity
+to all spatial preprocessing.
+
+A separate diagnostic establishes replication boundaries without conflating
+cross-run disagreement and GT error.  On three four-view scenes, asymmetric
+crops produce 3.79--6.30 degrees median relative-rotation disagreement for
+VGGT; an identity repeat is numerically exact.  The frozen DUSt3R replication
+yields 5.74--8.83 degrees on the same scenes.  This is a two-model diagnostic
+signal, but only VGGT currently has benchmark-scale matched GT evidence.
 
 This draft makes three evidence-bounded contributions:
 \begin{itemize}
   \item We formulate image preprocessing as a falsifiable 3D equivariance
         contract with the exact camera update $K' = AK$.
   \item We provide an affine-aware, gauge-invariant evaluation path that
-        distinguishes model drift from bookkeeping error and includes an
-        effectively exact repeat control.
-  \item We document matched VGGT and DUSt3R diagnostics in which view-dependent
-        asymmetric crops consistently change recovered relative pose, while
-        symmetric transforms are substantially more scene dependent.
+        resolves raw ETH3D calibration per view and evaluates pose, intrinsics,
+        depth, and point maps without fitting the surface ground truth.
+  \item We establish on 13 ETH3D scenes that view-dependent 75\% cropping
+        degrades VGGT cameras, depth, and point geometry, while matched
+        letterbox controls remain close to identity; two-model diagnostics
+        further delimit the replication target.
 \end{itemize}
-Ground-truth ETH3D evaluation, reliability metrics, and a training-free
-consensus repair are pre-registered promotion gates, not contributions claimed
-by the present evidence.
+Matched multi-model and multi-dataset GT results, reliability metrics, and a
+training-free consensus repair are pre-registered promotion gates, not
+contributions claimed by the present evidence.

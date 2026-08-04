@@ -7,13 +7,18 @@ scene should remain unchanged up to the model's global gauge.  We formulate
 this requirement as a preprocessing-equivariance contract and introduce an
 auditable protocol that records both user-level and model-internal image
 transforms, composes their exact pixel maps, and compares reconstructed
-cameras and depth on common source-image support.  In a controlled four-view
-VGGT diagnostic across three scenes, independently shifted 75\% crops produce
-median relative-rotation disagreement of \SIrange{3.79}{6.30}{\degree}, while
-an identity-repeat control is numerically exact.  A frozen DUSt3R replication
-independently yields \SIrange{5.74}{8.83}{\degree} on the same scenes.  Center
-crops and letterbox padding are more scene dependent, implicating inconsistent
-principal-point shifts rather than cropping alone.  These results establish a
-reproducible two-model non-equivariance signal; ground-truth degradation,
-failure detection, and repair remain explicit confirmatory gates.
+cameras, intrinsics, depth, and point geometry against ground truth.  Across
+13 ETH3D scenes and 52 complete VGGT evaluations, independently shifted 75\%
+crops increase median rotation and translation-direction error by
+\SI{4.61}{\degree} and \SI{9.49}{\degree}, respectively, relative to paired
+identity runs.  They also increase depth AbsRel by 2.30 percentage points and
+point-cloud accuracy and completeness error by \SI{0.259}{\meter} and
+\SI{0.369}{\meter}; all five scene-bootstrap intervals exclude zero.  In
+contrast, letterbox depth and point-geometry deltas are statistically
+indistinguishable from identity.  A frozen three-scene DUSt3R diagnostic
+reproduces the cross-run rotation signal, but matched DUSt3R ground-truth
+evaluation remains the gate for cross-model promotion.  The evidence therefore
+establishes a specific VGGT accuracy failure under view-dependent cropping,
+not generic fragility to every resize or crop; failure detection and repair
+remain separate empirical claims.
 \end{abstract}

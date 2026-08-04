@@ -3,9 +3,12 @@
 
 Image preprocessing is part of the camera model, not merely input plumbing.
 \method makes this dependency explicit and measures whether a feed-forward 3D
-system respects the corresponding equivariance contract. Matched multi-scene
-diagnostics establish a reproducible VGGT and DUSt3R failure under
-view-dependent asymmetric crops while showing that symmetric transforms are
-more scene dependent. Claims about reconstruction accuracy, failure prediction,
-and repair will be made only if the registered ground-truth experiments support
-them.
+system respects the corresponding equivariance contract.  On 13 ETH3D scenes,
+paired ground-truth evaluation establishes that view-dependent 75\% crops
+degrade VGGT camera estimates, depth, and aligned point geometry, while
+letterbox depth and point metrics remain statistically indistinguishable from
+identity.  Matched three-scene VGGT and DUSt3R diagnostics reproduce the
+cross-run signal but do not substitute for multi-model GT evidence.  The
+present conclusion is therefore deliberately narrow: one registered
+preprocessing family causes a real VGGT accuracy failure on ETH3D; broader
+generality, failure prediction, and repair remain separate promotion gates.

@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "result_scope": "ETH3D training split, raw distorted images, VGGT ground-truth evaluation",
+  "model": {
+    "family": "VGGT",
+    "weights": "checkpoints/VGGT-1B/model.safetensors",
+    "inference_dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5090"
+  },
+  "repo_commit": "aaae779bf542e584794da0920eea159f7dfb4726",
+  "evaluation_protocol_version": "2.1",
+  "design": {
+    "dataset": "ETH3D training split",
+    "domain": "raw",
+    "scene_count": 13,
+    "views_per_scene": 4,
+    "variant_count": 4,
+    "evaluation_count": 52,
+    "scenes": [
+      "courtyard",
+      "delivery_area",
+      "electro",
+      "facade",
+      "kicker",
+      "meadow",
+      "office",
+      "pipes",
+      "playground",
+      "relief",
+      "relief_2",
+      "terrace",
+      "terrains"
+    ],
+    "variants": [
+      "identity",
+      "center_crop_075",
+      "asymmetric_crop_075",
+      "letterbox_square"
+    ],
+    "seed": 17
+  },
+  "bootstrap": {
+    "resampling_unit": "scene",
+    "statistic": "median",
+    "interval_method": "percentile",
+    "confidence_level": 0.95,
+    "replicates": 10000,
+    "seed": 17
+  },
+  "metric_availability": {
+    "depth": "52/52 available",
+    "point_cloud": "52/52 available",
+    "all_reported_scene_metrics": "13/13 available for every variant"
+  },
+  "provenance": {
+    "selection_report_sha256": "d839fe2e3c0a724daed19bc16f5065e3d279e5d6c05a2bdffa72ae43667043f6",
+    "source_summary_sha256": "e4a912c7b2012df730c762150a7166f2735de09fae1ac1948c22d8ea7ee92a5e",
+    "prediction_tree_sha256": "ca93e5486cfb41d421353b30f57f87e29adeaaf54d855a08260bc1e9a9710fcf",
+    "source_summary": "results/eth3d_training/vggt/raw/summary.json",
+    "prediction_root": "outputs/eth3d_training/vggt/raw"
+  },
+  "metric_encoding": [
+    "point_estimate",
+    "95%_ci_lower",
+    "95%_ci_upper"
+  ],
+  "by_variant": {
+    "identity": {
+      "rotation_median_degrees": [0.8050890563543351, 0.5836889356302344, 1.0799219522206667],
+      "rotation_delta_from_identity_degrees": [0.0, 0.0, 0.0],
+      "translation_median_degrees": [1.9826365657038436, 1.4824214448453283, 4.38530062816549],
+      "translation_delta_from_identity_degrees": [0.0, 0.0, 0.0],
+      "focal_relative_error_median": [0.012304731375634877, 0.010301182666855292, 0.04140994960675379],
+      "focal_relative_error_delta_from_identity": [0.0, 0.0, 0.0],
+      "principal_point_normalized_error_median": [0.0018558299862342035, 0.0018156205739673394, 0.002128629372132496],
+      "principal_point_normalized_error_delta_from_identity": [0.0, 0.0, 0.0],
+      "depth_mean_abs_rel": [0.023425363956359205, 0.01801375021356772, 0.025238806504668004],
+      "depth_abs_rel_delta_from_identity": [0.0, 0.0, 0.0],
+      "point_accuracy_mean_meters": [0.1133300246558616, 0.09562626943755284, 0.2332220984574389],
+      "point_accuracy_delta_from_identity_meters": [0.0, 0.0, 0.0],
+      "point_completeness_mean_meters": [0.12662859942340224, 0.10368207059836396, 0.2846641413299356],
+      "point_completeness_delta_from_identity_meters": [0.0, 0.0, 0.0]
+    },
+    "center_crop_075": {
+      "rotation_median_degrees": [1.3985892087409901, 1.0000190321499196, 1.9654400093173319],
+      "rotation_delta_from_identity_degrees": [0.4796047652843052, 0.12978471986936935, 0.7865313316106759],
+      "translation_median_degrees": [2.426588517259248, 1.5193764860483423, 5.759848850985655],
+      "translation_delta_from_identity_degrees": [0.44395195155540446, -0.40937887307327003, 1.211575414368486],
+      "focal_relative_error_median": [0.03573197663381382, 0.03108433033421732, 0.053215954646406605],
+      "focal_relative_error_delta_from_identity": [0.01657091237879038, 0.011215997533778707, 0.02292240556073262],
+      "principal_point_normalized_error_median": [0.0018558299862342035, 0.0018156205739673394, 0.002128629372132496],
+      "principal_point_normalized_error_delta_from_identity": [0.0, 0.0, 0.0],
+      "depth_mean_abs_rel": [0.021849873545354666, 0.018235740557768557, 0.030292222407835592],
+      "depth_abs_rel_delta_from_identity": [0.00015431140300208035, -0.003388932959313338, 0.006203115731219974],
+      "point_accuracy_mean_meters": [0.1952276784830007, 0.13701333119612094, 0.25728539602393985],
+      "point_accuracy_delta_from_identity_meters": [0.08408507163831101, -0.013969286102051753, 0.12950798924845364],
+      "point_completeness_mean_meters": [0.2770595835366012, 0.23833845328193423, 0.39748549043770587],
+      "point_completeness_delta_from_identity_meters": [0.1445907166024553, 0.0979202473361599, 0.17724356198209923]
+    },
+    "asymmetric_crop_075": {
+      "rotation_median_degrees": [5.274096328741586, 3.893205951896782, 7.009437154365315],
+      "rotation_delta_from_identity_degrees": [4.61006442236515, 3.133804298635239, 6.17209137247833],
+      "translation_median_degrees": [13.135017303429583, 6.691533012451026, 16.440439726813842],
+      "translation_delta_from_identity_degrees": [9.487465534581498, 5.055749953580854, 13.54985948493992],
+      "focal_relative_error_median": [0.04438519634654259, 0.031900550624850546, 0.11673731517269019],
+      "focal_relative_error_delta_from_identity": [0.02495582406478363, 0.017444660438958464, 0.07211787961413507],
+      "principal_point_normalized_error_median": [0.038985899078381125, 0.03891316826248189, 0.03912648258538658],
+      "principal_point_normalized_error_delta_from_identity": [0.03708414811206198, 0.03683694166552426, 0.03720641985368604],
+      "depth_mean_abs_rel": [0.04086940870932448, 0.03627375637151506, 0.05298616655931648],
+      "depth_abs_rel_delta_from_identity": [0.023041185073643448, 0.011856232259810483, 0.02951280626139263],
+      "point_accuracy_mean_meters": [0.3389895943771363, 0.23125854694272757, 0.6627721769564668],
+      "point_accuracy_delta_from_identity_meters": [0.25853869414714636, 0.13282950108112196, 0.5886308757200492],
+      "point_completeness_mean_meters": [0.5485032332075057, 0.4024555732517159, 0.8402719825971854],
+      "point_completeness_delta_from_identity_meters": [0.3689344273102676, 0.16101921738699998, 0.7562800380513836]
+    },
+    "letterbox_square": {
+      "rotation_median_degrees": [0.9876133120094013, 0.6726910551470904, 1.2539608390931472],
+      "rotation_delta_from_identity_degrees": [0.089002119516856, 0.004809664996257457, 0.187871914879],
+      "translation_median_degrees": [1.8898898446197154, 1.5297900865963583, 4.424163359778354],
+      "translation_delta_from_identity_degrees": [0.28048785476903637, -0.09291117575352659, 0.8213629926211654],
+      "focal_relative_error_median": [0.03025913846720832, 0.0184855743755463, 0.038797402826805244],
+      "focal_relative_error_delta_from_identity": [0.018463295059515418, -0.0013338495929136537, 0.02112235946969654],
+      "principal_point_normalized_error_median": [0.001855829986234197, 0.001815620573967324, 0.0021286293721324936],
+      "principal_point_normalized_error_delta_from_identity": [-7.806255641895632e-18, -1.5178830414797062e-17, -5.637851296924623e-18],
+      "depth_mean_abs_rel": [0.019373070675701615, 0.018058002894230867, 0.026034115245376806],
+      "depth_abs_rel_delta_from_identity": [0.00048008570109580803, -0.0009451707080162138, 0.002608751289017601],
+      "point_accuracy_mean_meters": [0.10626184705245971, 0.08064398167799823, 0.184690125803858],
+      "point_accuracy_delta_from_identity_meters": [-0.007435379284217308, -0.020412817534737226, 0.020999268267950275],
+      "point_completeness_mean_meters": [0.1099531192590095, 0.09180377875841379, 0.25589833675830226],
+      "point_completeness_delta_from_identity_meters": [-0.0019439579210651509, -0.028765804571633358, 0.022839064363611133]
+    }
+  },
+  "interpretation_boundary": "This artifact establishes multi-scene ground-truth evidence for one model family only. Cross-model claims require the matched DUSt3R sweep; cross-dataset generalization remains untested."
+}

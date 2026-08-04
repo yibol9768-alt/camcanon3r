@@ -1,8 +1,8 @@
 # CamCanon3R research contract
 
-Updated: 2026-08-03  
+Updated: 2026-08-04
 Target: 3DV 2027, paper deadline 2026-08-28 11:00 PDT  
-Status: frozen pre-result kill-test contract
+Status: frozen contract; first confirmatory VGGT result complete, promotion gates active
 
 ## Paper claim
 
@@ -132,10 +132,37 @@ in the frozen design rather than being removed after inspection.
 
 | Claim | Required evidence | Current status |
 |---|---|---|
-| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | positive VGGT room pilot; confirmation needed |
+| Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **VGGT/ETH3D raw GT supported for view-dependent 75% crop:** 13 scenes, 52 complete evaluations, pose/intrinsics/depth/point-map metrics all available; matched DUSt3R GT and a second dataset remain required for the full claim |
 | Native confidence misses failures | calibration and risk-coverage comparison | needs evidence |
 | Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
 | CamCanon repairs geometry | paired baseline/ablation results and compute cost | needs evidence |
+
+## Frozen confirmatory snapshot: VGGT on ETH3D raw
+
+The first benchmark-scale result is frozen in
+`artifacts/eth3d_vggt_raw_seed17/summary.json`.  It evaluates four fixed views
+from each of all 13 ETH3D training scenes under identity, shared center crop,
+view-dependent asymmetric crop, and square letterbox preprocessing.  The 52
+runs are complete, every registered GT metric is defined, and uncertainty is a
+10,000-replicate scene bootstrap with seed 17.
+
+Relative to the paired identity run, the view-dependent 75% crop increases the
+median-of-scene-median rotation error by 4.61 degrees (95% CI [3.13, 6.17]),
+translation-direction error by 9.49 degrees ([5.06, 13.55]), depth AbsRel by
+0.0230 ([0.0119, 0.0295]), point accuracy error by 0.259 m
+([0.133, 0.589]), and point completeness error by 0.369 m
+([0.161, 0.756]).  These intervals exclude zero.  The principal-point error
+increase is 0.0371 ([0.0368, 0.0372]), directly connecting the intervention to
+the registered camera mechanism.
+
+The controls narrow the claim.  Letterbox point accuracy and completeness
+deltas are -0.0074 m ([-0.0204, 0.0210]) and -0.0019 m
+([-0.0288, 0.0228]), respectively, and its depth delta also includes zero.
+Shared center crop has no detectable depth increase, but it increases point
+completeness error by 0.145 m ([0.0979, 0.1772]) and rotation error by 0.480
+degrees ([0.130, 0.787]).  Therefore this snapshot supports a strong
+view-dependent-crop failure for VGGT, not a claim that every crop or resize is
+harmful and not yet a multi-model or multi-dataset conclusion.
 
 The aggregation code now enforces one identity per scene, a complete paired
 scene/variant design, separation of pose-only and depth protocols, and
