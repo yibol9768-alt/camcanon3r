@@ -170,6 +170,51 @@ The expected prepared design is 22 scene manifests plus 22 x 11 x 3 = 726
 PNGs. Run preparation as a detached Windows task; do not tie it to an SSH
 session.
 
+Run the two models sequentially, never concurrently, over the exact ordered
+variant list in `configs/eth3d_mechanism_variants.json`. Use all 22 `scan*`
+directories beneath `data/dtu/rectified_mechanism`, three views per case, and
+the already verified model weights. Keep each sweep in a Windows-owned
+background task and use `--resume` only after its existing NPZ/JSON pairs pass
+the batch runner's validation.
+
+After both prediction sweeps complete, evaluate each model into a separate
+result root. The command below intentionally requires all eleven variants in
+frozen order and exactly the four predeclared point-map variants:
+
+```bash
+variants=(
+  identity center_crop_075 asymmetric_crop_075 letterbox_square
+  center_crop_090 center_crop_060
+  asymmetric_crop_090 asymmetric_crop_060
+  shared_asymmetric_crop_090 shared_asymmetric_crop_075
+  shared_asymmetric_crop_060
+)
+point_variants=(
+  identity center_crop_075 asymmetric_crop_075 letterbox_square
+)
+
+PYTHONPATH=src .venv/bin/python scripts/evaluate_dtu_selection.py \
+  /mnt/e/camcanon3r-data/dtu_selected \
+  outputs/dtu/vggt/rectified_mechanism \
+  results/dtu/vggt/rectified_mechanism \
+  --protocol configs/dtu_protocol.json \
+  --variants "${variants[@]}" \
+  --point-variants "${point_variants[@]}" \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17 --resume
+```
+
+Repeat for DUSt3R by changing only the model-specific prediction and result
+roots. The evaluator verifies every source view, calibration file, prediction
+pair, GT resource, protocol hash, and variant-config hash before computing any
+metric. Pose and intrinsics are evaluated for all 242 cases per model; point
+accuracy and completeness are evaluated only for the frozen 88 confirmatory
+cases. Its surface metric adopts the DTU observability mask, ground-plane
+filter, 0.2 mm voxel spacing, and 20 mm distance rejection, but uses a
+deterministic 100,000-point cap and camera-pose-only Sim(3) gauge alignment.
+Therefore report it as CamCanon3R's deterministic DTU point-map metric, not an
+official DTU leaderboard score.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and

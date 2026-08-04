@@ -5,6 +5,7 @@ import pytest
 
 from camcanon3r.summary import (
     summarize_comparison_files,
+    summarize_dtu_evaluations,
     summarize_eth3d_evaluations,
 )
 
@@ -40,9 +41,7 @@ def test_summary_counts_thresholds_by_variant(tmp_path: Path) -> None:
     bootstrap = aggregate["scene_bootstrap"]
     assert bootstrap["resampling_unit"] == "scene"
     assert bootstrap["small_sample_warning"].startswith("descriptive_only")
-    assert bootstrap["metrics"]["rotation_median_degrees"][
-        "point_estimate"
-    ] == 2.0
+    assert bootstrap["metrics"]["rotation_median_degrees"]["point_estimate"] == 2.0
 
 
 def test_summary_keeps_undefined_scene_metric_explicit(tmp_path: Path) -> None:
@@ -56,21 +55,18 @@ def test_summary_keeps_undefined_scene_metric_explicit(tmp_path: Path) -> None:
 
     summary = summarize_comparison_files([first, second])
     crop = summary["by_variant"]["crop"]
-    availability = crop["metric_availability"][
-        "translation_median_degrees"
-    ]
+    availability = crop["metric_availability"]["translation_median_degrees"]
     assert crop["median_of_scene_translation_medians_degrees"] is None
     assert availability == {
         "valid_scene_count": 1,
         "undefined_scene_count": 1,
         "included_in_scene_bootstrap": False,
     }
-    assert "translation_median_degrees" not in crop["scene_bootstrap"][
-        "metrics"
-    ]
-    assert crop["scene_bootstrap"]["metrics"]["rotation_median_degrees"][
-        "point_estimate"
-    ] == 4.0
+    assert "translation_median_degrees" not in crop["scene_bootstrap"]["metrics"]
+    assert (
+        crop["scene_bootstrap"]["metrics"]["rotation_median_degrees"]["point_estimate"]
+        == 4.0
+    )
 
 
 def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
@@ -86,9 +82,7 @@ def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
                     "variant": variant,
                     "intrinsics": {
                         "focal_relative_error": {"median": rotation / 100},
-                        "principal_point_normalized_error": {
-                            "median": rotation / 200
-                        },
+                        "principal_point_normalized_error": {"median": rotation / 200},
                     },
                     "relative_rotation_degrees": {"median": rotation},
                     "translation_direction_degrees": {"median": translation},
@@ -103,25 +97,17 @@ def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
                 }
             )
         )
-    summary = summarize_eth3d_evaluations(
-        sorted(tmp_path.glob("*_vs_gt.json"))
-    )
+    summary = summarize_eth3d_evaluations(sorted(tmp_path.glob("*_vs_gt.json")))
     crop = next(row for row in summary["evaluations"] if row["variant"] == "crop")
     assert crop["rotation_delta_from_identity_degrees"] == 2.5
     assert crop["translation_delta_from_identity_degrees"] == 6.0
-    assert crop["focal_relative_error_delta_from_identity"] == pytest.approx(
-        0.025
-    )
+    assert crop["focal_relative_error_delta_from_identity"] == pytest.approx(0.025)
     assert crop[
         "principal_point_normalized_error_delta_from_identity"
     ] == pytest.approx(0.0125)
     assert crop["depth_abs_rel_delta_from_identity"] == pytest.approx(0.06)
-    assert crop["point_accuracy_delta_from_identity_meters"] == pytest.approx(
-        0.25
-    )
-    assert crop[
-        "point_completeness_delta_from_identity_meters"
-    ] == pytest.approx(0.6)
+    assert crop["point_accuracy_delta_from_identity_meters"] == pytest.approx(0.25)
+    assert crop["point_completeness_delta_from_identity_meters"] == pytest.approx(0.6)
     assert summary["point_cloud_evaluated"] is True
     assert summary["by_variant"]["crop"]["scene_bootstrap"]["metrics"][
         "point_accuracy_mean_meters"
@@ -164,17 +150,18 @@ def test_eth3d_summary_pairs_identity_within_each_scene(tmp_path: Path) -> None:
     )
     assert summary["scene_count"] == 2
     assert summary["identity"] is None
-    crop_rows = [
-        row for row in summary["evaluations"] if row["variant"] == "crop"
-    ]
+    crop_rows = [row for row in summary["evaluations"] if row["variant"] == "crop"]
     assert [row["rotation_delta_from_identity_degrees"] for row in crop_rows] == [
         5.0,
         3.0,
     ]
     crop_bootstrap = summary["by_variant"]["crop"]["scene_bootstrap"]
-    assert crop_bootstrap["metrics"]["rotation_delta_from_identity_degrees"][
-        "point_estimate"
-    ] == 4.0
+    assert (
+        crop_bootstrap["metrics"]["rotation_delta_from_identity_degrees"][
+            "point_estimate"
+        ]
+        == 4.0
+    )
 
 
 def test_eth3d_summary_keeps_undefined_point_alignment_explicit(
@@ -200,9 +187,7 @@ def test_eth3d_summary_keeps_undefined_point_alignment_explicit(
                 }
             )
         )
-    summary = summarize_eth3d_evaluations(
-        sorted(tmp_path.glob("*_vs_gt.json"))
-    )
+    summary = summarize_eth3d_evaluations(sorted(tmp_path.glob("*_vs_gt.json")))
     availability = summary["by_variant"]["crop"]["metric_availability"][
         "point_accuracy_mean_meters"
     ]
@@ -250,9 +235,7 @@ def test_eth3d_summary_rejects_incomplete_paired_design(tmp_path: Path) -> None:
                         "variant": variant,
                         "intrinsics": {
                             "focal_relative_error": {"median": 0.1},
-                            "principal_point_normalized_error": {
-                                "median": 0.01
-                            },
+                            "principal_point_normalized_error": {"median": 0.01},
                         },
                         "relative_rotation_degrees": {"median": 1.0},
                         "translation_direction_degrees": {"median": 2.0},
@@ -263,6 +246,92 @@ def test_eth3d_summary_rejects_incomplete_paired_design(tmp_path: Path) -> None:
             paths.append(path)
     with pytest.raises(ValueError, match="incomplete paired ETH3D design"):
         summarize_eth3d_evaluations(paths)
+
+
+def test_dtu_summary_pairs_each_variant_with_scene_identity(tmp_path: Path) -> None:
+    paths = []
+    for scene, offset in (("scan1", 0.0), ("scan4", 1.0)):
+        scene_dir = tmp_path / scene
+        scene_dir.mkdir()
+        for variant, rotation in (("identity", 1.0 + offset), ("crop", 4.0 + offset)):
+            path = scene_dir / f"{variant}_vs_gt.json"
+            point_cloud = None
+            if variant == "identity":
+                point_cloud = {
+                    "accuracy_millimeters": {"mean": 0.5 + offset},
+                    "completeness_millimeters": {"mean": 0.8 + offset},
+                }
+            path.write_text(
+                json.dumps(
+                    {
+                        "prediction": f"/outputs/{scene}/{variant}.npz",
+                        "scene": scene,
+                        "variant": variant,
+                        "intrinsics": {
+                            "focal_relative_error": {"median": rotation / 100},
+                            "principal_point_normalized_error": {
+                                "median": rotation / 200
+                            },
+                        },
+                        "relative_rotation_degrees": {"median": rotation},
+                        "translation_direction_degrees": {"median": rotation * 2},
+                        "point_cloud": point_cloud,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            paths.append(path)
+
+    summary = summarize_dtu_evaluations(paths, bootstrap_replicates=200)
+    crop = summary["by_variant"]["crop"]
+    assert summary["scene_count"] == 2
+    assert summary["point_metric_variants"] == ["identity"]
+    assert crop["scene_bootstrap"]["metrics"][
+        "rotation_median_degrees_delta_from_identity"
+    ]["point_estimate"] == pytest.approx(3.0)
+    assert (
+        crop["metric_availability"]["point_accuracy_mean_millimeters"][
+            "included_in_scene_bootstrap"
+        ]
+        is False
+    )
+
+
+def test_dtu_summary_rejects_inconsistent_point_availability(tmp_path: Path) -> None:
+    paths = []
+    for scene, point_cloud in (
+        (
+            "scan1",
+            {
+                "accuracy_millimeters": {"mean": 0.5},
+                "completeness_millimeters": {"mean": 0.8},
+            },
+        ),
+        ("scan4", None),
+    ):
+        scene_dir = tmp_path / scene
+        scene_dir.mkdir()
+        path = scene_dir / "identity_vs_gt.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "prediction": f"/outputs/{scene}/identity.npz",
+                    "scene": scene,
+                    "variant": "identity",
+                    "intrinsics": {
+                        "focal_relative_error": {"median": 0.1},
+                        "principal_point_normalized_error": {"median": 0.01},
+                    },
+                    "relative_rotation_degrees": {"median": 1.0},
+                    "translation_direction_degrees": {"median": 2.0},
+                    "point_cloud": point_cloud,
+                }
+            ),
+            encoding="utf-8",
+        )
+        paths.append(path)
+    with pytest.raises(ValueError, match="inconsistent DTU point-metric"):
+        summarize_dtu_evaluations(paths)
 
 
 def test_eth3d_summary_preserves_undefined_pose_metric(tmp_path: Path) -> None:
@@ -280,14 +349,10 @@ def test_eth3d_summary_preserves_undefined_pose_metric(tmp_path: Path) -> None:
                         "variant": variant,
                         "intrinsics": {
                             "focal_relative_error": {"median": 0.1},
-                            "principal_point_normalized_error": {
-                                "median": 0.01
-                            },
+                            "principal_point_normalized_error": {"median": 0.01},
                         },
                         "relative_rotation_degrees": {"median": 1.0},
-                        "translation_direction_degrees": {
-                            "median": translation
-                        },
+                        "translation_direction_degrees": {"median": translation},
                         "depth": None,
                     }
                 )
@@ -296,12 +361,8 @@ def test_eth3d_summary_preserves_undefined_pose_metric(tmp_path: Path) -> None:
 
     summary = summarize_eth3d_evaluations(paths)
     crop = summary["by_variant"]["crop"]
-    availability = crop["metric_availability"][
-        "translation_median_degrees"
-    ]
+    availability = crop["metric_availability"]["translation_median_degrees"]
     assert availability["valid_scene_count"] == 1
     assert availability["undefined_scene_count"] == 1
     assert availability["included_in_scene_bootstrap"] is False
-    assert "translation_median_degrees" not in crop["scene_bootstrap"][
-        "metrics"
-    ]
+    assert "translation_median_degrees" not in crop["scene_bootstrap"]["metrics"]
