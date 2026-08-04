@@ -409,6 +409,7 @@ def summarize_dtu_evaluations(
                     if point_cloud is not None
                     else None
                 ),
+                "point_cloud_evaluated": point_cloud is not None,
                 "source": str(path),
             }
         )
@@ -468,11 +469,7 @@ def summarize_dtu_evaluations(
     for variant, variant_rows in sorted(grouped.items()):
         variant_rows = sorted(variant_rows, key=lambda row: str(row["scene"]))
         scenes = [str(row["scene"]) for row in variant_rows]
-        point_modes = {
-            row["point_accuracy_mean_millimeters"] is not None
-            and row["point_completeness_mean_millimeters"] is not None
-            for row in variant_rows
-        }
+        point_modes = {bool(row["point_cloud_evaluated"]) for row in variant_rows}
         if len(point_modes) != 1:
             raise ValueError(
                 f"inconsistent DTU point-metric availability for variant {variant}"

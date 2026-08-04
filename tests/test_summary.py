@@ -334,6 +334,48 @@ def test_dtu_summary_rejects_inconsistent_point_availability(tmp_path: Path) -> 
         summarize_dtu_evaluations(paths)
 
 
+def test_dtu_summary_keeps_undefined_requested_point_metric(tmp_path: Path) -> None:
+    paths = []
+    for scene, accuracy in (("scan1", 0.5), ("scan4", None)):
+        scene_dir = tmp_path / scene
+        scene_dir.mkdir()
+        path = scene_dir / "identity_vs_gt.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "prediction": f"/outputs/{scene}/identity.npz",
+                    "scene": scene,
+                    "variant": "identity",
+                    "intrinsics": {
+                        "focal_relative_error": {"median": 0.1},
+                        "principal_point_normalized_error": {"median": 0.01},
+                    },
+                    "relative_rotation_degrees": {"median": 1.0},
+                    "translation_direction_degrees": {"median": 2.0},
+                    "point_cloud": {
+                        "status": (
+                            "available"
+                            if accuracy is not None
+                            else "undefined_degenerate_camera_center_alignment"
+                        ),
+                        "accuracy_millimeters": {"mean": accuracy},
+                        "completeness_millimeters": {"mean": accuracy},
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        paths.append(path)
+    summary = summarize_dtu_evaluations(paths, bootstrap_replicates=20)
+    assert summary["point_metric_variants"] == ["identity"]
+    availability = summary["by_variant"]["identity"]["metric_availability"][
+        "point_accuracy_mean_millimeters"
+    ]
+    assert availability["valid_scene_count"] == 1
+    assert availability["undefined_scene_count"] == 1
+    assert availability["included_in_scene_bootstrap"] is False
+
+
 def test_eth3d_summary_preserves_undefined_pose_metric(tmp_path: Path) -> None:
     paths = []
     for scene in ("office", "courtyard"):

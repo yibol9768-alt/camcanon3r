@@ -229,6 +229,12 @@ deterministic 100,000-point cap and camera-pose-only Sim(3) gauge alignment.
 Therefore report it as CamCanon3R's deterministic DTU point-map metric, not an
 official DTU leaderboard score.
 
+If predicted camera centers collapse or imply a non-positive pose-only scale,
+the evaluator preserves pose and intrinsics, marks DTU point accuracy and
+completeness explicitly undefined, and excludes only those incomplete scene
+metrics from bootstrap intervals. It never substitutes zero or drops the
+scene from the other metrics.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and

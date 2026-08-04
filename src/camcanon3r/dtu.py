@@ -464,14 +464,41 @@ def evaluate_dtu_prediction(
                 source_sizes,
                 maximum_per_view=100_000,
             )
-            point_cloud = _dtu_point_metrics(
-                predicted_points,
-                predicted_extrinsics,
-                target_extrinsics,
-                point_path=gt_root / f"Points/stl/stl{scan:03d}_total.ply",
-                mask_path=gt_root / f"ObsMask/ObsMask{scan}_10.mat",
-                plane_path=gt_root / f"ObsMask/Plane{scan}.mat",
-            )
+            point_metadata = {
+                "predicted_source_supported_points_before_alignment": len(
+                    predicted_points
+                )
+            }
+            try:
+                point_cloud = _dtu_point_metrics(
+                    predicted_points,
+                    predicted_extrinsics,
+                    target_extrinsics,
+                    point_path=gt_root / f"Points/stl/stl{scan:03d}_total.ply",
+                    mask_path=gt_root / f"ObsMask/ObsMask{scan}_10.mat",
+                    plane_path=gt_root / f"ObsMask/Plane{scan}.mat",
+                )
+            except ValueError as error:
+                reason = str(error)
+                alignment_failure = (
+                    "degenerate for Sim(3)" in reason
+                    or "camera-pose Sim(3) has a non-positive scale" in reason
+                )
+                if not alignment_failure:
+                    raise
+                status = (
+                    "undefined_degenerate_camera_center_alignment"
+                    if "degenerate for Sim(3)" in reason
+                    else "undefined_nonpositive_camera_pose_scale"
+                )
+                point_cloud = {
+                    "status": status,
+                    "reason": reason,
+                    "protocol": ("official_mask_plane_threshold_deterministic_cap"),
+                    "accuracy_millimeters": _finite_summary(np.asarray([])),
+                    "completeness_millimeters": _finite_summary(np.asarray([])),
+                }
+            point_cloud.update(point_metadata)
     return {
         "prediction": str(prediction_path.resolve()),
         "variant": prediction_path.stem,

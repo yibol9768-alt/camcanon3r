@@ -195,3 +195,18 @@ def test_evaluate_dtu_prediction_reports_exact_synthetic_point_distances(
     assert point_cloud["accuracy_millimeters"]["mean"] == pytest.approx(0.0)
     assert point_cloud["completeness_millimeters"]["mean"] == pytest.approx(0.0)
     assert point_cloud["alignment"]["scale"] == pytest.approx(1.0)
+
+    collapsed = np.repeat(extrinsics[0][None], 3, axis=0)
+    np.savez_compressed(
+        prediction,
+        extrinsic=collapsed,
+        intrinsic=np.stack([intrinsic] * 3),
+        source_to_model_affine=np.stack([np.eye(3)] * 3),
+        world_points=world_points,
+    )
+    undefined = evaluate_dtu_prediction(
+        prediction, calibration, scan=1, gt_root=gt_root
+    )["point_cloud"]
+    assert undefined["status"] == ("undefined_degenerate_camera_center_alignment")
+    assert undefined["accuracy_millimeters"]["mean"] is None
+    assert undefined["predicted_source_supported_points_before_alignment"] == 12
