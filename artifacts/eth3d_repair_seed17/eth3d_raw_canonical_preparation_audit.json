@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "prepared_root": "/opt/camcanon3r/data/eth3d_training/raw",
+  "repaired_root": "/opt/camcanon3r/data/eth3d_training/raw_canonical",
+  "scene_count": 13,
+  "scenes": [
+    "courtyard",
+    "delivery_area",
+    "electro",
+    "facade",
+    "kicker",
+    "meadow",
+    "office",
+    "pipes",
+    "playground",
+    "relief",
+    "relief_2",
+    "terrace",
+    "terrains"
+  ],
+  "source_variants": [
+    "identity",
+    "asymmetric_crop_075"
+  ],
+  "output_variants": [
+    "identity",
+    "canonical_asymmetric_crop_075"
+  ],
+  "image_count": 104,
+  "mask_count": 104,
+  "identity_pixel_matches": 52,
+  "valid_fraction_by_variant": {
+    "identity": {
+      "count": 52,
+      "minimum": 1.0,
+      "median": 1.0,
+      "maximum": 1.0
+    },
+    "canonical_asymmetric_crop_075": {
+      "count": 52,
+      "minimum": 0.5625,
+      "median": 0.5625,
+      "maximum": 0.5625
+    }
+  },
+  "tree_sha256": "cb1359bcde66745bbf83cb54447b686aba7d025cb12187cb44c16004a167105a"
+}

@@ -1,0 +1,1979 @@
+{
+  "schema_version": "1.0",
+  "scene_count": 13,
+  "scenes": [
+    "courtyard",
+    "delivery_area",
+    "electro",
+    "facade",
+    "kicker",
+    "meadow",
+    "office",
+    "pipes",
+    "playground",
+    "relief",
+    "relief_2",
+    "terrace",
+    "terrains"
+  ],
+  "minimum_gap": 1e-12,
+  "recovery_definition": "median_scene_recovered_gap / median_scene_corruption_gap",
+  "recovery_threshold": 0.3,
+  "clean_relative_threshold": 0.02,
+  "per_scene": {
+    "courtyard": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/courtyard/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/courtyard/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/courtyard/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/courtyard/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.6609416379670949,
+          "corrupt_error": 6.1743955418027845,
+          "repaired_error": 1.6216153764836556,
+          "clean_control_error": 0.6609416379670949,
+          "corruption_gap": 5.513453903835689,
+          "recovered_gap": 4.552780165319129,
+          "gap_recovery": 0.8257582714442896,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.6357830588701718,
+          "corrupt_error": 6.691533012451026,
+          "repaired_error": 0.8326580115647451,
+          "clean_control_error": 1.6357830588701718,
+          "corruption_gap": 5.055749953580854,
+          "recovered_gap": 5.858875000886281,
+          "gap_recovery": 1.1588537911643741,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.016859704706628103,
+          "corrupt_error": 0.017847246252855022,
+          "repaired_error": 0.04759697678124551,
+          "clean_control_error": 0.016859704706628103,
+          "corruption_gap": 0.0009875415462269194,
+          "recovered_gap": -0.02974973052839049,
+          "gap_recovery": -30.125041971200808,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.05688579125718718,
+          "corrupt_error": 0.3389895943771363,
+          "repaired_error": 0.10019518345705597,
+          "clean_control_error": 0.05688579125718718,
+          "corruption_gap": 0.28210380311994915,
+          "recovered_gap": 0.23879441092008036,
+          "gap_recovery": 0.846477106225137,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.0649650644609148,
+          "corrupt_error": 0.43389949177118237,
+          "repaired_error": 0.15318800981674072,
+          "clean_control_error": 0.0649650644609148,
+          "corruption_gap": 0.3689344273102676,
+          "recovered_gap": 0.2807114819544416,
+          "gap_recovery": 0.760870933084182,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "delivery_area": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/delivery_area/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/delivery_area/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/delivery_area/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/delivery_area/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5131759087406331,
+          "corrupt_error": 1.3776456919987783,
+          "repaired_error": 1.9203202836578357,
+          "clean_control_error": 0.5131759087406331,
+          "corruption_gap": 0.8644697832581452,
+          "recovered_gap": -0.5426745916590574,
+          "gap_recovery": -0.6277542629815733,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 3.014950599008915,
+          "corrupt_error": 23.893579416127988,
+          "repaired_error": 16.975437243121537,
+          "clean_control_error": 3.014950599008915,
+          "corruption_gap": 20.878628817119072,
+          "recovered_gap": 6.918142173006451,
+          "gap_recovery": 0.3313504078071468,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.01801375021356772,
+          "corrupt_error": 0.07812365896802503,
+          "repaired_error": 0.09535782984154602,
+          "clean_control_error": 0.01801375021356772,
+          "corruption_gap": 0.06010990875445731,
+          "recovered_gap": -0.017234170873520985,
+          "gap_recovery": -0.2867109804461818,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.3435332726941345,
+          "corrupt_error": 1.3646191308555584,
+          "repaired_error": 0.28394049112533676,
+          "clean_control_error": 0.3435332726941345,
+          "corruption_gap": 1.021085858161424,
+          "recovered_gap": 1.0806786397302217,
+          "gap_recovery": 1.0583621652307487,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.3874483927803106,
+          "corrupt_error": 1.378825178537455,
+          "repaired_error": 0.4643825725059067,
+          "clean_control_error": 0.3874483927803106,
+          "corruption_gap": 0.9913767857571444,
+          "recovered_gap": 0.9144426060315483,
+          "gap_recovery": 0.9223966297870904,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "electro": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/electro/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/electro/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/electro/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/electro/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5836889356302344,
+          "corrupt_error": 6.755780308108564,
+          "repaired_error": 0.9865127792513868,
+          "clean_control_error": 0.5836889356302344,
+          "corruption_gap": 6.17209137247833,
+          "recovered_gap": 5.769267528857178,
+          "gap_recovery": 0.934734627323023,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.078806068191741,
+          "corrupt_error": 8.624995198612838,
+          "repaired_error": 1.1703939816844657,
+          "clean_control_error": 1.078806068191741,
+          "corruption_gap": 7.546189130421097,
+          "recovered_gap": 7.454601216928372,
+          "gap_recovery": 0.9878630243809415,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.023425363956359205,
+          "corrupt_error": 0.022874572589416595,
+          "repaired_error": 0.05061785404661093,
+          "clean_control_error": 0.023425363956359205,
+          "corruption_gap": -0.0005507913669426101,
+          "recovered_gap": -0.027743281457194333,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.1191034785486609,
+          "corrupt_error": 0.19261552124299894,
+          "repaired_error": 0.18836977733425064,
+          "clean_control_error": 0.1191034785486609,
+          "corruption_gap": 0.07351204269433805,
+          "recovered_gap": 0.004245743908748295,
+          "gap_recovery": 0.0577557601875115,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.11478884755076219,
+          "corrupt_error": 0.27580806493776217,
+          "repaired_error": 0.1740089041700113,
+          "clean_control_error": 0.11478884755076219,
+          "corruption_gap": 0.16101921738699998,
+          "recovered_gap": 0.10179916076775086,
+          "gap_recovery": 0.6322174608704172,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "facade": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/facade/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/facade/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/facade/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/facade/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.8533905632417724,
+          "corrupt_error": 5.218333268605294,
+          "repaired_error": 1.5422602763061422,
+          "clean_control_error": 1.8533905632417724,
+          "corruption_gap": 3.3649427053635215,
+          "recovered_gap": 3.6760729922991517,
+          "gap_recovery": 1.0924622836637625,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 13.764968163174355,
+          "corrupt_error": 53.718869688552154,
+          "repaired_error": 17.644984705223592,
+          "clean_control_error": 13.764968163174355,
+          "corruption_gap": 39.9539015253778,
+          "recovered_gap": 36.07388498332856,
+          "gap_recovery": 0.9028876681896825,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.04769118581337433,
+          "corrupt_error": 0.12062956579045334,
+          "repaired_error": 0.0742122630218026,
+          "clean_control_error": 0.04769118581337433,
+          "corruption_gap": 0.072938379977079,
+          "recovered_gap": 0.046417302768650734,
+          "gap_recovery": 0.6363906462309342,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.33774389646213604,
+          "corrupt_error": 2.5927068941952305,
+          "repaired_error": 0.30576847111683303,
+          "clean_control_error": 0.33774389646213604,
+          "corruption_gap": 2.2549629977330943,
+          "recovered_gap": 2.2869384230783973,
+          "gap_recovery": 1.0141800221899198,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.3402538088068071,
+          "corrupt_error": 9.74692159660557,
+          "repaired_error": 0.2872479301644322,
+          "clean_control_error": 0.3402538088068071,
+          "corruption_gap": 9.406667787798764,
+          "recovered_gap": 9.45967366644114,
+          "gap_recovery": 1.0056349261862025,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "kicker": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/kicker/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/kicker/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/kicker/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/kicker/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.2214581799135407,
+          "corrupt_error": 7.574768620784952,
+          "repaired_error": 1.0532801012855895,
+          "clean_control_error": 1.2214581799135407,
+          "corruption_gap": 6.353310440871411,
+          "recovered_gap": 6.521488519499362,
+          "gap_recovery": 1.0264709367176594,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.6655293520595147,
+          "corrupt_error": 5.313143125946187,
+          "repaired_error": 3.6323557105236945,
+          "clean_control_error": 1.6655293520595147,
+          "corruption_gap": 3.6476137738866723,
+          "recovered_gap": 1.6807874154224924,
+          "gap_recovery": 0.4607909498136227,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.029013176449513994,
+          "corrupt_error": 0.04086940870932448,
+          "repaired_error": 0.06465283869768647,
+          "clean_control_error": 0.029013176449513994,
+          "corruption_gap": 0.011856232259810483,
+          "recovered_gap": -0.02378342998836199,
+          "gap_recovery": -2.0059854992029447,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.13134205799986712,
+          "corrupt_error": 0.11127562636024911,
+          "repaired_error": 0.24996540736304737,
+          "clean_control_error": 0.13134205799986712,
+          "corruption_gap": -0.020066431639618007,
+          "recovered_gap": -0.13868978100279827,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.13637870381990447,
+          "corrupt_error": 0.13831870044386896,
+          "repaired_error": 0.28239242023334604,
+          "clean_control_error": 0.13637870381990447,
+          "corruption_gap": 0.0019399966239644906,
+          "recovered_gap": -0.14407371978947708,
+          "gap_recovery": -74.26493325284993,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "meadow": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/meadow/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/meadow/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/meadow/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/meadow/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.9828036470131438,
+          "corrupt_error": 5.274096328741586,
+          "repaired_error": 0.9296661713996501,
+          "clean_control_error": 0.9828036470131438,
+          "corruption_gap": 4.291292681728442,
+          "recovered_gap": 4.344430157341936,
+          "gap_recovery": 1.0123826267641318,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.4824214448453283,
+          "corrupt_error": 3.2084790257808007,
+          "repaired_error": 2.3697587794281176,
+          "clean_control_error": 1.4824214448453283,
+          "corruption_gap": 1.7260575809354723,
+          "recovered_gap": 0.838720246352683,
+          "gap_recovery": 0.4859167246889419,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.02239612792281456,
+          "corrupt_error": 0.032118702015965894,
+          "repaired_error": 0.05091524838575955,
+          "clean_control_error": 0.02239612792281456,
+          "corruption_gap": 0.009722574093151335,
+          "recovered_gap": -0.01879654636979366,
+          "gap_recovery": -1.9332890847326232,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.2332220984574389,
+          "corrupt_error": 0.6121384530520184,
+          "repaired_error": 0.15309575312884835,
+          "clean_control_error": 0.2332220984574389,
+          "corruption_gap": 0.3789163545945795,
+          "recovered_gap": 0.45904269992317004,
+          "gap_recovery": 1.211461828862788,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.2846641413299356,
+          "corrupt_error": 0.6855082928451905,
+          "repaired_error": 0.18441150976080292,
+          "clean_control_error": 0.2846641413299356,
+          "corruption_gap": 0.40084415151525493,
+          "recovered_gap": 0.5010967830843877,
+          "gap_recovery": 1.250103765241832,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "office": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/office/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/office/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/office/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/office/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.0799219522206667,
+          "corrupt_error": 7.3128663489771455,
+          "repaired_error": 3.0891372138390683,
+          "clean_control_error": 1.0799219522206667,
+          "corruption_gap": 6.232944396756479,
+          "recovered_gap": 4.223729135138077,
+          "gap_recovery": 0.6776458871245564,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 4.441576083596736,
+          "corrupt_error": 13.135017303429583,
+          "repaired_error": 7.967855921217226,
+          "clean_control_error": 4.441576083596736,
+          "corruption_gap": 8.693441219832847,
+          "recovered_gap": 5.167161382212357,
+          "gap_recovery": 0.5943746844948137,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.013232571297871611,
+          "corrupt_error": 0.03627375637151506,
+          "repaired_error": 0.07643515731549179,
+          "clean_control_error": 0.013232571297871611,
+          "corruption_gap": 0.023041185073643448,
+          "recovered_gap": -0.04016140094397673,
+          "gap_recovery": -1.7430267069863912,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.1133300246558616,
+          "corrupt_error": 0.31634158382593863,
+          "repaired_error": 0.13418585391783955,
+          "clean_control_error": 0.1133300246558616,
+          "corruption_gap": 0.20301155917007702,
+          "recovered_gap": 0.18215572990809908,
+          "gap_recovery": 0.8972677745679223,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.10368207059836396,
+          "corrupt_error": 0.4024555732517159,
+          "repaired_error": 0.1197069780775091,
+          "clean_control_error": 0.10368207059836396,
+          "corruption_gap": 0.2987735026533519,
+          "recovered_gap": 0.2827485951742068,
+          "gap_recovery": 0.9463643618432328,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "pipes": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/pipes/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/pipes/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/pipes/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/pipes/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.7594016532615431,
+          "corrupt_error": 3.893205951896782,
+          "repaired_error": 1.3078289787191455,
+          "clean_control_error": 0.7594016532615431,
+          "corruption_gap": 3.133804298635239,
+          "recovered_gap": 2.5853769731776364,
+          "gap_recovery": 0.82499630698176,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.0534726993219738,
+          "corrupt_error": 10.540938233903471,
+          "repaired_error": 3.1788944007663043,
+          "clean_control_error": 1.0534726993219738,
+          "corruption_gap": 9.487465534581498,
+          "recovered_gap": 7.362043833137167,
+          "gap_recovery": 0.7759758184420024,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.011690523494821038,
+          "corrupt_error": 0.05002313778433288,
+          "repaired_error": 0.05189591567686546,
+          "clean_control_error": 0.011690523494821038,
+          "corruption_gap": 0.03833261428951184,
+          "recovered_gap": -0.0018727778925325816,
+          "gap_recovery": -0.04885599188169619,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.07530298630865669,
+          "corrupt_error": 0.33384168045580304,
+          "repaired_error": 0.11213118317754922,
+          "clean_control_error": 0.07530298630865669,
+          "corruption_gap": 0.25853869414714636,
+          "recovered_gap": 0.22171049727825382,
+          "gap_recovery": 0.8575524758861359,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.09374773667947894,
+          "corrupt_error": 0.5485032332075057,
+          "repaired_error": 0.20331605707476466,
+          "clean_control_error": 0.09374773667947894,
+          "corruption_gap": 0.45475549652802677,
+          "recovered_gap": 0.3451871761327411,
+          "gap_recovery": 0.7590610311874857,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "playground": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/playground/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/playground/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/playground/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/playground/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.0483378116302167,
+          "corrupt_error": 7.009437154365315,
+          "repaired_error": 1.7547338972401385,
+          "clean_control_error": 1.0483378116302167,
+          "corruption_gap": 5.961099342735099,
+          "recovered_gap": 5.254703257125177,
+          "gap_recovery": 0.8814990247611257,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.0538409534154438,
+          "corrupt_error": 5.933777731346049,
+          "repaired_error": 1.6279937916270135,
+          "clean_control_error": 1.0538409534154438,
+          "corruption_gap": 4.879936777930605,
+          "recovered_gap": 4.305783939719035,
+          "gap_recovery": 0.882344205603613,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.031842105556338096,
+          "corrupt_error": 0.056528256811761726,
+          "repaired_error": 0.06995533901829341,
+          "clean_control_error": 0.031842105556338096,
+          "corruption_gap": 0.02468615125542363,
+          "recovered_gap": -0.013427082206531687,
+          "gap_recovery": -0.5439115262482123,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.09842904586160561,
+          "corrupt_error": 0.23125854694272757,
+          "repaired_error": 0.10896991658675566,
+          "clean_control_error": 0.09842904586160561,
+          "corruption_gap": 0.13282950108112196,
+          "recovered_gap": 0.12228863035597191,
+          "gap_recovery": 0.9206436022167056,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.24455284783833497,
+          "corrupt_error": 0.48280017679252407,
+          "repaired_error": 0.4639757617037395,
+          "clean_control_error": 0.24455284783833497,
+          "corruption_gap": 0.2382473289541891,
+          "recovered_gap": 0.018824415088784574,
+          "gap_recovery": 0.07901207191457826,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "relief": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/relief/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/relief/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.475144426910715,
+          "corrupt_error": 3.1415691722225807,
+          "repaired_error": 0.644883702556484,
+          "clean_control_error": 0.475144426910715,
+          "corruption_gap": 2.6664247453118657,
+          "recovered_gap": 2.4966854696660965,
+          "gap_recovery": 0.9363419965464218,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 4.548273436617169,
+          "corrupt_error": 16.440439726813842,
+          "repaired_error": 3.638586619506862,
+          "clean_control_error": 4.548273436617169,
+          "corruption_gap": 11.892166290196673,
+          "recovered_gap": 12.80185310730698,
+          "gap_recovery": 1.0764946263709925,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.023473360297923854,
+          "corrupt_error": 0.05298616655931648,
+          "repaired_error": 0.04956508835893285,
+          "clean_control_error": 0.023473360297923854,
+          "corruption_gap": 0.02951280626139263,
+          "recovered_gap": 0.0034210782003836343,
+          "gap_recovery": 0.11591843114082107,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.0741413012364176,
+          "corrupt_error": 0.6627721769564668,
+          "repaired_error": 0.13389582458243668,
+          "clean_control_error": 0.0741413012364176,
+          "corruption_gap": 0.5886308757200492,
+          "recovered_gap": 0.5288763523740302,
+          "gap_recovery": 0.8984855776161527,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.08399194454580185,
+          "corrupt_error": 0.8402719825971854,
+          "repaired_error": 0.10078878665958221,
+          "clean_control_error": 0.08399194454580185,
+          "corruption_gap": 0.7562800380513836,
+          "recovered_gap": 0.7394831959376031,
+          "gap_recovery": 0.9777901818524011,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "relief_2": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief_2/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief_2/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/relief_2/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/relief_2/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.21348770053924368,
+          "corrupt_error": 4.823552122904394,
+          "repaired_error": 0.6579269398593673,
+          "clean_control_error": 0.21348770053924368,
+          "corruption_gap": 4.61006442236515,
+          "recovered_gap": 4.165625183045027,
+          "gap_recovery": 0.9035937031239776,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 4.38530062816549,
+          "corrupt_error": 17.93516011310541,
+          "repaired_error": 8.545978514722327,
+          "clean_control_error": 4.38530062816549,
+          "corruption_gap": 13.54985948493992,
+          "recovered_gap": 9.389181598383084,
+          "gap_recovery": 0.6929357170691512,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.025238806504668004,
+          "corrupt_error": 0.05209017133249094,
+          "repaired_error": 0.07569249015613481,
+          "clean_control_error": 0.025238806504668004,
+          "corruption_gap": 0.026851364827822938,
+          "recovered_gap": -0.023602318823643872,
+          "gap_recovery": -0.8789988507097242,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.09562626943755284,
+          "corrupt_error": 0.7128978850993926,
+          "repaired_error": 0.25600647467716464,
+          "clean_control_error": 0.09562626943755284,
+          "corruption_gap": 0.6172716156618397,
+          "recovered_gap": 0.4568914104222279,
+          "gap_recovery": 0.7401788756030003,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.12662859942340224,
+          "corrupt_error": 1.0096308808674193,
+          "repaired_error": 0.380034470578078,
+          "clean_control_error": 0.12662859942340224,
+          "corruption_gap": 0.883002281444017,
+          "recovered_gap": 0.6295964102893412,
+          "gap_recovery": 0.713017874947878,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "terrace": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrace/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrace/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/terrace/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/terrace/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.8050890563543351,
+          "corrupt_error": 8.159934592505781,
+          "repaired_error": 1.5284236639452788,
+          "clean_control_error": 0.8050890563543351,
+          "corruption_gap": 7.354845536151446,
+          "recovered_gap": 6.631510928560502,
+          "gap_recovery": 0.9016519648121064,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.9826365657038436,
+          "corrupt_error": 16.11328988541001,
+          "repaired_error": 6.399077710439183,
+          "clean_control_error": 1.9826365657038436,
+          "corruption_gap": 14.130653319706164,
+          "recovered_gap": 9.714212174970825,
+          "gap_recovery": 0.6874566911512641,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.02520151790786092,
+          "corrupt_error": 0.038325089310899264,
+          "repaired_error": 0.07297477802087377,
+          "clean_control_error": 0.02520151790786092,
+          "corruption_gap": 0.013123571403038343,
+          "recovered_gap": -0.0346496887099745,
+          "gap_recovery": -2.6402636634378713,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.3103903059746395,
+          "corrupt_error": 0.5096603391769787,
+          "repaired_error": 0.4066899861076915,
+          "clean_control_error": 0.3103903059746395,
+          "corruption_gap": 0.19927003320233921,
+          "recovered_gap": 0.1029703530692872,
+          "gap_recovery": 0.5167377724312963,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.6735853193786574,
+          "corrupt_error": 0.8303078264700278,
+          "repaired_error": 0.7686963551504165,
+          "clean_control_error": 0.6735853193786574,
+          "corruption_gap": 0.15672250709137037,
+          "recovered_gap": 0.06161147131961131,
+          "gap_recovery": 0.39312458984395504,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "terrains": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrains/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrains/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/terrains/canonical_black_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_black/terrains/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.794518487461704,
+          "corrupt_error": 2.696392777420858,
+          "repaired_error": 3.3007046395056,
+          "clean_control_error": 1.794518487461704,
+          "corruption_gap": 0.9018742899591539,
+          "recovered_gap": -0.6043118620847423,
+          "gap_recovery": -0.6700621902772189,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 2.43199084697024,
+          "corrupt_error": 14.830401614498065,
+          "repaired_error": 3.298163873250796,
+          "clean_control_error": 2.43199084697024,
+          "corruption_gap": 12.398410767527825,
+          "recovered_gap": 11.532237741247268,
+          "gap_recovery": 0.9301383828523317,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.018204265313612106,
+          "corrupt_error": 0.03765767852370347,
+          "repaired_error": 0.0276335421259331,
+          "clean_control_error": 0.018204265313612106,
+          "corruption_gap": 0.019453413210091364,
+          "recovered_gap": 0.010024136397770368,
+          "gap_recovery": 0.5152893371210763,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.10440617854019758,
+          "corrupt_error": 0.028138904087242785,
+          "repaired_error": 0.07471558435063376,
+          "clean_control_error": 0.10440617854019758,
+          "corruption_gap": -0.0762672744529548,
+          "recovered_gap": -0.04657668026339097,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.12129856655655283,
+          "corrupt_error": 0.12515509450061707,
+          "repaired_error": 0.09240771967617731,
+          "clean_control_error": 0.12129856655655283,
+          "corruption_gap": 0.003856527944064242,
+          "recovered_gap": 0.03274737482443976,
+          "gap_recovery": 8.49141385707907,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    }
+  },
+  "by_metric": {
+    "relative_rotation_median_degrees": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.8050890563543351,
+            "lower": 0.5836889356302344,
+            "upper": 1.0799219522206667
+          },
+          "corrupt_error": {
+            "point_estimate": 5.274096328741586,
+            "lower": 3.893205951896782,
+            "upper": 7.009437154365315
+          },
+          "repaired_error": {
+            "point_estimate": 1.5284236639452788,
+            "lower": 0.9865127792513868,
+            "upper": 1.7547338972401385
+          },
+          "clean_control_error": {
+            "point_estimate": 0.8050890563543351,
+            "lower": 0.5836889356302344,
+            "upper": 1.0799219522206667
+          },
+          "corruption_gap": {
+            "point_estimate": 4.61006442236515,
+            "lower": 3.133804298635239,
+            "upper": 6.17209137247833
+          },
+          "recovered_gap": {
+            "point_estimate": 4.223729135138077,
+            "lower": 2.5853769731776364,
+            "upper": 5.254703257125177
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.9161974211568897,
+        "lower": 0.7037111919932316,
+        "upper": 1.0924622836637625,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "translation_direction_median_degrees": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 1.9826365657038436,
+            "lower": 1.4824214448453283,
+            "upper": 4.38530062816549
+          },
+          "corrupt_error": {
+            "point_estimate": 13.135017303429583,
+            "lower": 6.691533012451026,
+            "upper": 16.440439726813842
+          },
+          "repaired_error": {
+            "point_estimate": 3.6323557105236945,
+            "lower": 2.3697587794281176,
+            "upper": 7.967855921217226
+          },
+          "clean_control_error": {
+            "point_estimate": 1.9826365657038436,
+            "lower": 1.4824214448453283,
+            "upper": 4.38530062816549
+          },
+          "corruption_gap": {
+            "point_estimate": 9.487465534581498,
+            "lower": 5.055749953580854,
+            "upper": 13.54985948493992
+          },
+          "recovered_gap": {
+            "point_estimate": 7.362043833137167,
+            "lower": 5.167161382212357,
+            "upper": 9.714212174970825
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.7759758184420024,
+        "lower": 0.5501607765906235,
+        "upper": 1.1588537911643741,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "depth_mean_abs_rel": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.023425363956359205,
+            "lower": 0.01801375021356772,
+            "upper": 0.025238806504668004
+          },
+          "corrupt_error": {
+            "point_estimate": 0.04086940870932448,
+            "lower": 0.03627375637151506,
+            "upper": 0.05298616655931648
+          },
+          "repaired_error": {
+            "point_estimate": 0.06465283869768647,
+            "lower": 0.05061785404661093,
+            "upper": 0.0742122630218026
+          },
+          "clean_control_error": {
+            "point_estimate": 0.023425363956359205,
+            "lower": 0.01801375021356772,
+            "upper": 0.025238806504668004
+          },
+          "corruption_gap": {
+            "point_estimate": 0.023041185073643448,
+            "lower": 0.011856232259810483,
+            "upper": 0.02951280626139263
+          },
+          "recovered_gap": {
+            "point_estimate": -0.01879654636979366,
+            "lower": -0.027743281457194333,
+            "upper": -0.0018727778925325816
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": -0.8157803650166768,
+        "lower": -2.266892876546006,
+        "upper": -0.06345644924259433,
+        "valid_replicates": 9999,
+        "undefined_replicates": 1
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": false,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": false,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_accuracy_mean_meters": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.1133300246558616,
+            "lower": 0.09562626943755284,
+            "upper": 0.2332220984574389
+          },
+          "corrupt_error": {
+            "point_estimate": 0.3389895943771363,
+            "lower": 0.23125854694272757,
+            "upper": 0.6627721769564668
+          },
+          "repaired_error": {
+            "point_estimate": 0.15309575312884835,
+            "lower": 0.11213118317754922,
+            "upper": 0.25600647467716464
+          },
+          "clean_control_error": {
+            "point_estimate": 0.1133300246558616,
+            "lower": 0.09562626943755284,
+            "upper": 0.2332220984574389
+          },
+          "corruption_gap": {
+            "point_estimate": 0.25853869414714636,
+            "lower": 0.13282950108112196,
+            "upper": 0.5886308757200492
+          },
+          "recovered_gap": {
+            "point_estimate": 0.22171049727825382,
+            "lower": 0.1029703530692872,
+            "upper": 0.45904269992317004
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.8575524758861359,
+        "lower": 0.5167377724312963,
+        "upper": 1.211461828862788,
+        "valid_replicates": 9984,
+        "undefined_replicates": 16
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_completeness_mean_meters": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.12662859942340224,
+            "lower": 0.10368207059836396,
+            "upper": 0.2846641413299356
+          },
+          "corrupt_error": {
+            "point_estimate": 0.5485032332075057,
+            "lower": 0.4024555732517159,
+            "upper": 0.8402719825971854
+          },
+          "repaired_error": {
+            "point_estimate": 0.20331605707476466,
+            "lower": 0.15318800981674072,
+            "upper": 0.380034470578078
+          },
+          "clean_control_error": {
+            "point_estimate": 0.12662859942340224,
+            "lower": 0.10368207059836396,
+            "upper": 0.2846641413299356
+          },
+          "corruption_gap": {
+            "point_estimate": 0.3689344273102676,
+            "lower": 0.16101921738699998,
+            "upper": 0.7562800380513836
+          },
+          "recovered_gap": {
+            "point_estimate": 0.2827485951742068,
+            "lower": 0.06161147131961131,
+            "upper": 0.6295964102893412
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.7663925463275348,
+        "lower": 0.258602988709511,
+        "upper": 1.250103765241832,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": false,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_accuracy_mean_millimeters": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 13,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    },
+    "point_completeness_mean_millimeters": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 13,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    }
+  },
+  "model": "vggt",
+  "dataset": "eth3d-training-raw",
+  "original_results": "/opt/camcanon3r/results/eth3d_training/vggt/raw",
+  "repaired_results": "/opt/camcanon3r/results/eth3d_training/vggt/raw_canonical_black",
+  "identity_variant": "identity",
+  "corrupt_variant": "asymmetric_crop_075",
+  "clean_control_variant": "identity",
+  "repaired_variant": "canonical_black_asymmetric_crop_075"
+}

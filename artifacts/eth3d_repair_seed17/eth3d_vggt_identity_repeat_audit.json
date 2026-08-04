@@ -1,0 +1,1808 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "reference_root": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw",
+  "candidate_root": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical",
+  "variant": "identity",
+  "scene_count": 13,
+  "exact_scene_count": 13,
+  "array_count": 130,
+  "exact_array_count": 130,
+  "all_prediction_arrays_exact": true,
+  "records": [
+    {
+      "scene": "courtyard",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/courtyard/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/courtyard/identity.npz",
+      "reference_sha256": "f4104f3e39e66d26598cd3346db3dfff237d37019000d265f2dbdf7a3519308e",
+      "candidate_sha256": "f4104f3e39e66d26598cd3346db3dfff237d37019000d265f2dbdf7a3519308e",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "delivery_area",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/delivery_area/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/delivery_area/identity.npz",
+      "reference_sha256": "68a8053e18ff4dd12e045cfca7f9c5b1e32bbe0f83c0d6cc4cb1c719a101f5c6",
+      "candidate_sha256": "68a8053e18ff4dd12e045cfca7f9c5b1e32bbe0f83c0d6cc4cb1c719a101f5c6",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "electro",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/electro/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/electro/identity.npz",
+      "reference_sha256": "ec4f2b8d2c9c282c6041c09a63cfa9ac4a5696d31bf74bec5dc03b4dbbdeb064",
+      "candidate_sha256": "ec4f2b8d2c9c282c6041c09a63cfa9ac4a5696d31bf74bec5dc03b4dbbdeb064",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "facade",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/facade/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/facade/identity.npz",
+      "reference_sha256": "ae385c47cfa14f9b035a540cb33e42fc1085fcfa8c36ecc0d5e6b58cd45b63fb",
+      "candidate_sha256": "ae385c47cfa14f9b035a540cb33e42fc1085fcfa8c36ecc0d5e6b58cd45b63fb",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "kicker",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/kicker/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/kicker/identity.npz",
+      "reference_sha256": "b6b57365498c5556bd4fa1feb5506de34314439ce04371735372661ac2a8a6ff",
+      "candidate_sha256": "b6b57365498c5556bd4fa1feb5506de34314439ce04371735372661ac2a8a6ff",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "meadow",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/meadow/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/meadow/identity.npz",
+      "reference_sha256": "6e0f0f681f91c7ab7b79acb6129a151cccca878be665832a11569a5d28ff0cf5",
+      "candidate_sha256": "6e0f0f681f91c7ab7b79acb6129a151cccca878be665832a11569a5d28ff0cf5",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "office",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/office/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/office/identity.npz",
+      "reference_sha256": "e7a057347232c77ccb5853569b86b9d9eaa1bb2325fa0583a4b9d5deca5d0556",
+      "candidate_sha256": "e7a057347232c77ccb5853569b86b9d9eaa1bb2325fa0583a4b9d5deca5d0556",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "pipes",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/pipes/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/pipes/identity.npz",
+      "reference_sha256": "d8f43ad2530066884cecc55ca6edc0f81ce668914e6239a5578456c67af34390",
+      "candidate_sha256": "d8f43ad2530066884cecc55ca6edc0f81ce668914e6239a5578456c67af34390",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "playground",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/playground/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/playground/identity.npz",
+      "reference_sha256": "21a2f1bd31d4d89bdd61236fe2decbec102157185bad20c70813a0ed466b7650",
+      "candidate_sha256": "21a2f1bd31d4d89bdd61236fe2decbec102157185bad20c70813a0ed466b7650",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "relief",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/relief/identity.npz",
+      "reference_sha256": "fca2294febe9eb441b8cc5299a825e89a6afc867cc7bd33fa71c95c2327a1099",
+      "candidate_sha256": "fca2294febe9eb441b8cc5299a825e89a6afc867cc7bd33fa71c95c2327a1099",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "relief_2",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief_2/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/relief_2/identity.npz",
+      "reference_sha256": "b2fb0a7a817e5485b33b3ceb6ecd6b3c8bef5d3352e2f05f1e443ac6162b9078",
+      "candidate_sha256": "b2fb0a7a817e5485b33b3ceb6ecd6b3c8bef5d3352e2f05f1e443ac6162b9078",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "terrace",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrace/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/terrace/identity.npz",
+      "reference_sha256": "212472d665a75ea95ef008396113ad770271b24b8cb3f9dd49529b1a8c83fb77",
+      "candidate_sha256": "212472d665a75ea95ef008396113ad770271b24b8cb3f9dd49529b1a8c83fb77",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    },
+    {
+      "scene": "terrains",
+      "variant": "identity",
+      "reference": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrains/identity.npz",
+      "candidate": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical/terrains/identity.npz",
+      "reference_sha256": "93ba9aaa713c0056ab2b4a7a0526cb9c68d17bd518fd29db501c8d733494e47c",
+      "candidate_sha256": "93ba9aaa713c0056ab2b4a7a0526cb9c68d17bd518fd29db501c8d733494e47c",
+      "protocol_metadata_fields": [
+        "dtype",
+        "input_tensor_shape",
+        "inputs",
+        "preprocess",
+        "seed",
+        "spatial_transforms",
+        "weights"
+      ],
+      "all_arrays_exact": true,
+      "arrays": [
+        {
+          "field": "depth",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            1
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "depth_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "extrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            4
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "intrinsic",
+          "shape": [
+            1,
+            4,
+            3,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "model_preprocess_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "pose_enc",
+          "shape": [
+            1,
+            4,
+            9
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "protocol_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "source_to_model_affine",
+          "shape": [
+            4,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points",
+          "shape": [
+            1,
+            4,
+            350,
+            518,
+            3
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        },
+        {
+          "field": "world_points_conf",
+          "shape": [
+            1,
+            4,
+            350,
+            518
+          ],
+          "dtype": "float32",
+          "exact": true,
+          "maximum_absolute_difference": null
+        }
+      ]
+    }
+  ]
+}

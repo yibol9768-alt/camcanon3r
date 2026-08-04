@@ -1,0 +1,1979 @@
+{
+  "schema_version": "1.0",
+  "scene_count": 13,
+  "scenes": [
+    "courtyard",
+    "delivery_area",
+    "electro",
+    "facade",
+    "kicker",
+    "meadow",
+    "office",
+    "pipes",
+    "playground",
+    "relief",
+    "relief_2",
+    "terrace",
+    "terrains"
+  ],
+  "minimum_gap": 1e-12,
+  "recovery_definition": "median_scene_recovered_gap / median_scene_corruption_gap",
+  "recovery_threshold": 0.3,
+  "clean_relative_threshold": 0.02,
+  "per_scene": {
+    "courtyard": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/courtyard/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/courtyard/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/courtyard/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/courtyard/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.6609416379670949,
+          "corrupt_error": 6.1743955418027845,
+          "repaired_error": 1.5875891468122014,
+          "clean_control_error": 0.6609416379670949,
+          "corruption_gap": 5.513453903835689,
+          "recovered_gap": 4.5868063949905835,
+          "gap_recovery": 0.8319297621767654,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.6357830588701718,
+          "corrupt_error": 6.691533012451026,
+          "repaired_error": 1.260293481258352,
+          "clean_control_error": 1.6357830588701718,
+          "corruption_gap": 5.055749953580854,
+          "recovered_gap": 5.4312395311926736,
+          "gap_recovery": 1.0742698078542967,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.016859704706628103,
+          "corrupt_error": 0.017847246252855022,
+          "repaired_error": 0.10401436898009045,
+          "clean_control_error": 0.016859704706628103,
+          "corruption_gap": 0.0009875415462269194,
+          "recovered_gap": -0.08616712272723542,
+          "gap_recovery": -87.25417483087416,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.05688579125718718,
+          "corrupt_error": 0.3389895943771363,
+          "repaired_error": 0.22494397152343756,
+          "clean_control_error": 0.05688579125718718,
+          "corruption_gap": 0.28210380311994915,
+          "recovered_gap": 0.11404562285369876,
+          "gap_recovery": 0.4042682927078694,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.0649650644609148,
+          "corrupt_error": 0.43389949177118237,
+          "repaired_error": 0.17514074184079764,
+          "clean_control_error": 0.0649650644609148,
+          "corruption_gap": 0.3689344273102676,
+          "recovered_gap": 0.2587587499303847,
+          "gap_recovery": 0.7013678604538931,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "delivery_area": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/delivery_area/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/delivery_area/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/delivery_area/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/delivery_area/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5131759087406331,
+          "corrupt_error": 1.3776456919987783,
+          "repaired_error": 2.203959707861003,
+          "clean_control_error": 0.5131759087406331,
+          "corruption_gap": 0.8644697832581452,
+          "recovered_gap": -0.8263140158622246,
+          "gap_recovery": -0.9558622312371483,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 3.014950599008915,
+          "corrupt_error": 23.893579416127988,
+          "repaired_error": 5.052199298262222,
+          "clean_control_error": 3.014950599008915,
+          "corruption_gap": 20.878628817119072,
+          "recovered_gap": 18.841380117865768,
+          "gap_recovery": 0.9024242100811286,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.01801375021356772,
+          "corrupt_error": 0.07812365896802503,
+          "repaired_error": 0.08049610681021904,
+          "clean_control_error": 0.01801375021356772,
+          "corruption_gap": 0.06010990875445731,
+          "recovered_gap": -0.0023724478421940087,
+          "gap_recovery": -0.039468498478099676,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.3435332726941345,
+          "corrupt_error": 1.3646191308555584,
+          "repaired_error": 0.4405692857735016,
+          "clean_control_error": 0.3435332726941345,
+          "corruption_gap": 1.021085858161424,
+          "recovered_gap": 0.9240498450820569,
+          "gap_recovery": 0.9049678219478126,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.3874483927803106,
+          "corrupt_error": 1.378825178537455,
+          "repaired_error": 0.5117479968448985,
+          "clean_control_error": 0.3874483927803106,
+          "corruption_gap": 0.9913767857571444,
+          "recovered_gap": 0.8670771816925565,
+          "gap_recovery": 0.8746192105258381,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "electro": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/electro/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/electro/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/electro/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/electro/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5836889356302344,
+          "corrupt_error": 6.755780308108564,
+          "repaired_error": 0.8759082047069306,
+          "clean_control_error": 0.5836889356302344,
+          "corruption_gap": 6.17209137247833,
+          "recovered_gap": 5.879872103401634,
+          "gap_recovery": 0.952654740274955,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.078806068191741,
+          "corrupt_error": 8.624995198612838,
+          "repaired_error": 1.3112202480663462,
+          "clean_control_error": 1.078806068191741,
+          "corruption_gap": 7.546189130421097,
+          "recovered_gap": 7.313774950546492,
+          "gap_recovery": 0.9692011191532863,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.023425363956359205,
+          "corrupt_error": 0.022874572589416595,
+          "repaired_error": 0.04396091695802494,
+          "clean_control_error": 0.023425363956359205,
+          "corruption_gap": -0.0005507913669426101,
+          "recovered_gap": -0.021086344368608345,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.1191034785486609,
+          "corrupt_error": 0.19261552124299894,
+          "repaired_error": 0.15627286979623725,
+          "clean_control_error": 0.1191034785486609,
+          "corruption_gap": 0.07351204269433805,
+          "recovered_gap": 0.03634265144676169,
+          "gap_recovery": 0.49437684105547003,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.11478884755076219,
+          "corrupt_error": 0.27580806493776217,
+          "repaired_error": 0.1619881090157947,
+          "clean_control_error": 0.11478884755076219,
+          "corruption_gap": 0.16101921738699998,
+          "recovered_gap": 0.11381995592196748,
+          "gap_recovery": 0.7068718738609198,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "facade": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/facade/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/facade/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/facade/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/facade/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.8533905632417724,
+          "corrupt_error": 5.218333268605294,
+          "repaired_error": 1.2384934744573748,
+          "clean_control_error": 1.8533905632417724,
+          "corruption_gap": 3.3649427053635215,
+          "recovered_gap": 3.979839794147919,
+          "gap_recovery": 1.1827362729844666,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 13.764968163174355,
+          "corrupt_error": 53.718869688552154,
+          "repaired_error": 13.706985735259101,
+          "clean_control_error": 13.764968163174355,
+          "corruption_gap": 39.9539015253778,
+          "recovered_gap": 40.01188395329305,
+          "gap_recovery": 1.0014512331887893,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.04769118581337433,
+          "corrupt_error": 0.12062956579045334,
+          "repaired_error": 0.15954155886617863,
+          "clean_control_error": 0.04769118581337433,
+          "corruption_gap": 0.072938379977079,
+          "recovered_gap": -0.03891199307572529,
+          "gap_recovery": -0.5334913263490833,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.33774389646213604,
+          "corrupt_error": 2.5927068941952305,
+          "repaired_error": 1.1195434046224628,
+          "clean_control_error": 0.33774389646213604,
+          "corruption_gap": 2.2549629977330943,
+          "recovered_gap": 1.4731634895727677,
+          "gap_recovery": 0.6532982984881496,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.3402538088068071,
+          "corrupt_error": 9.74692159660557,
+          "repaired_error": 0.7538559644097993,
+          "clean_control_error": 0.3402538088068071,
+          "corruption_gap": 9.406667787798764,
+          "recovered_gap": 8.993065632195771,
+          "gap_recovery": 0.956030959641259,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "kicker": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/kicker/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/kicker/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/kicker/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/kicker/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.2214581799135407,
+          "corrupt_error": 7.574768620784952,
+          "repaired_error": 1.228912600575332,
+          "clean_control_error": 1.2214581799135407,
+          "corruption_gap": 6.353310440871411,
+          "recovered_gap": 6.34585602020962,
+          "gap_recovery": 0.9988266871686553,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.6655293520595147,
+          "corrupt_error": 5.313143125946187,
+          "repaired_error": 1.9886462693301712,
+          "clean_control_error": 1.6655293520595147,
+          "corruption_gap": 3.6476137738866723,
+          "recovered_gap": 3.324496856616016,
+          "gap_recovery": 0.9114169050506784,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.029013176449513994,
+          "corrupt_error": 0.04086940870932448,
+          "repaired_error": 0.10429541971233539,
+          "clean_control_error": 0.029013176449513994,
+          "corruption_gap": 0.011856232259810483,
+          "recovered_gap": -0.0634260110030109,
+          "gap_recovery": -5.349592485465086,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.13134205799986712,
+          "corrupt_error": 0.11127562636024911,
+          "repaired_error": 0.24967424541120076,
+          "clean_control_error": 0.13134205799986712,
+          "corruption_gap": -0.020066431639618007,
+          "recovered_gap": -0.13839861905095163,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.13637870381990447,
+          "corrupt_error": 0.13831870044386896,
+          "repaired_error": 0.25302055648789,
+          "clean_control_error": 0.13637870381990447,
+          "corruption_gap": 0.0019399966239644906,
+          "recovered_gap": -0.11470185604402106,
+          "gap_recovery": -59.124770954302726,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "meadow": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/meadow/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/meadow/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/meadow/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/meadow/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.9828036470131438,
+          "corrupt_error": 5.274096328741586,
+          "repaired_error": 0.8279403771114502,
+          "clean_control_error": 0.9828036470131438,
+          "corruption_gap": 4.291292681728442,
+          "recovered_gap": 4.446155951630136,
+          "gap_recovery": 1.0360877901805845,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.4824214448453283,
+          "corrupt_error": 3.2084790257808007,
+          "repaired_error": 3.2466108316874216,
+          "clean_control_error": 1.4824214448453283,
+          "corruption_gap": 1.7260575809354723,
+          "recovered_gap": -0.03813180590662091,
+          "gap_recovery": -0.02209185042711877,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.02239612792281456,
+          "corrupt_error": 0.032118702015965894,
+          "repaired_error": 0.07798504485833511,
+          "clean_control_error": 0.02239612792281456,
+          "corruption_gap": 0.009722574093151335,
+          "recovered_gap": -0.04586634284236922,
+          "gap_recovery": -4.717510239873396,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.2332220984574389,
+          "corrupt_error": 0.6121384530520184,
+          "repaired_error": 0.19322335676856037,
+          "clean_control_error": 0.2332220984574389,
+          "corruption_gap": 0.3789163545945795,
+          "recovered_gap": 0.418915096283458,
+          "gap_recovery": 1.1055608743298373,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.2846641413299356,
+          "corrupt_error": 0.6855082928451905,
+          "repaired_error": 0.18524659064353816,
+          "clean_control_error": 0.2846641413299356,
+          "corruption_gap": 0.40084415151525493,
+          "recovered_gap": 0.5002617022016524,
+          "gap_recovery": 1.2480204595990319,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "office": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/office/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/office/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/office/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/office/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.0799219522206667,
+          "corrupt_error": 7.3128663489771455,
+          "repaired_error": 2.7002115579769725,
+          "clean_control_error": 1.0799219522206667,
+          "corruption_gap": 6.232944396756479,
+          "recovered_gap": 4.612654791000173,
+          "gap_recovery": 0.7400442707944775,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 4.441576083596736,
+          "corrupt_error": 13.135017303429583,
+          "repaired_error": 4.823892366512661,
+          "clean_control_error": 4.441576083596736,
+          "corruption_gap": 8.693441219832847,
+          "recovered_gap": 8.311124936916922,
+          "gap_recovery": 0.9560224457440715,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.013232571297871611,
+          "corrupt_error": 0.03627375637151506,
+          "repaired_error": 0.0838990761762661,
+          "clean_control_error": 0.013232571297871611,
+          "corruption_gap": 0.023041185073643448,
+          "recovered_gap": -0.04762531980475104,
+          "gap_recovery": -2.06696485673513,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.1133300246558616,
+          "corrupt_error": 0.31634158382593863,
+          "repaired_error": 0.23473022730936446,
+          "clean_control_error": 0.1133300246558616,
+          "corruption_gap": 0.20301155917007702,
+          "recovered_gap": 0.08161135651657417,
+          "gap_recovery": 0.4020034960088288,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.10368207059836396,
+          "corrupt_error": 0.4024555732517159,
+          "repaired_error": 0.16948918621471878,
+          "clean_control_error": 0.10368207059836396,
+          "corruption_gap": 0.2987735026533519,
+          "recovered_gap": 0.2329663870369971,
+          "gap_recovery": 0.7797424636658403,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "pipes": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/pipes/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/pipes/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/pipes/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/pipes/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.7594016532615431,
+          "corrupt_error": 3.893205951896782,
+          "repaired_error": 1.0291924236854764,
+          "clean_control_error": 0.7594016532615431,
+          "corruption_gap": 3.133804298635239,
+          "recovered_gap": 2.8640135282113057,
+          "gap_recovery": 0.913909502727587,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.0534726993219738,
+          "corrupt_error": 10.540938233903471,
+          "repaired_error": 1.7023162947855432,
+          "clean_control_error": 1.0534726993219738,
+          "corruption_gap": 9.487465534581498,
+          "recovered_gap": 8.838621939117928,
+          "gap_recovery": 0.9316104397851507,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.011690523494821038,
+          "corrupt_error": 0.05002313778433288,
+          "repaired_error": 0.046255808178024514,
+          "clean_control_error": 0.011690523494821038,
+          "corruption_gap": 0.03833261428951184,
+          "recovered_gap": 0.0037673296063083644,
+          "gap_recovery": 0.09828000714626815,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.07530298630865669,
+          "corrupt_error": 0.33384168045580304,
+          "repaired_error": 0.07277240792951571,
+          "clean_control_error": 0.07530298630865669,
+          "corruption_gap": 0.25853869414714636,
+          "recovered_gap": 0.2610692725262873,
+          "gap_recovery": 1.0097880063465496,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.09374773667947894,
+          "corrupt_error": 0.5485032332075057,
+          "repaired_error": 0.1594587484235877,
+          "clean_control_error": 0.09374773667947894,
+          "corruption_gap": 0.45475549652802677,
+          "recovered_gap": 0.389044484783918,
+          "gap_recovery": 0.8555025453330415,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "playground": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/playground/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/playground/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/playground/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/playground/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.0483378116302167,
+          "corrupt_error": 7.009437154365315,
+          "repaired_error": 1.7363529452148534,
+          "clean_control_error": 1.0483378116302167,
+          "corruption_gap": 5.961099342735099,
+          "recovered_gap": 5.273084209150462,
+          "gap_recovery": 0.884582508355085,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.0538409534154438,
+          "corrupt_error": 5.933777731346049,
+          "repaired_error": 1.221402812380392,
+          "clean_control_error": 1.0538409534154438,
+          "corruption_gap": 4.879936777930605,
+          "recovered_gap": 4.712374918965657,
+          "gap_recovery": 0.9656631086446156,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.031842105556338096,
+          "corrupt_error": 0.056528256811761726,
+          "repaired_error": 0.09170243700272122,
+          "clean_control_error": 0.031842105556338096,
+          "corruption_gap": 0.02468615125542363,
+          "recovered_gap": -0.0351741801909595,
+          "gap_recovery": -1.424854762778447,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.09842904586160561,
+          "corrupt_error": 0.23125854694272757,
+          "repaired_error": 0.10249228175858316,
+          "clean_control_error": 0.09842904586160561,
+          "corruption_gap": 0.13282950108112196,
+          "recovered_gap": 0.1287662651841444,
+          "gap_recovery": 0.969410139585663,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.24455284783833497,
+          "corrupt_error": 0.48280017679252407,
+          "repaired_error": 0.3126960355522995,
+          "clean_control_error": 0.24455284783833497,
+          "corruption_gap": 0.2382473289541891,
+          "recovered_gap": 0.17010414124022455,
+          "gap_recovery": 0.7139813150767061,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "relief": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/relief/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/relief/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.475144426910715,
+          "corrupt_error": 3.1415691722225807,
+          "repaired_error": 0.7754806947744115,
+          "clean_control_error": 0.475144426910715,
+          "corruption_gap": 2.6664247453118657,
+          "recovered_gap": 2.3660884774481694,
+          "gap_recovery": 0.8873636811270408,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 4.548273436617169,
+          "corrupt_error": 16.440439726813842,
+          "repaired_error": 4.817354841316463,
+          "clean_control_error": 4.548273436617169,
+          "corruption_gap": 11.892166290196673,
+          "recovered_gap": 11.62308488549738,
+          "gap_recovery": 0.977373222158766,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.023473360297923854,
+          "corrupt_error": 0.05298616655931648,
+          "repaired_error": 0.09067953191918124,
+          "clean_control_error": 0.023473360297923854,
+          "corruption_gap": 0.02951280626139263,
+          "recovered_gap": -0.037693365359864756,
+          "gap_recovery": -1.27718675838609,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.0741413012364176,
+          "corrupt_error": 0.6627721769564668,
+          "repaired_error": 0.1917992274910642,
+          "clean_control_error": 0.0741413012364176,
+          "corruption_gap": 0.5886308757200492,
+          "recovered_gap": 0.47097294946540263,
+          "gap_recovery": 0.8001159451401182,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.08399194454580185,
+          "corrupt_error": 0.8402719825971854,
+          "repaired_error": 0.11337360485456664,
+          "clean_control_error": 0.08399194454580185,
+          "corruption_gap": 0.7562800380513836,
+          "recovered_gap": 0.7268983777426188,
+          "gap_recovery": 0.9611497608948281,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "relief_2": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief_2/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/relief_2/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/relief_2/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/relief_2/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.21348770053924368,
+          "corrupt_error": 4.823552122904394,
+          "repaired_error": 0.5877735689696604,
+          "clean_control_error": 0.21348770053924368,
+          "corruption_gap": 4.61006442236515,
+          "recovered_gap": 4.2357785539347335,
+          "gap_recovery": 0.9188111414203637,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 4.38530062816549,
+          "corrupt_error": 17.93516011310541,
+          "repaired_error": 7.558506393496773,
+          "clean_control_error": 4.38530062816549,
+          "corruption_gap": 13.54985948493992,
+          "recovered_gap": 10.376653719608637,
+          "gap_recovery": 0.7658126441194343,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.025238806504668004,
+          "corrupt_error": 0.05209017133249094,
+          "repaired_error": 0.16451085975224236,
+          "clean_control_error": 0.025238806504668004,
+          "corruption_gap": 0.026851364827822938,
+          "recovered_gap": -0.11242068841975142,
+          "gap_recovery": -4.186777437222221,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.09562626943755284,
+          "corrupt_error": 0.7128978850993926,
+          "repaired_error": 0.44453343626615016,
+          "clean_control_error": 0.09562626943755284,
+          "corruption_gap": 0.6172716156618397,
+          "recovered_gap": 0.2683644488332424,
+          "gap_recovery": 0.43475909473903407,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.12662859942340224,
+          "corrupt_error": 1.0096308808674193,
+          "repaired_error": 0.39467710589960187,
+          "clean_control_error": 0.12662859942340224,
+          "corruption_gap": 0.883002281444017,
+          "recovered_gap": 0.6149537749678173,
+          "gap_recovery": 0.6964350918348174,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "terrace": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrace/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrace/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/terrace/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/terrace/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.8050890563543351,
+          "corrupt_error": 8.159934592505781,
+          "repaired_error": 1.5092294071856753,
+          "clean_control_error": 0.8050890563543351,
+          "corruption_gap": 7.354845536151446,
+          "recovered_gap": 6.650705185320106,
+          "gap_recovery": 0.9042617078264578,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.9826365657038436,
+          "corrupt_error": 16.11328988541001,
+          "repaired_error": 10.742663326124926,
+          "clean_control_error": 1.9826365657038436,
+          "corruption_gap": 14.130653319706164,
+          "recovered_gap": 5.370626559285082,
+          "gap_recovery": 0.38006923231181217,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.02520151790786092,
+          "corrupt_error": 0.038325089310899264,
+          "repaired_error": 0.09321454113748924,
+          "clean_control_error": 0.02520151790786092,
+          "corruption_gap": 0.013123571403038343,
+          "recovered_gap": -0.054889451826589976,
+          "gap_recovery": -4.182508719682973,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.3103903059746395,
+          "corrupt_error": 0.5096603391769787,
+          "repaired_error": 0.501891879300567,
+          "clean_control_error": 0.3103903059746395,
+          "corruption_gap": 0.19927003320233921,
+          "recovered_gap": 0.007768459876411726,
+          "gap_recovery": 0.038984586651439036,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.6735853193786574,
+          "corrupt_error": 0.8303078264700278,
+          "repaired_error": 0.8387568220462605,
+          "clean_control_error": 0.6735853193786574,
+          "corruption_gap": 0.15672250709137037,
+          "recovered_gap": -0.008448995576232687,
+          "gap_recovery": -0.05391054375685084,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "terrains": {
+      "identity_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrains/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw/terrains/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/terrains/canonical_mean_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/eth3d_training/vggt/raw_canonical_mean/terrains/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.794518487461704,
+          "corrupt_error": 2.696392777420858,
+          "repaired_error": 2.659320543540418,
+          "clean_control_error": 1.794518487461704,
+          "corruption_gap": 0.9018742899591539,
+          "recovered_gap": 0.037072233880439676,
+          "gap_recovery": 0.041105766394691975,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 2.43199084697024,
+          "corrupt_error": 14.830401614498065,
+          "repaired_error": 2.783364780066302,
+          "clean_control_error": 2.43199084697024,
+          "corruption_gap": 12.398410767527825,
+          "recovered_gap": 12.047036834431763,
+          "gap_recovery": 0.9716597602963494,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "identity_error": 0.018204265313612106,
+          "corrupt_error": 0.03765767852370347,
+          "repaired_error": 0.029377399890909497,
+          "clean_control_error": 0.018204265313612106,
+          "corruption_gap": 0.019453413210091364,
+          "recovered_gap": 0.008280278632793972,
+          "gap_recovery": 0.42564657129159306,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "identity_error": 0.10440617854019758,
+          "corrupt_error": 0.028138904087242785,
+          "repaired_error": 0.13333774301096304,
+          "clean_control_error": 0.10440617854019758,
+          "corruption_gap": -0.0762672744529548,
+          "recovered_gap": -0.10519883892372026,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "identity_error": 0.12129856655655283,
+          "corrupt_error": 0.12515509450061707,
+          "repaired_error": 0.1644820501157643,
+          "clean_control_error": 0.12129856655655283,
+          "corruption_gap": 0.003856527944064242,
+          "recovered_gap": -0.039326955615147235,
+          "gap_recovery": -10.19750308711678,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    }
+  },
+  "by_metric": {
+    "relative_rotation_median_degrees": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.8050890563543351,
+            "lower": 0.5836889356302344,
+            "upper": 1.0799219522206667
+          },
+          "corrupt_error": {
+            "point_estimate": 5.274096328741586,
+            "lower": 3.893205951896782,
+            "upper": 7.009437154365315
+          },
+          "repaired_error": {
+            "point_estimate": 1.2384934744573748,
+            "lower": 0.8759082047069306,
+            "upper": 1.7363529452148534
+          },
+          "clean_control_error": {
+            "point_estimate": 0.8050890563543351,
+            "lower": 0.5836889356302344,
+            "upper": 1.0799219522206667
+          },
+          "corruption_gap": {
+            "point_estimate": 4.61006442236515,
+            "lower": 3.133804298635239,
+            "upper": 6.17209137247833
+          },
+          "recovered_gap": {
+            "point_estimate": 4.446155951630136,
+            "lower": 2.8640135282113057,
+            "upper": 5.273084209150462
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.964445514049688,
+        "lower": 0.7473406520791698,
+        "upper": 1.1827362729844666,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "translation_direction_median_degrees": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 1.9826365657038436,
+            "lower": 1.4824214448453283,
+            "upper": 4.38530062816549
+          },
+          "corrupt_error": {
+            "point_estimate": 13.135017303429583,
+            "lower": 6.691533012451026,
+            "upper": 16.440439726813842
+          },
+          "repaired_error": {
+            "point_estimate": 3.2466108316874216,
+            "lower": 1.7023162947855432,
+            "upper": 5.052199298262222
+          },
+          "clean_control_error": {
+            "point_estimate": 1.9826365657038436,
+            "lower": 1.4824214448453283,
+            "upper": 4.38530062816549
+          },
+          "corruption_gap": {
+            "point_estimate": 9.487465534581498,
+            "lower": 5.055749953580854,
+            "upper": 13.54985948493992
+          },
+          "recovered_gap": {
+            "point_estimate": 8.311124936916922,
+            "lower": 5.370626559285082,
+            "upper": 11.62308488549738
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.8760110807910866,
+        "lower": 0.4567073314195013,
+        "upper": 1.0742698078542967,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "depth_mean_abs_rel": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.023425363956359205,
+            "lower": 0.01801375021356772,
+            "upper": 0.025238806504668004
+          },
+          "corrupt_error": {
+            "point_estimate": 0.04086940870932448,
+            "lower": 0.03627375637151506,
+            "upper": 0.05298616655931648
+          },
+          "repaired_error": {
+            "point_estimate": 0.09067953191918124,
+            "lower": 0.07798504485833511,
+            "upper": 0.10401436898009045
+          },
+          "clean_control_error": {
+            "point_estimate": 0.023425363956359205,
+            "lower": 0.01801375021356772,
+            "upper": 0.025238806504668004
+          },
+          "corruption_gap": {
+            "point_estimate": 0.023041185073643448,
+            "lower": 0.011856232259810483,
+            "upper": 0.02951280626139263
+          },
+          "recovered_gap": {
+            "point_estimate": -0.03891199307572529,
+            "lower": -0.054889451826589976,
+            "upper": -0.021086344368608345
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": -1.688801724015328,
+        "lower": -4.182508719682973,
+        "upper": -0.7852987922148011,
+        "valid_replicates": 9999,
+        "undefined_replicates": 1
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": false,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": false,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_accuracy_mean_meters": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.1133300246558616,
+            "lower": 0.09562626943755284,
+            "upper": 0.2332220984574389
+          },
+          "corrupt_error": {
+            "point_estimate": 0.3389895943771363,
+            "lower": 0.23125854694272757,
+            "upper": 0.6627721769564668
+          },
+          "repaired_error": {
+            "point_estimate": 0.22494397152343756,
+            "lower": 0.15627286979623725,
+            "upper": 0.4405692857735016
+          },
+          "clean_control_error": {
+            "point_estimate": 0.1133300246558616,
+            "lower": 0.09562626943755284,
+            "upper": 0.2332220984574389
+          },
+          "corruption_gap": {
+            "point_estimate": 0.25853869414714636,
+            "lower": 0.13282950108112196,
+            "upper": 0.5886308757200492
+          },
+          "recovered_gap": {
+            "point_estimate": 0.1287662651841444,
+            "lower": 0.03634265144676169,
+            "upper": 0.418915096283458
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.4980541330918054,
+        "lower": 0.18237890997819667,
+        "upper": 1.1055608743298373,
+        "valid_replicates": 9984,
+        "undefined_replicates": 16
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": false,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_completeness_mean_meters": {
+      "status": "available",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 13,
+        "clean_control_valid_scene_count": 13,
+        "complete_scene_count": 13,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.12662859942340224,
+            "lower": 0.10368207059836396,
+            "upper": 0.2846641413299356
+          },
+          "corrupt_error": {
+            "point_estimate": 0.5485032332075057,
+            "lower": 0.4024555732517159,
+            "upper": 0.8402719825971854
+          },
+          "repaired_error": {
+            "point_estimate": 0.18524659064353816,
+            "lower": 0.1644820501157643,
+            "upper": 0.39467710589960187
+          },
+          "clean_control_error": {
+            "point_estimate": 0.12662859942340224,
+            "lower": 0.10368207059836396,
+            "upper": 0.2846641413299356
+          },
+          "corruption_gap": {
+            "point_estimate": 0.3689344273102676,
+            "lower": 0.16101921738699998,
+            "upper": 0.7562800380513836
+          },
+          "recovered_gap": {
+            "point_estimate": 0.2587587499303847,
+            "lower": 0.11381995592196748,
+            "upper": 0.6149537749678173
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.7013678604538931,
+        "lower": 0.6964350918348174,
+        "upper": 1.2480204595990319,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_accuracy_mean_millimeters": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 13,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    },
+    "point_completeness_mean_millimeters": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 13,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    }
+  },
+  "model": "vggt",
+  "dataset": "eth3d-training-raw",
+  "original_results": "/opt/camcanon3r/results/eth3d_training/vggt/raw",
+  "repaired_results": "/opt/camcanon3r/results/eth3d_training/vggt/raw_canonical_mean",
+  "identity_variant": "identity",
+  "corrupt_variant": "asymmetric_crop_075",
+  "clean_control_variant": "identity",
+  "repaired_variant": "canonical_mean_asymmetric_crop_075"
+}
