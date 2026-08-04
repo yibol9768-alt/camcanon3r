@@ -386,6 +386,13 @@ PYTHONPATH=src .venv/bin/python scripts/canonicalize_sweep.py \
   --variants identity asymmetric_crop_075 asymmetric_crop_090 \
   --fill-policy neutral_gray --resume
 
+PYTHONPATH=src .venv/bin/python scripts/audit_canonical_repairs.py \
+  data/eth3d_training/raw data/eth3d_training/raw_canonical \
+  --scenes courtyard delivery_area electro facade kicker meadow office \
+    pipes playground relief relief_2 terrace terrains \
+  --source-variants identity asymmetric_crop_075 \
+  --output results/repair/eth3d_raw_canonical_preparation_audit.json
+
 PYTHONPATH=src:third_party/vggt .venv/bin/python scripts/run_vggt_batch.py \
   data/pilot_canonical outputs/vggt/pilot_canonical \
   --scenes room kitchen llff_fern \
@@ -400,6 +407,11 @@ PYTHONPATH=src .venv/bin/python scripts/compare_prediction_sweep.py \
   --variants canonical_asymmetric_crop_075 \
     canonical_asymmetric_crop_090 --resume
 ```
+
+The audit must pass before GPU inference. It checks the complete scene/variant
+file design, every image and binary validity mask, source-affine provenance,
+identity pixel equality, fill pixels outside valid support, per-image valid
+fractions, and a deterministic tree hash.
 
 This diagnostic only shows whether canonicalization reduces disagreement. The
 repair claim is promoted solely from paired ETH3D or DTU ground-truth gap
