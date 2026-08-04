@@ -4,6 +4,14 @@ Updated: 2026-08-04
 Target: 3DV 2027, paper deadline 2026-08-28 11:00 PDT  
 Status: frozen contract; matched VGGT/DUSt3R ETH3D mechanism and repair results complete, cross-dataset and detector gates active
 
+Runtime note (2026-08-05 Asia/Shanghai): after 55 DUSt3R DTU case records had
+been written, `scan12/identity` exposed an empty strict-20-mm point-distance
+set. Before any aggregate GT summary or held-out reliability result was opened,
+the evaluator was amended model-neutrally to preserve camera metrics and mark
+only each empty point direction undefined. Thresholds, cases, hypotheses, and
+promotion gates remain frozen; no retry, zero substitution, or case deletion is
+allowed. `docs/DTU_EVALUATION_AUDIT.md` records the full chronology.
+
 ## Paper claim
 
 Feed-forward 3D reconstruction models should be equivariant to known

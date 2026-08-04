@@ -7,9 +7,12 @@ from pathlib import Path
 import numpy as np
 import pytest
 from scipy.io import savemat
+from scipy.spatial import cKDTree
 from scipy.spatial.transform import Rotation
 
 from camcanon3r.dtu import (
+    _dtu_point_metrics,
+    _dtu_target_resources,
     decompose_projection_matrix,
     evaluate_dtu_prediction,
     read_dtu_projection,
@@ -202,6 +205,47 @@ def test_evaluate_dtu_prediction_reports_exact_synthetic_point_distances(
     assert point_cloud["alignment"]["scale"] == pytest.approx(1.0)
     assert point_cloud["predicted_points_evaluated"] == 4
     assert point_cloud["predicted_points_in_observation_mask"] == 3
+    assert point_cloud["accuracy_distances_before_outlier_filter"] == 3
+    assert point_cloud["accuracy_distances_after_outlier_filter"] == 3
+    assert point_cloud["completeness_distances_before_outlier_filter"] == 4
+    assert point_cloud["completeness_distances_after_outlier_filter"] == 4
+
+    # A fixed-threshold miss is an undefined point direction, not a reason to
+    # discard the valid pose and intrinsics evaluation or change the threshold.
+    far_world_points = world_points + 100.0
+    savemat(
+        gt_root / "ObsMask/ObsMask1_10.mat",
+        {
+            "ObsMask": np.ones((5, 5, 5), dtype=np.uint8),
+            "BB": np.array([[0.0, 0.0, 0.0], [400.0, 400.0, 400.0]]),
+            "Res": np.array([[100.0]]),
+        },
+    )
+    _dtu_target_resources.cache_clear()
+    np.savez_compressed(
+        prediction,
+        extrinsic=np.stack(extrinsics),
+        intrinsic=np.stack([intrinsic] * 3),
+        source_to_model_affine=np.stack([np.eye(3)] * 3),
+        world_points=far_world_points,
+    )
+    threshold_undefined_result = evaluate_dtu_prediction(
+        prediction, calibration, scan=1, gt_root=gt_root
+    )
+    threshold_undefined = threshold_undefined_result["point_cloud"]
+    assert threshold_undefined["status"] == (
+        "undefined_no_distance_within_outlier_threshold"
+    )
+    assert threshold_undefined["outlier_threshold_millimeters"] == 20.0
+    assert threshold_undefined["accuracy_distances_before_outlier_filter"] == 4
+    assert threshold_undefined["accuracy_distances_after_outlier_filter"] == 0
+    assert threshold_undefined["completeness_distances_before_outlier_filter"] == 4
+    assert threshold_undefined["completeness_distances_after_outlier_filter"] == 0
+    assert threshold_undefined["accuracy_millimeters"]["mean"] is None
+    assert threshold_undefined["completeness_millimeters"]["mean"] is None
+    assert threshold_undefined_result["relative_rotation_degrees"][
+        "median"
+    ] == pytest.approx(0.0, abs=1e-6)
 
     collapsed = np.repeat(extrinsics[0][None], 3, axis=0)
     np.savez_compressed(
@@ -217,3 +261,74 @@ def test_evaluate_dtu_prediction_reports_exact_synthetic_point_distances(
     assert undefined["status"] == ("undefined_degenerate_camera_center_alignment")
     assert undefined["accuracy_millimeters"]["mean"] is None
     assert undefined["predicted_source_supported_points_before_alignment"] == 12
+
+
+def test_dtu_point_metrics_preserves_each_available_threshold_direction(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    centers = (
+        np.array([0.0, 0.0, 0.0]),
+        np.array([1.0, 0.0, 0.0]),
+        np.array([0.0, 1.0, 0.0]),
+    )
+    extrinsics = np.stack(
+        [np.column_stack([np.eye(3), -center]) for center in centers]
+    )
+    plane = np.array([0.0, 0.0, 1.0, 0.0])
+
+    accuracy_target = np.array([[0.0, 0.0, -1.0], [100.0, 0.0, 1.0]])
+    accuracy_mask = np.ones((3, 3, 3), dtype=bool)
+    monkeypatch.setattr(
+        "camcanon3r.dtu._dtu_target_resources",
+        lambda *_: (
+            accuracy_target,
+            cKDTree(accuracy_target),
+            accuracy_mask,
+            np.array([[-1.0, -1.0, -2.0], [1.0, 1.0, 0.0]]),
+            1.0,
+            plane,
+        ),
+    )
+    accuracy_only = _dtu_point_metrics(
+        np.array([[0.0, 0.0, -1.0]]),
+        extrinsics,
+        extrinsics,
+        point_path=tmp_path / "points.ply",
+        mask_path=tmp_path / "mask.mat",
+        plane_path=tmp_path / "plane.mat",
+    )
+    assert accuracy_only["status"] == (
+        "partially_undefined_no_completeness_within_outlier_threshold"
+    )
+    assert accuracy_only["accuracy_millimeters"]["mean"] == pytest.approx(0.0)
+    assert accuracy_only["completeness_millimeters"]["mean"] is None
+
+    completeness_target = np.array([[100.0, 0.0, 1.0]])
+    completeness_mask = np.zeros((4, 2, 2), dtype=bool)
+    completeness_mask[3, 0, 0] = True
+    monkeypatch.setattr(
+        "camcanon3r.dtu._dtu_target_resources",
+        lambda *_: (
+            completeness_target,
+            cKDTree(completeness_target),
+            completeness_mask,
+            np.array([[0.0, 0.0, 0.0], [400.0, 200.0, 200.0]]),
+            100.0,
+            plane,
+        ),
+    )
+    completeness_only = _dtu_point_metrics(
+        np.array([[100.0, 0.0, 1.0], [300.0, 0.0, 1.0]]),
+        extrinsics,
+        extrinsics,
+        point_path=tmp_path / "points.ply",
+        mask_path=tmp_path / "mask.mat",
+        plane_path=tmp_path / "plane.mat",
+    )
+    assert completeness_only["status"] == (
+        "partially_undefined_no_accuracy_within_outlier_threshold"
+    )
+    assert completeness_only["accuracy_millimeters"]["mean"] is None
+    assert completeness_only["completeness_millimeters"]["mean"] == pytest.approx(
+        0.0
+    )

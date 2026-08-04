@@ -252,7 +252,14 @@ If predicted camera centers collapse or imply a non-positive pose-only scale,
 the evaluator preserves pose and intrinsics, marks DTU point accuracy and
 completeness explicitly undefined, and excludes only those incomplete scene
 metrics from bootstrap intervals. It never substitutes zero or drops the
-scene from the other metrics.
+scene from the other metrics. If the unchanged strict `< 20 mm` filter retains
+no distance in either direction, that direction is likewise marked undefined
+while the other direction and all camera metrics are preserved. Counts before
+and after thresholding make this distinguishable from a numerical zero. This
+failure-handling rule was added model-neutrally after the DUSt3R evaluator
+stopped on `scan12/identity` at 55 of 242 written records, but before aggregate
+GT summaries or held-out reliability outcomes were opened; the chronology is
+audited in `docs/DTU_EVALUATION_AUDIT.md`.
 
 Only after both GT summaries are complete, open the held-out detector result
 with the unchanged four variants, score fields, strict 2-degree threshold,

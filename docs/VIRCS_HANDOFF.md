@@ -2,6 +2,16 @@
 
 Updated: 2026-08-04 (Asia/Shanghai)
 
+Live execution note (2026-08-05 Asia/Shanghai): DTU extraction, independent
+146-file rehash, preparation, both 242-case inference sweeps, and the VGGT GT
+evaluation are complete. The DUSt3R GT evaluator stopped after 55 records when
+`scan12/identity` retained no point distance below the frozen 20 mm threshold.
+Before aggregate GT summaries or held-out reliability outcomes were opened, a
+model-neutral amendment was added to preserve pose/intrinsics and mark only an
+empty point direction undefined, without changing the threshold, retrying, or
+dropping a case. Resume the audited task only after this change passes tests,
+is pushed, and the `my5090` checkout is safely fast-forwarded.
+
 ## Mission and completion bar
 
 Continue CamCanon3R as a 3DV paper project.  The work is not complete merely

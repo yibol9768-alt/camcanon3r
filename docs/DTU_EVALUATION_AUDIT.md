@@ -3,6 +3,27 @@
 Updated: 2026-08-04  
 Status: frozen before any CamCanon3R DTU ground-truth outcome was computed
 
+## Runtime failure-handling amendment (2026-08-05 Asia/Shanghai)
+
+The frozen threshold and evaluated cases are unchanged. After the complete
+VGGT summary had been written and the DUSt3R evaluator had written 55 of 242
+case records, the first requested point-map metric for `scan12/identity`
+retained no distances under the strict `< 20 mm` filter and the original
+implementation stopped the task. This runtime error is an outcome signal and
+is disclosed as such; it is not described as a preregistered amendment.
+
+Before opening either model's aggregate GT summary or any held-out reliability
+outcome, failure handling was made model-neutral and direction-specific. The
+20 mm threshold is not relaxed, the case is not retried or dropped, and an
+empty direction is never replaced by zero. Pose and intrinsics remain valid;
+each point direction with no retained distance is recorded as undefined and
+excluded only from bootstrap intervals requiring a complete scene set. Every
+case reaching distance thresholding records accuracy and completeness counts
+before and after filtering.
+The same implementation applies to both models, all scenes, and all registered
+point-map variants. The 55 already written DUSt3R records are retained because
+none raised this condition and their numerical path is unchanged.
+
 ## Official source identity
 
 The evaluator was checked against the official MATLAB files selected from DTU
@@ -60,9 +81,10 @@ official DTU MVS submission.  It therefore declares the following differences:
   sweep evaluates both identity and canonical crop so gap recovery is paired.
 
 Accordingly, the paper must call these values the **CamCanon3R deterministic
-DTU point-map metric**, not official DTU leaderboard scores.  Both direction
-counts, the observation-mask count, alignment, cap, voxel size, and strict
-outlier threshold remain machine-readable in every result.
+DTU point-map metric**, not official DTU leaderboard scores.  For every case
+that reaches distance evaluation, both direction counts, the observation-mask
+count, alignment, cap, voxel size, and strict outlier threshold remain
+machine-readable in the result.
 
 The repair evaluator uses the identical directional filters and numerical
 point-map implementation under protocol `dtu-repair-1.0`.  It additionally

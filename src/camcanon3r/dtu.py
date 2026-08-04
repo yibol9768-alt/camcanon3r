@@ -356,14 +356,28 @@ def _dtu_point_metrics(
         raise ValueError("DTU ground plane removed every target point")
 
     predicted_tree = cKDTree(aligned)
-    accuracy = np.asarray(full_target_tree.query(observed_aligned, workers=1)[0])
-    completeness = np.asarray(predicted_tree.query(target, workers=1)[0])
-    accuracy = accuracy[accuracy < outlier_threshold_millimeters]
-    completeness = completeness[completeness < outlier_threshold_millimeters]
-    if not len(accuracy) or not len(completeness):
-        raise ValueError("DTU 20 mm outlier filter removed every distance")
+    accuracy_before_filter = np.asarray(
+        full_target_tree.query(observed_aligned, workers=1)[0]
+    )
+    completeness_before_filter = np.asarray(predicted_tree.query(target, workers=1)[0])
+    accuracy = accuracy_before_filter[
+        accuracy_before_filter < outlier_threshold_millimeters
+    ]
+    completeness = completeness_before_filter[
+        completeness_before_filter < outlier_threshold_millimeters
+    ]
+    accuracy_available = bool(len(accuracy))
+    completeness_available = bool(len(completeness))
+    if accuracy_available and completeness_available:
+        status = "available"
+    elif accuracy_available:
+        status = "partially_undefined_no_completeness_within_outlier_threshold"
+    elif completeness_available:
+        status = "partially_undefined_no_accuracy_within_outlier_threshold"
+    else:
+        status = "undefined_no_distance_within_outlier_threshold"
     return {
-        "status": "available",
+        "status": status,
         "protocol": "official_mask_plane_threshold_deterministic_cap",
         "alignment": {
             "source": "camera_pose_rotation_then_center_scale_translation",
@@ -377,6 +391,12 @@ def _dtu_point_metrics(
         "predicted_points_evaluated": len(aligned),
         "predicted_points_in_observation_mask": len(observed_aligned),
         "target_points_evaluated": len(target),
+        "accuracy_distances_before_outlier_filter": len(accuracy_before_filter),
+        "accuracy_distances_after_outlier_filter": len(accuracy),
+        "completeness_distances_before_outlier_filter": len(
+            completeness_before_filter
+        ),
+        "completeness_distances_after_outlier_filter": len(completeness),
         "accuracy_millimeters": _finite_summary(accuracy),
         "completeness_millimeters": _finite_summary(completeness),
     }
