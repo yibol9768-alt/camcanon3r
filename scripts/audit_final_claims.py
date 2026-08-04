@@ -244,9 +244,7 @@ def _audit_repair(
         raise ValueError(f"held-out rotation repair metric is incomplete: {model}")
     gate = metric["promotion_gate"]
     recovery = metric["gap_recovery"]
-    clean = metric["scene_bootstrap"]["metrics"].get(
-        "clean_relative_degradation"
-    )
+    clean = metric["scene_bootstrap"]["metrics"].get("clean_relative_degradation")
     return {
         "model": model,
         "dataset": "dtu-held-out",
