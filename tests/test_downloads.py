@@ -1,4 +1,7 @@
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -88,3 +91,54 @@ def test_frozen_eth3d_manifest_covers_all_training_scenes() -> None:
     assert "no scene was selected using model outcomes" in payload[
         "selection_policy"
     ]
+
+
+def test_download_launcher_exposes_src_package(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    archive_root = tmp_path / "archives"
+    (repo_root / "scripts").mkdir(parents=True)
+    (repo_root / "configs").mkdir()
+    (repo_root / ".venv" / "bin").mkdir(parents=True)
+    (repo_root / "src" / "camcanon3r").mkdir(parents=True)
+
+    (repo_root / "src" / "camcanon3r" / "__init__.py").write_text(
+        "MARKER = 'imported-from-src'\n", encoding="utf-8"
+    )
+    (repo_root / "configs" / "eth3d_training_archives.json").write_text(
+        "{}\n", encoding="utf-8"
+    )
+    (repo_root / "scripts" / "download_archives.py").write_text(
+        "from pathlib import Path\n"
+        "import sys\n"
+        "import camcanon3r\n"
+        "Path(sys.argv[-1]).write_text(camcanon3r.MARKER, encoding='utf-8')\n",
+        encoding="utf-8",
+    )
+    proxy_wrapper = repo_root / "scripts" / "with_download_proxy.sh"
+    proxy_wrapper.write_text(
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        "exec \"$@\"\n",
+        encoding="utf-8",
+    )
+    proxy_wrapper.chmod(0o755)
+    (repo_root / ".venv" / "bin" / "python").symlink_to(sys.executable)
+
+    launcher = (
+        Path(__file__).resolve().parents[1]
+        / "scripts"
+        / "start_eth3d_download_my5090.sh"
+    )
+    env = os.environ.copy()
+    env.update(
+        {
+            "CAMCANON3R_REPO_ROOT": str(repo_root),
+            "CAMCANON3R_ETH3D_ARCHIVES": str(archive_root),
+            "PYTHONPATH": "",
+        }
+    )
+    subprocess.run([str(launcher)], check=True, env=env)
+
+    assert (archive_root / "download_report.json").read_text(
+        encoding="utf-8"
+    ) == "imported-from-src"

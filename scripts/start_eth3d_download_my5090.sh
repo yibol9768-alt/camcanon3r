@@ -17,6 +17,7 @@ if ! flock -n 8; then
 fi
 
 cd "${repo_root}"
+export PYTHONPATH="${repo_root}/src${PYTHONPATH:+:${PYTHONPATH}}"
 exec ./scripts/with_download_proxy.sh \
   nice -n 15 ionice -c 3 \
   .venv/bin/python scripts/download_archives.py \
