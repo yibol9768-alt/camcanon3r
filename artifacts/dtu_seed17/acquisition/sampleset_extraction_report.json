@@ -1,0 +1,421 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "selection": "/mnt/e/camcanon3r-data/dtu_mvs/selections/sampleset.json",
+  "selection_sha256": "c9417d72e0ee673b6531bdd3652797622d1a8184f3d1191400bb126270cb8d79",
+  "archive": {
+    "url": "https://roboimagedata2.compute.dtu.dk/data/MVS/SampleSet.zip",
+    "expected_bytes": 6905656531,
+    "etag": "\"19b9bf4d3-5652d3a88539d\""
+  },
+  "member_count": 58,
+  "members": [
+    {
+      "source": "SampleSet/ReadMe.txt",
+      "target": "official/ReadMe.txt",
+      "bytes": 3648,
+      "crc32": "eab38388",
+      "sha256": "2d437c34541be6110f2bbfafb399681e823d8ed775f461575e9ba941a3e08ea3"
+    },
+    {
+      "source": "SampleSet/MVS Data/Calibration/cal18/calib_data.mat",
+      "target": "calibration/cal18/calib_data.mat",
+      "bytes": 269020,
+      "crc32": "527bcda5",
+      "sha256": "4252acf6794444353998856b203e092078e7fbec189578ca5f98080d91c92b28"
+    },
+    {
+      "source": "SampleSet/MVS Data/Calibration/cal18/Calib_Results_left.mat",
+      "target": "calibration/cal18/Calib_Results_left.mat",
+      "bytes": 1192582,
+      "crc32": "1eef03d5",
+      "sha256": "dd287b01dccb9f3a09669ca4f974b72565d121dcf5476a9ab97332fcbcbe1760"
+    },
+    {
+      "source": "SampleSet/MVS Data/Calibration/cal18/Calib_Results_stereo.mat",
+      "target": "calibration/cal18/Calib_Results_stereo.mat",
+      "bytes": 109072,
+      "crc32": "78f0848d",
+      "sha256": "4378419bc432f4001f7435179bac64436e256e5021c5523ceb2fef4524ea2b93"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/BaseEvalMain_web.m",
+      "target": "official/matlab_evaluation/BaseEvalMain_web.m",
+      "bytes": 2288,
+      "crc32": "a13225df",
+      "sha256": "f63f79138bc3039e7b9ce2768b1dda31d94fb4849d08dd4b9afffb101dd03487"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/BaseEval2Obj_web.m",
+      "target": "official/matlab_evaluation/BaseEval2Obj_web.m",
+      "bytes": 1501,
+      "crc32": "9b62cae5",
+      "sha256": "cad47b8e7aa35240d2117ac50ceaf18d519d8e7ab9eea1a5e02758b54ef8eddd"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/ComputeStat_web.m",
+      "target": "official/matlab_evaluation/ComputeStat_web.m",
+      "bytes": 2414,
+      "crc32": "3897e317",
+      "sha256": "4fb782bd65c9046aba2025792d44377efa6153e7df983e5683550544ca9158a9"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/MaxDistCP.m",
+      "target": "official/matlab_evaluation/MaxDistCP.m",
+      "bytes": 1444,
+      "crc32": "98c4bcca",
+      "sha256": "17194c53f20dc4f8d8107ee38553ce3757fa1ab0e6616d4d08990790e8d0ca22"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/PointCompareMain.m",
+      "target": "official/matlab_evaluation/PointCompareMain.m",
+      "bytes": 2103,
+      "crc32": "baa3a65b",
+      "sha256": "bf8c6ba59e3a6b4aaf175a7ebdde3e8f87cb9ea78cf7ef387e5a12ba717e3e58"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/reducePts_haa.m",
+      "target": "official/matlab_evaluation/reducePts_haa.m",
+      "bytes": 900,
+      "crc32": "63e23b6f",
+      "sha256": "e0e2592ccbef07581af8f3021fe071c9b1111f1e516ae937a7215ed4f1069d62"
+    },
+    {
+      "source": "SampleSet/Matlab evaluation code/plyread.m",
+      "target": "official/matlab_evaluation/plyread.m",
+      "bytes": 15651,
+      "crc32": "f0907425",
+      "sha256": "b402bd14ea0e9b79cc7ecce732579f818ebab5eadfab4afc68eb87e8ca4f8a5d"
+    },
+    {
+      "source": "SampleSet/MVS Data/Calibration/cal18/pos_023.txt",
+      "target": "calibration/cal18/pos_023.txt",
+      "bytes": 145,
+      "crc32": "515c504e",
+      "sha256": "7b6e4f73b727ef3c83947f09f2a9d74d6eb0d7071ec375eeb380e2eb39882014"
+    },
+    {
+      "source": "SampleSet/MVS Data/Calibration/cal18/pos_026.txt",
+      "target": "calibration/cal18/pos_026.txt",
+      "bytes": 146,
+      "crc32": "0e1cd33b",
+      "sha256": "cffb3b8bdda10f8509d457ae23e2841a81d93ba75d878552e8aeb37feea21d10"
+    },
+    {
+      "source": "SampleSet/MVS Data/Calibration/cal18/pos_029.txt",
+      "target": "calibration/cal18/pos_029.txt",
+      "bytes": 146,
+      "crc32": "56cbe420",
+      "sha256": "fd40437296bca421aeb75a9a82f09c772d96d41725077994a639f09f7a98c037"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask1_10.mat",
+      "target": "gt/ObsMask/ObsMask1_10.mat",
+      "bytes": 408809,
+      "crc32": "3bfb5446",
+      "sha256": "0704f3a9b68bea7a21f3d6fa50497f4a58c558209f3992fbe3aa0edaf26a34fa"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane1.mat",
+      "target": "gt/ObsMask/Plane1.mat",
+      "bytes": 206,
+      "crc32": "4a76cc89",
+      "sha256": "e4a9073b2fe2ecc0b625b13376c682857c63db93230c82ab287764d40ec52e35"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask4_10.mat",
+      "target": "gt/ObsMask/ObsMask4_10.mat",
+      "bytes": 878060,
+      "crc32": "e46ddae2",
+      "sha256": "d47ad3c791cf9b6d297d932fe4fb376fcb1b2fd9edc3bfbd7d2cc0706bf32b1b"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane4.mat",
+      "target": "gt/ObsMask/Plane4.mat",
+      "bytes": 206,
+      "crc32": "67dc3b44",
+      "sha256": "feee9acd970f3bca73cbe7be96090b662588b1baf6325c8d3b7d60e180aaa293"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask9_10.mat",
+      "target": "gt/ObsMask/ObsMask9_10.mat",
+      "bytes": 616744,
+      "crc32": "d7ef24d4",
+      "sha256": "17a91d3575d0c76692b9e1fccb6ea3d8c02749a595409a7ea890f97f647ff12c"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane9.mat",
+      "target": "gt/ObsMask/Plane9.mat",
+      "bytes": 207,
+      "crc32": "a6a30600",
+      "sha256": "4f5c878ab3ac820f3dfba37cba15f1cc53485de5c026c1e5ecb92f1d337e28c0"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask10_10.mat",
+      "target": "gt/ObsMask/ObsMask10_10.mat",
+      "bytes": 791305,
+      "crc32": "b24d472f",
+      "sha256": "2e67773d19fc3f2a8205d0b98c93c1234716bfed4b14deb103d0eb3cc3f854e5"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane10.mat",
+      "target": "gt/ObsMask/Plane10.mat",
+      "bytes": 206,
+      "crc32": "063941c8",
+      "sha256": "27df9d458875939b54ec735c6c3a7d50b85856b555f1392cfdb119d80fb32891"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask11_10.mat",
+      "target": "gt/ObsMask/ObsMask11_10.mat",
+      "bytes": 355291,
+      "crc32": "ab86ad23",
+      "sha256": "b4f85b5051e89730cfd6e5055c011e74ebcda01d78862eb202919d43736e7ae5"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane11.mat",
+      "target": "gt/ObsMask/Plane11.mat",
+      "bytes": 207,
+      "crc32": "5fe582c5",
+      "sha256": "930b93699cae3c8dba4f5a9c683a39cbc8b94292b6c642fbaadb68f6de58f2ce"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask12_10.mat",
+      "target": "gt/ObsMask/ObsMask12_10.mat",
+      "bytes": 543937,
+      "crc32": "1952e28c",
+      "sha256": "e26949fbe306cf889148d0cfcf78434d34e584021ad3e88c132627b03c345013"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane12.mat",
+      "target": "gt/ObsMask/Plane12.mat",
+      "bytes": 206,
+      "crc32": "3dccdce5",
+      "sha256": "65cb3736bfafba26ace60d6d89b609d8d822af362058c6fa34cbb5ee2af198e2"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask13_10.mat",
+      "target": "gt/ObsMask/ObsMask13_10.mat",
+      "bytes": 387720,
+      "crc32": "74d6e2d6",
+      "sha256": "b33764b670895c931aab9f97f608cbd3cabf0929817c53baa5fcbe57e6aa34d2"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane13.mat",
+      "target": "gt/ObsMask/Plane13.mat",
+      "bytes": 206,
+      "crc32": "436523a8",
+      "sha256": "a0ccb8de793779e55967dc133721440051d071bbd48b6c05df7984faa4442073"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask15_10.mat",
+      "target": "gt/ObsMask/ObsMask15_10.mat",
+      "bytes": 720149,
+      "crc32": "b8a860cc",
+      "sha256": "ee9ec75d2cb1ef2d8f12ab7feb7e53e9f0e5270cb3d3c265c76408b782961bcb"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane15.mat",
+      "target": "gt/ObsMask/Plane15.mat",
+      "bytes": 206,
+      "crc32": "fe89ca91",
+      "sha256": "d5224422e460934307a99f730564cef9695c281a1c96d15f9d3a44a5be4d6fcb"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask23_10.mat",
+      "target": "gt/ObsMask/ObsMask23_10.mat",
+      "bytes": 849607,
+      "crc32": "fba12575",
+      "sha256": "4b71452254a08d3f61f225b30b908017a347937fb2113cc3dfba8867cfb368d1"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane23.mat",
+      "target": "gt/ObsMask/Plane23.mat",
+      "bytes": 206,
+      "crc32": "d096e73f",
+      "sha256": "aa6c24df466f654a35eea161035bf3be025fe0ad19a0381e25d55119cbebd258"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask24_10.mat",
+      "target": "gt/ObsMask/ObsMask24_10.mat",
+      "bytes": 1352543,
+      "crc32": "e2854b77",
+      "sha256": "dbe3cec174f53a93e94aa90405019a5275c6aa1d71fdf48be7852419a082d815"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane24.mat",
+      "target": "gt/ObsMask/Plane24.mat",
+      "bytes": 207,
+      "crc32": "5fe582c5",
+      "sha256": "930b93699cae3c8dba4f5a9c683a39cbc8b94292b6c642fbaadb68f6de58f2ce"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask29_10.mat",
+      "target": "gt/ObsMask/ObsMask29_10.mat",
+      "bytes": 2351671,
+      "crc32": "c67cbadc",
+      "sha256": "3dec5b35c211b43814f0e2f1b1119555255213410d836a1e777807bf4a3214cf"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane29.mat",
+      "target": "gt/ObsMask/Plane29.mat",
+      "bytes": 206,
+      "crc32": "48ac29b1",
+      "sha256": "5ac80ef8b31fe8fdf920690e2e79e96a819ea062f5fcbd36d47500eed80c3e6f"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask32_10.mat",
+      "target": "gt/ObsMask/ObsMask32_10.mat",
+      "bytes": 1001148,
+      "crc32": "ebf36252",
+      "sha256": "2d59baee5efd67742474652a9b9e2a4243346dd399517b38b8634d099666c232"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane32.mat",
+      "target": "gt/ObsMask/Plane32.mat",
+      "bytes": 207,
+      "crc32": "5fe582c5",
+      "sha256": "930b93699cae3c8dba4f5a9c683a39cbc8b94292b6c642fbaadb68f6de58f2ce"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask33_10.mat",
+      "target": "gt/ObsMask/ObsMask33_10.mat",
+      "bytes": 2116261,
+      "crc32": "a2f9a508",
+      "sha256": "8c23c269a4f67d8430216d500da985e5b9523e046b590520592db27a690f57ff"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane33.mat",
+      "target": "gt/ObsMask/Plane33.mat",
+      "bytes": 207,
+      "crc32": "ef0a5bcf",
+      "sha256": "ede1a4430238827441bcfc6f3462f0e4cb67fa5e28cdcb7b807c9eddb64f628e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask34_10.mat",
+      "target": "gt/ObsMask/ObsMask34_10.mat",
+      "bytes": 747807,
+      "crc32": "ea24942a",
+      "sha256": "4196d1a1dc16e0df62eb218bae010681786a59720cc8330e05537de25f19ca37"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane34.mat",
+      "target": "gt/ObsMask/Plane34.mat",
+      "bytes": 207,
+      "crc32": "ef0a5bcf",
+      "sha256": "ede1a4430238827441bcfc6f3462f0e4cb67fa5e28cdcb7b807c9eddb64f628e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask48_10.mat",
+      "target": "gt/ObsMask/ObsMask48_10.mat",
+      "bytes": 1025102,
+      "crc32": "e717ae1d",
+      "sha256": "0f32f5f48f9a411f019818f9f2ecbbf9b18dc66083c440b82354563fee8d354e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane48.mat",
+      "target": "gt/ObsMask/Plane48.mat",
+      "bytes": 207,
+      "crc32": "ef0a5bcf",
+      "sha256": "ede1a4430238827441bcfc6f3462f0e4cb67fa5e28cdcb7b807c9eddb64f628e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask49_10.mat",
+      "target": "gt/ObsMask/ObsMask49_10.mat",
+      "bytes": 1910536,
+      "crc32": "27cff7f5",
+      "sha256": "f79950730cc68ccb3f2ae87ce4c192aabe0181cdef3613349a12124c4bc59549"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane49.mat",
+      "target": "gt/ObsMask/Plane49.mat",
+      "bytes": 207,
+      "crc32": "ef0a5bcf",
+      "sha256": "ede1a4430238827441bcfc6f3462f0e4cb67fa5e28cdcb7b807c9eddb64f628e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask62_10.mat",
+      "target": "gt/ObsMask/ObsMask62_10.mat",
+      "bytes": 920998,
+      "crc32": "9cb519b6",
+      "sha256": "02d0499e3da4fdedef74c64cfc6ecc07f87372dcd9dfed678acefa3a064a8814"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane62.mat",
+      "target": "gt/ObsMask/Plane62.mat",
+      "bytes": 206,
+      "crc32": "9553afef",
+      "sha256": "b66e72f4b9ef3d950498377c35410e63f6996baab1e4160c9ab1538b48126236"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask75_10.mat",
+      "target": "gt/ObsMask/ObsMask75_10.mat",
+      "bytes": 1454959,
+      "crc32": "4b0ba25f",
+      "sha256": "1d4c452ec51972da5004a3a4d229181687633cd1e5167b39aedacfdb7047224e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane75.mat",
+      "target": "gt/ObsMask/Plane75.mat",
+      "bytes": 206,
+      "crc32": "ad3d6aad",
+      "sha256": "9c312b3b53ac0b6dedc5d628010ff538442b98f335e0d75150b9b34be28fe451"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask77_10.mat",
+      "target": "gt/ObsMask/ObsMask77_10.mat",
+      "bytes": 2464851,
+      "crc32": "04076356",
+      "sha256": "8330094fbf4b87074f4bd3240182c20531cd37ca31014a27265a3708c07910c2"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane77.mat",
+      "target": "gt/ObsMask/Plane77.mat",
+      "bytes": 206,
+      "crc32": "2cb3ea68",
+      "sha256": "5cd53d689a3f11f5c674e1587880e03a5b8ac7b4b18d16bffdf65f65fd33918f"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask110_10.mat",
+      "target": "gt/ObsMask/ObsMask110_10.mat",
+      "bytes": 789824,
+      "crc32": "fe10c4df",
+      "sha256": "9e99c35566711c1aa9ed7aeb970a784f972354069030f0322ccd67e81070a4ed"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane110.mat",
+      "target": "gt/ObsMask/Plane110.mat",
+      "bytes": 206,
+      "crc32": "e12ebe96",
+      "sha256": "4e38aa8f5ff01be28cceec9f02012b2a5abef5aff103098659814e05c05599ee"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask114_10.mat",
+      "target": "gt/ObsMask/ObsMask114_10.mat",
+      "bytes": 397865,
+      "crc32": "39ed6b0b",
+      "sha256": "61df76de2a26d19a73e31354aef2ed27ccb51d7ef0e8af1f3834cc55686f697e"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane114.mat",
+      "target": "gt/ObsMask/Plane114.mat",
+      "bytes": 207,
+      "crc32": "25948c12",
+      "sha256": "3b12aaa0aa323edee28999a087cf8a429f05de3d19588b64ce9ff80e26ebabdf"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/ObsMask118_10.mat",
+      "target": "gt/ObsMask/ObsMask118_10.mat",
+      "bytes": 592743,
+      "crc32": "6961c58d",
+      "sha256": "a2ff58c6f27aa6e800b172090865b444e692959fa9c013b3f63725c896872fb3"
+    },
+    {
+      "source": "SampleSet/MVS Data/ObsMask/Plane118.mat",
+      "target": "gt/ObsMask/Plane118.mat",
+      "bytes": 206,
+      "crc32": "c0df5959",
+      "sha256": "e8a89867039f1c8db4c84d141bc86aa5780edc6dbe4fab4fbd4874c3a9d558d2"
+    }
+  ],
+  "completed_members": 58
+}

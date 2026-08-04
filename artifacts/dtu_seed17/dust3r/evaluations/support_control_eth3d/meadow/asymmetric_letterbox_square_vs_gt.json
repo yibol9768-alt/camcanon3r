@@ -1,0 +1,200 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/eth3d_training/dust3r/raw_support_control/meadow/asymmetric_letterbox_square.npz",
+  "variant": "asymmetric_letterbox_square",
+  "inputs": [
+    "DSC_6535.png",
+    "DSC_6536.png",
+    "DSC_6537.png",
+    "DSC_6538.png"
+  ],
+  "camera_model": "THIN_PRISM_FISHEYE",
+  "camera_size": [
+    6048,
+    4032
+  ],
+  "camera_ids": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "camera_models": [
+    "THIN_PRISM_FISHEYE",
+    "THIN_PRISM_FISHEYE",
+    "THIN_PRISM_FISHEYE",
+    "THIN_PRISM_FISHEYE"
+  ],
+  "camera_sizes": [
+    [
+      6048,
+      4032
+    ],
+    [
+      6048,
+      4032
+    ],
+    [
+      6048,
+      4032
+    ],
+    [
+      6048,
+      4032
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 4,
+      "median": 0.48708796656554987,
+      "mean": 0.418072142464046,
+      "p90": 0.5558016437682298
+    },
+    "principal_point_normalized_error": {
+      "count": 4,
+      "median": 0.1384743576512086,
+      "mean": 0.1385844018217111,
+      "p90": 0.1387824813286156
+    },
+    "per_view": [
+      {
+        "input": "DSC_6535.png",
+        "camera_id": 0,
+        "camera_model": "THIN_PRISM_FISHEYE",
+        "camera_size": [
+          6048,
+          4032
+        ],
+        "focal_relative_error": 0.5163996558545425,
+        "principal_point_normalized_error": 0.1384743576512086
+      },
+      {
+        "input": "DSC_6536.png",
+        "camera_id": 0,
+        "camera_model": "THIN_PRISM_FISHEYE",
+        "camera_size": [
+          6048,
+          4032
+        ],
+        "focal_relative_error": 0.45777627727655723,
+        "principal_point_normalized_error": 0.1384743576512086
+      },
+      {
+        "input": "DSC_6537.png",
+        "camera_id": 0,
+        "camera_model": "THIN_PRISM_FISHEYE",
+        "camera_size": [
+          6048,
+          4032
+        ],
+        "focal_relative_error": 0.12542442670813125,
+        "principal_point_normalized_error": 0.13891453433321857
+      },
+      {
+        "input": "DSC_6538.png",
+        "camera_id": 0,
+        "camera_model": "THIN_PRISM_FISHEYE",
+        "camera_size": [
+          6048,
+          4032
+        ],
+        "focal_relative_error": 0.5726882100169529,
+        "principal_point_normalized_error": 0.1384743576512086
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 6,
+    "median": 19.064386243226885,
+    "mean": 17.646257874867434,
+    "p90": 23.104478157998475
+  },
+  "translation_direction_degrees": {
+    "count": 6,
+    "median": 13.728676038836422,
+    "mean": 15.971744059832929,
+    "p90": 26.91807570243455
+  },
+  "depth": {
+    "scale": 37.27627164928715,
+    "valid_pixels": 123438,
+    "mean_abs_rel": 0.08476260775821544,
+    "median_abs_rel": 0.04389650176043555,
+    "p90_abs_rel": 0.23777733211413857,
+    "per_view": [
+      {
+        "valid_pixels": 26299,
+        "mean_abs_rel": 0.05589052874673379,
+        "median_abs_rel": 0.043211912498195906
+      },
+      {
+        "valid_pixels": 37701,
+        "mean_abs_rel": 0.03067275544256528,
+        "median_abs_rel": 0.011412468816350536
+      },
+      {
+        "valid_pixels": 31221,
+        "mean_abs_rel": 0.2019534266408722,
+        "median_abs_rel": 0.21234821772976653
+      },
+      {
+        "valid_pixels": 28217,
+        "mean_abs_rel": 0.05427509213783963,
+        "median_abs_rel": 0.04384366004857233
+      }
+    ]
+  },
+  "point_cloud": {
+    "alignment": {
+      "source": "camera_pose_rotation_then_center_scale_translation",
+      "scale": 29.223908469837827,
+      "rotation": [
+        [
+          -0.15698132431416534,
+          -0.2445544451379685,
+          -0.956843763202661
+        ],
+        [
+          0.9862928886351084,
+          -0.08868142871807196,
+          -0.1391471955460638
+        ],
+        [
+          -0.05082520678151681,
+          -0.965571710213064,
+          0.255123638245919
+        ]
+      ],
+      "translation": [
+        6.342616249798818,
+        -5.615183380828208,
+        3.810153686616835
+      ]
+    },
+    "voxel_size_meters": 0.01,
+    "maximum_points": 100000,
+    "predicted_points_after_voxel_and_cap": 100000,
+    "target_points_after_voxel_and_cap": 100000,
+    "accuracy_meters": {
+      "count": 100000,
+      "mean": 1.2610514561526716,
+      "median": 1.4418465613782803,
+      "p90": 1.7818800559068912
+    },
+    "completeness_meters": {
+      "count": 100000,
+      "mean": 1.504646506250194,
+      "median": 1.407628810088327,
+      "p90": 2.6232313184914706
+    },
+    "status": "available",
+    "protocol": "raw_depth_backprojection",
+    "per_view_pre_voxel_cap": 100000,
+    "predicted_gt_supported_points_before_voxel": 123438,
+    "target_points_before_voxel": 400000
+  },
+  "evaluation_protocol_version": "2.1",
+  "scene": "meadow",
+  "domain": "raw",
+  "calibration_dir": "/mnt/e/camcanon3r-data/eth3d_selected/meadow/dslr_calibration_jpg",
+  "depth_dir": "/mnt/e/camcanon3r-data/eth3d_selected/meadow/ground_truth_depth/dslr_images"
+}

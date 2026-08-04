@@ -1,0 +1,354 @@
+{
+  "schema_version": "1.0",
+  "prepared_root": "/opt/camcanon3r/data/dtu/rectified_mechanism",
+  "output_root": "/opt/camcanon3r/data/dtu/rectified_canonical",
+  "scenes": [
+    "scan1",
+    "scan4",
+    "scan9",
+    "scan10",
+    "scan11",
+    "scan12",
+    "scan13",
+    "scan15",
+    "scan23",
+    "scan24",
+    "scan29",
+    "scan32",
+    "scan33",
+    "scan34",
+    "scan48",
+    "scan49",
+    "scan62",
+    "scan75",
+    "scan77",
+    "scan110",
+    "scan114",
+    "scan118"
+  ],
+  "source_variants": [
+    "identity",
+    "asymmetric_crop_075"
+  ],
+  "prefix": "canonical_",
+  "fill_policy": "neutral_gray",
+  "timing_boundary": "source image decode, inverse affine image and mask warps, PNG writes, and repair manifest update; excludes later model inference",
+  "status": "complete",
+  "record_count": 44,
+  "canonicalization_seconds": {
+    "count": 44,
+    "total": 47.76321475401346,
+    "median": 1.0329123134943075,
+    "maximum": 2.1195634119940223
+  },
+  "records": [
+    {
+      "scene": "scan1",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.4015535969956545
+    },
+    {
+      "scene": "scan1",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8463373319973471
+    },
+    {
+      "scene": "scan4",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.1744907709944528
+    },
+    {
+      "scene": "scan4",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.7263550869975006
+    },
+    {
+      "scene": "scan9",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.4655189180048183
+    },
+    {
+      "scene": "scan9",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8342379160021665
+    },
+    {
+      "scene": "scan10",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.2288925790053327
+    },
+    {
+      "scene": "scan10",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.786081430997001
+    },
+    {
+      "scene": "scan11",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.4674771210120525
+    },
+    {
+      "scene": "scan11",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8619612290058285
+    },
+    {
+      "scene": "scan12",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.4826071220013546
+    },
+    {
+      "scene": "scan12",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8970402569975704
+    },
+    {
+      "scene": "scan13",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.267923344988958
+    },
+    {
+      "scene": "scan13",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.844220454004244
+    },
+    {
+      "scene": "scan15",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.440201896999497
+    },
+    {
+      "scene": "scan15",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8172096019989112
+    },
+    {
+      "scene": "scan23",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.3178760929877171
+    },
+    {
+      "scene": "scan23",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.7581636180111673
+    },
+    {
+      "scene": "scan24",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.3201719550124835
+    },
+    {
+      "scene": "scan24",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.779689375005546
+    },
+    {
+      "scene": "scan29",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.0533162479987368
+    },
+    {
+      "scene": "scan29",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.6647806690016296
+    },
+    {
+      "scene": "scan32",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.3077481200016337
+    },
+    {
+      "scene": "scan32",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8020986210030969
+    },
+    {
+      "scene": "scan33",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.012508378989878
+    },
+    {
+      "scene": "scan33",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.6826231379964156
+    },
+    {
+      "scene": "scan34",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.146737994000432
+    },
+    {
+      "scene": "scan34",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.6804149340023287
+    },
+    {
+      "scene": "scan48",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.0993248419981683
+    },
+    {
+      "scene": "scan48",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.6850133390107658
+    },
+    {
+      "scene": "scan49",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.191810430987971
+    },
+    {
+      "scene": "scan49",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.7269034479977563
+    },
+    {
+      "scene": "scan62",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.2175636800093343
+    },
+    {
+      "scene": "scan62",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.7705177489988273
+    },
+    {
+      "scene": "scan75",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.3889494039904093
+    },
+    {
+      "scene": "scan75",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8306590890133521
+    },
+    {
+      "scene": "scan77",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 0.8681360369955655
+    },
+    {
+      "scene": "scan77",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 0.5363751010008855
+    },
+    {
+      "scene": "scan110",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 2.0522438129992224
+    },
+    {
+      "scene": "scan110",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 1.1150747400097316
+    },
+    {
+      "scene": "scan114",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 1.9539231899980223
+    },
+    {
+      "scene": "scan114",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 1.004464890997042
+    },
+    {
+      "scene": "scan118",
+      "source_variant": "identity",
+      "output_variant": "identity",
+      "image_count": 3,
+      "canonicalization_seconds": 2.1195634119940223
+    },
+    {
+      "scene": "scan118",
+      "source_variant": "asymmetric_crop_075",
+      "output_variant": "canonical_asymmetric_crop_075",
+      "image_count": 3,
+      "canonicalization_seconds": 1.1344537859986303
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "prepared_root": "/opt/camcanon3r/data/dtu/rectified_mechanism",
+  "repaired_root": "/opt/camcanon3r/data/dtu/rectified_canonical",
+  "scene_count": 22,
+  "scenes": [
+    "scan1",
+    "scan4",
+    "scan9",
+    "scan10",
+    "scan11",
+    "scan12",
+    "scan13",
+    "scan15",
+    "scan23",
+    "scan24",
+    "scan29",
+    "scan32",
+    "scan33",
+    "scan34",
+    "scan48",
+    "scan49",
+    "scan62",
+    "scan75",
+    "scan77",
+    "scan110",
+    "scan114",
+    "scan118"
+  ],
+  "source_variants": [
+    "identity",
+    "asymmetric_crop_075"
+  ],
+  "fill_policy": "neutral_gray",
+  "output_variants": [
+    "identity",
+    "canonical_asymmetric_crop_075"
+  ],
+  "image_count": 132,
+  "mask_count": 132,
+  "identity_pixel_matches": 66,
+  "valid_fraction_by_variant": {
+    "identity": {
+      "count": 66,
+      "minimum": 1.0,
+      "median": 1.0,
+      "maximum": 1.0
+    },
+    "canonical_asymmetric_crop_075": {
+      "count": 66,
+      "minimum": 0.5625,
+      "median": 0.5625,
+      "maximum": 0.5625
+    }
+  },
+  "tree_sha256": "2694ed2a94a0212a1853f71a887daa03e3a2c834a46d6edfb2a383b1efb742b7"
+}

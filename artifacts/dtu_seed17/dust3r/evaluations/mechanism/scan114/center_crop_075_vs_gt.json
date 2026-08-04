@@ -1,0 +1,153 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/dtu/dust3r/rectified_mechanism/scan114/center_crop_075.npz",
+  "variant": "center_crop_075",
+  "scan": 114,
+  "inputs": [
+    "rect_023_3_r5000.png",
+    "rect_026_3_r5000.png",
+    "rect_029_3_r5000.png"
+  ],
+  "camera_model": "PINHOLE",
+  "camera_size": [
+    1600,
+    1200
+  ],
+  "camera_ids": [
+    23,
+    26,
+    29
+  ],
+  "camera_sizes": [
+    [
+      1600,
+      1200
+    ],
+    [
+      1600,
+      1200
+    ],
+    [
+      1600,
+      1200
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 3,
+      "median": 0.25058721859630234,
+      "mean": 0.25802873707601526,
+      "p90": 0.2986309401178461
+    },
+    "principal_point_normalized_error": {
+      "count": 3,
+      "median": 0.015018338241777231,
+      "mean": 0.015018276986887938,
+      "p90": 0.015018475764788172
+    },
+    "per_view": [
+      {
+        "input": "rect_023_3_r5000.png",
+        "camera_id": 23,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.310641870498232,
+        "principal_point_normalized_error": 0.015017982573345676
+      },
+      {
+        "input": "rect_026_3_r5000.png",
+        "camera_id": 26,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.21285712213351154,
+        "principal_point_normalized_error": 0.015018510145540908
+      },
+      {
+        "input": "rect_029_3_r5000.png",
+        "camera_id": 29,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.25058721859630234,
+        "principal_point_normalized_error": 0.015018338241777231
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 3,
+    "median": 6.584761879840872,
+    "mean": 5.138604879153029,
+    "p90": 7.4397104730216865
+  },
+  "translation_direction_degrees": {
+    "count": 3,
+    "median": 6.15660151543806,
+    "mean": 9.708866650307009,
+    "p90": 15.279407314006743
+  },
+  "depth": null,
+  "point_cloud": {
+    "status": "available",
+    "protocol": "official_mask_plane_threshold_deterministic_cap",
+    "alignment": {
+      "source": "camera_pose_rotation_then_center_scale_translation",
+      "scale": 2541.0599286994366,
+      "rotation": [
+        [
+          0.6406817280829435,
+          0.25732365076376296,
+          -0.7234026970216946
+        ],
+        [
+          -0.6338481114162479,
+          0.7089759374503178,
+          -0.30917582662701565
+        ],
+        [
+          0.4333168528394765,
+          0.6566107361854904,
+          0.61733203883424
+        ]
+      ],
+      "translation": [
+        512.4678504906414,
+        177.12138532283976,
+        219.9391397376705
+      ]
+    },
+    "voxel_size_millimeters": 0.2,
+    "outlier_threshold_millimeters": 20.0,
+    "maximum_points": 100000,
+    "predicted_points_evaluated": 100000,
+    "predicted_points_in_observation_mask": 291,
+    "target_points_evaluated": 100000,
+    "accuracy_distances_before_outlier_filter": 291,
+    "accuracy_distances_after_outlier_filter": 291,
+    "completeness_distances_before_outlier_filter": 100000,
+    "completeness_distances_after_outlier_filter": 469,
+    "accuracy_millimeters": {
+      "count": 291,
+      "median": 3.633417372870952,
+      "mean": 3.851290574059018,
+      "p90": 6.591262101361068
+    },
+    "completeness_millimeters": {
+      "count": 469,
+      "median": 13.896278994189325,
+      "mean": 12.606893216318342,
+      "p90": 19.092404251854035
+    },
+    "predicted_source_supported_points_before_alignment": 300000
+  },
+  "evaluation_protocol_version": "dtu-1.1",
+  "scene": "scan114",
+  "calibration_dir": "/mnt/e/camcanon3r-data/dtu_selected/calibration/cal18",
+  "gt_root": "/mnt/e/camcanon3r-data/dtu_selected/gt",
+  "point_metrics_requested": true,
+  "protocol_sha256": "0480fcb5f339f25dc779e80fef560a321c1a7277279a8bf7643586cc05c77e6a",
+  "variant_config_sha256": "2219be64a9c0e829ce619fe8aa431f53aad8c7ef7695a5bd570d48054187100e"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "prepared_root": "/opt/camcanon3r/data/dtu/rectified_support_control",
+  "scene_count": 22,
+  "variant_count": 3,
+  "png_count": 198,
+  "manifest_count": 22,
+  "tree_sha256": "f5bf3ce9d0582c476eaf7150089aa25967a68e43356a09c42f53789490500749",
+  "reference_root": null,
+  "reference_variant_count": 0,
+  "reference_image_matches": 0,
+  "shared_variant_scene_count": 0,
+  "support_control": true,
+  "support_content_matches": 198,
+  "support_padding_matches": 198,
+  "dataset": "DTU MVS Data Set 2014",
+  "protocol": "/opt/camcanon3r/configs/dtu_support_control_protocol.json",
+  "protocol_sha256": "94bf28de1ec3b7aa9fc031a4dff636993bd1b410faabb92962b2aa9ecfff571e",
+  "variant_config": "/opt/camcanon3r/configs/support_control_variants.json",
+  "variant_config_sha256": "603d667daa1cced1994485642d5a931f186eb20524e7c3fde0e6644a6d2fc9dd",
+  "preparation_report": "/opt/camcanon3r/data/dtu/rectified_support_control/preparation_report.json",
+  "preparation_report_sha256": "c73d6719ae5d1f0dae0f39c8bc3b96ca97e1fe814c6735e8f327cfc11bf3df77",
+  "camera_ids_one_based": [
+    23,
+    26,
+    29
+  ],
+  "lighting_index": 3
+}

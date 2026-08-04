@@ -1,0 +1,153 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_support_control/scan62/letterbox_square.npz",
+  "variant": "letterbox_square",
+  "scan": 62,
+  "inputs": [
+    "rect_023_3_r5000.png",
+    "rect_026_3_r5000.png",
+    "rect_029_3_r5000.png"
+  ],
+  "camera_model": "PINHOLE",
+  "camera_size": [
+    1600,
+    1600
+  ],
+  "camera_ids": [
+    23,
+    26,
+    29
+  ],
+  "camera_sizes": [
+    [
+      1600,
+      1600
+    ],
+    [
+      1600,
+      1600
+    ],
+    [
+      1600,
+      1600
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 3,
+      "median": 0.08796540358395899,
+      "mean": 0.08735603440920688,
+      "p90": 0.08831314247532625
+    },
+    "principal_point_normalized_error": {
+      "count": 3,
+      "median": 0.013274461016142413,
+      "mean": 0.013274406873957914,
+      "p90": 0.013274582570459421
+    },
+    "per_view": [
+      {
+        "input": "rect_023_3_r5000.png",
+        "camera_id": 23,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.08840007719816806,
+        "principal_point_normalized_error": 0.013274146646692655
+      },
+      {
+        "input": "rect_026_3_r5000.png",
+        "camera_id": 26,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.08570262244549362,
+        "principal_point_normalized_error": 0.013274612959038673
+      },
+      {
+        "input": "rect_029_3_r5000.png",
+        "camera_id": 29,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.08796540358395899,
+        "principal_point_normalized_error": 0.013274461016142413
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 3,
+    "median": 0.6480698817284575,
+    "mean": 0.722593193579296,
+    "p90": 0.9564143843795708
+  },
+  "translation_direction_degrees": {
+    "count": 3,
+    "median": 0.4144833875192568,
+    "mean": 0.35972435731738356,
+    "p90": 0.4336198720587269
+  },
+  "depth": null,
+  "point_cloud": {
+    "status": "available",
+    "protocol": "official_mask_plane_threshold_deterministic_cap",
+    "alignment": {
+      "source": "camera_pose_rotation_then_center_scale_translation",
+      "scale": 695.3354849724482,
+      "rotation": [
+        [
+          0.027409424299542275,
+          0.42657787495543786,
+          -0.9040354196922107
+        ],
+        [
+          -0.8883586186366728,
+          0.42505408301307,
+          0.17363176900515911
+        ],
+        [
+          0.4583314173755828,
+          0.7983485098078543,
+          0.39060461944793795
+        ]
+      ],
+      "translation": [
+        593.372717507478,
+        -122.12067784896234,
+        375.0927611828951
+      ]
+    },
+    "voxel_size_millimeters": 0.2,
+    "outlier_threshold_millimeters": 20.0,
+    "maximum_points": 100000,
+    "predicted_points_evaluated": 100000,
+    "predicted_points_in_observation_mask": 74283,
+    "target_points_evaluated": 100000,
+    "accuracy_distances_before_outlier_filter": 74283,
+    "accuracy_distances_after_outlier_filter": 71108,
+    "completeness_distances_before_outlier_filter": 100000,
+    "completeness_distances_after_outlier_filter": 97715,
+    "accuracy_millimeters": {
+      "count": 71108,
+      "median": 7.240207214619161,
+      "mean": 7.896544080563744,
+      "p90": 14.751291044356782
+    },
+    "completeness_millimeters": {
+      "count": 97715,
+      "median": 4.584496080368639,
+      "mean": 5.63175987728823,
+      "p90": 12.126791102115194
+    },
+    "predicted_source_supported_points_before_alignment": 300000
+  },
+  "evaluation_protocol_version": "dtu-1.1",
+  "scene": "scan62",
+  "calibration_dir": "/mnt/e/camcanon3r-data/dtu_selected/calibration/cal18",
+  "gt_root": "/mnt/e/camcanon3r-data/dtu_selected/gt",
+  "point_metrics_requested": true,
+  "protocol_sha256": "94bf28de1ec3b7aa9fc031a4dff636993bd1b410faabb92962b2aa9ecfff571e",
+  "variant_config_sha256": "603d667daa1cced1994485642d5a931f186eb20524e7c3fde0e6644a6d2fc9dd"
+}

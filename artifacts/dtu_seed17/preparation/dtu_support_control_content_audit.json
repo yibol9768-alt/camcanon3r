@@ -1,0 +1,21 @@
+{
+  "schema_version": "support-control-1.0",
+  "status": "complete",
+  "prepared_root": "/opt/camcanon3r/data/dtu/rectified_support_control",
+  "scene_count": 22,
+  "variant_count": 3,
+  "png_count": 198,
+  "manifest_count": 22,
+  "tree_sha256": "f5bf3ce9d0582c476eaf7150089aa25967a68e43356a09c42f53789490500749",
+  "reference_root": "/opt/camcanon3r/data/dtu/rectified_mechanism",
+  "reference_variant_count": 0,
+  "reference_image_matches": 0,
+  "shared_variant_scene_count": 0,
+  "support_control": true,
+  "support_content_matches": 198,
+  "support_padding_matches": 198,
+  "variant_config": "/opt/camcanon3r/configs/support_control_variants.json",
+  "variant_config_sha256": "603d667daa1cced1994485642d5a931f186eb20524e7c3fde0e6644a6d2fc9dd",
+  "reference_letterbox_matches": 66,
+  "reference_letterbox_tree_sha256": "3a9cb7e61fde6d3e6a1fed308d596c04f611a5fcfc0d8fb243d164e30ae49fa7"
+}

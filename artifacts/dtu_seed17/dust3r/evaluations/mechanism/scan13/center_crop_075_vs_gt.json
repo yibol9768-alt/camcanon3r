@@ -1,0 +1,153 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/dtu/dust3r/rectified_mechanism/scan13/center_crop_075.npz",
+  "variant": "center_crop_075",
+  "scan": 13,
+  "inputs": [
+    "rect_023_3_r5000.png",
+    "rect_026_3_r5000.png",
+    "rect_029_3_r5000.png"
+  ],
+  "camera_model": "PINHOLE",
+  "camera_size": [
+    1600,
+    1200
+  ],
+  "camera_ids": [
+    23,
+    26,
+    29
+  ],
+  "camera_sizes": [
+    [
+      1600,
+      1200
+    ],
+    [
+      1600,
+      1200
+    ],
+    [
+      1600,
+      1200
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 3,
+      "median": 0.1830633089322773,
+      "mean": 0.27196249071328166,
+      "p90": 0.5416033186372476
+    },
+    "principal_point_normalized_error": {
+      "count": 3,
+      "median": 0.015018338241777231,
+      "mean": 0.015018276986887938,
+      "p90": 0.015018475764788172
+    },
+    "per_view": [
+      {
+        "input": "rect_023_3_r5000.png",
+        "camera_id": 23,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.1830633089322773,
+        "principal_point_normalized_error": 0.015017982573345676
+      },
+      {
+        "input": "rect_026_3_r5000.png",
+        "camera_id": 26,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.0015858421440775629,
+        "principal_point_normalized_error": 0.015018510145540908
+      },
+      {
+        "input": "rect_029_3_r5000.png",
+        "camera_id": 29,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.6312383210634902,
+        "principal_point_normalized_error": 0.015018338241777231
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 3,
+    "median": 5.609714908683797,
+    "mean": 5.778141327527602,
+    "p90": 7.114174361758673
+  },
+  "translation_direction_degrees": {
+    "count": 3,
+    "median": 18.350853972432144,
+    "mean": 20.299797469617996,
+    "p90": 27.234984495639246
+  },
+  "depth": null,
+  "point_cloud": {
+    "status": "available",
+    "protocol": "official_mask_plane_threshold_deterministic_cap",
+    "alignment": {
+      "source": "camera_pose_rotation_then_center_scale_translation",
+      "scale": 1801.1300182188763,
+      "rotation": [
+        [
+          0.6735755776734675,
+          0.25869750847450246,
+          -0.6923666227302839
+        ],
+        [
+          -0.6357398276518117,
+          0.6805890278891986,
+          -0.36418875141069296
+        ],
+        [
+          0.37700240410254543,
+          0.6854736860200545,
+          0.6228924570702236
+        ]
+      ],
+      "translation": [
+        460.431680167704,
+        132.7463788157496,
+        277.83933751576853
+      ]
+    },
+    "voxel_size_millimeters": 0.2,
+    "outlier_threshold_millimeters": 20.0,
+    "maximum_points": 100000,
+    "predicted_points_evaluated": 100000,
+    "predicted_points_in_observation_mask": 22305,
+    "target_points_evaluated": 100000,
+    "accuracy_distances_before_outlier_filter": 22305,
+    "accuracy_distances_after_outlier_filter": 9460,
+    "completeness_distances_before_outlier_filter": 100000,
+    "completeness_distances_after_outlier_filter": 10333,
+    "accuracy_millimeters": {
+      "count": 9460,
+      "median": 10.625017396897881,
+      "mean": 11.652072618466276,
+      "p90": 17.888204391826946
+    },
+    "completeness_millimeters": {
+      "count": 10333,
+      "median": 12.121259223592933,
+      "mean": 12.507062836608716,
+      "p90": 18.40574968244162
+    },
+    "predicted_source_supported_points_before_alignment": 300000
+  },
+  "evaluation_protocol_version": "dtu-1.1",
+  "scene": "scan13",
+  "calibration_dir": "/mnt/e/camcanon3r-data/dtu_selected/calibration/cal18",
+  "gt_root": "/mnt/e/camcanon3r-data/dtu_selected/gt",
+  "point_metrics_requested": true,
+  "protocol_sha256": "0480fcb5f339f25dc779e80fef560a321c1a7277279a8bf7643586cc05c77e6a",
+  "variant_config_sha256": "2219be64a9c0e829ce619fe8aa431f53aad8c7ef7695a5bd570d48054187100e"
+}

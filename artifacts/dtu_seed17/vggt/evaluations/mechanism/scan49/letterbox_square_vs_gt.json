@@ -1,0 +1,149 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan49/letterbox_square.npz",
+  "variant": "letterbox_square",
+  "scan": 49,
+  "inputs": [
+    "rect_023_3_r5000.png",
+    "rect_026_3_r5000.png",
+    "rect_029_3_r5000.png"
+  ],
+  "camera_model": "PINHOLE",
+  "camera_size": [
+    1600,
+    1600
+  ],
+  "camera_ids": [
+    23,
+    26,
+    29
+  ],
+  "camera_sizes": [
+    [
+      1600,
+      1600
+    ],
+    [
+      1600,
+      1600
+    ],
+    [
+      1600,
+      1600
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 3,
+      "median": 0.11717604662980158,
+      "mean": 0.1166871703433442,
+      "p90": 0.11966114844925516
+    },
+    "principal_point_normalized_error": {
+      "count": 3,
+      "median": 0.013274461016142413,
+      "mean": 0.013274406873957914,
+      "p90": 0.013274582570459421
+    },
+    "per_view": [
+      {
+        "input": "rect_023_3_r5000.png",
+        "camera_id": 23,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.11717604662980158,
+        "principal_point_normalized_error": 0.013274146646692655
+      },
+      {
+        "input": "rect_026_3_r5000.png",
+        "camera_id": 26,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.11260304049611249,
+        "principal_point_normalized_error": 0.013274612959038673
+      },
+      {
+        "input": "rect_029_3_r5000.png",
+        "camera_id": 29,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.12028242390411856,
+        "principal_point_normalized_error": 0.013274461016142413
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 3,
+    "median": 0.9792359840736657,
+    "mean": 0.8013723240889217,
+    "p90": 1.0275019017697518
+  },
+  "translation_direction_degrees": {
+    "count": 3,
+    "median": 0.5307208353539472,
+    "mean": 0.5213325780842516,
+    "p90": 0.5427276726548036
+  },
+  "depth": null,
+  "point_cloud": {
+    "status": "available",
+    "protocol": "official_mask_plane_threshold_deterministic_cap",
+    "alignment": {
+      "source": "camera_pose_rotation_then_center_scale_translation",
+      "scale": 696.4311916977994,
+      "rotation": [
+        [
+          0.030268479952683416,
+          0.42493525198584103,
+          -0.9047175530192196
+        ],
+        [
+          -0.8901195519644555,
+          0.4232304875543896,
+          0.16900632418661532
+        ],
+        [
+          0.4547207960187786,
+          0.8001912184123264,
+          0.39105371963944374
+        ]
+      ],
+      "translation": [
+        593.5449961638831,
+        -116.54777528648086,
+        373.5417071756573
+      ]
+    },
+    "voxel_size_millimeters": 0.2,
+    "outlier_threshold_millimeters": 20.0,
+    "maximum_points": 100000,
+    "predicted_points_evaluated": 100000,
+    "predicted_points_in_observation_mask": 71292,
+    "target_points_evaluated": 100000,
+    "accuracy_millimeters": {
+      "count": 64505,
+      "median": 9.794395017494582,
+      "mean": 9.643555988203989,
+      "p90": 16.824328524106527
+    },
+    "completeness_millimeters": {
+      "count": 94659,
+      "median": 5.1171948946046255,
+      "mean": 5.80082965383644,
+      "p90": 11.493728121191646
+    },
+    "predicted_source_supported_points_before_alignment": 300000
+  },
+  "evaluation_protocol_version": "dtu-1.1",
+  "scene": "scan49",
+  "calibration_dir": "/mnt/e/camcanon3r-data/dtu_selected/calibration/cal18",
+  "gt_root": "/mnt/e/camcanon3r-data/dtu_selected/gt",
+  "point_metrics_requested": true,
+  "protocol_sha256": "0480fcb5f339f25dc779e80fef560a321c1a7277279a8bf7643586cc05c77e6a",
+  "variant_config_sha256": "2219be64a9c0e829ce619fe8aa431f53aad8c7ef7695a5bd570d48054187100e"
+}

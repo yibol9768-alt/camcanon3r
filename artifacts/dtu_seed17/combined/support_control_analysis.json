@@ -1,0 +1,1715 @@
+{
+  "schema_version": "support-control-analysis-1.0",
+  "status": "complete",
+  "protocol": "configs/support_control_variants.json",
+  "protocol_sha256": "603d667daa1cced1994485642d5a931f186eb20524e7c3fde0e6644a6d2fc9dd",
+  "models_are_separate": true,
+  "datasets_are_separate": true,
+  "metric_units": {
+    "rotation_degrees": "degrees",
+    "translation_degrees": "degrees",
+    "focal_percentage_points": "percentage_points",
+    "principal_point_percent_diagonal": "percent_image_diagonal",
+    "depth_abs_rel_percentage_points": "percentage_points",
+    "point_accuracy_millimeters": "millimeters",
+    "point_completeness_millimeters": "millimeters"
+  },
+  "analyses": [
+    {
+      "model": "vggt",
+      "dataset": "eth3d",
+      "scene_count": 13,
+      "variants": [
+        "letterbox_square",
+        "shared_asymmetric_letterbox_square",
+        "asymmetric_letterbox_square"
+      ],
+      "source": "results/eth3d_training/vggt/raw_support_control/summary.json",
+      "source_sha256": "f980786df25ecc3415ff8baa49b6d45ca002ed61232b7a55272baf437b9c4441",
+      "by_variant": {
+        "letterbox_square": {
+          "scene_count": 13,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "depth_abs_rel_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 0.9876133120094013,
+                "lower": 0.6726910551470904,
+                "upper": 1.2539608390931472
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 1.8898898446197154,
+                "lower": 1.5297900865963583,
+                "upper": 4.424163359778354
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 3.0259138467208317,
+                "lower": 1.84855743755463,
+                "upper": 3.8797402826805243
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 0.1855829986234197,
+                "lower": 0.1815620573967324,
+                "upper": 0.21286293721324936
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "depth_abs_rel_percentage_points_absolute": {
+                "point_estimate": 1.9373070675701616,
+                "lower": 1.8058002894230867,
+                "upper": 2.6034115245376808
+              },
+              "depth_abs_rel_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 106.26184705245971,
+                "lower": 80.64398167799823,
+                "upper": 184.690125803858
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 109.9531192590095,
+                "lower": 91.8037787584138,
+                "upper": 255.89833675830226
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              }
+            }
+          }
+        },
+        "shared_asymmetric_letterbox_square": {
+          "scene_count": 13,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "depth_abs_rel_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 5.846019728282491,
+                "lower": 1.7851443216104643,
+                "upper": 9.628025267321446
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 5.173328673135401,
+                "lower": 1.0006060383921915,
+                "upper": 8.640411955312045
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 9.82237215752182,
+                "lower": 6.419164806557009,
+                "upper": 10.77494132947691
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 5.624685735385316,
+                "lower": 3.9632350406685344,
+                "upper": 8.939010541555861
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 6.97256894318313,
+                "lower": 3.6775877468036913,
+                "upper": 12.453671883385505
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 5.709774491436823,
+                "lower": 0.8070397022832048,
+                "upper": 7.04540677940602
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 13.914586580068294,
+                "lower": 13.901412342381562,
+                "upper": 13.949773038084912
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 13.724667627815837,
+                "lower": 13.712428037620198,
+                "upper": 13.750896608209793
+              },
+              "depth_abs_rel_percentage_points_absolute": {
+                "point_estimate": 5.58750324209879,
+                "lower": 4.606836173825609,
+                "upper": 6.9670301626443525
+              },
+              "depth_abs_rel_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 3.537405933835931,
+                "lower": 2.11327529686376,
+                "upper": 4.4372834031270765
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 430.13410100956287,
+                "lower": 249.4042542164417,
+                "upper": 906.752326996446
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 349.49011933156464,
+                "lower": 143.142407163982,
+                "upper": 541.7343361174338
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 636.6571431687889,
+                "lower": 270.65472830600834,
+                "upper": 778.1620806168219
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 343.55696474661744,
+                "lower": 179.43352055192727,
+                "upper": 624.5471515037841
+              }
+            }
+          }
+        },
+        "asymmetric_letterbox_square": {
+          "scene_count": 13,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "depth_abs_rel_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 15.5951556975408,
+                "lower": 10.719106935344346,
+                "upper": 16.405396823909406
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 13.970501759079252,
+                "lower": 9.800004080156551,
+                "upper": 15.331149537102542
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 18.501944003933833,
+                "lower": 13.456300523472743,
+                "upper": 33.110403547722484
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 16.551259194690278,
+                "lower": 11.566410678853028,
+                "upper": 30.39792484598321
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 24.45883756397346,
+                "lower": 17.289295239249057,
+                "upper": 39.9848929454909
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 21.57056918864697,
+                "lower": 14.146941025593874,
+                "upper": 36.105152662810376
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 13.822694369961914,
+                "lower": 13.802232889402738,
+                "upper": 13.847435765120867
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 13.63714177514548,
+                "lower": 13.591234308369051,
+                "upper": 13.657618646988974
+              },
+              "depth_abs_rel_percentage_points_absolute": {
+                "point_estimate": 12.94165915477997,
+                "lower": 9.94788281375576,
+                "upper": 18.11515316655951
+              },
+              "depth_abs_rel_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 10.736979194914264,
+                "lower": 8.337818456417136,
+                "upper": 14.238750880204542
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 566.6200171887369,
+                "lower": 455.38844836873045,
+                "upper": 1310.5795147280578
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 514.4347811859606,
+                "lower": 340.46780865666705,
+                "upper": 1041.813704912191
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 1239.4487040631511,
+                "lower": 826.7669103603306,
+                "upper": 2317.136467598449
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 1189.8957728851979,
+                "lower": 700.7093086773123,
+                "upper": 2231.0674278416527
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": "dust3r",
+      "dataset": "eth3d",
+      "scene_count": 13,
+      "variants": [
+        "letterbox_square",
+        "shared_asymmetric_letterbox_square",
+        "asymmetric_letterbox_square"
+      ],
+      "source": "results/eth3d_training/dust3r/raw_support_control/summary.json",
+      "source_sha256": "52ec60d60dadd0dbd01c63e4ba8c11651df171c8c695acfbc25a385bcaea93fe",
+      "by_variant": {
+        "letterbox_square": {
+          "scene_count": 13,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "depth_abs_rel_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 1.3335759003214336,
+                "lower": 0.7854047966781992,
+                "upper": 1.791518072851912
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 3.6094887154538386,
+                "lower": 2.9478358957406314,
+                "upper": 7.932254070853618
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 5.222635567199777,
+                "lower": 3.1565881146676245,
+                "upper": 7.317767610436271
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 0.18558299862342095,
+                "lower": 0.18156205739673548,
+                "upper": 0.21286293721324992
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "depth_abs_rel_percentage_points_absolute": {
+                "point_estimate": 2.6919690298134666,
+                "lower": 2.0272095976280236,
+                "upper": 3.68651601682611
+              },
+              "depth_abs_rel_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 189.59639605522807,
+                "lower": 120.53050999953649,
+                "upper": 346.23689395455517
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 179.5224297574488,
+                "lower": 92.46473820148474,
+                "upper": 325.7469709665771
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              }
+            }
+          }
+        },
+        "shared_asymmetric_letterbox_square": {
+          "scene_count": 13,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "depth_abs_rel_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 5.418926917390166,
+                "lower": 1.7608167829775008,
+                "upper": 10.214191260047485
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 3.8658687961159384,
+                "lower": 0.9306904846489894,
+                "upper": 7.679921308685941
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 17.165620161864204,
+                "lower": 11.963201749300039,
+                "upper": 20.507140673778018
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 9.353872200194722,
+                "lower": 4.970408381835137,
+                "upper": 14.217784266123573
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 11.139258577193779,
+                "lower": 7.818668121096318,
+                "upper": 27.619769814769224
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 2.852886533934396,
+                "lower": 2.1203467857375387,
+                "upper": 18.71399792718314
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 13.914586580068294,
+                "lower": 13.901412342381562,
+                "upper": 13.949773038084912
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 13.724667627815835,
+                "lower": 13.712428037620196,
+                "upper": 13.75089660820979
+              },
+              "depth_abs_rel_percentage_points_absolute": {
+                "point_estimate": 5.792480878029128,
+                "lower": 4.214760770873198,
+                "upper": 8.71604076729111
+              },
+              "depth_abs_rel_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 3.093688034388063,
+                "lower": 1.8185115973027868,
+                "upper": 3.8345613890187615
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 596.4526589154566,
+                "lower": 336.29023737633327,
+                "upper": 1079.1108567543574
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 327.50638590015365,
+                "lower": 234.70506943591278,
+                "upper": 732.8739627998023
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 712.5384957588998,
+                "lower": 572.7451816150061,
+                "upper": 1165.669276102387
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 480.28044341352137,
+                "lower": 325.31697517767407,
+                "upper": 814.7152568763811
+              }
+            }
+          }
+        },
+        "asymmetric_letterbox_square": {
+          "scene_count": 13,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "depth_abs_rel_percentage_points": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 13,
+              "paired_valid_scene_count": 13,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 13.006588059453144,
+                "lower": 8.942059166617621,
+                "upper": 17.834812375362436
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 10.901197110883144,
+                "lower": 8.11193286828911,
+                "upper": 16.28175425408821
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 28.776750927541975,
+                "lower": 22.410407964060703,
+                "upper": 36.79709873489615
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 24.750362720137836,
+                "lower": 18.800919248606863,
+                "upper": 28.4031956841416
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 38.730878863942976,
+                "lower": 21.003418870546426,
+                "upper": 50.83370351696041
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 32.689250247705395,
+                "lower": 11.6223127171822,
+                "upper": 46.67903095580012
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 13.822694369961908,
+                "lower": 13.802232889402735,
+                "upper": 13.84743576512086
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 13.637141775145473,
+                "lower": 13.591234308369046,
+                "upper": 13.657618646988967
+              },
+              "depth_abs_rel_percentage_points_absolute": {
+                "point_estimate": 9.818777849536755,
+                "lower": 8.10978685395291,
+                "upper": 12.503750020159218
+              },
+              "depth_abs_rel_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 4.984165240955553,
+                "lower": 4.4232708371268,
+                "upper": 9.463388205490972
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 835.8699830595964,
+                "lower": 648.4670390474126,
+                "upper": 1282.6384253248864
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 709.7316139943867,
+                "lower": 359.16312090769077,
+                "upper": 1144.7459744889695
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 1770.7426518999841,
+                "lower": 1165.7654166996297,
+                "upper": 1927.6790133583177
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 1591.2202221425352,
+                "lower": 1103.5203214555472,
+                "upper": 1784.6219245819648
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": "vggt",
+      "dataset": "dtu",
+      "scene_count": 22,
+      "variants": [
+        "letterbox_square",
+        "shared_asymmetric_letterbox_square",
+        "asymmetric_letterbox_square"
+      ],
+      "source": "results/dtu/vggt/rectified_support_control/summary.json",
+      "source_sha256": "bb2c62ceb795c1cba920732e2f751db8381c323887aee75a0cd8d3afd36ec3fc",
+      "by_variant": {
+        "letterbox_square": {
+          "scene_count": 22,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 22,
+            "scenes": [
+              "scan1",
+              "scan10",
+              "scan11",
+              "scan110",
+              "scan114",
+              "scan118",
+              "scan12",
+              "scan13",
+              "scan15",
+              "scan23",
+              "scan24",
+              "scan29",
+              "scan32",
+              "scan33",
+              "scan34",
+              "scan4",
+              "scan48",
+              "scan49",
+              "scan62",
+              "scan75",
+              "scan77",
+              "scan9"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 0.6324261964351224,
+                "lower": 0.5191019055447321,
+                "upper": 0.7724296464331597
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 0.4953310821393795,
+                "lower": 0.4115501388993353,
+                "upper": 0.5876670263688694
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 9.32650667196975,
+                "lower": 6.249237292944869,
+                "upper": 11.053835418958245
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 1.3274461016142414,
+                "lower": 1.3274461016142414,
+                "upper": 1.3274461016142414
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 4.794244675887953,
+                "lower": 3.72150826507069,
+                "upper": 6.642592204514121
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 4.513377084045459,
+                "lower": 4.0481178217863345,
+                "upper": 5.80082965383644
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              }
+            }
+          }
+        },
+        "shared_asymmetric_letterbox_square": {
+          "scene_count": 22,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 22,
+            "scenes": [
+              "scan1",
+              "scan10",
+              "scan11",
+              "scan110",
+              "scan114",
+              "scan118",
+              "scan12",
+              "scan13",
+              "scan15",
+              "scan23",
+              "scan24",
+              "scan29",
+              "scan32",
+              "scan33",
+              "scan34",
+              "scan4",
+              "scan48",
+              "scan49",
+              "scan62",
+              "scan75",
+              "scan77",
+              "scan9"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 2.400345404191477,
+                "lower": 2.3386594063922015,
+                "upper": 2.6050135427998877
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 1.7405990617992209,
+                "lower": 1.4846318547623614,
+                "upper": 2.00527791195314
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 1.8901338565145438,
+                "lower": 1.743218889626604,
+                "upper": 2.040403195674272
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 1.4241188511014038,
+                "lower": 1.057828335000553,
+                "upper": 1.6313959618621539
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 6.900295110235424,
+                "lower": 5.336744433181926,
+                "upper": 8.641884714462202
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": -1.1684180213280455,
+                "lower": -1.95159362564673,
+                "upper": -0.03448609239350553
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 8.061573082057775,
+                "lower": 8.061573082057775,
+                "upper": 8.061573082057775
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 6.734126980443533,
+                "lower": 6.734126980443533,
+                "upper": 6.734126980443533
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 7.682504124644723,
+                "lower": 7.0987267616010055,
+                "upper": 8.35153569017997
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 2.7166263305971516,
+                "lower": 1.1443516494332497,
+                "upper": 3.925838184057903
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 8.886900627884922,
+                "lower": 7.6314145695287845,
+                "upper": 9.871972878503726
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 4.029137180650391,
+                "lower": 1.4998022584186605,
+                "upper": 5.444955282483724
+              }
+            }
+          }
+        },
+        "asymmetric_letterbox_square": {
+          "scene_count": 22,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 22,
+            "scenes": [
+              "scan1",
+              "scan10",
+              "scan11",
+              "scan110",
+              "scan114",
+              "scan118",
+              "scan12",
+              "scan13",
+              "scan15",
+              "scan23",
+              "scan24",
+              "scan29",
+              "scan32",
+              "scan33",
+              "scan34",
+              "scan4",
+              "scan48",
+              "scan49",
+              "scan62",
+              "scan75",
+              "scan77",
+              "scan9"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 11.409651717642692,
+                "lower": 10.70778548114308,
+                "upper": 12.060605013952921
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 10.77521212154117,
+                "lower": 10.01939700977714,
+                "upper": 11.303207534824642
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 6.690677009631541,
+                "lower": 5.319064464373026,
+                "upper": 7.548531252410331
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 6.0930473943779075,
+                "lower": 4.905587502650672,
+                "upper": 7.089431855065274
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 16.9551767285648,
+                "lower": 16.07278610706972,
+                "upper": 19.34943899286477
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 7.922847417525746,
+                "lower": 7.531942651057525,
+                "upper": 8.770716728731042
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 9.735745047869987,
+                "lower": 9.735745047869987,
+                "upper": 9.735745047869987
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 8.408298946255746,
+                "lower": 8.408298946255746,
+                "upper": 8.408298946255746
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 8.598651733712735,
+                "lower": 7.348671572632123,
+                "upper": 9.459677880551595
+              },
+              "point_accuracy_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 2.724569877037701,
+                "lower": 1.56591577579686,
+                "upper": 3.8809056413831327
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 9.413170229546068,
+                "lower": 7.986817873805577,
+                "upper": 10.23071134940503
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 3.3986517937118896,
+                "lower": 2.540423065007987,
+                "upper": 4.954589249736113
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu",
+      "scene_count": 22,
+      "variants": [
+        "letterbox_square",
+        "shared_asymmetric_letterbox_square",
+        "asymmetric_letterbox_square"
+      ],
+      "source": "results/dtu/dust3r/rectified_support_control/summary.json",
+      "source_sha256": "f3493aec3a0bfdf61b5e9de5cbe09806db24297fa8ecf76b245def5496807fd8",
+      "by_variant": {
+        "letterbox_square": {
+          "scene_count": 22,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 21,
+              "paired_valid_scene_count": 21,
+              "included_in_scene_bootstrap": false
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 22,
+            "scenes": [
+              "scan1",
+              "scan10",
+              "scan11",
+              "scan110",
+              "scan114",
+              "scan118",
+              "scan12",
+              "scan13",
+              "scan15",
+              "scan23",
+              "scan24",
+              "scan29",
+              "scan32",
+              "scan33",
+              "scan34",
+              "scan4",
+              "scan48",
+              "scan49",
+              "scan62",
+              "scan75",
+              "scan77",
+              "scan9"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 2.433756481544346,
+                "lower": 1.2072317841655302,
+                "upper": 4.083907931638467
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 4.495015159230718,
+                "lower": 3.450955438250366,
+                "upper": 6.210371195227198
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 17.615099230727928,
+                "lower": 9.061582195650159,
+                "upper": 29.63183860159647
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 1.3274461016142414,
+                "lower": 1.3274461016142414,
+                "upper": 1.3274461016142414
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 10.154869529817852,
+                "lower": 7.738021926779121,
+                "upper": 11.922831399827215
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              }
+            }
+          }
+        },
+        "shared_asymmetric_letterbox_square": {
+          "scene_count": 22,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 21,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 22,
+            "scenes": [
+              "scan1",
+              "scan10",
+              "scan11",
+              "scan110",
+              "scan114",
+              "scan118",
+              "scan12",
+              "scan13",
+              "scan15",
+              "scan23",
+              "scan24",
+              "scan29",
+              "scan32",
+              "scan33",
+              "scan34",
+              "scan4",
+              "scan48",
+              "scan49",
+              "scan62",
+              "scan75",
+              "scan77",
+              "scan9"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 4.856972200944858,
+                "lower": 2.8035546346155575,
+                "upper": 7.118202261603759
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 2.155007167811338,
+                "lower": 1.5005679665999612,
+                "upper": 2.5953164151923165
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 5.96460461288204,
+                "lower": 4.501154656491579,
+                "upper": 7.973077387771632
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.7922155445000798,
+                "lower": -0.942752607585363,
+                "upper": 3.5173405897386534
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 21.440430231927493,
+                "lower": 10.126080432644734,
+                "upper": 30.129328313910275
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.8971765400075196,
+                "lower": 0.0639757483483443,
+                "upper": 2.8443594479942806
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 8.061573082057775,
+                "lower": 8.061573082057775,
+                "upper": 8.061573082057775
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 6.734126980443533,
+                "lower": 6.734126980443533,
+                "upper": 6.734126980443533
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 7.614558684419899,
+                "lower": 7.286079162327562,
+                "upper": 8.949982936601117
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 10.26128345598149,
+                "lower": 9.296066653081866,
+                "upper": 11.12384222783142
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.41835714590410245,
+                "lower": -1.902471912320598,
+                "upper": 2.7128436075679208
+              }
+            }
+          }
+        },
+        "asymmetric_letterbox_square": {
+          "scene_count": 22,
+          "metric_availability": {
+            "rotation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "translation_degrees": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "focal_percentage_points": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "principal_point_percent_diagonal": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            },
+            "point_accuracy_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 21,
+              "included_in_scene_bootstrap": true
+            },
+            "point_completeness_millimeters": {
+              "valid_scene_count": 22,
+              "paired_valid_scene_count": 22,
+              "included_in_scene_bootstrap": true
+            }
+          },
+          "scene_bootstrap": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 22,
+            "scenes": [
+              "scan1",
+              "scan10",
+              "scan11",
+              "scan110",
+              "scan114",
+              "scan118",
+              "scan12",
+              "scan13",
+              "scan15",
+              "scan23",
+              "scan24",
+              "scan29",
+              "scan32",
+              "scan33",
+              "scan34",
+              "scan4",
+              "scan48",
+              "scan49",
+              "scan62",
+              "scan75",
+              "scan77",
+              "scan9"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_degrees_absolute": {
+                "point_estimate": 8.389675264488943,
+                "lower": 6.265619030073004,
+                "upper": 9.808720723638116
+              },
+              "rotation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 5.691874350135491,
+                "lower": 4.982371313245416,
+                "upper": 5.932563995082766
+              },
+              "translation_degrees_absolute": {
+                "point_estimate": 6.698036001778824,
+                "lower": 4.334406489461809,
+                "upper": 8.559805120333936
+              },
+              "translation_degrees_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.9756944710916233,
+                "lower": -1.0198589389055068,
+                "upper": 3.017728884250311
+              },
+              "focal_percentage_points_absolute": {
+                "point_estimate": 18.390644359503483,
+                "lower": 7.6508543697664795,
+                "upper": 31.86647579214876
+              },
+              "focal_percentage_points_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.9106377736320068,
+                "lower": -1.213084933500749,
+                "upper": 2.08975335491235
+              },
+              "principal_point_percent_diagonal_absolute": {
+                "point_estimate": 9.735745047869987,
+                "lower": 9.735745047869987,
+                "upper": 9.735745047869987
+              },
+              "principal_point_percent_diagonal_delta_from_symmetric_letterbox": {
+                "point_estimate": 8.408298946255746,
+                "lower": 8.408298946255746,
+                "upper": 8.408298946255746
+              },
+              "point_accuracy_millimeters_absolute": {
+                "point_estimate": 7.273370391348234,
+                "lower": 6.16611176697495,
+                "upper": 7.880482311368675
+              },
+              "point_completeness_millimeters_absolute": {
+                "point_estimate": 8.97414164682578,
+                "lower": 8.330949000707784,
+                "upper": 9.809028016034492
+              },
+              "point_completeness_millimeters_delta_from_symmetric_letterbox": {
+                "point_estimate": 0.05470049101065966,
+                "lower": -0.8564609194870672,
+                "upper": 1.2454338914352086
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "promotion_gate": {
+    "variant": "asymmetric_letterbox_square",
+    "rotation_delta_threshold_degrees": 2.0,
+    "support": [
+      {
+        "model": "vggt",
+        "dataset": "eth3d",
+        "rotation_delta": {
+          "point_estimate": 13.970501759079252,
+          "lower": 9.800004080156551,
+          "upper": 15.331149537102542
+        },
+        "crosses_point_estimate_threshold": true
+      },
+      {
+        "model": "dust3r",
+        "dataset": "eth3d",
+        "rotation_delta": {
+          "point_estimate": 10.901197110883144,
+          "lower": 8.11193286828911,
+          "upper": 16.28175425408821
+        },
+        "crosses_point_estimate_threshold": true
+      },
+      {
+        "model": "vggt",
+        "dataset": "dtu",
+        "rotation_delta": {
+          "point_estimate": 10.77521212154117,
+          "lower": 10.01939700977714,
+          "upper": 11.303207534824642
+        },
+        "crosses_point_estimate_threshold": true
+      },
+      {
+        "model": "dust3r",
+        "dataset": "dtu",
+        "rotation_delta": {
+          "point_estimate": 5.691874350135491,
+          "lower": 4.982371313245416,
+          "upper": 5.932563995082766
+        },
+        "crosses_point_estimate_threshold": true
+      }
+    ],
+    "passes_all_models_and_datasets": true
+  },
+  "interpretation": {
+    "all_source_rgb_preserved": true,
+    "same_scale_canvas_and_padding_count": true,
+    "failed_gate_remains_negative_result": true
+  }
+}

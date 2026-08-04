@@ -1,0 +1,457 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "models_are_separate": true,
+  "timing_units": "seconds",
+  "memory_units": "GiB (2^30 bytes)",
+  "sweep_count": 10,
+  "sweeps": [
+    {
+      "model": "vggt",
+      "dataset": "eth3d-training-raw",
+      "role": "mechanism",
+      "scene_count": 13,
+      "variant_count": 11,
+      "prediction_count": 143,
+      "view_counts": [
+        4
+      ],
+      "model_compute_seconds": {
+        "median": 0.15512881000177003,
+        "p90": 0.1700188035982137,
+        "total": 23.405361585995706
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": null,
+      "end_to_end_availability": "legacy_unavailable",
+      "model_load_seconds": {
+        "median": 7.31461230000059,
+        "minimum": 7.31461230000059,
+        "maximum": 7.31461230000059
+      },
+      "peak_vram_gibibytes": {
+        "median": 5.360390663146973,
+        "maximum": 5.7925543785095215
+      },
+      "source": "results/eth3d_training/vggt/inference_compute.json",
+      "source_sha256": "24909c131b51e6fbf23c18c38eae7d5ec2d1088a247cedc6db0a85784e99d29e"
+    },
+    {
+      "model": "dust3r",
+      "dataset": "eth3d-training-raw",
+      "role": "mechanism",
+      "scene_count": 13,
+      "variant_count": 11,
+      "prediction_count": 143,
+      "view_counts": [
+        4
+      ],
+      "model_compute_seconds": {
+        "median": 4.79918323200036,
+        "p90": 5.015895093799918,
+        "total": 693.0985226830453
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": null,
+      "end_to_end_availability": "legacy_unavailable",
+      "model_load_seconds": {
+        "median": 3.752880254996853,
+        "minimum": 3.752880254996853,
+        "maximum": 3.752880254996853
+      },
+      "peak_vram_gibibytes": {
+        "median": 2.5340728759765625,
+        "maximum": 2.590792655944824
+      },
+      "source": "results/eth3d_training/dust3r/inference_compute.json",
+      "source_sha256": "7d27ecf227494e57646a4a6d9c96106b532e2fcee90da2da3aa0289e94487349"
+    },
+    {
+      "model": "vggt",
+      "dataset": "dtu-held-out",
+      "role": "mechanism",
+      "scene_count": 22,
+      "variant_count": 11,
+      "prediction_count": 242,
+      "view_counts": [
+        3
+      ],
+      "model_compute_seconds": {
+        "median": 0.14157421400159365,
+        "p90": 0.14743733960203828,
+        "total": 39.256225441989955
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 0.7188125225002295,
+        "p90": 0.7595140362980601,
+        "total": 180.88564988191501
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 54.77246111199929,
+        "minimum": 54.77246111199929,
+        "maximum": 54.77246111199929
+      },
+      "peak_vram_gibibytes": {
+        "median": 5.236557483673096,
+        "maximum": 5.489262104034424
+      },
+      "source": "results/dtu/vggt/inference_compute.json",
+      "source_sha256": "d1840c26c0896caa0db94a547fad44c3810e69b67cbe22e80ef585dfff7ccd4a"
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu-held-out",
+      "role": "mechanism",
+      "scene_count": 22,
+      "variant_count": 11,
+      "prediction_count": 242,
+      "view_counts": [
+        3
+      ],
+      "model_compute_seconds": {
+        "median": 4.463782453000022,
+        "p90": 4.491078431293135,
+        "total": 1089.545476708874
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 5.22182224950302,
+        "p90": 5.261486873504327,
+        "total": 1271.2621376330353
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 25.356908744004613,
+        "minimum": 25.356908744004613,
+        "maximum": 25.356908744004613
+      },
+      "peak_vram_gibibytes": {
+        "median": 2.590416431427002,
+        "maximum": 2.590416431427002
+      },
+      "source": "results/dtu/dust3r/inference_compute.json",
+      "source_sha256": "9ddf450703488763f48800dd773c74859668ee2b001bfefb9c98e45f59986557"
+    },
+    {
+      "model": "vggt",
+      "dataset": "dtu-held-out-repair",
+      "role": "canonical_repair",
+      "scene_count": 22,
+      "variant_count": 2,
+      "prediction_count": 44,
+      "view_counts": [
+        3
+      ],
+      "model_compute_seconds": {
+        "median": 0.1405389190040296,
+        "p90": 0.14292546000506262,
+        "total": 10.63750868102943
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 0.6670317525058636,
+        "p90": 0.7183198405007716,
+        "total": 34.32029647400486
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 53.05610245099524,
+        "minimum": 53.05610245099524,
+        "maximum": 53.05610245099524
+      },
+      "peak_vram_gibibytes": {
+        "median": 5.236536979675293,
+        "maximum": 5.236536979675293
+      },
+      "source": "results/dtu/vggt/repair_inference_compute.json",
+      "source_sha256": "5d181addf12c92f393f63440fa4b2b2fe94ec92742063a66aca5cb31877f211b"
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu-held-out-repair",
+      "role": "canonical_repair",
+      "scene_count": 22,
+      "variant_count": 2,
+      "prediction_count": 44,
+      "view_counts": [
+        3
+      ],
+      "model_compute_seconds": {
+        "median": 4.445757315501396,
+        "p90": 4.480633253794804,
+        "total": 203.83357340698421
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 5.152072222503193,
+        "p90": 5.217341841901361,
+        "total": 235.21826617400802
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 24.51331485999981,
+        "minimum": 24.51331485999981,
+        "maximum": 24.51331485999981
+      },
+      "peak_vram_gibibytes": {
+        "median": 2.590416431427002,
+        "maximum": 2.590416431427002
+      },
+      "source": "results/dtu/dust3r/repair_inference_compute.json",
+      "source_sha256": "90cd250786801a64e6fa2d85d6f069c6a9dfe53d94f22eceb14e0dd90163219b"
+    },
+    {
+      "model": "vggt",
+      "dataset": "eth3d-training-raw-support-control",
+      "role": "support_control",
+      "scene_count": 13,
+      "variant_count": 3,
+      "prediction_count": 39,
+      "view_counts": [
+        4
+      ],
+      "model_compute_seconds": {
+        "median": 0.21199477299524006,
+        "p90": 0.215787482005544,
+        "total": 12.701875133017893
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 3.469315419002669,
+        "p90": 3.850333761595539,
+        "total": 141.63760782599275
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 53.36085849799565,
+        "minimum": 53.36085849799565,
+        "maximum": 53.36085849799565
+      },
+      "peak_vram_gibibytes": {
+        "median": 5.791872024536133,
+        "maximum": 5.791872024536133
+      },
+      "source": "results/eth3d_training/vggt/support_control_inference_compute.json",
+      "source_sha256": "5c955cbbd0576c0483c8a37984f691a8f7326f5368ca6ddc3eb481095803e153"
+    },
+    {
+      "model": "dust3r",
+      "dataset": "eth3d-training-raw-support-control",
+      "role": "support_control",
+      "scene_count": 13,
+      "variant_count": 3,
+      "prediction_count": 39,
+      "view_counts": [
+        4
+      ],
+      "model_compute_seconds": {
+        "median": 5.170722056020168,
+        "p90": 5.2328586442017695,
+        "total": 211.97433677308436
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 10.438555161003023,
+        "p90": 11.11265742139949,
+        "total": 420.14514478899946
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 29.421554820000893,
+        "minimum": 29.421554820000893,
+        "maximum": 29.421554820000893
+      },
+      "peak_vram_gibibytes": {
+        "median": 2.592613697052002,
+        "maximum": 2.592613697052002
+      },
+      "source": "results/eth3d_training/dust3r/support_control_inference_compute.json",
+      "source_sha256": "0fde36c24ce82f231923dfc4fce82c5c9110d8c7781bb908cb5775e5d22fed21"
+    },
+    {
+      "model": "vggt",
+      "dataset": "dtu-held-out-support-control",
+      "role": "support_control",
+      "scene_count": 22,
+      "variant_count": 3,
+      "prediction_count": 66,
+      "view_counts": [
+        3
+      ],
+      "model_compute_seconds": {
+        "median": 0.16851620949455537,
+        "p90": 0.17114183399826288,
+        "total": 15.49087129397958
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 0.8483691374931368,
+        "p90": 0.8639373674959643,
+        "total": 60.4887569140119
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 52.984992062003585,
+        "minimum": 52.984992062003585,
+        "maximum": 52.984992062003585
+      },
+      "peak_vram_gibibytes": {
+        "median": 5.489978313446045,
+        "maximum": 5.489978313446045
+      },
+      "source": "results/dtu/vggt/support_control_inference_compute.json",
+      "source_sha256": "f0b635410fe96783c204816c38954515dc3feef48982195aa9020c15c3bb9e7f"
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu-held-out-support-control",
+      "role": "support_control",
+      "scene_count": 22,
+      "variant_count": 3,
+      "prediction_count": 66,
+      "view_counts": [
+        3
+      ],
+      "model_compute_seconds": {
+        "median": 4.451079970000137,
+        "p90": 4.480680900502193,
+        "total": 302.33289672194223
+      },
+      "end_to_end_seconds_excluding_model_load_and_metadata_write": {
+        "median": 5.2248902384963,
+        "p90": 5.268634016501892,
+        "total": 353.14177821102203
+      },
+      "end_to_end_availability": "complete",
+      "model_load_seconds": {
+        "median": 24.61207930299861,
+        "minimum": 24.61207930299861,
+        "maximum": 24.61207930299861
+      },
+      "peak_vram_gibibytes": {
+        "median": 2.590416431427002,
+        "maximum": 2.590416431427002
+      },
+      "source": "results/dtu/dust3r/support_control_inference_compute.json",
+      "source_sha256": "a9070f836aec708ea96d4225a5556321c434c1850324f37bfa6cfbcea5d18c5f"
+    }
+  ],
+  "repair_ablation": {
+    "source": "artifacts/eth3d_repair_seed17/ablation_summary.json",
+    "source_sha256": "12fa16f63f81b18a2afc05d5dc800c06cdb4ef897f68701dff1667fe13dcd444",
+    "models": [
+      {
+        "model": "vggt",
+        "dataset": "eth3d-training-raw",
+        "scene_count": 13,
+        "methods": [
+          {
+            "method": "neutral_gray",
+            "kind": "analytic_fill",
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": 0.15518802299993695,
+            "maximum_peak_vram_gibibytes": 5.36037015914917
+          },
+          {
+            "method": "black",
+            "kind": "analytic_fill",
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": 0.17318626899941592,
+            "maximum_peak_vram_gibibytes": 5.36037015914917
+          },
+          {
+            "method": "image_mean",
+            "kind": "analytic_fill",
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": 0.15980586600198876,
+            "maximum_peak_vram_gibibytes": 5.36037015914917
+          },
+          {
+            "method": "consensus",
+            "kind": "three_fill_selector",
+            "model_runs_per_scene": 3,
+            "median_model_compute_seconds_per_scene": 0.4898078619989974,
+            "maximum_peak_vram_gibibytes": 5.36037015914917
+          },
+          {
+            "method": "native_confidence",
+            "kind": "three_fill_selector",
+            "model_runs_per_scene": 3,
+            "median_model_compute_seconds_per_scene": 0.4898078619989974,
+            "maximum_peak_vram_gibibytes": 5.36037015914917
+          },
+          {
+            "method": "oracle",
+            "kind": "three_fill_selector",
+            "model_runs_per_scene": 3,
+            "median_model_compute_seconds_per_scene": 0.4898078619989974,
+            "maximum_peak_vram_gibibytes": 5.36037015914917
+          }
+        ]
+      },
+      {
+        "model": "dust3r",
+        "dataset": "eth3d-training-raw",
+        "scene_count": 13,
+        "methods": [
+          {
+            "method": "neutral_gray",
+            "kind": "analytic_fill",
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": 4.7973215019992494,
+            "maximum_peak_vram_gibibytes": 2.5340614318847656
+          },
+          {
+            "method": "black",
+            "kind": "analytic_fill",
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": 4.972193767000135,
+            "maximum_peak_vram_gibibytes": 2.5340614318847656
+          },
+          {
+            "method": "image_mean",
+            "kind": "analytic_fill",
+            "model_runs_per_scene": 1,
+            "median_model_compute_seconds_per_scene": 5.3358379540004535,
+            "maximum_peak_vram_gibibytes": 2.5340614318847656
+          },
+          {
+            "method": "consensus",
+            "kind": "three_fill_selector",
+            "model_runs_per_scene": 3,
+            "median_model_compute_seconds_per_scene": 15.046379414998228,
+            "maximum_peak_vram_gibibytes": 2.5340614318847656
+          },
+          {
+            "method": "native_confidence",
+            "kind": "three_fill_selector",
+            "model_runs_per_scene": 3,
+            "median_model_compute_seconds_per_scene": 15.046379414998228,
+            "maximum_peak_vram_gibibytes": 2.5340614318847656
+          },
+          {
+            "method": "oracle",
+            "kind": "three_fill_selector",
+            "model_runs_per_scene": 3,
+            "median_model_compute_seconds_per_scene": 15.046379414998228,
+            "maximum_peak_vram_gibibytes": 2.5340614318847656
+          }
+        ]
+      }
+    ]
+  },
+  "canonicalization": {
+    "source": "results/dtu/rectified_canonical_preparation_compute.json",
+    "source_sha256": "7d27c82c028a6c57e56fd65783c4e0878819d578fbd4b6eb14ac11902b1b84a3",
+    "fill_policy": "neutral_gray",
+    "timing_boundary": "source image decode, inverse affine image and mask warps, PNG writes, and repair manifest update; excludes later model inference",
+    "record_count": 44,
+    "by_source_variant": {
+      "identity": {
+        "count": 22,
+        "median_seconds": 1.3128121064946754,
+        "maximum_seconds": 2.1195634119940223,
+        "total_seconds": 29.978538947965717
+      },
+      "asymmetric_crop_075": {
+        "count": 22,
+        "median_seconds": 0.794090026000049,
+        "maximum_seconds": 1.1344537859986303,
+        "total_seconds": 17.784675806047744
+      }
+    }
+  }
+}

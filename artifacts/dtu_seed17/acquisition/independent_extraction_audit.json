@@ -1,0 +1,34 @@
+{
+  "schema_version": "remote-zip-extraction-audit-1.0",
+  "status": "complete",
+  "output_root": "/mnt/e/camcanon3r-data/dtu_selected",
+  "archive_count": 3,
+  "member_count": 146,
+  "tree_sha256": "7d3c82a6294e025d5ec4961f098ac478d67dbcc9595b84a1f865ae77908c74a4",
+  "archives": {
+    "sampleset": {
+      "selection": "/mnt/e/camcanon3r-data/dtu_mvs/selections/sampleset.json",
+      "selection_sha256": "c9417d72e0ee673b6531bdd3652797622d1a8184f3d1191400bb126270cb8d79",
+      "report": "/mnt/e/camcanon3r-data/dtu_mvs/sampleset_extraction_report.json",
+      "report_sha256": "363a2d216527218f66af32d199bc1fc2bc1f48bded33a8f42ebf4b3ab187042f",
+      "member_count": 58,
+      "tree_sha256": "8f021236656528cb8530bbb5cc9b209184ed91d8e45d74a59048dd442dd6c1fe"
+    },
+    "rectified": {
+      "selection": "/mnt/e/camcanon3r-data/dtu_mvs/selections/rectified.json",
+      "selection_sha256": "f88d44c3d42d7e342f6a93336b3661b5a054c708242a09b6c92c39c1e9a0525d",
+      "report": "/mnt/e/camcanon3r-data/dtu_mvs/rectified_extraction_report.json",
+      "report_sha256": "45d92ff840fa7c7f627be15317f96d801b02fccbfcc67a8bc6cac0851161916b",
+      "member_count": 66,
+      "tree_sha256": "cafcda1132005ac4f54d9ad6b1d72b713fa9b4b1b5f770c0c71468123115bfa7"
+    },
+    "points": {
+      "selection": "/mnt/e/camcanon3r-data/dtu_mvs/selections/points.json",
+      "selection_sha256": "b456e6b1abb3a1aaaa4853f4c2f8a3297c83673ad8b2c8c022b0775b02cee268",
+      "report": "/mnt/e/camcanon3r-data/dtu_mvs/points_extraction_report.json",
+      "report_sha256": "6e31d37ee4a58c30bf7a80de8fa80760b6231f083596f64209b66edc8fd9d118",
+      "member_count": 22,
+      "tree_sha256": "50c56e4586983f5b9f8d09b92ce4842e44d4a0cc7e7cf0947c72292d49c4d1e7"
+    }
+  }
+}

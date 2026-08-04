@@ -1,0 +1,101 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/dtu/dust3r/rectified_mechanism/scan13/shared_asymmetric_crop_075.npz",
+  "variant": "shared_asymmetric_crop_075",
+  "scan": 13,
+  "inputs": [
+    "rect_023_3_r5000.png",
+    "rect_026_3_r5000.png",
+    "rect_029_3_r5000.png"
+  ],
+  "camera_model": "PINHOLE",
+  "camera_size": [
+    1600,
+    1200
+  ],
+  "camera_ids": [
+    23,
+    26,
+    29
+  ],
+  "camera_sizes": [
+    [
+      1600,
+      1200
+    ],
+    [
+      1600,
+      1200
+    ],
+    [
+      1600,
+      1200
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 3,
+      "median": 0.7214371046203677,
+      "mean": 0.6519142519908832,
+      "p90": 0.8297905063933471
+    },
+    "principal_point_normalized_error": {
+      "count": 3,
+      "median": 0.11894461629580051,
+      "mean": 0.11894438272957868,
+      "p90": 0.11894470405783863
+    },
+    "per_view": [
+      {
+        "input": "rect_023_3_r5000.png",
+        "camera_id": 23,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.37742679451568983,
+        "principal_point_normalized_error": 0.11894461629580051
+      },
+      {
+        "input": "rect_026_3_r5000.png",
+        "camera_id": 26,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.7214371046203677,
+        "principal_point_normalized_error": 0.11894380589458736
+      },
+      {
+        "input": "rect_029_3_r5000.png",
+        "camera_id": 29,
+        "camera_size": [
+          1600,
+          1200
+        ],
+        "focal_relative_error": 0.8568788568365919,
+        "principal_point_normalized_error": 0.11894472599834817
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 3,
+    "median": 15.131501869300589,
+    "mean": 16.962902924859797,
+    "p90": 20.1366350141314
+  },
+  "translation_direction_degrees": {
+    "count": 3,
+    "median": 34.71839910360146,
+    "mean": 33.6529056555712,
+    "p90": 46.08170060514111
+  },
+  "depth": null,
+  "point_cloud": null,
+  "evaluation_protocol_version": "dtu-1.1",
+  "scene": "scan13",
+  "calibration_dir": "/mnt/e/camcanon3r-data/dtu_selected/calibration/cal18",
+  "gt_root": null,
+  "point_metrics_requested": false,
+  "protocol_sha256": "0480fcb5f339f25dc779e80fef560a321c1a7277279a8bf7643586cc05c77e6a",
+  "variant_config_sha256": "2219be64a9c0e829ce619fe8aa431f53aad8c7ef7695a5bd570d48054187100e"
+}

@@ -1,0 +1,1019 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "models_are_separate": true,
+  "variants": [
+    "identity",
+    "center_crop_075",
+    "asymmetric_crop_075",
+    "letterbox_square"
+  ],
+  "metric_units": {
+    "rotation_degrees": "degrees",
+    "translation_degrees": "degrees",
+    "focal_relative": "percentage_points",
+    "principal_point_normalized": "percent_image_diagonal",
+    "depth_abs_rel": "percentage_points",
+    "point_accuracy_millimeters": "millimeters",
+    "point_completeness_millimeters": "millimeters"
+  },
+  "summary_count": 4,
+  "summaries": [
+    {
+      "model": "vggt",
+      "dataset": "eth3d",
+      "summary_schema": "eth3d",
+      "source": "results/eth3d_training/vggt/raw_mechanism/summary.json",
+      "source_sha256": "3090245a5d1e41a42d544f1bc8481ddb98ea1a110f91f7d23ccfbed2880cd670",
+      "scene_count": 13,
+      "variants": [
+        {
+          "variant": "identity",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 0.8050890563543351,
+              "lower": 0.5836889356302344,
+              "upper": 1.0799219522206667
+            },
+            "translation_degrees": {
+              "point_estimate": 1.9826365657038436,
+              "lower": 1.4824214448453283,
+              "upper": 4.38530062816549
+            },
+            "focal_relative": {
+              "point_estimate": 1.2304731375634876,
+              "lower": 1.0301182666855293,
+              "upper": 4.140994960675378
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.18558299862342034,
+              "lower": 0.18156205739673392,
+              "upper": 0.21286293721324961
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "translation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "focal_relative": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            }
+          }
+        },
+        {
+          "variant": "center_crop_075",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 1.3985892087409901,
+              "lower": 1.0000190321499196,
+              "upper": 1.9654400093173319
+            },
+            "translation_degrees": {
+              "point_estimate": 2.426588517259248,
+              "lower": 1.5193764860483423,
+              "upper": 5.759848850985655
+            },
+            "focal_relative": {
+              "point_estimate": 3.573197663381382,
+              "lower": 3.1084330334217323,
+              "upper": 5.3215954646406605
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.18558299862342034,
+              "lower": 0.18156205739673392,
+              "upper": 0.21286293721324961
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.4796047652843052,
+              "lower": 0.12978471986936935,
+              "upper": 0.7865313316106759
+            },
+            "translation_degrees": {
+              "point_estimate": 0.44395195155540446,
+              "lower": -0.40937887307327003,
+              "upper": 1.211575414368486
+            },
+            "focal_relative": {
+              "point_estimate": 1.6570912378790381,
+              "lower": 1.1215997533778708,
+              "upper": 2.292240556073262
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": {
+              "point_estimate": 0.015431140300208035,
+              "lower": -0.33889329593133377,
+              "upper": 0.6203115731219974
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": 84.085071638311,
+              "lower": -13.969286102051754,
+              "upper": 129.50798924845364
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 144.5907166024553,
+              "lower": 97.92024733615989,
+              "upper": 177.24356198209924
+            }
+          }
+        },
+        {
+          "variant": "asymmetric_crop_075",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 5.274096328741586,
+              "lower": 3.893205951896782,
+              "upper": 7.009437154365315
+            },
+            "translation_degrees": {
+              "point_estimate": 13.135017303429583,
+              "lower": 6.691533012451026,
+              "upper": 16.440439726813842
+            },
+            "focal_relative": {
+              "point_estimate": 4.438519634654259,
+              "lower": 3.1900550624850545,
+              "upper": 11.673731517269019
+            },
+            "principal_point_normalized": {
+              "point_estimate": 3.8985899078381125,
+              "lower": 3.8913168262481888,
+              "upper": 3.9126482585386575
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 4.61006442236515,
+              "lower": 3.133804298635239,
+              "upper": 6.17209137247833
+            },
+            "translation_degrees": {
+              "point_estimate": 9.487465534581498,
+              "lower": 5.055749953580854,
+              "upper": 13.54985948493992
+            },
+            "focal_relative": {
+              "point_estimate": 2.495582406478363,
+              "lower": 1.7444660438958464,
+              "upper": 7.211787961413507
+            },
+            "principal_point_normalized": {
+              "point_estimate": 3.708414811206198,
+              "lower": 3.683694166552426,
+              "upper": 3.720641985368604
+            },
+            "depth_abs_rel": {
+              "point_estimate": 2.3041185073643446,
+              "lower": 1.1856232259810484,
+              "upper": 2.951280626139263
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": 258.5386941471464,
+              "lower": 132.82950108112195,
+              "upper": 588.6308757200493
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 368.9344273102676,
+              "lower": 161.01921738699997,
+              "upper": 756.2800380513836
+            }
+          }
+        },
+        {
+          "variant": "letterbox_square",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 0.9876133120094013,
+              "lower": 0.6726910551470904,
+              "upper": 1.2539608390931472
+            },
+            "translation_degrees": {
+              "point_estimate": 1.8898898446197154,
+              "lower": 1.5297900865963583,
+              "upper": 4.424163359778354
+            },
+            "focal_relative": {
+              "point_estimate": 3.0259138467208317,
+              "lower": 1.84855743755463,
+              "upper": 3.8797402826805243
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.1855829986234197,
+              "lower": 0.1815620573967324,
+              "upper": 0.21286293721324936
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.089002119516856,
+              "lower": 0.004809664996257457,
+              "upper": 0.187871914879
+            },
+            "translation_degrees": {
+              "point_estimate": 0.28048785476903637,
+              "lower": -0.09291117575352659,
+              "upper": 0.8213629926211654
+            },
+            "focal_relative": {
+              "point_estimate": 1.8463295059515419,
+              "lower": -0.13338495929136537,
+              "upper": 2.112235946969654
+            },
+            "principal_point_normalized": {
+              "point_estimate": -7.806255641895632e-16,
+              "lower": -1.5178830414797062e-15,
+              "upper": -5.637851296924623e-16
+            },
+            "depth_abs_rel": {
+              "point_estimate": 0.0480085701095808,
+              "lower": -0.09451707080162138,
+              "upper": 0.2608751289017601
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": -7.4353792842173085,
+              "lower": -20.412817534737226,
+              "upper": 20.999268267950274
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": -1.943957921065151,
+              "lower": -28.765804571633357,
+              "upper": 22.839064363611133
+            }
+          }
+        }
+      ]
+    },
+    {
+      "model": "dust3r",
+      "dataset": "eth3d",
+      "summary_schema": "eth3d",
+      "source": "results/eth3d_training/dust3r/raw_mechanism/summary.json",
+      "source_sha256": "86422b149fc064631dcee998f1b87be344c64db8fb7b9ac5c8b751af8129fd19",
+      "scene_count": 13,
+      "variants": [
+        {
+          "variant": "identity",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 1.2756191998382733,
+              "lower": 0.8615714968423588,
+              "upper": 1.9298103114717253
+            },
+            "translation_degrees": {
+              "point_estimate": 4.4560425327432505,
+              "lower": 3.371370624466403,
+              "upper": 5.628161853366593
+            },
+            "focal_relative": {
+              "point_estimate": 6.338839802360122,
+              "lower": 4.502433473351827,
+              "upper": 8.295812115579112
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.1864096556408441,
+              "lower": 0.1754237176429163,
+              "upper": 0.22094165801476895
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "translation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "focal_relative": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            }
+          }
+        },
+        {
+          "variant": "center_crop_075",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 1.381304491790986,
+              "lower": 1.056071303986414,
+              "upper": 2.1102432162696436
+            },
+            "translation_degrees": {
+              "point_estimate": 5.394244232199545,
+              "lower": 2.2262096966412086,
+              "upper": 8.53289596921935
+            },
+            "focal_relative": {
+              "point_estimate": 3.8458237895958853,
+              "lower": 1.7142709841822894,
+              "upper": 8.029731960276074
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.18294548764700547,
+              "lower": 0.17143478110893753,
+              "upper": 0.21609883310457034
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.6058276895471799,
+              "lower": -0.5903814307652187,
+              "upper": 0.6879229811504827
+            },
+            "translation_degrees": {
+              "point_estimate": 0.6026962621146565,
+              "lower": -1.273520270504612,
+              "upper": 2.5282378653521405
+            },
+            "focal_relative": {
+              "point_estimate": -1.7684098410246567,
+              "lower": -5.503170335812617,
+              "upper": 0.5661662038912787
+            },
+            "principal_point_normalized": {
+              "point_estimate": -0.003464167993838638,
+              "lower": -0.004211825656113763,
+              "upper": 0.0008465356960977305
+            },
+            "depth_abs_rel": {
+              "point_estimate": 0.8678961216230401,
+              "lower": 0.28647496157485075,
+              "upper": 1.3338972630295043
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": 79.51685987752639,
+              "lower": -17.7503648887603,
+              "upper": 155.10073824477806
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 201.96090494007484,
+              "lower": 122.85733605985291,
+              "upper": 362.21167333491695
+            }
+          }
+        },
+        {
+          "variant": "asymmetric_crop_075",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 5.666775844286293,
+              "lower": 3.8528643998150756,
+              "upper": 6.542636859644707
+            },
+            "translation_degrees": {
+              "point_estimate": 15.282369321503786,
+              "lower": 12.11902343776038,
+              "upper": 19.1818914030378
+            },
+            "focal_relative": {
+              "point_estimate": 8.252727572215305,
+              "lower": 2.7550795521053306,
+              "upper": 10.850323973646736
+            },
+            "principal_point_normalized": {
+              "point_estimate": 3.8798306296339824,
+              "lower": 3.872868647971543,
+              "upper": 3.8926915149959975
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 4.522337725645512,
+              "lower": 2.12510313565405,
+              "upper": 5.7190847696295934
+            },
+            "translation_degrees": {
+              "point_estimate": 10.992390222527982,
+              "lower": 7.662980905017129,
+              "upper": 12.36867282913835
+            },
+            "focal_relative": {
+              "point_estimate": 2.2688778690798896,
+              "lower": -4.475959950476935,
+              "upper": 9.013036730957882
+            },
+            "principal_point_normalized": {
+              "point_estimate": 3.6906844559793455,
+              "lower": 3.6571138555655596,
+              "upper": 3.7002883960036295
+            },
+            "depth_abs_rel": {
+              "point_estimate": 1.6429107476827205,
+              "lower": 0.2745657768740972,
+              "upper": 2.7278126024368725
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": 251.82271473233925,
+              "lower": -15.243568528108376,
+              "upper": 469.35162042289727
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 416.45435304406504,
+              "lower": 114.21786783801744,
+              "upper": 610.1553009323475
+            }
+          }
+        },
+        {
+          "variant": "letterbox_square",
+          "scene_count": 13,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 1.3335759003214336,
+              "lower": 0.7854047966781992,
+              "upper": 1.791518072851912
+            },
+            "translation_degrees": {
+              "point_estimate": 3.6094887154538386,
+              "lower": 2.9478358957406314,
+              "upper": 7.932254070853618
+            },
+            "focal_relative": {
+              "point_estimate": 5.222635567199777,
+              "lower": 3.1565881146676245,
+              "upper": 7.317767610436271
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.18558299862342095,
+              "lower": 0.18156205739673548,
+              "upper": 0.21286293721324992
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": -0.006203034182657108,
+              "lower": -0.07234985279030659,
+              "upper": 0.0735369514082218
+            },
+            "translation_degrees": {
+              "point_estimate": -0.5055066466986875,
+              "lower": -0.9504163301797384,
+              "upper": -0.005464082925351832
+            },
+            "focal_relative": {
+              "point_estimate": -0.30304152687628816,
+              "lower": -2.375481154250658,
+              "upper": 0.16163664810170086
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0023589334181504376,
+              "lower": -0.0034905998991833706,
+              "upper": 0.014060032128950179
+            },
+            "depth_abs_rel": {
+              "point_estimate": -0.08166830574182979,
+              "lower": -0.4023117188977226,
+              "upper": 0.49865031026590895
+            },
+            "point_accuracy_millimeters": {
+              "point_estimate": -19.884570565791904,
+              "lower": -78.28287953433293,
+              "upper": 9.472079570435083
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": -15.41458909692369,
+              "lower": -82.92788095133346,
+              "upper": 21.633395083025952
+            }
+          }
+        }
+      ]
+    },
+    {
+      "model": "vggt",
+      "dataset": "dtu",
+      "summary_schema": "dtu",
+      "source": "results/dtu/vggt/rectified_mechanism/summary.json",
+      "source_sha256": "f262d6843ce676a5e2bb07c870875e279840103bef9d326db6a79b4d5daf0656",
+      "scene_count": 22,
+      "variants": [
+        {
+          "variant": "identity",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 0.4590553681840457,
+              "lower": 0.3730005402163395,
+              "upper": 0.5354918857739506
+            },
+            "translation_degrees": {
+              "point_estimate": 0.3462918508073062,
+              "lower": 0.27166442977372657,
+              "upper": 0.4098121933188813
+            },
+            "focal_relative": {
+              "point_estimate": 2.9942754842110886,
+              "lower": 2.041963426963114,
+              "upper": 3.8153319448815255
+            },
+            "principal_point_normalized": {
+              "point_estimate": 1.5018338241777232,
+              "lower": 1.5018338241777232,
+              "upper": 1.5018338241777232
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "translation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "focal_relative": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            }
+          }
+        },
+        {
+          "variant": "center_crop_075",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 0.4903222527129423,
+              "lower": 0.3831176527986585,
+              "upper": 0.5697100956622336
+            },
+            "translation_degrees": {
+              "point_estimate": 0.3430320946187439,
+              "lower": 0.27613166931984084,
+              "upper": 0.43505192068407594
+            },
+            "focal_relative": {
+              "point_estimate": 0.5534965859210766,
+              "lower": 0.4657475914585761,
+              "upper": 0.7405981538537008
+            },
+            "principal_point_normalized": {
+              "point_estimate": 1.5018338241777232,
+              "lower": 1.5018338241777232,
+              "upper": 1.5018338241777232
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.026883775650415748,
+              "lower": -0.020399006825774335,
+              "upper": 0.09396619571410617
+            },
+            "translation_degrees": {
+              "point_estimate": 0.023211503109567322,
+              "lower": -0.08527105025823267,
+              "upper": 0.09880604322562694
+            },
+            "focal_relative": {
+              "point_estimate": -2.440488602963717,
+              "lower": -3.013456452000302,
+              "upper": -1.3735635367873256
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": {
+              "point_estimate": 0.22387924463740339,
+              "lower": -0.5381798622183496,
+              "upper": 0.9273930166126485
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 0.17133676925808472,
+              "lower": -0.39919805979792633,
+              "upper": 1.239194655739107
+            }
+          }
+        },
+        {
+          "variant": "asymmetric_crop_075",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 5.580652240856493,
+              "lower": 4.914111687175332,
+              "upper": 6.495436509541646
+            },
+            "translation_degrees": {
+              "point_estimate": 4.020986480882263,
+              "lower": 3.391094424178142,
+              "upper": 4.965744811483207
+            },
+            "focal_relative": {
+              "point_estimate": 2.1869515325956055,
+              "lower": 1.5982336384693798,
+              "upper": 2.764116128546701
+            },
+            "principal_point_normalized": {
+              "point_estimate": 5.887394916316029,
+              "lower": 5.887394916316029,
+              "upper": 5.887394916316029
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 5.1907755382167,
+              "lower": 4.442822079231393,
+              "upper": 6.0155996081401675
+            },
+            "translation_degrees": {
+              "point_estimate": 3.632672510354981,
+              "lower": 2.9151358425309226,
+              "upper": 4.7011693109696004
+            },
+            "focal_relative": {
+              "point_estimate": -0.035789687864328824,
+              "lower": -1.1239122154188017,
+              "upper": 0.8876829452970504
+            },
+            "principal_point_normalized": {
+              "point_estimate": 4.385561092138306,
+              "lower": 4.385561092138306,
+              "upper": 4.385561092138306
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": {
+              "point_estimate": 2.735271510608482,
+              "lower": 1.3031489544133372,
+              "upper": 6.015137029402745
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 2.4984408932860784,
+              "lower": 1.7691629548131431,
+              "upper": 4.657068267247466
+            }
+          }
+        },
+        {
+          "variant": "letterbox_square",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 0.6324261964351224,
+              "lower": 0.5191019055447321,
+              "upper": 0.7724296464331597
+            },
+            "translation_degrees": {
+              "point_estimate": 0.4953310821393795,
+              "lower": 0.4115501388993353,
+              "upper": 0.5876670263688694
+            },
+            "focal_relative": {
+              "point_estimate": 9.326506671969751,
+              "lower": 6.249237292944869,
+              "upper": 11.053835418958245
+            },
+            "principal_point_normalized": {
+              "point_estimate": 1.3274461016142414,
+              "lower": 1.3274461016142414,
+              "upper": 1.3274461016142414
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.14476815480171806,
+              "lower": 0.06326358459774051,
+              "upper": 0.34324357080569645
+            },
+            "translation_degrees": {
+              "point_estimate": 0.1388757900301893,
+              "lower": 0.0811187869178982,
+              "upper": 0.1953658284112058
+            },
+            "focal_relative": {
+              "point_estimate": 5.7278366509840515,
+              "lower": 3.9517481004234742,
+              "upper": 7.0438874771761775
+            },
+            "principal_point_normalized": {
+              "point_estimate": -0.17438772256348178,
+              "lower": -0.17438772256348178,
+              "upper": -0.17438772256348178
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": {
+              "point_estimate": 1.5303214519538604,
+              "lower": 1.0106507451794071,
+              "upper": 2.8470828235724537
+            },
+            "point_completeness_millimeters": {
+              "point_estimate": 1.0253041750654315,
+              "lower": 0.5227997986953286,
+              "upper": 2.2954840013406144
+            }
+          }
+        }
+      ]
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu",
+      "summary_schema": "dtu",
+      "source": "results/dtu/dust3r/rectified_mechanism/summary.json",
+      "source_sha256": "a144341b1ca61a46c6806952d9cac279ed5eeabece3793f7b7ac5f5c596e4671",
+      "scene_count": 22,
+      "variants": [
+        {
+          "variant": "identity",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 2.0511785530089712,
+              "lower": 1.2162363297051664,
+              "upper": 4.2842197054924345
+            },
+            "translation_degrees": {
+              "point_estimate": 4.615566789827977,
+              "lower": 3.386313356550769,
+              "upper": 6.311958332603768
+            },
+            "focal_relative": {
+              "point_estimate": 18.624487383913575,
+              "lower": 8.592468735248561,
+              "upper": 29.81748644989643
+            },
+            "principal_point_normalized": {
+              "point_estimate": 1.5018338241777232,
+              "lower": 1.5018338241777232,
+              "upper": 1.5018338241777232
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "translation_degrees": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "focal_relative": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": null,
+            "point_completeness_millimeters": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            }
+          }
+        },
+        {
+          "variant": "center_crop_075",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 2.717558428975318,
+              "lower": 1.7650705935652358,
+              "upper": 5.029156202199255
+            },
+            "translation_degrees": {
+              "point_estimate": 7.900990453409193,
+              "lower": 6.15660151543806,
+              "upper": 9.939196533615938
+            },
+            "focal_relative": {
+              "point_estimate": 23.28976887011504,
+              "lower": 16.14868406406928,
+              "upper": 32.62411665356891
+            },
+            "principal_point_normalized": {
+              "point_estimate": 1.5018338241777232,
+              "lower": 1.5018338241777232,
+              "upper": 1.5018338241777232
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.8977096133104673,
+              "lower": 0.13302001151323486,
+              "upper": 1.1949029916894942
+            },
+            "translation_degrees": {
+              "point_estimate": 2.4175436134266617,
+              "lower": -0.38263192876384977,
+              "upper": 5.339357286119119
+            },
+            "focal_relative": {
+              "point_estimate": 3.5726784290613143,
+              "lower": 1.651318687610176,
+              "upper": 9.802222796997059
+            },
+            "principal_point_normalized": {
+              "point_estimate": 0.0,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": null,
+            "point_completeness_millimeters": {
+              "point_estimate": 0.6055024014825587,
+              "lower": -0.9859517266104767,
+              "upper": 1.7384790495634057
+            }
+          }
+        },
+        {
+          "variant": "asymmetric_crop_075",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 5.448104463789372,
+              "lower": 4.416425508162142,
+              "upper": 7.851542685795138
+            },
+            "translation_degrees": {
+              "point_estimate": 7.759745852346308,
+              "lower": 5.354304909391292,
+              "upper": 12.639181962297542
+            },
+            "focal_relative": {
+              "point_estimate": 21.9488878932987,
+              "lower": 11.81150336805473,
+              "upper": 32.181199329161096
+            },
+            "principal_point_normalized": {
+              "point_estimate": 5.887394916316025,
+              "lower": 5.887394916316025,
+              "upper": 5.887394916316025
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 2.956242523611035,
+              "lower": 1.6893637224703468,
+              "upper": 4.078748712654895
+            },
+            "translation_degrees": {
+              "point_estimate": 2.5959058532200014,
+              "lower": 0.5788171492076577,
+              "upper": 5.11676396550665
+            },
+            "focal_relative": {
+              "point_estimate": 2.6725753079350794,
+              "lower": 0.25433271376338884,
+              "upper": 7.3345449831555944
+            },
+            "principal_point_normalized": {
+              "point_estimate": 4.385561092138302,
+              "lower": 4.385561092138302,
+              "upper": 4.385561092138302
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": null,
+            "point_completeness_millimeters": null
+          }
+        },
+        {
+          "variant": "letterbox_square",
+          "scene_count": 22,
+          "absolute": {
+            "rotation_degrees": {
+              "point_estimate": 2.433756481544346,
+              "lower": 1.2072317841655302,
+              "upper": 4.083907931638467
+            },
+            "translation_degrees": {
+              "point_estimate": 4.495015159230718,
+              "lower": 3.450955438250366,
+              "upper": 6.210371195227198
+            },
+            "focal_relative": {
+              "point_estimate": 17.615099230727928,
+              "lower": 9.061582195650159,
+              "upper": 29.63183860159647
+            },
+            "principal_point_normalized": {
+              "point_estimate": 1.3274461016142414,
+              "lower": 1.3274461016142414,
+              "upper": 1.3274461016142414
+            }
+          },
+          "delta_from_identity": {
+            "rotation_degrees": {
+              "point_estimate": 0.0373493085612866,
+              "lower": -0.08403400229926339,
+              "upper": 0.07801597846499955
+            },
+            "translation_degrees": {
+              "point_estimate": 0.06915156716103588,
+              "lower": -0.24261116665583704,
+              "upper": 0.30551585500240974
+            },
+            "focal_relative": {
+              "point_estimate": -0.22865748834104244,
+              "lower": -0.9677012917100603,
+              "upper": 0.13233059038475492
+            },
+            "principal_point_normalized": {
+              "point_estimate": -0.17438772256348178,
+              "lower": -0.17438772256348178,
+              "upper": -0.17438772256348178
+            },
+            "depth_abs_rel": null,
+            "point_accuracy_millimeters": null,
+            "point_completeness_millimeters": {
+              "point_estimate": -0.0392565827387088,
+              "lower": -0.13647567497721091,
+              "upper": 0.20088223425719143
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

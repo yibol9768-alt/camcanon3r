@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "selection": "/mnt/e/camcanon3r-data/dtu_mvs/selections/points.json",
+  "selection_sha256": "b456e6b1abb3a1aaaa4853f4c2f8a3297c83673ad8b2c8c022b0775b02cee268",
+  "archive": {
+    "url": "https://roboimagedata2.compute.dtu.dk/data/MVS/Points.zip",
+    "expected_bytes": 6966262016,
+    "etag": "\"19f38b900-5652d41ecd173\""
+  },
+  "member_count": 22,
+  "members": [
+    {
+      "source": "Points/stl/stl001_total.ply",
+      "target": "gt/Points/stl/stl001_total.ply",
+      "bytes": 77783981,
+      "crc32": "640c8160",
+      "sha256": "91c07cde9e63139120ea4c07fbafcc67b5f8967ed2eb6395ed0eb3e299b89921"
+    },
+    {
+      "source": "Points/stl/stl004_total.ply",
+      "target": "gt/Points/stl/stl004_total.ply",
+      "bytes": 95496143,
+      "crc32": "854e47da",
+      "sha256": "20f6f8c3b0ffd5ff9468bd0e2927e7bb570d5077d6b930540f2cf9e55e62a982"
+    },
+    {
+      "source": "Points/stl/stl009_total.ply",
+      "target": "gt/Points/stl/stl009_total.ply",
+      "bytes": 89633687,
+      "crc32": "9c73304f",
+      "sha256": "472ebff7731b0149a7cb906ffc0f10e66fa42cd04b585a6b999944333796100a"
+    },
+    {
+      "source": "Points/stl/stl010_total.ply",
+      "target": "gt/Points/stl/stl010_total.ply",
+      "bytes": 100797674,
+      "crc32": "a2b149c6",
+      "sha256": "ff4489290aeded3ecb0206afa2c435c5ed6e6a8d37d1147fb5d1b73be82f13fe"
+    },
+    {
+      "source": "Points/stl/stl011_total.ply",
+      "target": "gt/Points/stl/stl011_total.ply",
+      "bytes": 77577269,
+      "crc32": "ba32c017",
+      "sha256": "d0e1fda2772c6fab5953b5f757711686bada8b762b9d0da547ec1cde3d72eec7"
+    },
+    {
+      "source": "Points/stl/stl012_total.ply",
+      "target": "gt/Points/stl/stl012_total.ply",
+      "bytes": 65926202,
+      "crc32": "6d231702",
+      "sha256": "5b0e7b94fa792281efba5c836139a9a248a3f3fb97ffcf95330bd4fa3c73e800"
+    },
+    {
+      "source": "Points/stl/stl013_total.ply",
+      "target": "gt/Points/stl/stl013_total.ply",
+      "bytes": 78122750,
+      "crc32": "08d238dd",
+      "sha256": "ba763075ffe8c4748c9073a81b6d986d2b287e719265944686918ac744557804"
+    },
+    {
+      "source": "Points/stl/stl015_total.ply",
+      "target": "gt/Points/stl/stl015_total.ply",
+      "bytes": 104232128,
+      "crc32": "0f387093",
+      "sha256": "b2fcd71ba24fab47e8497c5fa9212bedaba381b2d75166d6655a93d04ccf8677"
+    },
+    {
+      "source": "Points/stl/stl023_total.ply",
+      "target": "gt/Points/stl/stl023_total.ply",
+      "bytes": 143391713,
+      "crc32": "45fbb3d1",
+      "sha256": "5d40aa14dd2f4a41824b7aeb4e30a0484fa975307e8837e8c71ad1d104a69794"
+    },
+    {
+      "source": "Points/stl/stl024_total.ply",
+      "target": "gt/Points/stl/stl024_total.ply",
+      "bytes": 139567352,
+      "crc32": "8f697fe8",
+      "sha256": "963f2893d40d72957acdeb0affcd8aaa888408b180f5a62b62af747554ba4665"
+    },
+    {
+      "source": "Points/stl/stl029_total.ply",
+      "target": "gt/Points/stl/stl029_total.ply",
+      "bytes": 184534718,
+      "crc32": "9e991fc6",
+      "sha256": "5bc82d61764ee0900dbbf2bff902d1c853756b2a8c4ef55788c01e117554c457"
+    },
+    {
+      "source": "Points/stl/stl032_total.ply",
+      "target": "gt/Points/stl/stl032_total.ply",
+      "bytes": 123098216,
+      "crc32": "670d3d15",
+      "sha256": "30ef2f42cb8142e9ae7e17607c378cac0d269d9fbbd3409a0b09dfd25e75b7a4"
+    },
+    {
+      "source": "Points/stl/stl033_total.ply",
+      "target": "gt/Points/stl/stl033_total.ply",
+      "bytes": 113923400,
+      "crc32": "e73e94ad",
+      "sha256": "07861a91d7c53e052072587657724b152bcf07e54c39843a53cddf67846acb1c"
+    },
+    {
+      "source": "Points/stl/stl034_total.ply",
+      "target": "gt/Points/stl/stl034_total.ply",
+      "bytes": 107644118,
+      "crc32": "dae41107",
+      "sha256": "6196a51a5e305ea6b90c7bfe40f85c71a3abfcfdfd8cb607c0b4cea23ed74b8c"
+    },
+    {
+      "source": "Points/stl/stl048_total.ply",
+      "target": "gt/Points/stl/stl048_total.ply",
+      "bytes": 108575915,
+      "crc32": "dbc1d5d3",
+      "sha256": "dcb61d5c00102d48244f7dfa8fb742d107af76d71d19fbe826d7786d5e7ee8b4"
+    },
+    {
+      "source": "Points/stl/stl049_total.ply",
+      "target": "gt/Points/stl/stl049_total.ply",
+      "bytes": 130829234,
+      "crc32": "9ff1adff",
+      "sha256": "83ed06195dc8cfa12f8e133f4c2b55e706edd19cae064c728a03bf7b4ae85813"
+    },
+    {
+      "source": "Points/stl/stl062_total.ply",
+      "target": "gt/Points/stl/stl062_total.ply",
+      "bytes": 120012089,
+      "crc32": "428f2a2d",
+      "sha256": "f056d7f1321f579c2096814a78487c7616f0525a26a5fbd88c1b49f0db5b5c6e"
+    },
+    {
+      "source": "Points/stl/stl075_total.ply",
+      "target": "gt/Points/stl/stl075_total.ply",
+      "bytes": 90869018,
+      "crc32": "abec1f46",
+      "sha256": "a5aa8431918868e15ff9b585d8c035722cb857d0c00b2e051c7b200d28dcc072"
+    },
+    {
+      "source": "Points/stl/stl077_total.ply",
+      "target": "gt/Points/stl/stl077_total.ply",
+      "bytes": 132653084,
+      "crc32": "917797a6",
+      "sha256": "95936dc8086b73761a4a88b0c8619d85ea2db82f43c9b8da61ea98b09a6a948d"
+    },
+    {
+      "source": "Points/stl/stl110_total.ply",
+      "target": "gt/Points/stl/stl110_total.ply",
+      "bytes": 60952127,
+      "crc32": "03d84138",
+      "sha256": "911290d594387cdd31cb40ec4a7a6b191292ee49228214fd0e55e1e325b6a297"
+    },
+    {
+      "source": "Points/stl/stl114_total.ply",
+      "target": "gt/Points/stl/stl114_total.ply",
+      "bytes": 83446718,
+      "crc32": "96a0d3e6",
+      "sha256": "6b58e359210501592a6094de17a7c7d1d70f4620e08b1d43e07a505808d706a9"
+    },
+    {
+      "source": "Points/stl/stl118_total.ply",
+      "target": "gt/Points/stl/stl118_total.ply",
+      "bytes": 83342093,
+      "crc32": "b3582426",
+      "sha256": "c4183cf7cc08ba7b949da6c4c27d06e7cd6f853142cb7396089cf56ccbcacfe8"
+    }
+  ],
+  "completed_members": 22
+}

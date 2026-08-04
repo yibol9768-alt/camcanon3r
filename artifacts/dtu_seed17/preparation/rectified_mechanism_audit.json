@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "prepared_root": "/opt/camcanon3r/data/dtu/rectified_mechanism",
+  "scene_count": 22,
+  "variant_count": 11,
+  "png_count": 726,
+  "manifest_count": 22,
+  "tree_sha256": "427fe837d01fe32524736e1fc32c9379dfaae4cfdfdfd948c07c5e1500f917fb",
+  "reference_root": null,
+  "reference_variant_count": 0,
+  "reference_image_matches": 0,
+  "shared_variant_scene_count": 66,
+  "support_control": false,
+  "support_content_matches": 0,
+  "support_padding_matches": 0,
+  "dataset": "DTU MVS Data Set 2014",
+  "protocol": "/opt/camcanon3r/configs/dtu_protocol.json",
+  "protocol_sha256": "0480fcb5f339f25dc779e80fef560a321c1a7277279a8bf7643586cc05c77e6a",
+  "variant_config": "/opt/camcanon3r/configs/eth3d_mechanism_variants.json",
+  "variant_config_sha256": "2219be64a9c0e829ce619fe8aa431f53aad8c7ef7695a5bd570d48054187100e",
+  "preparation_report": "/opt/camcanon3r/data/dtu/rectified_mechanism/preparation_report.json",
+  "preparation_report_sha256": "d5be889b37cdfa15d057b7074aedff7422c7de8bc04341b21c462a6e96fc4162",
+  "camera_ids_one_based": [
+    23,
+    26,
+    29
+  ],
+  "lighting_index": 3
+}

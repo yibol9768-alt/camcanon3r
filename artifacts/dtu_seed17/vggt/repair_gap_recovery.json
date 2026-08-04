@@ -1,0 +1,2734 @@
+{
+  "schema_version": "1.0",
+  "scene_count": 22,
+  "scenes": [
+    "scan1",
+    "scan10",
+    "scan11",
+    "scan110",
+    "scan114",
+    "scan118",
+    "scan12",
+    "scan13",
+    "scan15",
+    "scan23",
+    "scan24",
+    "scan29",
+    "scan32",
+    "scan33",
+    "scan34",
+    "scan4",
+    "scan48",
+    "scan49",
+    "scan62",
+    "scan75",
+    "scan77",
+    "scan9"
+  ],
+  "minimum_gap": 1e-12,
+  "recovery_definition": "median_scene_recovered_gap / median_scene_corruption_gap",
+  "recovery_threshold": 0.3,
+  "clean_relative_threshold": 0.02,
+  "per_scene": {
+    "scan1": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan1/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan1/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan1/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan1/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.2987469169896593,
+          "corrupt_error": 5.80441754642612,
+          "repaired_error": 0.3384100694696049,
+          "clean_control_error": 0.2987469169896593,
+          "corruption_gap": 5.505670629436461,
+          "recovered_gap": 5.4660074769565155,
+          "gap_recovery": 0.992795945280874,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.1766906666057517,
+          "corrupt_error": 4.248657159335267,
+          "repaired_error": 0.22711010487623964,
+          "clean_control_error": 0.1766906666057517,
+          "corruption_gap": 4.071966492729516,
+          "recovered_gap": 4.0215470544590275,
+          "gap_recovery": 0.9876179142533437,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.1441689515403124,
+          "corrupt_error": 4.044740779469376,
+          "repaired_error": 2.8227228075720365,
+          "clean_control_error": 2.1441689515403124,
+          "corruption_gap": 1.9005718279290638,
+          "recovered_gap": 1.2220179718973396,
+          "gap_recovery": 0.6429738428927979,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.178095875031529,
+          "corrupt_error": 4.082886711686115,
+          "repaired_error": 2.532479099756141,
+          "clean_control_error": 2.178095875031529,
+          "corruption_gap": 1.9047908366545858,
+          "recovered_gap": 1.5504076119299737,
+          "gap_recovery": 0.8139516329535578,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan10": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan10/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan10/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan10/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan10/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5545238167174977,
+          "corrupt_error": 3.754901671527701,
+          "repaired_error": 0.3049005907039924,
+          "clean_control_error": 0.5545238167174977,
+          "corruption_gap": 3.200377854810203,
+          "recovered_gap": 3.4500010808237085,
+          "gap_recovery": 1.0779980481486957,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.438626392041246,
+          "corrupt_error": 2.1313500298108137,
+          "repaired_error": 0.20542533935859913,
+          "clean_control_error": 0.438626392041246,
+          "corruption_gap": 1.6927236377695678,
+          "recovered_gap": 1.9259246904522145,
+          "gap_recovery": 1.1377667609048847,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.559178445991302,
+          "corrupt_error": 2.0005553540411114,
+          "repaired_error": 2.9174272122380467,
+          "clean_control_error": 2.559178445991302,
+          "corruption_gap": -0.5586230919501904,
+          "recovered_gap": -0.9168718581969353,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.991758997227185,
+          "corrupt_error": 5.523359679666363,
+          "repaired_error": 3.0197412565125794,
+          "clean_control_error": 2.991758997227185,
+          "corruption_gap": 2.531600682439178,
+          "recovered_gap": 2.503618423153784,
+          "gap_recovery": 0.988946811604414,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan11": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan11/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan11/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan11/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan11/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.48928216316769585,
+          "corrupt_error": 7.366331920596935,
+          "repaired_error": 0.7671630665791993,
+          "clean_control_error": 0.48928216316769585,
+          "corruption_gap": 6.87704975742924,
+          "recovered_gap": 6.599168854017736,
+          "gap_recovery": 0.9595930067088274,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.3614027195780735,
+          "corrupt_error": 4.77884547604568,
+          "repaired_error": 0.4367637795613278,
+          "clean_control_error": 0.3614027195780735,
+          "corruption_gap": 4.417442756467606,
+          "recovered_gap": 4.342081696484352,
+          "gap_recovery": 0.982940116230614,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.395604420045834,
+          "corrupt_error": 2.566623248024605,
+          "repaired_error": 2.699184227187616,
+          "clean_control_error": 2.395604420045834,
+          "corruption_gap": 0.171018827978771,
+          "recovered_gap": -0.1325609791630109,
+          "gap_recovery": -0.7751250592096564,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.835835045409263,
+          "corrupt_error": 5.301116149542241,
+          "repaired_error": 2.8827513449949667,
+          "clean_control_error": 2.835835045409263,
+          "corruption_gap": 2.4652811041329783,
+          "recovered_gap": 2.4183648045472745,
+          "gap_recovery": 0.9809691886628872,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan110": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan110/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan110/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan110/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan110/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.538737145963025,
+          "corrupt_error": 13.169410887967521,
+          "repaired_error": 0.7967041168074411,
+          "clean_control_error": 0.538737145963025,
+          "corruption_gap": 12.630673742004497,
+          "recovered_gap": 12.372706771160079,
+          "gap_recovery": 0.9795761511924321,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.432580923840216,
+          "corrupt_error": 10.053335146183365,
+          "repaired_error": 0.4690525041123105,
+          "clean_control_error": 0.432580923840216,
+          "corruption_gap": 9.620754222343148,
+          "recovered_gap": 9.584282642071054,
+          "gap_recovery": 0.9962090726538474,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 3.5686676224857545,
+          "corrupt_error": 14.321152511916907,
+          "repaired_error": 8.71779511421868,
+          "clean_control_error": 3.5686676224857545,
+          "corruption_gap": 10.752484889431152,
+          "recovered_gap": 5.603357397698227,
+          "gap_recovery": 0.5211220899464725,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 4.843026340431786,
+          "corrupt_error": 12.593566618745692,
+          "repaired_error": 9.38877223811999,
+          "clean_control_error": 4.843026340431786,
+          "corruption_gap": 7.750540278313906,
+          "recovered_gap": 3.2047943806257013,
+          "gap_recovery": 0.41349302958824047,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan114": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan114/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan114/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan114/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan114/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.33597173917097073,
+          "corrupt_error": 11.56441241369674,
+          "repaired_error": 0.37843770556289064,
+          "clean_control_error": 0.33597173917097073,
+          "corruption_gap": 11.22844067452577,
+          "recovered_gap": 11.18597470813385,
+          "gap_recovery": 0.9962179996650592,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.204359564519355,
+          "corrupt_error": 7.1688444560341935,
+          "repaired_error": 0.10067134997852552,
+          "clean_control_error": 0.204359564519355,
+          "corruption_gap": 6.9644848915148385,
+          "recovered_gap": 7.068173106055668,
+          "gap_recovery": 1.014888138341309,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.704600027461568,
+          "corrupt_error": 6.733268806510741,
+          "repaired_error": 2.7492026888419616,
+          "clean_control_error": 2.704600027461568,
+          "corruption_gap": 4.028668779049173,
+          "recovered_gap": 3.984066117668779,
+          "gap_recovery": 0.9889286849263093,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 3.414635096521432,
+          "corrupt_error": 5.947737963052576,
+          "repaired_error": 2.6190493488992166,
+          "clean_control_error": 3.414635096521432,
+          "corruption_gap": 2.5331028665311446,
+          "recovered_gap": 3.32868861415336,
+          "gap_recovery": 1.3140755782696254,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan118": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan118/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan118/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan118/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan118/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5322360514504271,
+          "corrupt_error": 7.942224246786988,
+          "repaired_error": 0.4816608150405421,
+          "clean_control_error": 0.5322360514504271,
+          "corruption_gap": 7.4099881953365605,
+          "recovered_gap": 7.460563431746445,
+          "gap_recovery": 1.00682527894467,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.4609028591743951,
+          "corrupt_error": 6.300442509331449,
+          "repaired_error": 0.2774728521652596,
+          "clean_control_error": 0.4609028591743951,
+          "corruption_gap": 5.839539650157054,
+          "recovered_gap": 6.02296965716619,
+          "gap_recovery": 1.0314117238683709,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 3.371090531467338,
+          "corrupt_error": 8.602516149537442,
+          "repaired_error": 3.4676088278689883,
+          "clean_control_error": 3.371090531467338,
+          "corruption_gap": 5.231425618070103,
+          "recovered_gap": 5.134907321668454,
+          "gap_recovery": 0.9815502879237619,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 4.047056964169159,
+          "corrupt_error": 5.981854752276991,
+          "repaired_error": 3.122615373280478,
+          "clean_control_error": 4.047056964169159,
+          "corruption_gap": 1.934797788107832,
+          "recovered_gap": 2.8592393789965134,
+          "gap_recovery": 1.4777975231162295,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan12": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan12/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan12/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan12/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan12/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.40296818099303644,
+          "corrupt_error": 5.963465775307854,
+          "repaired_error": 1.0012918702744824,
+          "clean_control_error": 0.40296818099303644,
+          "corruption_gap": 5.560497594314818,
+          "recovered_gap": 4.962173905033371,
+          "gap_recovery": 0.8923974555994437,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.3668157477356817,
+          "corrupt_error": 3.9456290701590717,
+          "repaired_error": 0.6600844888169803,
+          "clean_control_error": 0.3668157477356817,
+          "corruption_gap": 3.57881332242339,
+          "recovered_gap": 3.2855445813420916,
+          "gap_recovery": 0.9180541943208393,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 3.6234457573335304,
+          "corrupt_error": 6.033252346809859,
+          "repaired_error": 7.405104523234731,
+          "clean_control_error": 3.6234457573335304,
+          "corruption_gap": 2.4098065894763288,
+          "recovered_gap": -1.3718521764248717,
+          "gap_recovery": -0.5692789547575213,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 4.175765737719652,
+          "corrupt_error": 6.373092516208329,
+          "repaired_error": 9.383899899175567,
+          "clean_control_error": 4.175765737719652,
+          "corruption_gap": 2.1973267784886774,
+          "recovered_gap": -3.010807382967238,
+          "gap_recovery": -1.3702137581184322,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan13": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan13/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan13/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan13/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan13/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.7597886401631504,
+          "corrupt_error": 9.545905104992444,
+          "repaired_error": 2.0371581154928515,
+          "clean_control_error": 1.7597886401631504,
+          "corruption_gap": 7.786116464829294,
+          "recovered_gap": 7.508746989499593,
+          "gap_recovery": 0.9643764029753975,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 1.1503958358353639,
+          "corrupt_error": 7.5884741787837795,
+          "repaired_error": 1.3905953815680563,
+          "clean_control_error": 1.1503958358353639,
+          "corruption_gap": 6.438078342948415,
+          "recovered_gap": 6.197878797215723,
+          "gap_recovery": 0.9626908010531152,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 4.857835916761246,
+          "corrupt_error": 12.419331087159186,
+          "repaired_error": 8.070119943730404,
+          "clean_control_error": 4.857835916761246,
+          "corruption_gap": 7.56149517039794,
+          "recovered_gap": 4.349211143428782,
+          "gap_recovery": 0.5751787239718484,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 5.286996204927992,
+          "corrupt_error": 12.281559369063128,
+          "repaired_error": 8.028893828082206,
+          "clean_control_error": 5.286996204927992,
+          "corruption_gap": 6.994563164135136,
+          "recovered_gap": 4.252665540980923,
+          "gap_recovery": 0.607995873535979,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan15": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan15/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan15/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan15/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan15/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.317197470695372,
+          "corrupt_error": 6.708768019628078,
+          "repaired_error": 0.5180427832349124,
+          "clean_control_error": 0.317197470695372,
+          "corruption_gap": 6.391570548932706,
+          "recovered_gap": 6.190725236393165,
+          "gap_recovery": 0.9685765320116698,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.1880440275126581,
+          "corrupt_error": 6.079403519883579,
+          "repaired_error": 0.3288029159414965,
+          "clean_control_error": 0.1880440275126581,
+          "corruption_gap": 5.8913594923709205,
+          "recovered_gap": 5.7506006039420825,
+          "gap_recovery": 0.9761075709925502,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 1.734691926735159,
+          "corrupt_error": 7.828480424393172,
+          "repaired_error": 2.146637396768702,
+          "clean_control_error": 1.734691926735159,
+          "corruption_gap": 6.093788497658013,
+          "recovered_gap": 5.6818430276244705,
+          "gap_recovery": 0.9323991191699773,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 1.9948351806466231,
+          "corrupt_error": 7.3535421682674444,
+          "repaired_error": 2.0436851166083265,
+          "clean_control_error": 1.9948351806466231,
+          "corruption_gap": 5.358706987620821,
+          "recovered_gap": 5.309857051659118,
+          "gap_recovery": 0.9908840068929777,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan23": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan23/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan23/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan23/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan23/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.38118109606293965,
+          "corrupt_error": 3.1783485194982295,
+          "repaired_error": 0.5183143843494226,
+          "clean_control_error": 0.38118109606293965,
+          "corruption_gap": 2.79716742343529,
+          "recovered_gap": 2.660034135148807,
+          "gap_recovery": 0.9509742294517125,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.2848493834618378,
+          "corrupt_error": 0.9380941426915004,
+          "repaired_error": 0.20064608563016298,
+          "clean_control_error": 0.2848493834618378,
+          "corruption_gap": 0.6532447592296626,
+          "recovered_gap": 0.7374480570613374,
+          "gap_recovery": 1.1289000740411164,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.426888033484298,
+          "corrupt_error": 3.945929040338427,
+          "repaired_error": 3.2439635788665155,
+          "clean_control_error": 2.426888033484298,
+          "corruption_gap": 1.519041006854129,
+          "recovered_gap": 0.7019654614719113,
+          "gap_recovery": 0.4621109359816775,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.931738280751467,
+          "corrupt_error": 4.670086436422216,
+          "repaired_error": 3.3970598289257894,
+          "clean_control_error": 2.931738280751467,
+          "corruption_gap": 1.738348155670749,
+          "recovered_gap": 1.2730266074964267,
+          "gap_recovery": 0.7323197043950175,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan24": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan24/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan24/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan24/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan24/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.45532744223738714,
+          "corrupt_error": 5.313101216994799,
+          "repaired_error": 0.42990440326724055,
+          "clean_control_error": 0.45532744223738714,
+          "corruption_gap": 4.857773774757412,
+          "recovered_gap": 4.883196813727558,
+          "gap_recovery": 1.0052334752808483,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.4098121933188813,
+          "corrupt_error": 4.0963438916054535,
+          "repaired_error": 0.2817491985025884,
+          "clean_control_error": 0.4098121933188813,
+          "corruption_gap": 3.686531698286572,
+          "recovered_gap": 3.8145946931028654,
+          "gap_recovery": 1.0347380696267483,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.5740883421479217,
+          "corrupt_error": 6.592245466371722,
+          "repaired_error": 2.3791838649687245,
+          "clean_control_error": 2.5740883421479217,
+          "corruption_gap": 4.0181571242238,
+          "recovered_gap": 4.213061601402997,
+          "gap_recovery": 1.0485059372129077,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 3.5819370176471934,
+          "corrupt_error": 5.215472090618894,
+          "repaired_error": 2.1290251477055158,
+          "clean_control_error": 3.5819370176471934,
+          "corruption_gap": 1.6335350729717004,
+          "recovered_gap": 3.086446942913378,
+          "gap_recovery": 1.8894280226861393,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan29": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan29/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan29/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan29/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan29/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.5391601113409845,
+          "corrupt_error": 3.779528536056206,
+          "repaired_error": 0.3514911900992425,
+          "clean_control_error": 0.5391601113409845,
+          "corruption_gap": 3.2403684247152214,
+          "recovered_gap": 3.4280373459569637,
+          "gap_recovery": 1.0579159208595965,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.387416298437036,
+          "corrupt_error": 1.6510699044891006,
+          "repaired_error": 0.33998198416100445,
+          "clean_control_error": 0.387416298437036,
+          "corruption_gap": 1.2636536060520647,
+          "recovered_gap": 1.311087920328096,
+          "gap_recovery": 1.0375374343481887,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 4.338885405101249,
+          "corrupt_error": 3.4611410502144127,
+          "repaired_error": 3.2475971516190127,
+          "clean_control_error": 4.338885405101249,
+          "corruption_gap": -0.8777443548868362,
+          "recovered_gap": 0.2135438985953999,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 4.430407010328726,
+          "corrupt_error": 4.301266653682995,
+          "repaired_error": 6.127914535621226,
+          "clean_control_error": 4.430407010328726,
+          "corruption_gap": -0.1291403566457312,
+          "recovered_gap": -1.8266478819382312,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan32": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan32/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan32/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan32/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan32/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.4627832941307043,
+          "corrupt_error": 3.9075384206449004,
+          "repaired_error": 0.1984668214217685,
+          "clean_control_error": 0.4627832941307043,
+          "corruption_gap": 3.4447551265141962,
+          "recovered_gap": 3.709071599223132,
+          "gap_recovery": 1.0767301195590067,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.31801744621954753,
+          "corrupt_error": 2.0252245589854256,
+          "repaired_error": 0.3307871226998622,
+          "clean_control_error": 0.31801744621954753,
+          "corruption_gap": 1.707207112765878,
+          "recovered_gap": 1.6944374362855634,
+          "gap_recovery": 0.9925201363180673,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 4.069822736807898,
+          "corrupt_error": 6.854217639748851,
+          "repaired_error": 3.9657923248901,
+          "clean_control_error": 4.069822736807898,
+          "corruption_gap": 2.784394902940953,
+          "recovered_gap": 2.8884253148587504,
+          "gap_recovery": 1.037361945968195,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 5.129997119813278,
+          "corrupt_error": 6.220336785527587,
+          "repaired_error": 4.088539513306871,
+          "clean_control_error": 5.129997119813278,
+          "corruption_gap": 1.0903396657143087,
+          "recovered_gap": 2.131797272220716,
+          "gap_recovery": 1.9551680446515924,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan33": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan33/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan33/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan33/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan33/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 1.1777157499680957,
+          "corrupt_error": 4.569974371660663,
+          "repaired_error": 1.227730532167712,
+          "clean_control_error": 1.1777157499680957,
+          "corruption_gap": 3.3922586216925676,
+          "recovered_gap": 3.3422438394929515,
+          "gap_recovery": 0.9852562001376354,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.5185422013842969,
+          "corrupt_error": 2.6819838050219733,
+          "repaired_error": 1.1679645672134538,
+          "clean_control_error": 0.5185422013842969,
+          "corruption_gap": 2.1634416036376765,
+          "recovered_gap": 1.5140192378085195,
+          "gap_recovery": 0.6998197849494997,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 7.8894934138627875,
+          "corrupt_error": 3.515678260258493,
+          "repaired_error": 10.104086921906022,
+          "clean_control_error": 7.8894934138627875,
+          "corruption_gap": -4.373815153604294,
+          "recovered_gap": -6.588408661647529,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 6.462918222337748,
+          "corrupt_error": 11.119986489585214,
+          "repaired_error": 8.526670628927675,
+          "clean_control_error": 6.462918222337748,
+          "corruption_gap": 4.657068267247466,
+          "recovered_gap": 2.5933158606575386,
+          "gap_recovery": 0.5568558826796635,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan34": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan34/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan34/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan34/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan34/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.34260015136229144,
+          "corrupt_error": 5.356886935286864,
+          "repaired_error": 0.5925936910323069,
+          "clean_control_error": 0.34260015136229144,
+          "corruption_gap": 5.014286783924573,
+          "recovered_gap": 4.764293244254557,
+          "gap_recovery": 0.9501437491625976,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.24365678891404388,
+          "corrupt_error": 3.734545762204287,
+          "repaired_error": 0.5058927676007959,
+          "clean_control_error": 0.24365678891404388,
+          "corruption_gap": 3.490888973290243,
+          "recovered_gap": 3.228652994603491,
+          "gap_recovery": 0.9248798856986882,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.5950075256189007,
+          "corrupt_error": 3.8781742225376505,
+          "repaired_error": 2.1718306677755006,
+          "clean_control_error": 2.5950075256189007,
+          "corruption_gap": 1.2831666969187498,
+          "recovered_gap": 1.70634355476215,
+          "gap_recovery": 1.3297910231457601,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 3.093096099300182,
+          "corrupt_error": 4.580534302754491,
+          "repaired_error": 2.4248923033036816,
+          "clean_control_error": 3.093096099300182,
+          "corruption_gap": 1.487438203454309,
+          "recovered_gap": 2.1556419994508094,
+          "gap_recovery": 1.4492312987825084,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan4": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan4/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan4/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan4/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan4/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.328759815647335,
+          "corrupt_error": 4.322239725275266,
+          "repaired_error": 0.2205907043804815,
+          "clean_control_error": 0.328759815647335,
+          "corruption_gap": 3.9934799096279314,
+          "recovered_gap": 4.101649020894785,
+          "gap_recovery": 1.0270864293084503,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.12330636373531718,
+          "corrupt_error": 2.826897992372647,
+          "repaired_error": 0.18364729634700885,
+          "clean_control_error": 0.12330636373531718,
+          "corruption_gap": 2.7035916286373296,
+          "recovered_gap": 2.643250696025638,
+          "gap_recovery": 0.9776811956463615,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 1.737446417850746,
+          "corrupt_error": 7.974770863225189,
+          "repaired_error": 3.159299983013464,
+          "clean_control_error": 1.737446417850746,
+          "corruption_gap": 6.237324445374442,
+          "recovered_gap": 4.815470880211725,
+          "gap_recovery": 0.7720411087133435,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.5031183189847246,
+          "corrupt_error": 9.976005122181729,
+          "repaired_error": 3.706995064586515,
+          "clean_control_error": 2.5031183189847246,
+          "corruption_gap": 7.472886803197004,
+          "recovered_gap": 6.269010057595214,
+          "gap_recovery": 0.838900711691932,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan48": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan48/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan48/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan48/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan48/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.3730005402163395,
+          "corrupt_error": 5.327667483033209,
+          "repaired_error": 0.4451566134855997,
+          "clean_control_error": 0.3730005402163395,
+          "corruption_gap": 4.9546669428168695,
+          "recovered_gap": 4.882510869547609,
+          "gap_recovery": 0.9854367459807021,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.267260655438682,
+          "corrupt_error": 3.5647619915207382,
+          "repaired_error": 0.4716482812058292,
+          "clean_control_error": 0.267260655438682,
+          "corruption_gap": 3.2975013360820564,
+          "recovered_gap": 3.093113710314909,
+          "gap_recovery": 0.9380174244265836,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 1.9916694759216302,
+          "corrupt_error": 4.677817594197641,
+          "repaired_error": 4.002950296470436,
+          "clean_control_error": 1.9916694759216302,
+          "corruption_gap": 2.6861481182760114,
+          "recovered_gap": 0.6748672977272054,
+          "gap_recovery": 0.2512397931951496,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.950946225802528,
+          "corrupt_error": 6.395208087032337,
+          "repaired_error": 4.42015426963461,
+          "clean_control_error": 2.950946225802528,
+          "corruption_gap": 3.4442618612298093,
+          "recovered_gap": 1.9750538173977272,
+          "gap_recovery": 0.5734331177399252,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan49": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan49/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan49/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan49/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan49/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.8551650208864264,
+          "corrupt_error": 6.870764629026594,
+          "repaired_error": 0.287776399113756,
+          "clean_control_error": 0.8551650208864264,
+          "corruption_gap": 6.0155996081401675,
+          "recovered_gap": 6.5829882299128375,
+          "gap_recovery": 1.0943195456367962,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.3886992837789783,
+          "corrupt_error": 5.375236202848693,
+          "repaired_error": 0.2804725930627966,
+          "clean_control_error": 0.3886992837789783,
+          "corruption_gap": 4.986536919069715,
+          "recovered_gap": 5.094763609785896,
+          "gap_recovery": 1.021703778087413,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 5.110291166806495,
+          "corrupt_error": 11.12542819620924,
+          "repaired_error": 2.241900190152946,
+          "clean_control_error": 5.110291166806495,
+          "corruption_gap": 6.015137029402745,
+          "recovered_gap": 8.883528006056295,
+          "gap_recovery": 1.4768621167950946,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 5.5968949796983,
+          "corrupt_error": 8.559555183421677,
+          "repaired_error": 3.1296825369458547,
+          "clean_control_error": 5.5968949796983,
+          "corruption_gap": 2.9626602037233774,
+          "recovered_gap": 5.429872646475823,
+          "gap_recovery": 1.832769292830724,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan62": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan62/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan62/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan62/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan62/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.4982338288211266,
+          "corrupt_error": 5.865498121329954,
+          "repaired_error": 1.164812396796779,
+          "clean_control_error": 0.4982338288211266,
+          "corruption_gap": 5.367264292508827,
+          "recovered_gap": 4.700685724533175,
+          "gap_recovery": 0.8758066434503688,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.2787533590338471,
+          "corrupt_error": 4.674177520785411,
+          "repaired_error": 0.6918976494782081,
+          "clean_control_error": 0.2787533590338471,
+          "corruption_gap": 4.3954241617515635,
+          "recovered_gap": 3.9822798713072025,
+          "gap_recovery": 0.906005819861598,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 3.3509176022314198,
+          "corrupt_error": 10.772166249664094,
+          "repaired_error": 5.751915521445941,
+          "clean_control_error": 3.3509176022314198,
+          "corruption_gap": 7.421248647432675,
+          "recovered_gap": 5.020250728218153,
+          "gap_recovery": 0.6764698188565439,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 3.9814365039132382,
+          "corrupt_error": 9.594225748629128,
+          "repaired_error": 7.646213804511185,
+          "clean_control_error": 3.9814365039132382,
+          "corruption_gap": 5.61278924471589,
+          "recovered_gap": 1.948011944117943,
+          "gap_recovery": 0.3470666471134439,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan75": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan75/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan75/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan75/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan75/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.2966766908080126,
+          "corrupt_error": 4.852267813098148,
+          "repaired_error": 1.674945734327551,
+          "clean_control_error": 0.2966766908080126,
+          "corruption_gap": 4.555591122290136,
+          "recovered_gap": 3.1773220787705974,
+          "gap_recovery": 0.6974554988537535,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.3311809820365389,
+          "corrupt_error": 3.6425269960441664,
+          "repaired_error": 1.2836083969675156,
+          "clean_control_error": 0.3311809820365389,
+          "corruption_gap": 3.3113460140076274,
+          "recovered_gap": 2.3589185990766506,
+          "gap_recovery": 0.7123745416812297,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 2.994827006298268,
+          "corrupt_error": 15.756119997731574,
+          "repaired_error": 6.296208351425198,
+          "clean_control_error": 2.994827006298268,
+          "corruption_gap": 12.761292991433306,
+          "recovered_gap": 9.459911646306375,
+          "gap_recovery": 0.7412972692231768,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 3.9546081838740443,
+          "corrupt_error": 13.64479472578067,
+          "repaired_error": 13.181759073907326,
+          "clean_control_error": 3.9546081838740443,
+          "corruption_gap": 9.690186541906627,
+          "recovered_gap": 0.4630356518733443,
+          "gap_recovery": 0.04778397710620729,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan77": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan77/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan77/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan77/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan77/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.8154269234586091,
+          "corrupt_error": 5.258249002690001,
+          "repaired_error": 0.5169440594044035,
+          "clean_control_error": 0.8154269234586091,
+          "corruption_gap": 4.442822079231393,
+          "recovered_gap": 4.741304943285598,
+          "gap_recovery": 1.067183168430153,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.8721687531239245,
+          "corrupt_error": 3.391094424178142,
+          "repaired_error": 0.4218000285241545,
+          "clean_control_error": 0.8721687531239245,
+          "corruption_gap": 2.518925671054218,
+          "recovered_gap": 2.969294395653988,
+          "gap_recovery": 1.1787939714835978,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 6.447935231419182,
+          "corrupt_error": 3.634136171445295,
+          "repaired_error": 6.029678318067323,
+          "clean_control_error": 6.447935231419182,
+          "corruption_gap": -2.8137990599738867,
+          "recovered_gap": -2.395542146622028,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 9.525560655501337,
+          "corrupt_error": 4.590105598897536,
+          "repaired_error": 7.32261595560058,
+          "clean_control_error": 9.525560655501337,
+          "corruption_gap": -4.935455056603801,
+          "recovered_gap": -2.7325103567030435,
+          "gap_recovery": null,
+          "gap_recovery_status": "undefined_nonpositive_or_noise_floor_gap",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    },
+    "scan9": {
+      "identity_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan9/identity.npz",
+      "corrupt_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_mechanism/scan9/asymmetric_crop_075.npz",
+      "repaired_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan9/canonical_asymmetric_crop_075.npz",
+      "clean_control_prediction": "/opt/camcanon3r/outputs/dtu/vggt/rectified_canonical/scan9/identity.npz",
+      "minimum_gap": 1e-12,
+      "metrics": {
+        "relative_rotation_median_degrees": {
+          "identity_error": 0.388106392077791,
+          "corrupt_error": 6.120108390056699,
+          "repaired_error": 0.4644277258543065,
+          "clean_control_error": 0.388106392077791,
+          "corruption_gap": 5.732001997978908,
+          "recovered_gap": 5.655680664202393,
+          "gap_recovery": 0.9866850475970829,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "relative_rotation_degrees",
+            "median"
+          ]
+        },
+        "translation_direction_median_degrees": {
+          "identity_error": 0.264575500513606,
+          "corrupt_error": 4.965744811483207,
+          "repaired_error": 0.18028184013178547,
+          "clean_control_error": 0.264575500513606,
+          "corruption_gap": 4.7011693109696004,
+          "recovered_gap": 4.785462971351421,
+          "gap_recovery": 1.0179303604711984,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "translation_direction_degrees",
+            "median"
+          ]
+        },
+        "depth_mean_abs_rel": {
+          "status": "unavailable",
+          "path": [
+            "depth",
+            "mean_abs_rel"
+          ]
+        },
+        "point_accuracy_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "accuracy_meters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_meters": {
+          "status": "unavailable",
+          "path": [
+            "point_cloud",
+            "completeness_meters",
+            "mean"
+          ]
+        },
+        "point_accuracy_mean_millimeters": {
+          "identity_error": 1.963878840602522,
+          "corrupt_error": 3.0511357425750676,
+          "repaired_error": 2.6449730556508633,
+          "clean_control_error": 1.963878840602522,
+          "corruption_gap": 1.0872569019725455,
+          "recovered_gap": 0.4061626869242043,
+          "gap_recovery": 0.37356643695462177,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "accuracy_millimeters",
+            "mean"
+          ]
+        },
+        "point_completeness_mean_millimeters": {
+          "identity_error": 2.4039963962242017,
+          "corrupt_error": 3.038683671490323,
+          "repaired_error": 2.6644235599594497,
+          "clean_control_error": 2.4039963962242017,
+          "corruption_gap": 0.6346872752661215,
+          "recovered_gap": 0.37426011153087346,
+          "gap_recovery": 0.5896764061859409,
+          "gap_recovery_status": "defined",
+          "clean_delta": 0.0,
+          "clean_relative_degradation": 0.0,
+          "status": "available",
+          "path": [
+            "point_cloud",
+            "completeness_millimeters",
+            "mean"
+          ]
+        }
+      }
+    }
+  },
+  "by_metric": {
+    "relative_rotation_median_degrees": {
+      "status": "available",
+      "scene_count": 22,
+      "scenes": [
+        "scan1",
+        "scan10",
+        "scan11",
+        "scan110",
+        "scan114",
+        "scan118",
+        "scan12",
+        "scan13",
+        "scan15",
+        "scan23",
+        "scan24",
+        "scan29",
+        "scan32",
+        "scan33",
+        "scan34",
+        "scan4",
+        "scan48",
+        "scan49",
+        "scan62",
+        "scan75",
+        "scan77",
+        "scan9"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 22,
+        "clean_control_valid_scene_count": 22,
+        "complete_scene_count": 22,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.4590553681840457,
+            "lower": 0.3730005402163395,
+            "upper": 0.5354918857739506
+          },
+          "corrupt_error": {
+            "point_estimate": 5.580652240856493,
+            "lower": 4.914111687175332,
+            "upper": 6.495436509541646
+          },
+          "repaired_error": {
+            "point_estimate": 0.4993024372224728,
+            "lower": 0.39069779668324156,
+            "upper": 0.694648903919874
+          },
+          "clean_control_error": {
+            "point_estimate": 0.4590553681840457,
+            "lower": 0.3730005402163395,
+            "upper": 0.5354918857739506
+          },
+          "corruption_gap": {
+            "point_estimate": 5.1907755382167,
+            "lower": 4.442822079231393,
+            "upper": 6.0155996081401675
+          },
+          "recovered_gap": {
+            "point_estimate": 4.8828538416375835,
+            "lower": 4.204878661878153,
+            "upper": 6.119334447057615
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.9406790576259625,
+        "lower": 0.8879658020384871,
+        "upper": 1.0418014931439594,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "translation_direction_median_degrees": {
+      "status": "available",
+      "scene_count": 22,
+      "scenes": [
+        "scan1",
+        "scan10",
+        "scan11",
+        "scan110",
+        "scan114",
+        "scan118",
+        "scan12",
+        "scan13",
+        "scan15",
+        "scan23",
+        "scan24",
+        "scan29",
+        "scan32",
+        "scan33",
+        "scan34",
+        "scan4",
+        "scan48",
+        "scan49",
+        "scan62",
+        "scan75",
+        "scan77",
+        "scan9"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 22,
+        "clean_control_valid_scene_count": 22,
+        "complete_scene_count": 22,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 0.3462918508073062,
+            "lower": 0.27166442977372657,
+            "upper": 0.4098121933188813
+          },
+          "corrupt_error": {
+            "point_estimate": 4.020986480882263,
+            "lower": 3.391094424178142,
+            "upper": 4.965744811483207
+          },
+          "repaired_error": {
+            "point_estimate": 0.33538455343043333,
+            "lower": 0.2774728521652596,
+            "upper": 0.4716482812058292
+          },
+          "clean_control_error": {
+            "point_estimate": 0.3462918508073062,
+            "lower": 0.27166442977372657,
+            "upper": 0.4098121933188813
+          },
+          "corruption_gap": {
+            "point_estimate": 3.632672510354981,
+            "lower": 2.9151358425309226,
+            "upper": 4.7011693109696004
+          },
+          "recovered_gap": {
+            "point_estimate": 3.5500696372224785,
+            "lower": 2.664106497365319,
+            "upper": 4.718422653135124
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.9772611285776404,
+        "lower": 0.8661680751686214,
+        "upper": 1.0347380696267483,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "depth_mean_abs_rel": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 22,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    },
+    "point_accuracy_mean_meters": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 22,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    },
+    "point_completeness_mean_meters": {
+      "status": "unavailable",
+      "scene_count": 0,
+      "scenes": [],
+      "metric_availability": {
+        "core_valid_scene_count": 0,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 22,
+        "included_in_scene_bootstrap": false
+      },
+      "aggregation": null,
+      "reason": "complete paired scene design required; no subset bootstrap"
+    },
+    "point_accuracy_mean_millimeters": {
+      "status": "available",
+      "scene_count": 22,
+      "scenes": [
+        "scan1",
+        "scan10",
+        "scan11",
+        "scan110",
+        "scan114",
+        "scan118",
+        "scan12",
+        "scan13",
+        "scan15",
+        "scan23",
+        "scan24",
+        "scan29",
+        "scan32",
+        "scan33",
+        "scan34",
+        "scan4",
+        "scan48",
+        "scan49",
+        "scan62",
+        "scan75",
+        "scan77",
+        "scan9"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 22,
+        "clean_control_valid_scene_count": 22,
+        "complete_scene_count": 22,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 2.849713516879918,
+            "lower": 2.477391433018568,
+            "upper": 3.6234457573335304
+          },
+          "corrupt_error": {
+            "point_estimate": 6.312748906590791,
+            "lower": 3.8781742225376505,
+            "upper": 7.974770863225189
+          },
+          "repaired_error": {
+            "point_estimate": 3.245780365242764,
+            "lower": 2.7609535173798263,
+            "upper": 5.01631430726888
+          },
+          "clean_control_error": {
+            "point_estimate": 2.849713516879918,
+            "lower": 2.477391433018568,
+            "upper": 3.6234457573335304
+          },
+          "corruption_gap": {
+            "point_estimate": 2.735271510608482,
+            "lower": 1.3031489544133372,
+            "upper": 6.015137029402745
+          },
+          "recovered_gap": {
+            "point_estimate": 2.29738443481045,
+            "lower": 0.4577546800336556,
+            "upper": 4.684730935823468
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.8399109287324018,
+        "lower": 0.25628384932152914,
+        "upper": 1.0485059372129077,
+        "valid_replicates": 9998,
+        "undefined_replicates": 2
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": false,
+        "confidence_bound_clean_cost_pass": true
+      }
+    },
+    "point_completeness_mean_millimeters": {
+      "status": "available",
+      "scene_count": 22,
+      "scenes": [
+        "scan1",
+        "scan10",
+        "scan11",
+        "scan110",
+        "scan114",
+        "scan118",
+        "scan12",
+        "scan13",
+        "scan15",
+        "scan23",
+        "scan24",
+        "scan29",
+        "scan32",
+        "scan33",
+        "scan34",
+        "scan4",
+        "scan48",
+        "scan49",
+        "scan62",
+        "scan75",
+        "scan77",
+        "scan9"
+      ],
+      "metric_availability": {
+        "core_valid_scene_count": 22,
+        "clean_control_valid_scene_count": 22,
+        "complete_scene_count": 22,
+        "undefined_scene_count": 0,
+        "included_in_scene_bootstrap": true
+      },
+      "scene_bootstrap": {
+        "resampling_unit": "scene",
+        "statistic": "median",
+        "interval_method": "percentile",
+        "confidence_level": 0.95,
+        "replicates": 10000,
+        "seed": 17,
+        "small_sample_warning": null,
+        "metrics": {
+          "identity_error": {
+            "point_estimate": 3.7682726007606187,
+            "lower": 2.9617486389893264,
+            "upper": 4.430407010328726
+          },
+          "corrupt_error": {
+            "point_estimate": 6.101095768902288,
+            "lower": 5.215472090618894,
+            "upper": 8.559555183421677
+          },
+          "repaired_error": {
+            "point_estimate": 3.552027446756152,
+            "lower": 2.8827513449949667,
+            "upper": 6.7252652456109026
+          },
+          "clean_control_error": {
+            "point_estimate": 3.7682726007606187,
+            "lower": 2.9617486389893264,
+            "upper": 4.430407010328726
+          },
+          "corruption_gap": {
+            "point_estimate": 2.4984408932860784,
+            "lower": 1.7691629548131431,
+            "upper": 4.657068267247466
+          },
+          "recovered_gap": {
+            "point_estimate": 2.287003401999042,
+            "lower": 1.610519275807185,
+            "upper": 3.032016879811107
+          },
+          "clean_delta": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "clean_relative_degradation": {
+            "point_estimate": 0.0,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      },
+      "gap_recovery": {
+        "point_estimate": 0.9153722259929299,
+        "lower": 0.5375953882319904,
+        "upper": 1.295970413360796,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "promotion_gate": {
+        "recovery_threshold": 0.3,
+        "clean_relative_threshold": 0.02,
+        "point_recovery_pass": true,
+        "point_clean_cost_pass": true,
+        "confidence_bound_recovery_pass": true,
+        "confidence_bound_clean_cost_pass": true
+      }
+    }
+  },
+  "model": "vggt",
+  "dataset": "dtu-held-out",
+  "original_results": "/opt/camcanon3r/results/dtu/vggt/rectified_mechanism",
+  "repaired_results": "/opt/camcanon3r/results/dtu/vggt/rectified_canonical",
+  "identity_variant": "identity",
+  "corrupt_variant": "asymmetric_crop_075",
+  "clean_control_variant": "identity",
+  "repaired_variant": "canonical_asymmetric_crop_075"
+}

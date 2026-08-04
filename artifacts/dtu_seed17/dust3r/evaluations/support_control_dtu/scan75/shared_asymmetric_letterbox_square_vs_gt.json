@@ -1,0 +1,153 @@
+{
+  "prediction": "/opt/camcanon3r/outputs/dtu/dust3r/rectified_support_control/scan75/shared_asymmetric_letterbox_square.npz",
+  "variant": "shared_asymmetric_letterbox_square",
+  "scan": 75,
+  "inputs": [
+    "rect_023_3_r5000.png",
+    "rect_026_3_r5000.png",
+    "rect_029_3_r5000.png"
+  ],
+  "camera_model": "PINHOLE",
+  "camera_size": [
+    1600,
+    1600
+  ],
+  "camera_ids": [
+    23,
+    26,
+    29
+  ],
+  "camera_sizes": [
+    [
+      1600,
+      1600
+    ],
+    [
+      1600,
+      1600
+    ],
+    [
+      1600,
+      1600
+    ]
+  ],
+  "intrinsics": {
+    "focal_relative_error": {
+      "count": 3,
+      "median": 0.22335634355455863,
+      "mean": 0.23652959053528302,
+      "p90": 0.2600221841564409
+    },
+    "principal_point_normalized_error": {
+      "count": 3,
+      "median": 0.08061573082057774,
+      "mean": 0.08061548865014367,
+      "p90": 0.08061591301278871
+    },
+    "per_view": [
+      {
+        "input": "rect_023_3_r5000.png",
+        "camera_id": 23,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.2691886443069115,
+        "principal_point_normalized_error": 0.08061595856084146
+      },
+      {
+        "input": "rect_026_3_r5000.png",
+        "camera_id": 26,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.217043783744379,
+        "principal_point_normalized_error": 0.08061477656901182
+      },
+      {
+        "input": "rect_029_3_r5000.png",
+        "camera_id": 29,
+        "camera_size": [
+          1600,
+          1600
+        ],
+        "focal_relative_error": 0.22335634355455863,
+        "principal_point_normalized_error": 0.08061573082057774
+      }
+    ]
+  },
+  "relative_rotation_degrees": {
+    "count": 3,
+    "median": 4.089647471477072,
+    "mean": 5.259187693055907,
+    "p90": 6.935301357823033
+  },
+  "translation_direction_degrees": {
+    "count": 3,
+    "median": 5.642491409341028,
+    "mean": 4.8359315687401825,
+    "p90": 7.1669758563100885
+  },
+  "depth": null,
+  "point_cloud": {
+    "status": "available",
+    "protocol": "official_mask_plane_threshold_deterministic_cap",
+    "alignment": {
+      "source": "camera_pose_rotation_then_center_scale_translation",
+      "scale": 2981.708279809063,
+      "rotation": [
+        [
+          0.07940731343436268,
+          0.4526389984231737,
+          -0.8881511220955598
+        ],
+        [
+          -0.9177655935185928,
+          0.3809711960180151,
+          0.11210380527915982
+        ],
+        [
+          0.389102549370473,
+          0.8062126797012492,
+          0.44566839820917237
+        ]
+      ],
+      "translation": [
+        582.7428921335801,
+        -120.44411596397796,
+        385.03076688644865
+      ]
+    },
+    "voxel_size_millimeters": 0.2,
+    "outlier_threshold_millimeters": 20.0,
+    "maximum_points": 100000,
+    "predicted_points_evaluated": 100000,
+    "predicted_points_in_observation_mask": 9959,
+    "target_points_evaluated": 100000,
+    "accuracy_distances_before_outlier_filter": 9959,
+    "accuracy_distances_after_outlier_filter": 4873,
+    "completeness_distances_before_outlier_filter": 100000,
+    "completeness_distances_after_outlier_filter": 29490,
+    "accuracy_millimeters": {
+      "count": 4873,
+      "median": 6.45387320769102,
+      "mean": 7.627876575090132,
+      "p90": 15.914112540411917
+    },
+    "completeness_millimeters": {
+      "count": 29490,
+      "median": 9.184937130402357,
+      "mean": 9.528263486786768,
+      "p90": 17.838479130103376
+    },
+    "predicted_source_supported_points_before_alignment": 300000
+  },
+  "evaluation_protocol_version": "dtu-1.1",
+  "scene": "scan75",
+  "calibration_dir": "/mnt/e/camcanon3r-data/dtu_selected/calibration/cal18",
+  "gt_root": "/mnt/e/camcanon3r-data/dtu_selected/gt",
+  "point_metrics_requested": true,
+  "protocol_sha256": "94bf28de1ec3b7aa9fc031a4dff636993bd1b410faabb92962b2aa9ecfff571e",
+  "variant_config_sha256": "603d667daa1cced1994485642d5a931f186eb20524e7c3fde0e6644a6d2fc9dd"
+}

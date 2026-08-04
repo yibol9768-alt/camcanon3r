@@ -1,0 +1,333 @@
+{
+  "schema_version": "1.1",
+  "status": "complete",
+  "evidence_complete": true,
+  "models": [
+    "vggt",
+    "dust3r"
+  ],
+  "mechanism": {
+    "source": "results/mechanism/analysis.json",
+    "source_sha256": "294de00dd8362fd517f4cc90d11ff06656994a076b5d21a3101c7111f720ebf2",
+    "models": [
+      "vggt",
+      "dust3r"
+    ],
+    "datasets": [
+      "eth3d",
+      "dtu"
+    ],
+    "family_support": {
+      "independent_asymmetric_crop": {
+        "crossing_model_datasets": [
+          "vggt/eth3d",
+          "dust3r/eth3d",
+          "vggt/dtu",
+          "dust3r/dtu"
+        ],
+        "crossing_count": 4,
+        "evaluated_count": 4,
+        "crosses_in_every_evaluated_model_dataset": true,
+        "evaluated_models_by_dataset": {
+          "dtu": [
+            "dust3r",
+            "vggt"
+          ],
+          "eth3d": [
+            "dust3r",
+            "vggt"
+          ]
+        },
+        "crossing_models_by_dataset": {
+          "dtu": [
+            "dust3r",
+            "vggt"
+          ],
+          "eth3d": [
+            "dust3r",
+            "vggt"
+          ]
+        },
+        "datasets_with_all_evaluated_models_crossing": [
+          "dtu",
+          "eth3d"
+        ],
+        "meets_two_dataset_gate": true
+      },
+      "shared_asymmetric_crop": {
+        "crossing_model_datasets": [
+          "vggt/eth3d",
+          "dust3r/eth3d",
+          "vggt/dtu",
+          "dust3r/dtu"
+        ],
+        "crossing_count": 4,
+        "evaluated_count": 4,
+        "crosses_in_every_evaluated_model_dataset": true,
+        "evaluated_models_by_dataset": {
+          "dtu": [
+            "dust3r",
+            "vggt"
+          ],
+          "eth3d": [
+            "dust3r",
+            "vggt"
+          ]
+        },
+        "crossing_models_by_dataset": {
+          "dtu": [
+            "dust3r",
+            "vggt"
+          ],
+          "eth3d": [
+            "dust3r",
+            "vggt"
+          ]
+        },
+        "datasets_with_all_evaluated_models_crossing": [
+          "dtu",
+          "eth3d"
+        ],
+        "meets_two_dataset_gate": true
+      },
+      "center_crop": {
+        "crossing_model_datasets": [],
+        "crossing_count": 0,
+        "evaluated_count": 4,
+        "crosses_in_every_evaluated_model_dataset": false,
+        "evaluated_models_by_dataset": {
+          "dtu": [
+            "dust3r",
+            "vggt"
+          ],
+          "eth3d": [
+            "dust3r",
+            "vggt"
+          ]
+        },
+        "crossing_models_by_dataset": {
+          "dtu": [],
+          "eth3d": []
+        },
+        "datasets_with_all_evaluated_models_crossing": [],
+        "meets_two_dataset_gate": false
+      },
+      "letterbox": {
+        "crossing_model_datasets": [],
+        "crossing_count": 0,
+        "evaluated_count": 4,
+        "crosses_in_every_evaluated_model_dataset": false,
+        "evaluated_models_by_dataset": {
+          "dtu": [
+            "dust3r",
+            "vggt"
+          ],
+          "eth3d": [
+            "dust3r",
+            "vggt"
+          ]
+        },
+        "crossing_models_by_dataset": {
+          "dtu": [],
+          "eth3d": []
+        },
+        "datasets_with_all_evaluated_models_crossing": [],
+        "meets_two_dataset_gate": false
+      }
+    },
+    "meets_two_family_two_dataset_gate": true
+  },
+  "support_preserving_coordinate_control": {
+    "source": "results/support_control/analysis.json",
+    "source_sha256": "af08ae3fd28b7b49df89de6cf26eb0ad88b4cecd9d42e3c6fdffd70b5e4a6107",
+    "protocol": "/opt/camcanon3r/configs/support_control_variants.json",
+    "protocol_sha256": "603d667daa1cced1994485642d5a931f186eb20524e7c3fde0e6644a6d2fc9dd",
+    "models": [
+      "vggt",
+      "dust3r"
+    ],
+    "datasets": [
+      "eth3d",
+      "dtu"
+    ],
+    "support": [
+      {
+        "model": "vggt",
+        "dataset": "eth3d",
+        "rotation_delta": {
+          "point_estimate": 13.970501759079252,
+          "lower": 9.800004080156551,
+          "upper": 15.331149537102542
+        },
+        "crosses_point_estimate_threshold": true
+      },
+      {
+        "model": "dust3r",
+        "dataset": "eth3d",
+        "rotation_delta": {
+          "point_estimate": 10.901197110883144,
+          "lower": 8.11193286828911,
+          "upper": 16.28175425408821
+        },
+        "crosses_point_estimate_threshold": true
+      },
+      {
+        "model": "vggt",
+        "dataset": "dtu",
+        "rotation_delta": {
+          "point_estimate": 10.77521212154117,
+          "lower": 10.01939700977714,
+          "upper": 11.303207534824642
+        },
+        "crosses_point_estimate_threshold": true
+      },
+      {
+        "model": "dust3r",
+        "dataset": "dtu",
+        "rotation_delta": {
+          "point_estimate": 5.691874350135491,
+          "lower": 4.982371313245416,
+          "upper": 5.932563995082766
+        },
+        "crosses_point_estimate_threshold": true
+      }
+    ],
+    "passes_all_models_and_datasets": true
+  },
+  "held_out_reliability": [
+    {
+      "model": "vggt",
+      "dataset": "dtu-held-out",
+      "cases": "/opt/camcanon3r/results/reliability/dtu_vggt_seed17/cases.json",
+      "cases_sha256": "bd2b255e48f407869232aec03737fe5c6706d489a95e9b8188fa9967ec811d54",
+      "failure_count": 23,
+      "case_count": 88,
+      "disagreement_auroc": {
+        "status": "defined",
+        "point_estimate": 0.9976588628762542,
+        "lower": 0.9895238095238095,
+        "upper": 1.0,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "native_auroc": {
+        "status": "defined",
+        "point_estimate": 0.6468227424749163,
+        "lower": 0.5757575757575758,
+        "upper": 0.7224080267558528,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "auroc_threshold": 0.75,
+      "point_estimate_gate_pass": true,
+      "disagreement_exceeds_native_point_estimate": true,
+      "source_reports": {
+        "disagreement": {
+          "path": "results/reliability/dtu_vggt_seed17/rotation_disagreement.json",
+          "sha256": "bc0357420560543286819cf0d2021e9a5100fea5447aee012a2eff4a37fc02c1"
+        },
+        "native": {
+          "path": "results/reliability/dtu_vggt_seed17/rotation_native_uncertainty.json",
+          "sha256": "96668cf9b61d6853d7c0266aba70981d57e3266d65bb07826ccd8de2af22fd32"
+        }
+      }
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu-held-out",
+      "cases": "/opt/camcanon3r/results/reliability/dtu_dust3r_seed17/cases.json",
+      "cases_sha256": "5c95e60b8dde8f739cd1d6e380467a4eb5b5c2b6d2ad2ba92d6a1c9d678c2b3a",
+      "failure_count": 59,
+      "case_count": 88,
+      "disagreement_auroc": {
+        "status": "defined",
+        "point_estimate": 0.8550555230859147,
+        "lower": 0.7317452383740218,
+        "upper": 0.9492420881396036,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "native_auroc": {
+        "status": "defined",
+        "point_estimate": 0.8550555230859147,
+        "lower": 0.7428362165178571,
+        "upper": 0.9326984126984127,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "auroc_threshold": 0.75,
+      "point_estimate_gate_pass": true,
+      "disagreement_exceeds_native_point_estimate": false,
+      "source_reports": {
+        "disagreement": {
+          "path": "results/reliability/dtu_dust3r_seed17/rotation_disagreement.json",
+          "sha256": "90a673a473130bb95d4c04a7dcfb13e5577753fe726cc6b19debd545c12c4c1c"
+        },
+        "native": {
+          "path": "results/reliability/dtu_dust3r_seed17/rotation_native_uncertainty.json",
+          "sha256": "e82cd7f000f395f627aa741f4c0e0693513e8696519602de37056871c9ea2163"
+        }
+      }
+    }
+  ],
+  "held_out_repair": [
+    {
+      "model": "vggt",
+      "dataset": "dtu-held-out",
+      "rotation_gap_recovery": {
+        "point_estimate": 0.9406790576259625,
+        "lower": 0.8879658020384871,
+        "upper": 1.0418014931439594,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "clean_relative_degradation": {
+        "point_estimate": 0.0,
+        "lower": 0.0,
+        "upper": 0.0
+      },
+      "point_estimate_recovery_pass": true,
+      "point_estimate_clean_cost_pass": true,
+      "point_estimate_gate_pass": true,
+      "confidence_bound_recovery_pass": true,
+      "confidence_bound_clean_cost_pass": true,
+      "source": "results/repair/dtu_vggt_neutral_gray.json",
+      "source_sha256": "48f9e4a921ba09baef0cca122f7bfe4d5e9ffe89b77cbb34ec16e1213a23c19d"
+    },
+    {
+      "model": "dust3r",
+      "dataset": "dtu-held-out",
+      "rotation_gap_recovery": {
+        "point_estimate": 0.7668276091097451,
+        "lower": 0.420648514851397,
+        "upper": 1.2514092102522876,
+        "valid_replicates": 10000,
+        "undefined_replicates": 0
+      },
+      "clean_relative_degradation": {
+        "point_estimate": 0.0,
+        "lower": 0.0,
+        "upper": 0.0
+      },
+      "point_estimate_recovery_pass": true,
+      "point_estimate_clean_cost_pass": true,
+      "point_estimate_gate_pass": true,
+      "confidence_bound_recovery_pass": true,
+      "confidence_bound_clean_cost_pass": true,
+      "source": "results/repair/dtu_dust3r_neutral_gray.json",
+      "source_sha256": "3304075134ff983d3cacdfe16f33d81200ae4530e90287bfc476179b3c48b679"
+    }
+  ],
+  "claim_gates": {
+    "two_family_two_dataset_mechanism": true,
+    "support_preserving_coordinate_control_all_models_datasets": true,
+    "held_out_detector_all_models": true,
+    "held_out_detector_exceeds_native_all_models": false,
+    "cross_dataset_rotation_repair_all_models": true
+  },
+  "interpretation": {
+    "failed_gates_remain_negative_results": true,
+    "generic_geometry_repair_not_implied": true,
+    "review_score_not_computed_from_claim_gates": true
+  }
+}
