@@ -1,0 +1,543 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "dataset": "eth3d-training-raw",
+  "protocol_sha256": "8a737b193143951db4059fe34a6b5c1ba124a2d1caa0ed8309d9bf5788179c2c",
+  "models_are_separate": true,
+  "model_count": 2,
+  "models": [
+    {
+      "model": "vggt",
+      "dataset": "eth3d-training-raw",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "candidate_order": [
+        "neutral_gray",
+        "black",
+        "image_mean"
+      ],
+      "protocol_sha256": "8a737b193143951db4059fe34a6b5c1ba124a2d1caa0ed8309d9bf5788179c2c",
+      "source_reports": {
+        "neutral_gray": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_vggt_raw_neutral_gray.json",
+          "sha256": "dee733dea504d599f9c60e2dfa4443a9348804c064235241d1776dfd6d2ad4eb"
+        },
+        "black": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_vggt_raw_black.json",
+          "sha256": "a055d0925d92eba9ec359ea36131cb19e490de82eb12804bb26508495b0df39c"
+        },
+        "image_mean": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_vggt_raw_image_mean.json",
+          "sha256": "004549c30f53ad5febef86b5184f1ae0cba228bfab468b88e71562f7af816d28"
+        },
+        "consensus": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_vggt_raw_consensus.json",
+          "sha256": "e36b2f195021fbe1ed2c5f5cbef0452b7021c3f02e5c13a7f475fa956a1c241c"
+        }
+      },
+      "records": [
+        {
+          "model": "vggt",
+          "method": "neutral_gray",
+          "kind": "analytic_fill",
+          "model_runs_per_scene": 1,
+          "median_model_compute_seconds_per_scene": 0.15518802299993695,
+          "maximum_peak_vram_bytes": 5755653632,
+          "selection_frequency": null,
+          "rotation": {
+            "identity_error": 0.8050890563543351,
+            "corrupt_error": 5.274096328741586,
+            "repaired_error": 1.4490122611856715,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.9661325546866176,
+              "lower": 0.7287984457228931,
+              "upper": 1.1300093297586467,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.023425363956359205,
+            "corrupt_error": 0.04086940870932448,
+            "repaired_error": 0.08059792029988429,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -1.3802138431391318,
+              "lower": -4.453363786101909,
+              "upper": -0.516991633255102,
+              "valid_replicates": 9999,
+              "undefined_replicates": 1
+            }
+          }
+        },
+        {
+          "model": "vggt",
+          "method": "black",
+          "kind": "analytic_fill",
+          "model_runs_per_scene": 1,
+          "median_model_compute_seconds_per_scene": 0.17318626899941592,
+          "maximum_peak_vram_bytes": 5755653632,
+          "selection_frequency": null,
+          "rotation": {
+            "identity_error": 0.8050890563543351,
+            "corrupt_error": 5.274096328741586,
+            "repaired_error": 1.5284236639452788,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.9161974211568897,
+              "lower": 0.7037111919932316,
+              "upper": 1.0924622836637625,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.023425363956359205,
+            "corrupt_error": 0.04086940870932448,
+            "repaired_error": 0.06465283869768647,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -0.8157803650166768,
+              "lower": -2.266892876546006,
+              "upper": -0.06345644924259433,
+              "valid_replicates": 9999,
+              "undefined_replicates": 1
+            }
+          }
+        },
+        {
+          "model": "vggt",
+          "method": "image_mean",
+          "kind": "analytic_fill",
+          "model_runs_per_scene": 1,
+          "median_model_compute_seconds_per_scene": 0.15980586600198876,
+          "maximum_peak_vram_bytes": 5755653632,
+          "selection_frequency": null,
+          "rotation": {
+            "identity_error": 0.8050890563543351,
+            "corrupt_error": 5.274096328741586,
+            "repaired_error": 1.2384934744573748,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.964445514049688,
+              "lower": 0.7473406520791698,
+              "upper": 1.1827362729844666,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.023425363956359205,
+            "corrupt_error": 0.04086940870932448,
+            "repaired_error": 0.09067953191918124,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -1.688801724015328,
+              "lower": -4.182508719682973,
+              "upper": -0.7852987922148011,
+              "valid_replicates": 9999,
+              "undefined_replicates": 1
+            }
+          }
+        },
+        {
+          "model": "vggt",
+          "method": "consensus",
+          "kind": "three_fill_selector",
+          "model_runs_per_scene": 3,
+          "median_model_compute_seconds_per_scene": 0.4898078619989974,
+          "maximum_peak_vram_bytes": 5755653632,
+          "selection_frequency": {
+            "image_mean": 4,
+            "neutral_gray": 9
+          },
+          "rotation": {
+            "identity_error": 0.8050890563543351,
+            "corrupt_error": 5.274096328741586,
+            "repaired_error": 1.4159166174412137,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.9661325546866176,
+              "lower": 0.7287984457228931,
+              "upper": 1.1300093297586467,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.023425363956359205,
+            "corrupt_error": 0.04086940870932448,
+            "repaired_error": 0.08059792029988429,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -1.3802138431391318,
+              "lower": -4.561472974513021,
+              "upper": -0.516991633255102,
+              "valid_replicates": 9999,
+              "undefined_replicates": 1
+            }
+          }
+        },
+        {
+          "model": "vggt",
+          "method": "native_confidence",
+          "kind": "three_fill_selector",
+          "model_runs_per_scene": 3,
+          "median_model_compute_seconds_per_scene": 0.4898078619989974,
+          "maximum_peak_vram_bytes": 5755653632,
+          "selection_frequency": {
+            "black": 3,
+            "image_mean": 4,
+            "neutral_gray": 6
+          },
+          "rotation": {
+            "identity_error": 0.8050890563543351,
+            "corrupt_error": 5.274096328741586,
+            "repaired_error": 1.5203635350359102,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.9661325546866176,
+              "lower": 0.7287984457228931,
+              "upper": 1.0924622836637625,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.023425363956359205,
+            "corrupt_error": 0.04086940870932448,
+            "repaired_error": 0.07297477802087377,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -0.7541549534640652,
+              "lower": -2.9224873425791307,
+              "upper": 0.14847665992219156,
+              "valid_replicates": 9999,
+              "undefined_replicates": 1
+            }
+          }
+        },
+        {
+          "model": "vggt",
+          "method": "oracle",
+          "kind": "three_fill_selector",
+          "model_runs_per_scene": 3,
+          "median_model_compute_seconds_per_scene": 0.4898078619989974,
+          "maximum_peak_vram_bytes": 5755653632,
+          "selection_frequency": {
+            "black": 3,
+            "image_mean": 6,
+            "neutral_gray": 4
+          },
+          "rotation": {
+            "identity_error": 0.8050890563543351,
+            "corrupt_error": 5.274096328741586,
+            "repaired_error": 1.2384934744573748,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.9661325546866176,
+              "lower": 0.7473406520791698,
+              "upper": 1.1827362729844666,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.023425363956359205,
+            "corrupt_error": 0.04086940870932448,
+            "repaired_error": 0.08180492534194699,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -1.3802138431391318,
+              "lower": -3.6177847403329633,
+              "upper": -0.5839556808281555,
+              "valid_replicates": 9999,
+              "undefined_replicates": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "model": "dust3r",
+      "dataset": "eth3d-training-raw",
+      "scene_count": 13,
+      "scenes": [
+        "courtyard",
+        "delivery_area",
+        "electro",
+        "facade",
+        "kicker",
+        "meadow",
+        "office",
+        "pipes",
+        "playground",
+        "relief",
+        "relief_2",
+        "terrace",
+        "terrains"
+      ],
+      "candidate_order": [
+        "neutral_gray",
+        "black",
+        "image_mean"
+      ],
+      "protocol_sha256": "8a737b193143951db4059fe34a6b5c1ba124a2d1caa0ed8309d9bf5788179c2c",
+      "source_reports": {
+        "neutral_gray": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_dust3r_raw_neutral_gray.json",
+          "sha256": "fa24caefdbc7123e3a48ccab5ae1e1eeecdb42e977e50634284dbbf825f602c4"
+        },
+        "black": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_dust3r_raw_black.json",
+          "sha256": "2842195d8158ff8be457b9bef1770b1b38df2525e17211d50e4de718c327345c"
+        },
+        "image_mean": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_dust3r_raw_image_mean.json",
+          "sha256": "7b9c58f5ce5d2b5a51008d3c629350bbb7e558d0308040ca3d7048c5727d2653"
+        },
+        "consensus": {
+          "path": "artifacts/eth3d_repair_seed17/eth3d_dust3r_raw_consensus.json",
+          "sha256": "d1a869bcffdc7d65f1b5062fc47ad16e439b9b64e304341f4bfae2726326598b"
+        }
+      },
+      "records": [
+        {
+          "model": "dust3r",
+          "method": "neutral_gray",
+          "kind": "analytic_fill",
+          "model_runs_per_scene": 1,
+          "median_model_compute_seconds_per_scene": 4.7973215019992494,
+          "maximum_peak_vram_bytes": 2720927744,
+          "selection_frequency": null,
+          "rotation": {
+            "identity_error": 1.2756191998382733,
+            "corrupt_error": 5.666775844286293,
+            "repaired_error": 2.933936676189812,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.5580711056916009,
+              "lower": 0.2670738447606391,
+              "upper": 1.0603190329953855,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.02396479128726474,
+            "corrupt_error": 0.045719716277492814,
+            "repaired_error": 0.2557364177619689,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -12.609897867711853,
+              "lower": -93.03836737477529,
+              "upper": -5.868772548556944,
+              "valid_replicates": 9984,
+              "undefined_replicates": 16
+            }
+          }
+        },
+        {
+          "model": "dust3r",
+          "method": "black",
+          "kind": "analytic_fill",
+          "model_runs_per_scene": 1,
+          "median_model_compute_seconds_per_scene": 4.972193767000135,
+          "maximum_peak_vram_bytes": 2720927744,
+          "selection_frequency": null,
+          "rotation": {
+            "identity_error": 1.2756191998382733,
+            "corrupt_error": 5.666775844286293,
+            "repaired_error": 2.2859045005482104,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.5541443012364301,
+              "lower": 0.36038108516279643,
+              "upper": 1.0528582175899566,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.02396479128726474,
+            "corrupt_error": 0.045719716277492814,
+            "repaired_error": 0.12125470184782966,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -3.650112916427021,
+              "lower": -34.7554405389761,
+              "upper": -1.3211918134490124,
+              "valid_replicates": 9984,
+              "undefined_replicates": 16
+            }
+          }
+        },
+        {
+          "model": "dust3r",
+          "method": "image_mean",
+          "kind": "analytic_fill",
+          "model_runs_per_scene": 1,
+          "median_model_compute_seconds_per_scene": 5.3358379540004535,
+          "maximum_peak_vram_bytes": 2720927744,
+          "selection_frequency": null,
+          "rotation": {
+            "identity_error": 1.2756191998382733,
+            "corrupt_error": 5.666775844286293,
+            "repaired_error": 3.6400195713334624,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.5622238398445947,
+              "lower": 0.09661677575217836,
+              "upper": 1.0682091083217768,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.02396479128726474,
+            "corrupt_error": 0.045719716277492814,
+            "repaired_error": 0.24739233156557977,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -13.154915884102218,
+              "lower": -78.71466333826471,
+              "upper": -7.052618224328145,
+              "valid_replicates": 9984,
+              "undefined_replicates": 16
+            }
+          }
+        },
+        {
+          "model": "dust3r",
+          "method": "consensus",
+          "kind": "three_fill_selector",
+          "model_runs_per_scene": 3,
+          "median_model_compute_seconds_per_scene": 15.046379414998228,
+          "maximum_peak_vram_bytes": 2720927744,
+          "selection_frequency": {
+            "image_mean": 4,
+            "neutral_gray": 9
+          },
+          "rotation": {
+            "identity_error": 1.2756191998382733,
+            "corrupt_error": 5.666775844286293,
+            "repaired_error": 2.933936676189812,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.5580711056916009,
+              "lower": 0.2670738447606391,
+              "upper": 1.0603190329953855,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.02396479128726474,
+            "corrupt_error": 0.045719716277492814,
+            "repaired_error": 0.2557364177619689,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -12.609897867711853,
+              "lower": -93.03836737477529,
+              "upper": -7.008147651595793,
+              "valid_replicates": 9984,
+              "undefined_replicates": 16
+            }
+          }
+        },
+        {
+          "model": "dust3r",
+          "method": "native_confidence",
+          "kind": "three_fill_selector",
+          "model_runs_per_scene": 3,
+          "median_model_compute_seconds_per_scene": 15.046379414998228,
+          "maximum_peak_vram_bytes": 2720927744,
+          "selection_frequency": {
+            "black": 9,
+            "image_mean": 2,
+            "neutral_gray": 2
+          },
+          "rotation": {
+            "identity_error": 1.2756191998382733,
+            "corrupt_error": 5.666775844286293,
+            "repaired_error": 2.347229148232523,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.5541443012364301,
+              "lower": 0.2670738447606391,
+              "upper": 1.0528582175899566,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.02396479128726474,
+            "corrupt_error": 0.045719716277492814,
+            "repaired_error": 0.16406987927858357,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -5.8083828020755925,
+              "lower": -52.7115469548266,
+              "upper": -1.6139149089513358,
+              "valid_replicates": 9984,
+              "undefined_replicates": 16
+            }
+          }
+        },
+        {
+          "model": "dust3r",
+          "method": "oracle",
+          "kind": "three_fill_selector",
+          "model_runs_per_scene": 3,
+          "median_model_compute_seconds_per_scene": 15.046379414998228,
+          "maximum_peak_vram_bytes": 2720927744,
+          "selection_frequency": {
+            "black": 8,
+            "image_mean": 5
+          },
+          "rotation": {
+            "identity_error": 1.2756191998382733,
+            "corrupt_error": 5.666775844286293,
+            "repaired_error": 2.2859045005482104,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": 0.5622238398445947,
+              "lower": 0.36038108516279643,
+              "upper": 1.0682091083217768,
+              "valid_replicates": 10000,
+              "undefined_replicates": 0
+            }
+          },
+          "depth": {
+            "identity_error": 0.02396479128726474,
+            "corrupt_error": 0.045719716277492814,
+            "repaired_error": 0.22560290499886443,
+            "clean_relative_degradation": 0.0,
+            "gap_recovery": {
+              "point_estimate": -7.955360131843445,
+              "lower": -47.60224238829836,
+              "upper": -2.8881482557464473,
+              "valid_replicates": 9984,
+              "undefined_replicates": 16
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

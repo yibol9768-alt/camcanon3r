@@ -579,6 +579,22 @@ recovery and at most 2% median relative clean degradation; confidence-bound
 versions are reported separately and never silently substituted for the
 registered point-estimate rule. Pose-only records keep depth unavailable.
 
+After the three fill reports and consensus report are frozen for each model,
+build the single paper-ablation source. It validates model, dataset, scene,
+candidate-order, analytic-baseline, and protocol agreement before exposing
+rotation/depth recovery, compute, peak VRAM, and selection frequencies:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/summarize_repair_ablation.py \
+  results/repair/ablation_summary.json \
+  --model vggt results/repair/vggt_neutral.json \
+    results/repair/vggt_black.json results/repair/vggt_mean.json \
+    results/repair/vggt_consensus.json \
+  --model dust3r results/repair/dust3r_neutral.json \
+    results/repair/dust3r_black.json results/repair/dust3r_mean.json \
+    results/repair/dust3r_consensus.json
+```
+
 ## Statistical aggregation
 
 Sweep summaries use a deterministic 10,000-replicate percentile bootstrap

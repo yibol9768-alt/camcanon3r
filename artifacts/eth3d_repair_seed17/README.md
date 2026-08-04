@@ -58,6 +58,9 @@ cross-dataset repair evidence.
   s. Model loading is reported separately in the JSON records.
 - The frozen repair protocol SHA-256 is
   `8a737b193143951db4059fe34a6b5c1ba124a2d1caa0ed8309d9bf5788179c2c`.
+- `ablation_summary.json` binds all eight source reports by SHA-256 and exposes
+  the six fill/selector rows per model with rotation, depth, compute, VRAM, and
+  selection-frequency fields for direct paper-table generation.
 - `SHA256SUMS` covers every JSON artifact in this directory.
 
 All intervals use 10,000 scene-bootstrap replicates, 95% confidence, and seed
