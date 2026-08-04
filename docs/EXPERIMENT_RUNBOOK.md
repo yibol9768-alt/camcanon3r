@@ -303,6 +303,29 @@ paired rotation degradation exceeds 2 degrees or its depth AbsRel increase
 exceeds 0.05 on both registered datasets; a significant but smaller effect is
 reported without moving the threshold.
 
+After the complete ETH3D and DTU summaries exist for both models, compute all
+severity, matched-scope, and cross-dataset gates from the scene rows in one
+command:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/analyze_mechanism_study.py \
+  configs/eth3d_mechanism_variants.json \
+  results/mechanism/analysis.json \
+  --summary vggt eth3d results/eth3d_training/vggt/raw_mechanism/summary.json \
+  --summary dust3r eth3d results/eth3d_training/dust3r/raw_mechanism/summary.json \
+  --summary vggt dtu results/dtu/vggt/rectified_mechanism/summary.json \
+  --summary dust3r dtu results/dtu/dust3r/rectified_mechanism/summary.json \
+  --bootstrap-replicates 10000 --confidence-level 0.95 \
+  --bootstrap-seed 17 --rotation-threshold 2.0 --depth-threshold 0.05
+```
+
+The report recomputes paired identity deltas from every scene row rather than
+trusting pre-aggregated values. A dataset supports a family only when every
+supplied model on that dataset crosses a registered point-estimate threshold;
+the full hypothesis requires two such families on two datasets. Confidence
+intervals remain visible and may narrow the prose even when a point-estimate
+gate passes.
+
 ## ETH3D office preparation
 
 The selected raw and pre-undistorted source links contain `DSC_0219` through
