@@ -61,6 +61,17 @@ confirmatory minimum is VGGT plus DUSt3R on DTU and ETH3D. MASt3R is added only
 after its license, weights, and evaluation path are verified. All model-specific
 preprocessing is logged; hidden preprocessing is treated as part of the system.
 
+Before inspecting any DTU ground-truth coordinates or model outcomes, the DTU
+protocol is frozen to the standard 22 MVSNet evaluation scans and the canonical
+pixelNeRF three-view indices 22, 25, and 28 (zero-based). These map to camera
+IDs 23, 26, and 29 in the official Rectified archive, using lighting index 3.
+DTU is the held-out detector-promotion dataset: models remain separate, the
+primary failure is relative-rotation error strictly above 2 degrees, and no
+score or threshold may change after its ground-truth outcomes are inspected.
+The official archive byte lengths and ETags are frozen in
+`configs/dtu_sources.json`; the full protocol is in
+`configs/dtu_protocol.json`.
+
 ## Baselines
 
 - official model preprocessing and inference;

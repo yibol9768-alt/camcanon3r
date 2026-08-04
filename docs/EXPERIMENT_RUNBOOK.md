@@ -114,6 +114,46 @@ undefined. The evaluator keeps pose and depth results, emits an explicit
 `undefined_degenerate_camera_center_alignment` point-map status, and excludes
 that incomplete scene metric from the bootstrap instead of substituting zero.
 
+## DTU held-out acquisition
+
+DTU is frozen before GT inspection to the 22 standard MVSNet evaluation scans
+and the canonical pixelNeRF three-view indices 22, 25, and 28 (camera IDs 23,
+26, and 29 in the official one-based Rectified filenames), lighting index 3.
+The exact split, reliability threshold, archive identities, and references are
+in `configs/dtu_protocol.json` and `configs/dtu_sources.json`.
+
+The official Rectified archive is about 123 GB, so do not download it in full.
+After the three complete range indexes exist under
+`/mnt/e/camcanon3r-data/dtu_mvs`, build exact member selections:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/build_dtu_remote_selections.py \
+  /mnt/e/camcanon3r-data/dtu_mvs \
+  /mnt/e/camcanon3r-data/dtu_mvs/selections
+```
+
+Extract each selection through the process-scoped download proxy. These are
+long network jobs and must use a Windows Scheduled Task. The same output root
+is intentional; the three manifests have disjoint targets:
+
+```bash
+for archive in rectified sampleset points; do
+  ./scripts/with_download_proxy.sh env PYTHONPATH=src .venv/bin/python \
+    scripts/extract_remote_zip_selection.py \
+    /mnt/e/camcanon3r-data/dtu_mvs/selections/${archive}.json \
+    /mnt/e/camcanon3r-data/dtu_selected \
+    /mnt/e/camcanon3r-data/dtu_mvs/${archive}_extraction_report.json \
+    --resume
+done
+```
+
+Every selected member is checked against the indexed byte length and CRC-32,
+written atomically, and recorded with SHA-256. The selected payload consists of
+66 rectified images, 22 official point clouds, 22 observability masks, 22 ground
+planes, selected calibration files, and the official evaluation code. Do not
+inspect DTU GT metrics until the reliability cases, score fields, failure
+threshold, and AUROC gate in `docs/RELIABILITY_PROTOCOL.md` are frozen.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and

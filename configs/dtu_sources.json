@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_dtu_gt_inspection": true,
+  "archives": {
+    "rectified": {
+      "url": "https://roboimagedata2.compute.dtu.dk/data/MVS/Rectified.zip",
+      "expected_bytes": 129593443783,
+      "etag": "1e2c5f05c7-5652dcf644cb3",
+      "index_filename": "index_rectified.json"
+    },
+    "sampleset": {
+      "url": "https://roboimagedata2.compute.dtu.dk/data/MVS/SampleSet.zip",
+      "expected_bytes": 6905656531,
+      "etag": "19b9bf4d3-5652d3a88539d",
+      "index_filename": "index_sampleset.json"
+    },
+    "points": {
+      "url": "https://roboimagedata2.compute.dtu.dk/data/MVS/Points.zip",
+      "expected_bytes": 6966262016,
+      "etag": "19f38b900-5652d41ecd173",
+      "index_filename": "index_points.json"
+    }
+  }
+}
