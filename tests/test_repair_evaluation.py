@@ -131,7 +131,7 @@ def test_repair_summary_bootstraps_paired_aggregate_recovery() -> None:
     )
 
 
-def test_repair_summary_requires_clean_control_for_available_metric() -> None:
+def test_repair_summary_preserves_missing_clean_control_without_subset_bootstrap() -> None:
     identity = {
         "relative_rotation_degrees": {"median": 1.0},
         "translation_direction_degrees": {"median": 2.0},
@@ -152,8 +152,61 @@ def test_repair_summary_requires_clean_control_for_available_metric() -> None:
         "translation_direction_degrees": {"median": 2.0},
         "depth": None,
     }
-    with pytest.raises(ValueError, match="clean-control repair metric"):
-        summarize_repair_evaluations(
-            {"scene": (identity, corrupt, repaired, clean_missing)},
-            bootstrap_replicates=10,
-        )
+    summary = summarize_repair_evaluations(
+        {"scene": (identity, corrupt, repaired, clean_missing)},
+        bootstrap_replicates=10,
+    )
+    rotation = summary["by_metric"]["relative_rotation_median_degrees"]
+    assert rotation["status"] == "partially_unavailable"
+    assert rotation["aggregation"] is None
+    assert rotation["metric_availability"] == {
+        "core_valid_scene_count": 1,
+        "clean_control_valid_scene_count": 0,
+        "complete_scene_count": 0,
+        "undefined_scene_count": 1,
+        "included_in_scene_bootstrap": False,
+    }
+
+
+def test_repair_summary_keeps_partial_secondary_metric_explicit() -> None:
+    def record(rotation: float, point: float | None):
+        return {
+            "relative_rotation_degrees": {"median": rotation},
+            "translation_direction_degrees": {"median": rotation * 2.0},
+            "depth": {"mean_abs_rel": rotation / 100.0},
+            "point_cloud": {
+                "accuracy_meters": {"mean": point},
+                "completeness_meters": {"mean": point},
+            },
+        }
+
+    scenes = {
+        "first": (
+            record(1.0, 0.1),
+            record(5.0, 0.5),
+            record(2.0, 0.2),
+            record(1.01, 0.101),
+        ),
+        "second": (
+            record(1.0, 0.1),
+            record(5.0, 0.5),
+            record(2.0, None),
+            record(1.01, 0.101),
+        ),
+    }
+    summary = summarize_repair_evaluations(
+        scenes, bootstrap_replicates=20
+    )
+    point = summary["by_metric"]["point_accuracy_mean_meters"]
+    assert point["status"] == "partially_unavailable"
+    assert point["scenes"] == ["first"]
+    assert point["metric_availability"] == {
+        "core_valid_scene_count": 1,
+        "clean_control_valid_scene_count": 1,
+        "complete_scene_count": 1,
+        "undefined_scene_count": 1,
+        "included_in_scene_bootstrap": False,
+    }
+    assert summary["by_metric"]["relative_rotation_median_degrees"][
+        "status"
+    ] == "available"

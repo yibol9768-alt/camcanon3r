@@ -234,22 +234,45 @@ def summarize_repair_evaluations(
     by_metric: dict[str, dict[str, object]] = {}
     for label in metric_labels:
         scene_metrics = [per_scene[scene]["metrics"][label] for scene in scenes]
-        availability = [record["status"] == "available" for record in scene_metrics]
-        if any(availability) and not all(availability):
-            raise ValueError(
-                f"inconsistent repair metric availability across scenes: {label}"
-            )
-        if not any(availability):
+        core_available = [
+            record["status"] == "available" for record in scene_metrics
+        ]
+        clean_available = [
+            bool(core) and record["clean_control_error"] is not None
+            for core, record in zip(core_available, scene_metrics, strict=True)
+        ]
+        complete = [
+            bool(core and clean)
+            for core, clean in zip(core_available, clean_available, strict=True)
+        ]
+        metric_availability = {
+            "core_valid_scene_count": int(sum(core_available)),
+            "clean_control_valid_scene_count": int(sum(clean_available)),
+            "complete_scene_count": int(sum(complete)),
+            "undefined_scene_count": int(len(scenes) - sum(complete)),
+            "included_in_scene_bootstrap": bool(all(complete)),
+        }
+        if not all(complete):
+            complete_scenes = [
+                scene
+                for scene, is_complete in zip(scenes, complete, strict=True)
+                if is_complete
+            ]
             by_metric[label] = {
-                "status": "unavailable",
-                "scene_count": 0,
-                "scenes": [],
+                "status": (
+                    "partially_unavailable"
+                    if any(core_available)
+                    else "unavailable"
+                ),
+                "scene_count": len(complete_scenes),
+                "scenes": complete_scenes,
+                "metric_availability": metric_availability,
+                "aggregation": None,
+                "reason": (
+                    "complete paired scene design required; no subset bootstrap"
+                ),
             }
             continue
-        if any(record["clean_control_error"] is None for record in scene_metrics):
-            raise ValueError(
-                f"clean-control repair metric is unavailable for at least one scene: {label}"
-            )
         fields = (
             "identity_error",
             "corrupt_error",
@@ -323,6 +346,7 @@ def summarize_repair_evaluations(
             "status": "available",
             "scene_count": len(scenes),
             "scenes": scenes,
+            "metric_availability": metric_availability,
             "scene_bootstrap": {
                 "resampling_unit": "scene",
                 "statistic": "median",
