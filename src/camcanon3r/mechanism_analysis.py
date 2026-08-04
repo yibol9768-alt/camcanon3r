@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
@@ -41,6 +42,14 @@ _FAMILIES = {
 _EXPECTED_VARIANTS = {"identity"}.union(
     *(set(family_variants) for family_variants in _FAMILIES.values())
 )
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        while chunk := handle.read(8 * 1024 * 1024):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _metric_array(values: Sequence[object], label: str) -> np.ndarray:
@@ -248,7 +257,8 @@ def analyze_mechanism_summaries(
         analyses[key] = {
             "model": str(model),
             "dataset": str(dataset),
-            "summary": str(path.resolve()),
+            "summary": str(path),
+            "summary_sha256": _sha256(path),
             "analysis": _analyze_one(
                 summary,
                 variants=variants,
@@ -313,7 +323,8 @@ def analyze_mechanism_summaries(
     ]
     report = {
         "schema_version": "1.0",
-        "variant_config": str(variant_config_path.resolve()),
+        "variant_config": str(variant_config_path),
+        "variant_config_sha256": _sha256(variant_config_path),
         "rotation_threshold_degrees": rotation_threshold,
         "depth_abs_rel_threshold": depth_threshold,
         "bootstrap_replicates": bootstrap_replicates,

@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 
@@ -84,6 +85,16 @@ def test_mechanism_analysis_is_paired_and_enforces_cross_dataset_gate(
     )
 
     eth_vggt = report["analyses"]["vggt/eth3d"]["analysis"]
+    assert report["analyses"]["vggt/eth3d"]["summary"] == str(
+        tmp_path / "vggt_eth3d.json"
+    )
+    assert report["analyses"]["vggt/eth3d"]["summary_sha256"] == hashlib.sha256(
+        (tmp_path / "vggt_eth3d.json").read_bytes()
+    ).hexdigest()
+    assert report["variant_config"] == str(config)
+    assert report["variant_config_sha256"] == hashlib.sha256(
+        config.read_bytes()
+    ).hexdigest()
     asymmetric = eth_vggt["family_gates"]["independent_asymmetric_crop"]
     assert asymmetric["rotation_delta_point_estimates"] == pytest.approx(
         [1.0, 3.0, 5.0]
