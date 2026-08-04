@@ -347,6 +347,20 @@ PYTHONPATH=src python3 scripts/plot_mechanism_severity.py \
   --png results/mechanism/mechanism_severity.png
 ```
 
+Build the compact cross-dataset table source from the four confirmatory
+variants. ETH3D point distances are converted from meters to millimeters;
+focal, principal-point, and depth deltas are converted to percentage points.
+The output retains every interval and the SHA-256 of each source summary:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/summarize_cross_dataset_table.py \
+  results/mechanism/cross_dataset_table.json \
+  --summary vggt eth3d results/eth3d_training/vggt/raw_mechanism/summary.json \
+  --summary dust3r eth3d results/eth3d_training/dust3r/raw_mechanism/summary.json \
+  --summary vggt dtu results/dtu/vggt/rectified_mechanism/summary.json \
+  --summary dust3r dtu results/dtu/dust3r/rectified_mechanism/summary.json
+```
+
 ## ETH3D office preparation
 
 The selected raw and pre-undistorted source links contain `DSC_0219` through
