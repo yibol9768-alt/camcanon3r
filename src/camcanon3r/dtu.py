@@ -344,8 +344,6 @@ def _dtu_point_metrics(
     observed_aligned = aligned[
         _observation_membership(aligned, mask, bounding_box, resolution)
     ]
-    if not len(observed_aligned):
-        raise ValueError("DTU observation mask removed every predicted point")
 
     target_above_plane = (
         np.column_stack([full_target, np.ones(len(full_target))]) @ plane > 0.0
@@ -356,9 +354,12 @@ def _dtu_point_metrics(
         raise ValueError("DTU ground plane removed every target point")
 
     predicted_tree = cKDTree(aligned)
-    accuracy_before_filter = np.asarray(
-        full_target_tree.query(observed_aligned, workers=1)[0]
-    )
+    if len(observed_aligned):
+        accuracy_before_filter = np.asarray(
+            full_target_tree.query(observed_aligned, workers=1)[0]
+        )
+    else:
+        accuracy_before_filter = np.asarray([], dtype=np.float64)
     completeness_before_filter = np.asarray(predicted_tree.query(target, workers=1)[0])
     accuracy = accuracy_before_filter[
         accuracy_before_filter < outlier_threshold_millimeters
@@ -368,7 +369,14 @@ def _dtu_point_metrics(
     ]
     accuracy_available = bool(len(accuracy))
     completeness_available = bool(len(completeness))
-    if accuracy_available and completeness_available:
+    if not len(observed_aligned) and completeness_available:
+        status = "partially_undefined_no_predicted_point_in_observation_mask"
+    elif not len(observed_aligned):
+        status = (
+            "undefined_no_predicted_point_in_observation_mask_and_no_"
+            "completeness_within_outlier_threshold"
+        )
+    elif accuracy_available and completeness_available:
         status = "available"
     elif accuracy_available:
         status = "partially_undefined_no_completeness_within_outlier_threshold"

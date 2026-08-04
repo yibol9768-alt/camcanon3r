@@ -12,6 +12,13 @@ empty point direction undefined, without changing the threshold, retrying, or
 dropping a case. Resume the audited task only after this change passes tests,
 is pushed, and the `my5090` checkout is safely fast-forwarded.
 
+The first resume reached 68 records, then `scan13/asymmetric_crop_075` exposed
+zero predicted points inside the official observation mask. A second
+model-neutral amendment, still before aggregate or reliability inspection,
+marks only accuracy undefined and preserves completeness from the complete
+aligned prediction tree. No mask, threshold, point set, case, or prior record
+is changed. Test, push, safely sync, and resume the same task again.
+
 ## Mission and completion bar
 
 Continue CamCanon3R as a 3DV paper project.  The work is not complete merely

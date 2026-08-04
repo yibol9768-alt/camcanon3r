@@ -24,6 +24,19 @@ The same implementation applies to both models, all scenes, and all registered
 point-map variants. The 55 already written DUSt3R records are retained because
 none raised this condition and their numerical path is unchanged.
 
+After that amendment passed tests and the same task resumed, it wrote all 11
+`scan12` cases plus two `scan13` cases, reaching 68 of 242. The next registered
+case, `scan13/asymmetric_crop_075`, had no predicted point inside the official
+observation mask and exposed a second previously fatal condition. Again before
+opening aggregate summaries or reliability outcomes, the official directional
+semantics were applied rather than changing data or parameters: accuracy is
+undefined when its masked query set is empty, while completeness still queries
+the complete aligned prediction tree. The case, its pose/intrinsics, and any
+available completeness value are retained. Zero mask membership and zero
+accuracy-query counts are explicit in the record. This second runtime signal
+and amendment are also post-outcome and not preregistered; the 68 prior records
+remain valid because their numerical paths are unchanged.
+
 ## Official source identity
 
 The evaluator was checked against the official MATLAB files selected from DTU

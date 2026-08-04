@@ -261,6 +261,14 @@ stopped on `scan12/identity` at 55 of 242 written records, but before aggregate
 GT summaries or held-out reliability outcomes were opened; the chronology is
 audited in `docs/DTU_EVALUATION_AUDIT.md`.
 
+If the observation mask contains no predicted point, prediction-to-GT accuracy
+is undefined, but GT-to-prediction completeness still uses the full aligned
+prediction tree exactly as required by the frozen directional protocol. This
+second rule was added after the resumed DUSt3R evaluator reached 68 records and
+stopped on `scan13/asymmetric_crop_075`, again before aggregate summaries or
+held-out reliability outcomes were opened. It does not alter the mask, point
+set, threshold, case membership, or completeness computation.
+
 Only after both GT summaries are complete, open the held-out detector result
 with the unchanged four variants, score fields, strict 2-degree threshold,
 10,000 scene-cluster bootstrap replicates, and seed 17:

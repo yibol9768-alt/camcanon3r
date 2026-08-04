@@ -332,3 +332,23 @@ def test_dtu_point_metrics_preserves_each_available_threshold_direction(
     assert completeness_only["completeness_millimeters"]["mean"] == pytest.approx(
         0.0
     )
+
+    completeness_mask[:] = False
+    no_observed_prediction = _dtu_point_metrics(
+        np.array([[100.0, 0.0, 1.0]]),
+        extrinsics,
+        extrinsics,
+        point_path=tmp_path / "points.ply",
+        mask_path=tmp_path / "mask.mat",
+        plane_path=tmp_path / "plane.mat",
+    )
+    assert no_observed_prediction["status"] == (
+        "partially_undefined_no_predicted_point_in_observation_mask"
+    )
+    assert no_observed_prediction["predicted_points_in_observation_mask"] == 0
+    assert no_observed_prediction["accuracy_distances_before_outlier_filter"] == 0
+    assert no_observed_prediction["accuracy_distances_after_outlier_filter"] == 0
+    assert no_observed_prediction["accuracy_millimeters"]["mean"] is None
+    assert no_observed_prediction["completeness_millimeters"][
+        "mean"
+    ] == pytest.approx(0.0)

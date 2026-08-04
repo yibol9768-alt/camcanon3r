@@ -12,6 +12,12 @@ only each empty point direction undefined. Thresholds, cases, hypotheses, and
 promotion gates remain frozen; no retry, zero substitution, or case deletion is
 allowed. `docs/DTU_EVALUATION_AUDIT.md` records the full chronology.
 
+On resume, a second runtime signal occurred after 68 records: no predicted
+point for `scan13/asymmetric_crop_075` lay inside the official observation
+mask. Before the same protected outcomes were opened, the directional rule was
+made explicit: mark accuracy undefined but retain completeness from the full
+aligned prediction tree. This also changes no hypothesis, parameter, or case.
+
 ## Paper claim
 
 Feed-forward 3D reconstruction models should be equivariant to known
