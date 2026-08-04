@@ -14,8 +14,9 @@ ground-truth camera/depth/point evidence, mechanism controls, and honest
 negative repair results. That is enough for a credible paper. It is not yet an
 honest 6--8 case because all promoted accuracy and repair evidence comes from
 one dataset, detector effectiveness has only been measured on a development
-set, and the draft has no qualitative result figure or dedicated limitations
-section.
+set, and the draft still lacks held-out quantitative curves and a qualitative
+result figure.  The method overview and dedicated limitations section are now
+present.
 
 The current score must not be rounded up because experiments are in progress.
 
@@ -52,13 +53,15 @@ The current score must not be rounded up because experiments are in progress.
    registered fills worsen depth for both models and three-run consensus does
    not beat the analytic DUSt3R baseline. The title correctly avoids claiming a
    general repair method.
-4. **The paper is visually under-evidenced.** There is no overview diagram,
-   representative success/failure reconstruction figure, risk--coverage plot,
-   or severity curve. Tables alone make the causal story harder to verify.
+4. **The results remain visually under-evidenced.** The overview diagram now
+   makes the protocol legible, but there is no representative success/failure
+   reconstruction figure, held-out risk--coverage plot, or final two-dataset
+   severity curve. Tables alone do not yet make the empirical story easy to
+   verify.
 5. **Controlled crops may be dismissed as synthetic.** The camera intervention
    is causal and useful, but the paper still needs to connect it to realistic
    heterogeneous preprocessing pipelines without overstating prevalence.
-6. **The six-page draft is dense but incomplete.** It lacks a compact
+6. **The seven-page draft is still incomplete.** It lacks a compact
    compute/VRAM comparison and a final cross-dataset table. The TODO in failure
    detection makes the current draft non-submittable.
 
@@ -70,7 +73,7 @@ The current score must not be rounded up because experiments are in progress.
 | Correctness | 7 | Exact maps, minimal gauge, paired GT, controls, hashes, 123 tests | Complete DTU audit without protocol drift |
 | Significance | 5 | Large failure on two major model families | Cross-dataset replication and a useful held-out detector or broader practical consequence |
 | Empirical strength | 5 | 13 scenes, 286 mechanism evaluations, repair and development reliability | DTU 22 scenes x 11 variants x 2 models, held-out reliability, qualitative and compute views |
-| Presentation | 5 | Clear claim boundaries, compact tables, and dedicated limitations | Overview/result figure and final no-TODO narrative |
+| Presentation | 5 | Clear claim boundaries, compact tables, overview, and dedicated limitations | Result figures and final no-TODO narrative |
 | Reproducibility | 7 | Frozen protocols and committed evidence | Freeze DTU artifacts and final paper-number provenance |
 
 ## Mandatory completion gates

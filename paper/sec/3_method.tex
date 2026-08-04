@@ -8,6 +8,8 @@ and model pixel maps, then compare predictions on their common source support.
 For repair, we analytically return each input to a canonical camera canvas
 before reconstruction.  This design exposes residual model non-equivariance
 without pretending that inverse warping can restore content removed by a crop.
+Figure~\ref{fig:method-overview} summarizes the audit and separately gated
+repair paths.
 
 \subsection{Preprocessing-equivariance contract}
 Let source image $I_i$ have camera matrix

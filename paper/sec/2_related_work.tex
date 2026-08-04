@@ -1,6 +1,18 @@
 \section{Related Work}
 \label{sec:related_work}
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/method_overview.pdf}
+  \caption{\method treats preprocessing as a logged camera intervention.  The
+  audit composes user and model pixel maps, returns predictions to common
+  source coordinates, and removes only the unavoidable global 3D gauge.
+  Analytic canonicalization is a separately gated branch: it reverses the
+  coordinate change but neither reconstructs cropped pixels nor earns a repair
+  claim without paired ground-truth improvement.}
+  \label{fig:method-overview}
+\end{figure*}
+
 \paragraph{Feed-forward multi-view reconstruction.}
 DUSt3R~\cite{wang2024dust3r}, MASt3R~\cite{leroy2024mast3r}, and
 VGGT~\cite{wang2025vggt} replace substantial parts of classical geometric

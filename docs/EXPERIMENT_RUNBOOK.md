@@ -609,6 +609,15 @@ PYTHONPATH=src .venv/bin/python scripts/summarize_repair_ablation.py \
     results/repair/dust3r_consensus.json
 ```
 
+The paper method overview is generated as vector artwork from source rather
+than edited by hand:
+
+```bash
+MPLBACKEND=Agg python3 scripts/draw_method_overview.py \
+  paper/figures/method_overview.pdf \
+  --png results/paper/method_overview.png
+```
+
 ## Statistical aggregation
 
 Sweep summaries use a deterministic 10,000-replicate percentile bootstrap
