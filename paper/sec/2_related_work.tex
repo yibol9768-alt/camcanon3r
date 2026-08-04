@@ -31,3 +31,7 @@ change induced by image preprocessing.  We evaluate native confidence and
 cross-transform disagreement as failure scores only against held-out
 ground-truth error, and reserve the term uncertainty estimator until those
 reliability tests succeed.
+Notably, Cameras as Rays takes tight square crops around per-view object boxes
+and adjusts the associated ray grid~\cite{zhang2024cameras}, illustrating a
+concrete modern pipeline in which view-specific crops are camera bookkeeping,
+not merely appearance augmentation.

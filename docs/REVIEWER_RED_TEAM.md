@@ -102,8 +102,8 @@ The current score must not be rounded up because experiments are in progress.
   accuracy/recovery per model run.
 - [ ] Present neutral, black, image-mean, native selection, consensus, and
   oracle repair in one ablation table, including the negative depth boundary.
-- [ ] Add at least one realistic pipeline example or documented deployment
-  scenario showing how per-view off-center preprocessing arises.
+- [x] Add a documented modern pipeline example: Cameras as Rays uses tight
+  per-view object-box crops and adjusts the corresponding ray grid.
 
 ### P2: needed before claiming 8
 
