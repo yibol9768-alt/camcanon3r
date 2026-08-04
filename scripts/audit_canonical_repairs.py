@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path
 
+from camcanon3r.repair import FILL_POLICIES
 from camcanon3r.repair_audit import audit_canonical_repairs
 
 
@@ -17,6 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--scenes", nargs="+", required=True)
     parser.add_argument("--source-variants", nargs="+", required=True)
     parser.add_argument("--prefix", default="canonical_")
+    parser.add_argument("--fill-policy", choices=sorted(FILL_POLICIES))
     parser.add_argument("--output", type=Path, required=True)
     return parser.parse_args()
 
@@ -29,6 +31,7 @@ def main() -> None:
         scenes=args.scenes,
         source_variants=args.source_variants,
         prefix=args.prefix,
+        fill_policy=args.fill_policy,
         output_path=args.output,
     )
     print(json.dumps(report, indent=2, allow_nan=False))

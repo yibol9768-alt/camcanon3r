@@ -55,10 +55,17 @@ official DTU MVS submission.  It therefore declares the following differences:
   helper randomly orders points before radius suppression;
 - predicted and above-plane target queries use deterministic 100,000-point
   caps for bounded repeatable cost;
-- the frozen three-view protocol evaluates only the four registered
-  confirmatory variants for point geometry.
+- the frozen three-view mechanism sweep evaluates only its four registered
+  confirmatory variants for point geometry; the separate two-variant repair
+  sweep evaluates both identity and canonical crop so gap recovery is paired.
 
 Accordingly, the paper must call these values the **CamCanon3R deterministic
 DTU point-map metric**, not official DTU leaderboard scores.  Both direction
 counts, the observation-mask count, alignment, cap, voxel size, and strict
 outlier threshold remain machine-readable in every result.
+
+The repair evaluator uses the identical directional filters and numerical
+point-map implementation under protocol `dtu-repair-1.0`.  It additionally
+binds every output to `configs/dtu_repair_protocol.json`, the base DTU and
+qualitative protocols, and the audited canonical-input tree hash.  Repair
+results never enter the eleven-variant mechanism summary.

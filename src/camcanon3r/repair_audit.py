@@ -39,6 +39,7 @@ def audit_canonical_repairs(
     scenes: Sequence[str],
     source_variants: Sequence[str],
     prefix: str = "canonical_",
+    fill_policy: str | None = None,
     output_path: Path | None = None,
 ) -> dict[str, object]:
     scene_names = [str(value) for value in scenes]
@@ -126,6 +127,12 @@ def audit_canonical_repairs(
                     raise ValueError(
                         f"repair provenance mismatch: {scene}/{output_variant}"
                     )
+                if fill_policy is not None and repair.get("fill_policy") != fill_policy:
+                    raise ValueError(
+                        f"repair fill policy mismatch for {scene}/{output_variant}: "
+                        f"expected={fill_policy!r}, "
+                        f"actual={repair.get('fill_policy')!r}"
+                    )
                 output = Path(str(repaired_record["output"]))
                 mask = Path(str(repair["valid_mask"]))
                 expected_name = Path(str(source_record["output"])).name
@@ -210,6 +217,7 @@ def audit_canonical_repairs(
         "scene_count": len(scene_names),
         "scenes": scene_names,
         "source_variants": variant_names,
+        "fill_policy": fill_policy,
         "output_variants": [
             _output_variant(variant, prefix) for variant in variant_names
         ],

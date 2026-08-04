@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_dtu_gt_inspection": true,
+  "dataset": "DTU MVS Data Set 2014",
+  "split_role": "held_out_cross_dataset_repair_confirmation",
+  "base_protocol": "configs/dtu_protocol.json",
+  "qualitative_protocol": "configs/qualitative_protocol.json",
+  "source_variants": [
+    "identity",
+    "asymmetric_crop_075"
+  ],
+  "ordered_repaired_variants": [
+    "identity",
+    "canonical_asymmetric_crop_075"
+  ],
+  "fill_policy": "neutral_gray",
+  "point_metrics_variants": [
+    "identity",
+    "canonical_asymmetric_crop_075"
+  ],
+  "evaluation": {
+    "camera_and_intrinsics_for_all_variants": true,
+    "point_metrics_for_all_variants": true,
+    "models_are_separate": true,
+    "datasets_are_separate": true
+  },
+  "promotion": {
+    "primary_metric": "relative_rotation_median_degrees",
+    "minimum_gap_recovery": 0.3,
+    "maximum_clean_relative_degradation": 0.02,
+    "bootstrap_replicates": 10000,
+    "confidence_level": 0.95,
+    "bootstrap_seed": 17
+  }
+}

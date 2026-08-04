@@ -98,6 +98,9 @@ The current score must not be rounded up because experiments are in progress.
 ### P1: separates a 6 from a plausible 7
 
 - [ ] Put ETH3D and DTU main outcomes into one compact cross-dataset table.
+- [ ] Run the frozen two-variant DTU canonical-control sweep and report paired
+  orientation/point gap recovery without changing the ETH3D-selected
+  neutral-gray baseline.
 - [ ] Add a severity curve that shows center/shared/independent behavior for
   both models and both datasets.
 - [ ] Add a held-out risk--coverage plot with native confidence and oracle.

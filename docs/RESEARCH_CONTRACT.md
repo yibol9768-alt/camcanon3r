@@ -269,6 +269,15 @@ The exact tie break, compute accounting, 30% recovery gate, 2% clean-cost gate,
 and requirement to beat the one-pass neutral-gray baseline are specified in
 `docs/REPAIR_PROTOCOL.md` and `configs/repair_consensus_protocol.json`.
 
+Cross-dataset repair confirmation is separately frozen in
+`configs/dtu_repair_protocol.json` before DTU GT inspection.  It does not
+reselect a fill after ETH3D: both models use the predeclared one-pass
+neutral-gray inverse warp, the same identity clean control, all 22 DTU scenes,
+and point metrics for both repaired variants.  Its outputs remain separate
+from the eleven-variant mechanism sweep and use the unchanged 30% recovery and
+2% clean-cost gates.  The DTU repair result may confirm or reject transfer but
+cannot retroactively change the ETH3D consensus or fill-policy analysis.
+
 ## Frozen repair snapshot: canonical-camera orientation on ETH3D
 
 The complete repair evidence is frozen in `artifacts/eth3d_repair_seed17/`.

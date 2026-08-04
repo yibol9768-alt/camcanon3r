@@ -252,6 +252,62 @@ with the unchanged four variants, score fields, strict 2-degree threshold,
   > results/reliability/dtu_dust3r_seed17.log 2>&1'
 ```
 
+The frozen qualitative protocol and cross-dataset repair claim also require a
+DTU canonical-control sweep.  This is deliberately separate from the eleven-
+variant mechanism sweep.  Its registered design is neutral-gray fill over
+`identity` and `asymmetric_crop_075`, producing exactly 22 x 2 x 3 = 132
+images plus 132 validity masks.  Preparation re-audits the main DTU input tree,
+enforces the fill policy, verifies identity pixels exactly, and records a tree
+hash:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-DTURepairPreparation \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_repair_preparation.sh \
+  > results/dtu/repair_preparation.log 2>&1'
+```
+
+After the preparation task exits successfully, run the two models
+sequentially.  Each model executes 44 predictions, writes a separate repair
+compute report, and compares every canonical-identity prediction array with
+the matching main-sweep identity array.  Numerical repeat drift is retained in
+the audit rather than assumed away:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-DTURepairVGGT \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_repair_inference.sh vggt \
+  > results/dtu/vggt_repair_inference.log 2>&1'
+
+# Start only after the VGGT repair task is Ready with exit code 0.
+./scripts/start_my5090_background_job.sh CamCanon3R-DTURepairDUSt3R \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_repair_inference.sh dust3r \
+  > results/dtu/dust3r_repair_inference.log 2>&1'
+```
+
+Do not inspect repair GT results until both main DTU summaries and both frozen
+held-out reliability reports above are complete.  Then evaluate both repaired
+variants with camera, intrinsics, and deterministic point-map metrics on all 22
+scenes.  The evaluator binds each result to the repair protocol, base DTU
+protocol, qualitative protocol, preparation-audit file, and audited input-tree
+hash.  The wrapper finally compares main identity/crop against repaired
+identity/canonical crop with the unchanged 30% recovery and 2% clean-cost
+gates:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-DTURepairVGGTEval \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_repair_evaluation.sh vggt \
+  > results/dtu/vggt_repair_evaluation.log 2>&1'
+
+# Start only after the VGGT repair evaluation is Ready with exit code 0.
+./scripts/start_my5090_background_job.sh CamCanon3R-DTURepairDUSt3REval \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_repair_evaluation.sh dust3r \
+  > results/dtu/dust3r_repair_evaluation.log 2>&1'
+```
+
+The paired reports are written to
+`results/repair/dtu_<model>_neutral_gray.json`.  DTU repair outcomes cannot
+replace the already frozen ETH3D fill or consensus choice; they only confirm
+or reject transfer of the one-pass neutral-gray orientation repair.
+
 ## Three-scene severity sweep
 
 The prepared inputs contain three variants for each of `room`, `kitchen`, and
@@ -588,7 +644,8 @@ PYTHONPATH=src .venv/bin/python scripts/evaluate_repair_selection.py \
   --bootstrap-seed 17
 ```
 
-Repeat without changing thresholds for DUSt3R and later DTU.  Aggregate gap
+Repeat without changing thresholds for DUSt3R.  DTU uses the strict dedicated
+wrappers above and the same unchanged thresholds.  Aggregate gap
 recovery is the median paired recovered gap divided by the median paired
 corruption gap; bootstrap replicates resample scenes and recompute that ratio.
 The output never clips recovery to `[0, 1]`: negative repair and better-than-

@@ -48,6 +48,7 @@ def test_audit_canonical_repairs_validates_pixels_masks_and_provenance(
     assert report["image_count"] == 4
     assert report["mask_count"] == 4
     assert report["identity_pixel_matches"] == 2
+    assert report["fill_policy"] is None
     crop = report["valid_fraction_by_variant"]["canonical_asymmetric_crop_075"]
     assert 0.0 < crop["median"] < 1.0
     assert len(report["tree_sha256"]) == 64
@@ -78,4 +79,27 @@ def test_audit_canonical_repairs_rejects_manifest_drift(tmp_path: Path) -> None:
             repaired,
             scenes=["scene"],
             source_variants=["identity", "asymmetric_crop_075"],
+        )
+
+
+def test_audit_canonical_repairs_enforces_registered_fill_policy(
+    tmp_path: Path,
+) -> None:
+    prepared, repaired = _prepared_repair(tmp_path)
+    report = audit_canonical_repairs(
+        prepared,
+        repaired,
+        scenes=["scene"],
+        source_variants=["identity", "asymmetric_crop_075"],
+        fill_policy="neutral_gray",
+    )
+    assert report["fill_policy"] == "neutral_gray"
+
+    with pytest.raises(ValueError, match="repair fill policy mismatch"):
+        audit_canonical_repairs(
+            prepared,
+            repaired,
+            scenes=["scene"],
+            source_variants=["identity", "asymmetric_crop_075"],
+            fill_policy="black",
         )
