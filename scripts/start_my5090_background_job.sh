@@ -33,6 +33,7 @@ argument_line="-d Ubuntu -- bash -lc \"printf %s ${command_payload} | base64 -d 
 
 powershell_code="$(printf '%s\n' \
   '$ErrorActionPreference = "Stop"' \
+  '$ProgressPreference = "SilentlyContinue"' \
   "\$taskName = '${task_name}'" \
   "\$templateName = '${template_task}'" \
   "\$desiredArguments = '${argument_line}'" \

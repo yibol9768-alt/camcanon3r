@@ -58,37 +58,57 @@ def summarize_comparison_files(
     by_variant: dict[str, dict[str, object]] = {}
     for candidate, candidate_rows in sorted(grouped.items()):
         candidate_rows = sorted(candidate_rows, key=lambda row: str(row["scene"]))
-        rotations = np.asarray(
-            [row["rotation_median_degrees"] for row in candidate_rows],
-            dtype=np.float64,
-        )
-        translations = np.asarray(
-            [row["translation_median_degrees"] for row in candidate_rows],
-            dtype=np.float64,
-        )
-        depths = np.asarray(
-            [row["depth_mean_abs_rel"] for row in candidate_rows], dtype=np.float64
-        )
+        metric_arrays = {
+            "rotation_median_degrees": np.asarray(
+                [row["rotation_median_degrees"] for row in candidate_rows],
+                dtype=np.float64,
+            ),
+            "translation_median_degrees": np.asarray(
+                [row["translation_median_degrees"] for row in candidate_rows],
+                dtype=np.float64,
+            ),
+            "depth_mean_abs_rel": np.asarray(
+                [row["depth_mean_abs_rel"] for row in candidate_rows],
+                dtype=np.float64,
+            ),
+        }
+        complete_metrics = {
+            label: values
+            for label, values in metric_arrays.items()
+            if np.isfinite(values).all()
+        }
+        metric_availability = {
+            label: {
+                "valid_scene_count": int(np.count_nonzero(np.isfinite(values))),
+                "undefined_scene_count": int(
+                    np.count_nonzero(~np.isfinite(values))
+                ),
+                "included_in_scene_bootstrap": label in complete_metrics,
+            }
+            for label, values in metric_arrays.items()
+        }
+        rotations = metric_arrays["rotation_median_degrees"]
+        translations = metric_arrays["translation_median_degrees"]
+        depths = metric_arrays["depth_mean_abs_rel"]
         by_variant[candidate] = {
             "scene_count": len(candidate_rows),
             "scenes": sorted(str(row["scene"]) for row in candidate_rows),
-            "median_of_scene_rotation_medians_degrees": float(np.median(rotations)),
-            "median_of_scene_translation_medians_degrees": float(
-                np.median(translations)
+            "median_of_scene_rotation_medians_degrees": _complete_median(
+                rotations
             ),
-            "median_of_scene_depth_mean_abs_rel": float(np.median(depths)),
+            "median_of_scene_translation_medians_degrees": _complete_median(
+                translations
+            ),
+            "median_of_scene_depth_mean_abs_rel": _complete_median(depths),
             "scenes_over_rotation_threshold": int(
                 np.count_nonzero(rotations > rotation_threshold)
             ),
             "scenes_over_depth_threshold": int(
                 np.count_nonzero(depths > depth_threshold)
             ),
+            "metric_availability": metric_availability,
             "scene_bootstrap": scene_bootstrap_summary(
-                {
-                    "rotation_median_degrees": rotations,
-                    "translation_median_degrees": translations,
-                    "depth_mean_abs_rel": depths,
-                },
+                complete_metrics,
                 scenes=[str(row["scene"]) for row in candidate_rows],
                 replicates=bootstrap_replicates,
                 confidence_level=confidence_level,
@@ -102,6 +122,12 @@ def summarize_comparison_files(
         "comparisons": rows,
         "by_variant": by_variant,
     }
+
+
+def _complete_median(values: np.ndarray) -> float | None:
+    if not np.isfinite(values).all():
+        return None
+    return float(np.median(values))
 
 
 def summarize_eth3d_evaluations(

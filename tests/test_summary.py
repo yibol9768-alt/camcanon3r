@@ -45,6 +45,34 @@ def test_summary_counts_thresholds_by_variant(tmp_path: Path) -> None:
     ] == 2.0
 
 
+def test_summary_keeps_undefined_scene_metric_explicit(tmp_path: Path) -> None:
+    first = tmp_path / "first.json"
+    second = tmp_path / "second.json"
+    _write_record(first, scene="room", candidate="crop", rotation=3.0)
+    _write_record(second, scene="fern", candidate="crop", rotation=5.0)
+    record = json.loads(second.read_text())
+    record["translation_direction_degrees"]["median"] = None
+    second.write_text(json.dumps(record))
+
+    summary = summarize_comparison_files([first, second])
+    crop = summary["by_variant"]["crop"]
+    availability = crop["metric_availability"][
+        "translation_median_degrees"
+    ]
+    assert crop["median_of_scene_translation_medians_degrees"] is None
+    assert availability == {
+        "valid_scene_count": 1,
+        "undefined_scene_count": 1,
+        "included_in_scene_bootstrap": False,
+    }
+    assert "translation_median_degrees" not in crop["scene_bootstrap"][
+        "metrics"
+    ]
+    assert crop["scene_bootstrap"]["metrics"]["rotation_median_degrees"][
+        "point_estimate"
+    ] == 4.0
+
+
 def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
     for variant, rotation, translation, depth in (
         ("identity", 1.0, 2.0, 0.10),
