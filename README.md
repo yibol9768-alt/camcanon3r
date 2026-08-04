@@ -55,6 +55,10 @@ The evolving 3DV 2027 manuscript uses the official author kit under
 [`paper/`](paper/); its story and promotion gates are tracked in
 [`docs/PAPER_STORY.md`](docs/PAPER_STORY.md).
 
+For the split control/execution deployment, where Codex works on `vircs` and
+GPU experiments remain on `my5090`, start with
+[`docs/VIRCS_HANDOFF.md`](docs/VIRCS_HANDOFF.md).
+
 Prepare deterministic pilot variants with exact image-space transforms:
 
 ```bash
