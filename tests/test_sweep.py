@@ -58,9 +58,19 @@ def test_sweep_rejects_existing_or_partial_outputs(tmp_path: Path) -> None:
             output,
             variants=["center_crop_090"],
             scenes=["room"],
-            resume=True,
+            resume=False,
             overwrite=False,
         )
+
+    resumed_partial = plan_prediction_sweep(
+        prepared,
+        output,
+        variants=["center_crop_090"],
+        scenes=["room"],
+        resume=True,
+        overwrite=False,
+    )
+    assert resumed_partial[0].skip is False
 
     target.with_suffix(".json").touch()
     with pytest.raises(FileExistsError, match="prediction already exists"):

@@ -44,9 +44,10 @@ def plan_prediction_sweep(
             output = scene_output / f"{variant}.npz"
             npz_exists = output.exists()
             json_exists = output.with_suffix(".json").exists()
-            if npz_exists != json_exists and not overwrite:
+            if npz_exists != json_exists and not (resume or overwrite):
                 raise RuntimeError(
-                    f"partial prediction output requires --overwrite: {output}"
+                    "partial prediction output requires --resume or --overwrite: "
+                    f"{output}"
                 )
             complete = npz_exists and json_exists
             if complete and not (resume or overwrite):
