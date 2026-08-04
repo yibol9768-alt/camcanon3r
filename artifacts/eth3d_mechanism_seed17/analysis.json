@@ -1,0 +1,3778 @@
+{
+  "schema_version": "1.0",
+  "variant_config": "configs/eth3d_mechanism_variants.json",
+  "variant_config_sha256": "2219be64a9c0e829ce619fe8aa431f53aad8c7ef7695a5bd570d48054187100e",
+  "rotation_threshold_degrees": 2.0,
+  "depth_abs_rel_threshold": 0.05,
+  "bootstrap_replicates": 10000,
+  "confidence_level": 0.95,
+  "bootstrap_seed": 17,
+  "analyses": {
+    "vggt/eth3d": {
+      "model": "vggt",
+      "dataset": "eth3d",
+      "summary": "artifacts/eth3d_mechanism_seed17/vggt_summary.json",
+      "summary_sha256": "3090245a5d1e41a42d544f1bc8481ddb98ea1a110f91f7d23ccfbed2880cd670",
+      "analysis": {
+        "scene_count": 13,
+        "scenes": [
+          "courtyard",
+          "delivery_area",
+          "electro",
+          "facade",
+          "kicker",
+          "meadow",
+          "office",
+          "pipes",
+          "playground",
+          "relief",
+          "relief_2",
+          "terrace",
+          "terrains"
+        ],
+        "variant_count": 11,
+        "variants": [
+          "identity",
+          "center_crop_075",
+          "asymmetric_crop_075",
+          "letterbox_square",
+          "center_crop_090",
+          "center_crop_060",
+          "asymmetric_crop_090",
+          "asymmetric_crop_060",
+          "shared_asymmetric_crop_090",
+          "shared_asymmetric_crop_075",
+          "shared_asymmetric_crop_060"
+        ],
+        "by_variant": {
+          "identity": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 0.8050890563543351,
+                "lower": 0.5836889356302344,
+                "upper": 1.0799219522206667
+              },
+              "translation_median_degrees": {
+                "point_estimate": 1.9826365657038436,
+                "lower": 1.4824214448453283,
+                "upper": 4.38530062816549
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.012304731375634877,
+                "lower": 0.010301182666855292,
+                "upper": 0.04140994960675379
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018558299862342035,
+                "lower": 0.0018156205739673394,
+                "upper": 0.002128629372132496
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.023425363956359205,
+                "lower": 0.01801375021356772,
+                "upper": 0.025238806504668004
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "center_crop_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.3985892087409901,
+                "lower": 1.0000190321499196,
+                "upper": 1.9654400093173319
+              },
+              "translation_median_degrees": {
+                "point_estimate": 2.426588517259248,
+                "lower": 1.5193764860483423,
+                "upper": 5.759848850985655
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.03573197663381382,
+                "lower": 0.03108433033421732,
+                "upper": 0.053215954646406605
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018558299862342035,
+                "lower": 0.0018156205739673394,
+                "upper": 0.002128629372132496
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.021849873545354666,
+                "lower": 0.018235740557768557,
+                "upper": 0.030292222407835592
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.4796047652843052,
+                "lower": 0.12978471986936935,
+                "upper": 0.7865313316106759
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.44395195155540446,
+                "lower": -0.40937887307327003,
+                "upper": 1.211575414368486
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.01657091237879038,
+                "lower": 0.011215997533778707,
+                "upper": 0.02292240556073262
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.00015431140300208035,
+                "lower": -0.003388932959313338,
+                "upper": 0.006203115731219974
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "asymmetric_crop_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 5.274096328741586,
+                "lower": 3.893205951896782,
+                "upper": 7.009437154365315
+              },
+              "translation_median_degrees": {
+                "point_estimate": 13.135017303429583,
+                "lower": 6.691533012451026,
+                "upper": 16.440439726813842
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.04438519634654259,
+                "lower": 0.031900550624850546,
+                "upper": 0.11673731517269019
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.038985899078381125,
+                "lower": 0.03891316826248189,
+                "upper": 0.03912648258538658
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.04086940870932448,
+                "lower": 0.03627375637151506,
+                "upper": 0.05298616655931648
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 4.61006442236515,
+                "lower": 3.133804298635239,
+                "upper": 6.17209137247833
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 9.487465534581498,
+                "lower": 5.055749953580854,
+                "upper": 13.54985948493992
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.02495582406478363,
+                "lower": 0.017444660438958464,
+                "upper": 0.07211787961413507
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03708414811206198,
+                "lower": 0.03683694166552426,
+                "upper": 0.03720641985368604
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.023041185073643448,
+                "lower": 0.011856232259810483,
+                "upper": 0.02951280626139263
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "letterbox_square": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 0.9876133120094013,
+                "lower": 0.6726910551470904,
+                "upper": 1.2539608390931472
+              },
+              "translation_median_degrees": {
+                "point_estimate": 1.8898898446197154,
+                "lower": 1.5297900865963583,
+                "upper": 4.424163359778354
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.03025913846720832,
+                "lower": 0.0184855743755463,
+                "upper": 0.038797402826805244
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.001855829986234197,
+                "lower": 0.001815620573967324,
+                "upper": 0.0021286293721324936
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.019373070675701615,
+                "lower": 0.018058002894230867,
+                "upper": 0.026034115245376806
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.089002119516856,
+                "lower": 0.004809664996257457,
+                "upper": 0.187871914879
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.28048785476903637,
+                "lower": -0.09291117575352659,
+                "upper": 0.8213629926211654
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.018463295059515418,
+                "lower": -0.0013338495929136537,
+                "upper": 0.02112235946969654
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -7.806255641895632e-18,
+                "lower": -1.5178830414797062e-17,
+                "upper": -5.637851296924623e-18
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.00048008570109580803,
+                "lower": -0.0009451707080162138,
+                "upper": 0.002608751289017601
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "center_crop_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.12237522201803,
+                "lower": 0.8108116937230883,
+                "upper": 1.5875336980090593
+              },
+              "translation_median_degrees": {
+                "point_estimate": 1.6129397019813407,
+                "lower": 1.3826542959763084,
+                "upper": 4.53421583151322
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.034139246274677966,
+                "lower": 0.019996698347022314,
+                "upper": 0.050100642417109306
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018558299862342638,
+                "lower": 0.0018156205739673938,
+                "upper": 0.0021286293721325586
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.02235569283938425,
+                "lower": 0.01980422004373416,
+                "upper": 0.023698490045524396
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.29209564103099694,
+                "lower": 0.13957157500488626,
+                "upper": 0.3972405904896381
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.007110004911787815,
+                "lower": -0.2828750560832063,
+                "upper": 0.4063713329842198
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.009822737493021157,
+                "lower": 0.007577336748377666,
+                "upper": 0.011932059097262977
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 5.898059818321144e-17,
+                "lower": 5.442694905877232e-17,
+                "upper": 6.114900252818245e-17
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0002439378357435608,
+                "lower": -0.0013323571290380504,
+                "upper": 0.0019996849140710704
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "center_crop_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.7215439806637827,
+                "lower": 1.3607437834179,
+                "upper": 2.087254986316099
+              },
+              "translation_median_degrees": {
+                "point_estimate": 4.789942799339857,
+                "lower": 1.5359487437769443,
+                "upper": 9.001281808422625
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.03628746289763721,
+                "lower": 0.024003387661911332,
+                "upper": 0.05854467375961547
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018558299862342638,
+                "lower": 0.0018156205739673938,
+                "upper": 0.0021286293721325586
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.02248020015796998,
+                "lower": 0.01746343690333783,
+                "upper": 0.03223792454721831
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.9164549243094475,
+                "lower": 0.2929240762713421,
+                "upper": 1.1472560828786562
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.1952449500379154,
+                "lower": 0.006057126382664979,
+                "upper": 3.139775314409289
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.013419303612087357,
+                "lower": 0.008465200303846628,
+                "upper": 0.04704968599529044
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 5.898059818321144e-17,
+                "lower": 5.442694905877232e-17,
+                "upper": 6.114900252818245e-17
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0003958189908802173,
+                "lower": -0.0025181513279339124,
+                "upper": 0.012676885589819498
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "asymmetric_crop_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 2.2303347537423677,
+                "lower": 1.918663553266546,
+                "upper": 2.613370433832856
+              },
+              "translation_median_degrees": {
+                "point_estimate": 6.192262059874645,
+                "lower": 3.6322785084611144,
+                "upper": 11.589709917096544
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.04819837986893376,
+                "lower": 0.031567681118783296,
+                "upper": 0.07502100402179553
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0319418673214964,
+                "lower": 0.03167812170207464,
+                "upper": 0.032080797817828806
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.0358640336273451,
+                "lower": 0.02328659451250787,
+                "upper": 0.04140859181539938
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.313342292207649,
+                "lower": 1.1450830137661936,
+                "upper": 1.6762854493225259
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 5.138789360552671,
+                "lower": 1.9426423727608157,
+                "upper": 7.427130118245117
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.02002742552101658,
+                "lower": 0.00678843026217997,
+                "upper": 0.04547190459859776
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.02999471309622945,
+                "lower": 0.0298625011281073,
+                "upper": 0.030143565058796496
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.007425463104096031,
+                "lower": 0.002458068504563829,
+                "upper": 0.016169785310731377
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "asymmetric_crop_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 11.443540780692087,
+                "lower": 8.545260888394068,
+                "upper": 12.075860363174513
+              },
+              "translation_median_degrees": {
+                "point_estimate": 24.64054349219755,
+                "lower": 19.13983708590562,
+                "upper": 34.042920327830466
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.08669910140030161,
+                "lower": 0.059168527444648206,
+                "upper": 0.13745370889697503
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.11225355012077348,
+                "lower": 0.11199035534836133,
+                "upper": 0.11235809831294503
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.08454088088510288,
+                "lower": 0.06636133598285841,
+                "upper": 0.12347095608242326
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 10.460737133678943,
+                "lower": 8.331773187854825,
+                "upper": 11.060595795261634
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 22.65790692649371,
+                "lower": 17.278220420876576,
+                "upper": 29.657619699664977
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.06565467315491083,
+                "lower": 0.04057283321786748,
+                "upper": 0.09373789436070148
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.11028272782239076,
+                "lower": 0.10988036953802445,
+                "upper": 0.11042039613372515
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.06843449635206629,
+                "lower": 0.04293597202649921,
+                "upper": 0.0986703517636423
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "shared_asymmetric_crop_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.7177398560033426,
+                "lower": 1.1753048929144998,
+                "upper": 2.2206667972363827
+              },
+              "translation_median_degrees": {
+                "point_estimate": 3.857223629814258,
+                "lower": 2.5411303596473527,
+                "upper": 6.051478875115466
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.0354851082538063,
+                "lower": 0.027140935575120845,
+                "upper": 0.052264576645975114
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.04142211941673906,
+                "lower": 0.041137206316951294,
+                "upper": 0.041466498191053816
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.03185804214383261,
+                "lower": 0.020046970474004937,
+                "upper": 0.04399725963085614
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.7001604660037848,
+                "lower": 0.32678885895330234,
+                "upper": 1.1358788219164082
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.0587089148020243,
+                "lower": -0.5882861705850335,
+                "upper": 2.7453117597582297
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.012901587618532231,
+                "lower": -0.008475269615694565,
+                "upper": 0.02849775647844857
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03959314802256141,
+                "lower": 0.039027220506614425,
+                "upper": 0.03963747804063391
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0075730325926460906,
+                "lower": 0.003187265767376834,
+                "upper": 0.01146369149011638
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "shared_asymmetric_crop_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 2.851700760231876,
+                "lower": 2.1731035501157248,
+                "upper": 3.8534158916262116
+              },
+              "translation_median_degrees": {
+                "point_estimate": 6.591372297948182,
+                "lower": 2.991788215147608,
+                "upper": 12.045423500848887
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.06473769791617398,
+                "lower": 0.053333894325955804,
+                "upper": 0.10449528021729702
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.1158798659488396,
+                "lower": 0.11584775576811573,
+                "upper": 0.11617112990899393
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.04626285441798664,
+                "lower": 0.026801823139764817,
+                "upper": 0.05866525589164955
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.376556333321161,
+                "lower": 1.124765738485508,
+                "upper": 2.7734939394055447
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.094364369988074,
+                "lower": -0.6067904149032364,
+                "upper": 5.562388996662074
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.05533241141843904,
+                "lower": 0.0415380509182629,
+                "upper": 0.09419409755044172
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.11403492367921823,
+                "lower": 0.11395663549369174,
+                "upper": 0.11406114409865706
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.019415017657245077,
+                "lower": 0.009942118433136714,
+                "upper": 0.02635646685941657
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "shared_asymmetric_crop_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 4.853056572270676,
+                "lower": 3.3862316751749693,
+                "upper": 7.226391056162052
+              },
+              "translation_median_degrees": {
+                "point_estimate": 16.18700836725719,
+                "lower": 11.118029953173325,
+                "upper": 20.277442360526994
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.07195606094029709,
+                "lower": 0.04616112582773403,
+                "upper": 0.2084974439518879
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.1555815373720462,
+                "lower": 0.15549542617124854,
+                "upper": 0.1558685161056831
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.05643456368906016,
+                "lower": 0.036966869426973234,
+                "upper": 0.0732716166612137
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.7057764417720134,
+                "lower": 2.3378938635447524,
+                "upper": 6.286496082296
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 13.861793700995008,
+                "lower": 4.310433192271821,
+                "upper": 17.52687713115577
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.06255077444256216,
+                "lower": 0.033856394452099155,
+                "upper": 0.16708749434513412
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.15368597279146137,
+                "lower": 0.15342609867758442,
+                "upper": 0.1538832412353798
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.028666988476396513,
+                "lower": 0.01942772025289245,
+                "upper": 0.041859939402377866
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          }
+        },
+        "paired_contrasts": {
+          "independent_minus_shared_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.5761442524059817,
+                "lower": 0.05606913957526882,
+                "upper": 1.3310240749288607
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.73506746779863,
+                "lower": 2.01888710387826,
+                "upper": 4.459097529172824
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.0003796935615293477,
+                "lower": -0.01993241974932366,
+                "upper": 0.029126607603083648
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -0.009489707306664479,
+                "lower": -0.009743997714664419,
+                "upper": -0.009016383797670915
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0027809690251174683,
+                "lower": -0.006361060730533417,
+                "upper": 0.009579335496473919
+              }
+            }
+          },
+          "independent_minus_center_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.0936729733046484,
+                "lower": 0.8374138552376209,
+                "upper": 1.384189808291529
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 4.986989617655855,
+                "lower": 2.1429239032266048,
+                "upper": 8.008903824740237
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.008378768920762024,
+                "lower": -0.0034620136163842977,
+                "upper": 0.03526668233074197
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.0299947130962294,
+                "lower": 0.029862501128107243,
+                "upper": 0.030143565058796434
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.008853980420433838,
+                "lower": 0.0037904256336018793,
+                "upper": 0.01957951725409687
+              }
+            }
+          },
+          "shared_minus_center_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.597626464796781,
+                "lower": -0.10998356473668758,
+                "upper": 0.8358601979923941
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.7448886813679878,
+                "lower": -0.5921435645720254,
+                "upper": 2.7573038270500274
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.007999075359232676,
+                "lower": -0.01707769884956148,
+                "upper": 0.017881743349906068
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03959314802256135,
+                "lower": 0.03902722050661436,
+                "upper": 0.03963747804063385
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.009217976385274489,
+                "lower": 0.001009456608484411,
+                "upper": 0.011922271156227252
+              }
+            }
+          },
+          "independent_minus_shared_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.005560348944325,
+                "lower": 0.2898684119907049,
+                "upper": 4.30814224176807
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.949565935955289,
+                "lower": -3.836331415726602,
+                "upper": 10.218422018379561
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.025162175783167245,
+                "lower": -0.0566997094860722,
+                "upper": -0.0012136019943998488
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -0.07692013437011844,
+                "lower": -0.07722721516576635,
+                "upper": -0.07675338336345303
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0029922542663218116,
+                "lower": -0.013232895456378228,
+                "upper": 0.011469830000258203
+              }
+            }
+          },
+          "independent_minus_center_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.8235330907544745,
+                "lower": 3.056609290256038,
+                "upper": 5.586214873183887
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 9.360925209297024,
+                "lower": 4.573711399247569,
+                "upper": 10.775819398977458
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.016445480464271953,
+                "lower": -0.0008154232620734558,
+                "upper": 0.05930169420197789
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03708414811206198,
+                "lower": 0.03683694166552426,
+                "upper": 0.03720641985368604
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.022886873670641367,
+                "lower": 0.013551010446171012,
+                "upper": 0.03194256450383837
+              }
+            }
+          },
+          "shared_minus_center_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.3843443654259553,
+                "lower": 0.3599858573380921,
+                "upper": 2.499069946868675
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.582807856278568,
+                "lower": -0.8574968090825372,
+                "upper": 5.719864924663805
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.04325068537055936,
+                "lower": 0.02597839607380047,
+                "upper": 0.0712716919897091
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.11403492367921823,
+                "lower": 0.11395663549369174,
+                "upper": 0.11406114409865706
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.01848713513542983,
+                "lower": 0.011563240039833316,
+                "upper": 0.02441298087263197
+              }
+            }
+          },
+          "independent_minus_shared_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 4.369311784033787,
+                "lower": 3.539141255816884,
+                "upper": 7.57470480468641
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 8.592181314673491,
+                "lower": 5.070015552238459,
+                "upper": 12.157008042822014
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.0015519129129490938,
+                "lower": -0.09388907938533857,
+                "upper": 0.03756319463648029
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -0.04336588499376458,
+                "lower": -0.043902223520659284,
+                "upper": -0.04326297348557552
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.027867627950300122,
+                "lower": 0.014093500425939945,
+                "upper": 0.06703639239336309
+              }
+            }
+          },
+          "independent_minus_center_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 8.991924831777675,
+                "lower": 7.610895092479667,
+                "upper": 10.734598475272954
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 17.45469324832431,
+                "lower": 13.178577202193523,
+                "upper": 27.39570204390452
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.02815442764068614,
+                "lower": 0.0062581864265795345,
+                "upper": 0.09060497690463801
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.11028272782239071,
+                "lower": 0.1098803695380244,
+                "upper": 0.11042039613372509
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.06420363074660007,
+                "lower": 0.045272394469031904,
+                "upper": 0.09098422110296832
+              }
+            }
+          },
+          "shared_minus_center_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.1178172478924404,
+                "lower": 2.04496978727341,
+                "upper": 4.451742500207381
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 8.137681471948053,
+                "lower": 4.304376065889157,
+                "upper": 13.509341972373944
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.03547052811633628,
+                "lower": -0.0025793594972179645,
+                "upper": 0.1808593810777645
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.15368597279146132,
+                "lower": 0.1534260986775844,
+                "upper": 0.15388324123537975
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.028028340380613588,
+                "lower": 0.014109773621058311,
+                "upper": 0.04377835965602933
+              }
+            }
+          }
+        },
+        "family_gates": {
+          "independent_asymmetric_crop": {
+            "variants": [
+              "asymmetric_crop_090",
+              "asymmetric_crop_075",
+              "asymmetric_crop_060"
+            ],
+            "rotation_delta_point_estimates": [
+              1.313342292207649,
+              4.61006442236515,
+              10.460737133678943
+            ],
+            "rotation_monotone_as_retention_decreases": true,
+            "rotation_crossing_variants": [
+              "asymmetric_crop_075",
+              "asymmetric_crop_060"
+            ],
+            "depth_crossing_variants": [
+              "asymmetric_crop_060"
+            ],
+            "crosses_registered_threshold": true
+          },
+          "shared_asymmetric_crop": {
+            "variants": [
+              "shared_asymmetric_crop_090",
+              "shared_asymmetric_crop_075",
+              "shared_asymmetric_crop_060"
+            ],
+            "rotation_delta_point_estimates": [
+              0.7001604660037848,
+              2.376556333321161,
+              3.7057764417720134
+            ],
+            "rotation_monotone_as_retention_decreases": true,
+            "rotation_crossing_variants": [
+              "shared_asymmetric_crop_075",
+              "shared_asymmetric_crop_060"
+            ],
+            "depth_crossing_variants": [],
+            "crosses_registered_threshold": true
+          },
+          "center_crop": {
+            "variants": [
+              "center_crop_090",
+              "center_crop_075",
+              "center_crop_060"
+            ],
+            "rotation_delta_point_estimates": [
+              0.29209564103099694,
+              0.4796047652843052,
+              0.9164549243094475
+            ],
+            "rotation_monotone_as_retention_decreases": true,
+            "rotation_crossing_variants": [],
+            "depth_crossing_variants": [],
+            "crosses_registered_threshold": false
+          },
+          "letterbox": {
+            "variants": [
+              "letterbox_square"
+            ],
+            "rotation_delta_point_estimates": [
+              0.089002119516856
+            ],
+            "rotation_monotone_as_retention_decreases": null,
+            "rotation_crossing_variants": [],
+            "depth_crossing_variants": [],
+            "crosses_registered_threshold": false
+          }
+        }
+      }
+    },
+    "dust3r/eth3d": {
+      "model": "dust3r",
+      "dataset": "eth3d",
+      "summary": "artifacts/eth3d_mechanism_seed17/dust3r_summary.json",
+      "summary_sha256": "86422b149fc064631dcee998f1b87be344c64db8fb7b9ac5c8b751af8129fd19",
+      "analysis": {
+        "scene_count": 13,
+        "scenes": [
+          "courtyard",
+          "delivery_area",
+          "electro",
+          "facade",
+          "kicker",
+          "meadow",
+          "office",
+          "pipes",
+          "playground",
+          "relief",
+          "relief_2",
+          "terrace",
+          "terrains"
+        ],
+        "variant_count": 11,
+        "variants": [
+          "identity",
+          "center_crop_075",
+          "asymmetric_crop_075",
+          "letterbox_square",
+          "center_crop_090",
+          "center_crop_060",
+          "asymmetric_crop_090",
+          "asymmetric_crop_060",
+          "shared_asymmetric_crop_090",
+          "shared_asymmetric_crop_075",
+          "shared_asymmetric_crop_060"
+        ],
+        "by_variant": {
+          "identity": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.2756191998382733,
+                "lower": 0.8615714968423588,
+                "upper": 1.9298103114717253
+              },
+              "translation_median_degrees": {
+                "point_estimate": 4.4560425327432505,
+                "lower": 3.371370624466403,
+                "upper": 5.628161853366593
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.06338839802360122,
+                "lower": 0.04502433473351827,
+                "upper": 0.08295812115579113
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.001864096556408441,
+                "lower": 0.0017542371764291632,
+                "upper": 0.0022094165801476895
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.02396479128726474,
+                "lower": 0.021088779033698532,
+                "upper": 0.03647756542303992
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0,
+                "lower": 0.0,
+                "upper": 0.0
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "center_crop_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.381304491790986,
+                "lower": 1.056071303986414,
+                "upper": 2.1102432162696436
+              },
+              "translation_median_degrees": {
+                "point_estimate": 5.394244232199545,
+                "lower": 2.2262096966412086,
+                "upper": 8.53289596921935
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.038458237895958855,
+                "lower": 0.017142709841822895,
+                "upper": 0.08029731960276074
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018294548764700546,
+                "lower": 0.0017143478110893753,
+                "upper": 0.0021609883310457034
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.0335800092453838,
+                "lower": 0.027696680115889334,
+                "upper": 0.03785603329256128
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.6058276895471799,
+                "lower": -0.5903814307652187,
+                "upper": 0.6879229811504827
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.6026962621146565,
+                "lower": -1.273520270504612,
+                "upper": 2.5282378653521405
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.017684098410246568,
+                "lower": -0.05503170335812617,
+                "upper": 0.0056616620389127875
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -3.464167993838638e-05,
+                "lower": -4.211825656113763e-05,
+                "upper": 8.465356960977305e-06
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0086789612162304,
+                "lower": 0.0028647496157485075,
+                "upper": 0.013338972630295043
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "asymmetric_crop_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 5.666775844286293,
+                "lower": 3.8528643998150756,
+                "upper": 6.542636859644707
+              },
+              "translation_median_degrees": {
+                "point_estimate": 15.282369321503786,
+                "lower": 12.11902343776038,
+                "upper": 19.1818914030378
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.08252727572215304,
+                "lower": 0.027550795521053304,
+                "upper": 0.10850323973646736
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.038798306296339825,
+                "lower": 0.03872868647971543,
+                "upper": 0.038926915149959974
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.045719716277492814,
+                "lower": 0.03126880465704306,
+                "upper": 0.05819920809322838
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 4.522337725645512,
+                "lower": 2.12510313565405,
+                "upper": 5.7190847696295934
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 10.992390222527982,
+                "lower": 7.662980905017129,
+                "upper": 12.36867282913835
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.022688778690798897,
+                "lower": -0.04475959950476935,
+                "upper": 0.09013036730957882
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.036906844559793456,
+                "lower": 0.036571138555655594,
+                "upper": 0.037002883960036294
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.016429107476827205,
+                "lower": 0.0027456577687409722,
+                "upper": 0.027278126024368726
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "letterbox_square": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.3335759003214336,
+                "lower": 0.7854047966781992,
+                "upper": 1.791518072851912
+              },
+              "translation_median_degrees": {
+                "point_estimate": 3.6094887154538386,
+                "lower": 2.9478358957406314,
+                "upper": 7.932254070853618
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.05222635567199777,
+                "lower": 0.031565881146676245,
+                "upper": 0.07317767610436271
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018558299862342096,
+                "lower": 0.0018156205739673548,
+                "upper": 0.0021286293721324992
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.026919690298134666,
+                "lower": 0.020272095976280234,
+                "upper": 0.0368651601682611
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": -0.006203034182657108,
+                "lower": -0.07234985279030659,
+                "upper": 0.0735369514082218
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": -0.5055066466986875,
+                "lower": -0.9504163301797384,
+                "upper": -0.005464082925351832
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.0030304152687628816,
+                "lower": -0.023754811542506582,
+                "upper": 0.0016163664810170085
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 2.3589334181504376e-05,
+                "lower": -3.4905998991833706e-05,
+                "upper": 0.0001406003212895018
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": -0.0008166830574182979,
+                "lower": -0.004023117188977226,
+                "upper": 0.004986503102659089
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "center_crop_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.5403775005719418,
+                "lower": 1.077077714779189,
+                "upper": 1.8957627715556717
+              },
+              "translation_median_degrees": {
+                "point_estimate": 5.719687265292746,
+                "lower": 2.8230315906404906,
+                "upper": 8.096582151693962
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.02962284141007048,
+                "lower": 0.01996830184301092,
+                "upper": 0.04030674969676126
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018477150707937543,
+                "lower": 0.0017355348735913604,
+                "upper": 0.002187907285362549
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.026780215446025827,
+                "lower": 0.024491619730704028,
+                "upper": 0.035742274005432915
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.30053788028311645,
+                "lower": -0.029681096884940694,
+                "upper": 0.7134969076229221
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": -0.468557778381574,
+                "lower": -0.8508078974696427,
+                "upper": 0.5587472798333541
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.03340116166405696,
+                "lower": -0.05234209318281173,
+                "upper": 0.008276211790685148
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -1.638148561468669e-05,
+                "lower": -1.953122986153165e-05,
+                "upper": 1.1702263259813842e-06
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": -0.0017691045441390607,
+                "lower": -0.005449047004196558,
+                "upper": 0.0029864018096316114
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "center_crop_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.4334432356351166,
+                "lower": 1.159469925191821,
+                "upper": 2.386930350142699
+              },
+              "translation_median_degrees": {
+                "point_estimate": 11.269737384702863,
+                "lower": 4.537467654285704,
+                "upper": 13.18411707836238
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.08104829532463587,
+                "lower": 0.05419757487504023,
+                "upper": 0.09807909773465845
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0018189520686679424,
+                "lower": 0.0017328455373267217,
+                "upper": 0.002099221389106986
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.03461293142086648,
+                "lower": 0.03194409849695736,
+                "upper": 0.06938024475610825
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.46807332973550664,
+                "lower": -0.33498782446640796,
+                "upper": 1.232514949954482
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 5.147845062010504,
+                "lower": 1.2345671830482328,
+                "upper": 7.822492930295953
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.019616510972622972,
+                "lower": -0.0028045857834242682,
+                "upper": 0.04546936808953567
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -3.561630158597476e-05,
+                "lower": -5.73017547769953e-05,
+                "upper": 2.2346538628808567e-05
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.009438803110712626,
+                "lower": 0.006170842275561625,
+                "upper": 0.01714435638630484
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "asymmetric_crop_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 2.72594760285095,
+                "lower": 2.1222899416533574,
+                "upper": 2.8190376246995505
+              },
+              "translation_median_degrees": {
+                "point_estimate": 11.785433074074342,
+                "lower": 7.2294851163936045,
+                "upper": 19.80729729607701
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.04525524841430552,
+                "lower": 0.018108334018666197,
+                "upper": 0.08438014654249966
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.0320830176505746,
+                "lower": 0.03179765389904715,
+                "upper": 0.032254660305489014
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.04062496913515122,
+                "lower": 0.02865567904153126,
+                "upper": 0.055220712973641214
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.1947681134825707,
+                "lower": 0.5484668059243187,
+                "upper": 1.5884418625764316
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 6.6079503605357885,
+                "lower": 2.360192517402,
+                "upper": 14.866213800287689
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.01666369858728145,
+                "lower": -0.053451662036409,
+                "upper": 0.026882375987416978
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.030247626810475794,
+                "lower": 0.030207521936210572,
+                "upper": 0.030258027084370233
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.015503133226283147,
+                "lower": -0.0005217825026427592,
+                "upper": 0.02131561001914557
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "asymmetric_crop_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 11.909249202014243,
+                "lower": 11.223144345580348,
+                "upper": 13.598816895197265
+              },
+              "translation_median_degrees": {
+                "point_estimate": 38.24724121238439,
+                "lower": 23.912663902167555,
+                "upper": 61.68586674330807
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.10079822693855317,
+                "lower": 0.07158364087309305,
+                "upper": 0.14243239667556282
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.11267581307421935,
+                "lower": 0.11241267946120506,
+                "upper": 0.11278035704485448
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.1428685447077744,
+                "lower": 0.06953051981524014,
+                "upper": 0.1624892028994362
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 10.88693984699222,
+                "lower": 10.349988046557357,
+                "upper": 12.323197695358992
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 34.94434074114692,
+                "lower": 20.238824414057422,
+                "upper": 49.50816993361028
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.0597855509783709,
+                "lower": 0.022770018004997644,
+                "upper": 0.07606750302738416
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.11071721500711659,
+                "lower": 0.11029014090111969,
+                "upper": 0.11093046015270194
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.07604050230682725,
+                "lower": 0.05108892956211605,
+                "upper": 0.1338586108104649
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "shared_asymmetric_crop_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 1.7308512027901668,
+                "lower": 1.4370324198760578,
+                "upper": 2.383303495361774
+              },
+              "translation_median_degrees": {
+                "point_estimate": 6.213942754452149,
+                "lower": 5.666830614432657,
+                "upper": 7.793602229713853
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.04274575029136244,
+                "lower": 0.02935737268727819,
+                "upper": 0.06037095880004081
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.041735986178384796,
+                "lower": 0.041457262957742776,
+                "upper": 0.04178998524763159
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.03650560558878208,
+                "lower": 0.024800963013273815,
+                "upper": 0.04063712445311337
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.5019706148081822,
+                "lower": 0.20278473410345166,
+                "upper": 0.869279705947808
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.5074512202541546,
+                "lower": 0.3242921171412032,
+                "upper": 4.268576240244137
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.019456250180817213,
+                "lower": -0.03670963865426209,
+                "upper": 0.00832847291454522
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03992605909821984,
+                "lower": 0.03935613978827214,
+                "upper": 0.04014585421554821
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0011924136909485517,
+                "lower": -0.0009126477440544872,
+                "upper": 0.013901165061818491
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "shared_asymmetric_crop_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 3.291588519936286,
+                "lower": 2.807752135631827,
+                "upper": 4.31358899517438
+              },
+              "translation_median_degrees": {
+                "point_estimate": 15.950678847299422,
+                "lower": 11.5867114658194,
+                "upper": 19.832474551982443
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.07330935889730109,
+                "lower": 0.04384359911623392,
+                "upper": 0.10161715019414617
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.11563117461314486,
+                "lower": 0.1156005274850885,
+                "upper": 0.11592280315221377
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.052471131377863724,
+                "lower": 0.03634056445183425,
+                "upper": 0.07869442126636988
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.175970372305234,
+                "lower": 0.8819069295766616,
+                "upper": 2.383778683702655
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 11.816429423494075,
+                "lower": 4.027608704829555,
+                "upper": 16.534198080734953
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.009920960873699869,
+                "lower": -0.054477291621098156,
+                "upper": 0.04820442240057618
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.11382153286248227,
+                "lower": 0.11373660133567676,
+                "upper": 0.11395699333634014
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.016816409330504864,
+                "lower": 0.0029733338444830823,
+                "upper": 0.04100308239558165
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          },
+          "shared_asymmetric_crop_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees": {
+                "point_estimate": 4.163712116228434,
+                "lower": 2.78690389552122,
+                "upper": 7.58139238275906
+              },
+              "translation_median_degrees": {
+                "point_estimate": 19.332008569946513,
+                "lower": 14.561271612723502,
+                "upper": 28.912906888581876
+              },
+              "focal_relative_error_median": {
+                "point_estimate": 0.09276502431604727,
+                "lower": 0.07635589656654244,
+                "upper": 0.16002999600775264
+              },
+              "principal_point_normalized_error_median": {
+                "point_estimate": 0.15526492720694393,
+                "lower": 0.15517820766904922,
+                "upper": 0.15555109596668526
+              },
+              "depth_mean_abs_rel": {
+                "point_estimate": 0.07927679762718348,
+                "lower": 0.06208593551938143,
+                "upper": 0.09624972023437779
+              },
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.3021406193860754,
+                "lower": 1.5000808374266041,
+                "upper": 5.555654876548267
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 15.65816908183638,
+                "lower": 3.665382058713682,
+                "upper": 24.622927789606074
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.05798302413965391,
+                "lower": -0.009461169988806833,
+                "upper": 0.10421512135439137
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.15338891592489465,
+                "lower": 0.15294535798569156,
+                "upper": 0.15355123448201977
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.05979151521741876,
+                "lower": 0.0306795570805122,
+                "upper": 0.07431653303890222
+              }
+            },
+            "metric_availability": {
+              "rotation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "translation_median_degrees": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "focal_relative_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "principal_point_normalized_error_median": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              },
+              "depth_mean_abs_rel": {
+                "candidate_valid_scene_count": 13,
+                "identity_valid_scene_count": 13,
+                "paired_valid_scene_count": 13,
+                "undefined_scene_count": 0,
+                "included_in_scene_bootstrap": true
+              }
+            }
+          }
+        },
+        "paired_contrasts": {
+          "independent_minus_shared_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.409813794370566,
+                "lower": 0.118077565019576,
+                "upper": 0.9950964000607833
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 6.035217007335181,
+                "lower": 2.8469747231946947,
+                "upper": 9.547117460079141
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.006469579620779972,
+                "lower": -0.01966933652188979,
+                "upper": 0.039741620806849134
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -0.009680542344456415,
+                "lower": -0.009938332279337641,
+                "upper": -0.00910579965989797
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.007315299816608223,
+                "lower": -0.0030916477604031323,
+                "upper": 0.01619419265280088
+              }
+            }
+          },
+          "independent_minus_center_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.9892845774314503,
+                "lower": 0.8197500162235238,
+                "upper": 1.3423471979239145
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 7.980284476635955,
+                "lower": 2.6660828198611237,
+                "upper": 15.444085026810663
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.005158461636160613,
+                "lower": -0.005796472129505889,
+                "upper": 0.05199931925631354
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.030251904293424545,
+                "lower": 0.030196831321923433,
+                "upper": 0.030276963688436787
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.014356512985480126,
+                "lower": 0.0037409145238242528,
+                "upper": 0.020952180230479706
+              }
+            }
+          },
+          "shared_minus_center_090": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 0.38827026099500617,
+                "lower": -0.103345080695884,
+                "upper": 0.8671054356677893
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.073914964421107,
+                "lower": 0.7396412461717379,
+                "upper": 4.528356485882819
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.010945551252641017,
+                "lower": -0.0048011628454154645,
+                "upper": 0.017638301804846684
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03994559032808137,
+                "lower": 0.039377649083057284,
+                "upper": 0.04013397346631254
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.004757987577678827,
+                "lower": 0.003054021077998962,
+                "upper": 0.01091476325218688
+              }
+            }
+          },
+          "independent_minus_shared_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 2.603719059269385,
+                "lower": 1.0486102594977607,
+                "upper": 2.9902047898519584
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.5954766953774815,
+                "lower": -9.940807268491655,
+                "upper": 13.86116463370638
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": -0.011625436361708097,
+                "lower": -0.028628328523154598,
+                "upper": 0.03868367660591912
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -0.07685976902217492,
+                "lower": -0.07717257364642562,
+                "upper": -0.0767027937462634
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": -0.00593872578800381,
+                "lower": -0.015092620485302435,
+                "upper": 0.022859089485301215
+              }
+            }
+          },
+          "independent_minus_center_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.916510036098332,
+                "lower": 1.3949610800566372,
+                "upper": 5.47884002160237
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 9.89281374111917,
+                "lower": 6.527912329273006,
+                "upper": 15.772075409595793
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.02277289088403614,
+                "lower": 0.004404816241473139,
+                "upper": 0.03331691080811251
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.03690716025345022,
+                "lower": 0.03656267319869462,
+                "upper": 0.03704277332537608
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.010333400126280437,
+                "lower": 0.0012258876795893797,
+                "upper": 0.015968002180683262
+              }
+            }
+          },
+          "shared_minus_center_075": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 1.9300310836147503,
+                "lower": 0.2498487535818894,
+                "upper": 2.9464555587820245
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 14.176598714218311,
+                "lower": 4.029111619272502,
+                "upper": 16.62219377499114
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.030724034785379245,
+                "lower": -0.008609034100890131,
+                "upper": 0.06315891229818732
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.1138500934528994,
+                "lower": 0.1137790012588233,
+                "upper": 0.1139807038052063
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.010970519449841006,
+                "lower": -0.011533655768084437,
+                "upper": 0.0350477699459686
+              }
+            }
+          },
+          "independent_minus_shared_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 7.068167476868571,
+                "lower": 2.4791515676381835,
+                "upper": 8.546841741309066
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 14.22035530188297,
+                "lower": 9.817791259830475,
+                "upper": 40.44734628420805
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.011720978989146924,
+                "lower": -0.03192725390053669,
+                "upper": 0.04399149686698256
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": -0.04262774190483169,
+                "lower": -0.043166632702230964,
+                "upper": -0.042525114613594456
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.0409947236385244,
+                "lower": -0.0028688378958473815,
+                "upper": 0.09841620030201684
+              }
+            }
+          },
+          "independent_minus_center_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 10.620234762434357,
+                "lower": 9.870702040827952,
+                "upper": 11.639946749795934
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 18.907499410056552,
+                "lower": 13.429354122447364,
+                "upper": 51.26250650859991
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.035085390450539544,
+                "lower": -0.020210524909125283,
+                "upper": 0.06214360473577381
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.1107745167618936,
+                "lower": 0.11034938100831304,
+                "upper": 0.11090087368134528
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.05713671716886591,
+                "lower": 0.024682677275601146,
+                "upper": 0.1295554857198481
+              }
+            }
+          },
+          "shared_minus_center_060": {
+            "resampling_unit": "scene",
+            "statistic": "median",
+            "interval_method": "percentile",
+            "confidence_level": 0.95,
+            "replicates": 10000,
+            "seed": 17,
+            "scene_count": 13,
+            "scenes": [
+              "courtyard",
+              "delivery_area",
+              "electro",
+              "facade",
+              "kicker",
+              "meadow",
+              "office",
+              "pipes",
+              "playground",
+              "relief",
+              "relief_2",
+              "terrace",
+              "terrains"
+            ],
+            "small_sample_warning": null,
+            "metrics": {
+              "rotation_median_degrees_delta_from_identity": {
+                "point_estimate": 3.0931050084868676,
+                "lower": 1.7677766741360115,
+                "upper": 5.801040047615955
+              },
+              "translation_median_degrees_delta_from_identity": {
+                "point_estimate": 5.10534699019817,
+                "lower": 0.9023938950507437,
+                "upper": 12.722509110295585
+              },
+              "focal_relative_error_median_delta_from_identity": {
+                "point_estimate": 0.012513656050118241,
+                "lower": -0.034937927303692495,
+                "upper": 0.03133304030387216
+              },
+              "principal_point_normalized_error_median_delta_from_identity": {
+                "point_estimate": 0.15343406041263516,
+                "lower": 0.15292301144706275,
+                "upper": 0.15360380651103298
+              },
+              "depth_mean_abs_rel_delta_from_identity": {
+                "point_estimate": 0.03499411637105961,
+                "lower": 0.009953575631801756,
+                "upper": 0.05604342753798894
+              }
+            }
+          }
+        },
+        "family_gates": {
+          "independent_asymmetric_crop": {
+            "variants": [
+              "asymmetric_crop_090",
+              "asymmetric_crop_075",
+              "asymmetric_crop_060"
+            ],
+            "rotation_delta_point_estimates": [
+              1.1947681134825707,
+              4.522337725645512,
+              10.88693984699222
+            ],
+            "rotation_monotone_as_retention_decreases": true,
+            "rotation_crossing_variants": [
+              "asymmetric_crop_075",
+              "asymmetric_crop_060"
+            ],
+            "depth_crossing_variants": [
+              "asymmetric_crop_060"
+            ],
+            "crosses_registered_threshold": true
+          },
+          "shared_asymmetric_crop": {
+            "variants": [
+              "shared_asymmetric_crop_090",
+              "shared_asymmetric_crop_075",
+              "shared_asymmetric_crop_060"
+            ],
+            "rotation_delta_point_estimates": [
+              0.5019706148081822,
+              2.175970372305234,
+              3.3021406193860754
+            ],
+            "rotation_monotone_as_retention_decreases": true,
+            "rotation_crossing_variants": [
+              "shared_asymmetric_crop_075",
+              "shared_asymmetric_crop_060"
+            ],
+            "depth_crossing_variants": [
+              "shared_asymmetric_crop_060"
+            ],
+            "crosses_registered_threshold": true
+          },
+          "center_crop": {
+            "variants": [
+              "center_crop_090",
+              "center_crop_075",
+              "center_crop_060"
+            ],
+            "rotation_delta_point_estimates": [
+              0.30053788028311645,
+              0.6058276895471799,
+              0.46807332973550664
+            ],
+            "rotation_monotone_as_retention_decreases": false,
+            "rotation_crossing_variants": [],
+            "depth_crossing_variants": [],
+            "crosses_registered_threshold": false
+          },
+          "letterbox": {
+            "variants": [
+              "letterbox_square"
+            ],
+            "rotation_delta_point_estimates": [
+              -0.006203034182657108
+            ],
+            "rotation_monotone_as_retention_decreases": null,
+            "rotation_crossing_variants": [],
+            "depth_crossing_variants": [],
+            "crosses_registered_threshold": false
+          }
+        }
+      }
+    }
+  },
+  "family_support": {
+    "independent_asymmetric_crop": {
+      "crossing_model_datasets": [
+        "vggt/eth3d",
+        "dust3r/eth3d"
+      ],
+      "crossing_count": 2,
+      "evaluated_count": 2,
+      "crosses_in_every_evaluated_model_dataset": true,
+      "evaluated_models_by_dataset": {
+        "eth3d": [
+          "dust3r",
+          "vggt"
+        ]
+      },
+      "crossing_models_by_dataset": {
+        "eth3d": [
+          "dust3r",
+          "vggt"
+        ]
+      },
+      "datasets_with_all_evaluated_models_crossing": [
+        "eth3d"
+      ],
+      "meets_two_dataset_gate": false
+    },
+    "shared_asymmetric_crop": {
+      "crossing_model_datasets": [
+        "vggt/eth3d",
+        "dust3r/eth3d"
+      ],
+      "crossing_count": 2,
+      "evaluated_count": 2,
+      "crosses_in_every_evaluated_model_dataset": true,
+      "evaluated_models_by_dataset": {
+        "eth3d": [
+          "dust3r",
+          "vggt"
+        ]
+      },
+      "crossing_models_by_dataset": {
+        "eth3d": [
+          "dust3r",
+          "vggt"
+        ]
+      },
+      "datasets_with_all_evaluated_models_crossing": [
+        "eth3d"
+      ],
+      "meets_two_dataset_gate": false
+    },
+    "center_crop": {
+      "crossing_model_datasets": [],
+      "crossing_count": 0,
+      "evaluated_count": 2,
+      "crosses_in_every_evaluated_model_dataset": false,
+      "evaluated_models_by_dataset": {
+        "eth3d": [
+          "dust3r",
+          "vggt"
+        ]
+      },
+      "crossing_models_by_dataset": {
+        "eth3d": []
+      },
+      "datasets_with_all_evaluated_models_crossing": [],
+      "meets_two_dataset_gate": false
+    },
+    "letterbox": {
+      "crossing_model_datasets": [],
+      "crossing_count": 0,
+      "evaluated_count": 2,
+      "crosses_in_every_evaluated_model_dataset": false,
+      "evaluated_models_by_dataset": {
+        "eth3d": [
+          "dust3r",
+          "vggt"
+        ]
+      },
+      "crossing_models_by_dataset": {
+        "eth3d": []
+      },
+      "datasets_with_all_evaluated_models_crossing": [],
+      "meets_two_dataset_gate": false
+    }
+  },
+  "hypothesis_gate": {
+    "required_family_count": 2,
+    "required_dataset_count_per_family": 2,
+    "evaluated_datasets": [
+      "eth3d"
+    ],
+    "families_meeting_two_dataset_gate": [],
+    "meets_two_family_two_dataset_gate": false,
+    "conservative_rule": "A dataset counts for a family only when every supplied model on that dataset crosses a registered point-estimate threshold."
+  }
+}
