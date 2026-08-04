@@ -207,35 +207,22 @@ CamCanon3R model inference, and selects the correct model environment:
 ```
 
 After both prediction sweeps complete, evaluate each model into a separate
-result root. The command below intentionally requires all eleven variants in
-frozen order and exactly the four predeclared point-map variants:
+result root. The frozen wrapper intentionally requires all eleven variants in
+config order and exactly the four predeclared point-map variants:
 
 ```bash
-variants=(
-  identity center_crop_075 asymmetric_crop_075 letterbox_square
-  center_crop_090 center_crop_060
-  asymmetric_crop_090 asymmetric_crop_060
-  shared_asymmetric_crop_090 shared_asymmetric_crop_075
-  shared_asymmetric_crop_060
-)
-point_variants=(
-  identity center_crop_075 asymmetric_crop_075 letterbox_square
-)
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUVGGTEval \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_evaluation.sh vggt \
+  > results/dtu/vggt_evaluation.log 2>&1'
 
-PYTHONPATH=src .venv/bin/python scripts/evaluate_dtu_selection.py \
-  /mnt/e/camcanon3r-data/dtu_selected \
-  outputs/dtu/vggt/rectified_mechanism \
-  results/dtu/vggt/rectified_mechanism \
-  --protocol configs/dtu_protocol.json \
-  --variants "${variants[@]}" \
-  --point-variants "${point_variants[@]}" \
-  --bootstrap-replicates 10000 --confidence-level 0.95 \
-  --bootstrap-seed 17 --resume
+# Start only after the VGGT evaluation task is Ready with exit code 0.
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUDUSt3REval \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_evaluation.sh dust3r \
+  > results/dtu/dust3r_evaluation.log 2>&1'
 ```
 
-Repeat for DUSt3R by changing only the model-specific prediction and result
-roots. The evaluator verifies every source view, calibration file, prediction
-pair, GT resource, protocol hash, and variant-config hash before computing any
+The evaluator verifies every source view, calibration file, prediction pair,
+GT resource, protocol hash, and variant-config hash before computing any
 metric. Pose and intrinsics are evaluated for all 242 cases per model; point
 accuracy and completeness are evaluated only for the frozen 88 confirmatory
 cases. Its surface metric adopts the DTU observability mask, ground-plane
@@ -249,6 +236,21 @@ the evaluator preserves pose and intrinsics, marks DTU point accuracy and
 completeness explicitly undefined, and excludes only those incomplete scene
 metrics from bootstrap intervals. It never substitutes zero or drops the
 scene from the other metrics.
+
+Only after both GT summaries are complete, open the held-out detector result
+with the unchanged four variants, score fields, strict 2-degree threshold,
+10,000 scene-cluster bootstrap replicates, and seed 17:
+
+```bash
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUVGGTReliability \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_reliability.sh vggt \
+  > results/reliability/dtu_vggt_seed17.log 2>&1'
+
+# Start only after the VGGT reliability task is Ready with exit code 0.
+./scripts/start_my5090_background_job.sh CamCanon3R-DTUDUSt3RReliability \
+  'cd /opt/camcanon3r; ./scripts/run_dtu_reliability.sh dust3r \
+  > results/reliability/dtu_dust3r_seed17.log 2>&1'
+```
 
 ## Three-scene severity sweep
 
