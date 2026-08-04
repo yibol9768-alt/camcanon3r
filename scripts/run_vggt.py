@@ -72,6 +72,7 @@ def run_scene(
     torch.manual_seed(seed)
     np.random.seed(seed)
     image_paths = list_images(scene_dir, max_views=max_views)
+    input_hashes = input_sha256_records(image_paths)
     source_sizes: list[tuple[int, int]] = []
     for path in image_paths:
         with Image.open(path) as opened:
@@ -105,6 +106,8 @@ def run_scene(
     extrinsic, intrinsic = pose_encoding_to_extri_intri(
         predictions["pose_enc"], images.shape[-2:]
     )
+    if input_sha256_records(image_paths) != input_hashes:
+        raise RuntimeError("a prepared input changed during VGGT inference")
 
     save_npz_compressed_atomic(
         output,
@@ -123,7 +126,7 @@ def run_scene(
         "prediction_schema_version": PREDICTION_SCHEMA_VERSION,
         "scene_directory": str(scene_dir.resolve()),
         "inputs": [path.name for path in image_paths],
-        "input_sha256": input_sha256_records(image_paths),
+        "input_sha256": input_hashes,
         "weights": str(weights.resolve()),
         "preprocess": preprocess,
         "seed": seed,

@@ -199,8 +199,11 @@ reuse stale GPU output:
 ```
 
 After both prediction sweeps complete, evaluate each model into a separate
-result root. The frozen wrapper intentionally requires all eleven variants in
-config order and exactly the four predeclared point-map variants:
+result root. Before reading a prediction, the evaluation wrapper re-audits the
+prepared tree and invokes the corresponding model runner in `--audit-only`
+mode over all 242 NPZ/JSON pairs.  This mode refuses incomplete output rather
+than launching missing inference. The frozen wrapper then requires all eleven
+variants in config order and exactly the four predeclared point-map variants:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-DTUVGGTEval \

@@ -30,6 +30,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-views", type=int, default=4)
     parser.add_argument("--preprocess", choices=("crop", "pad"), default="crop")
     parser.add_argument("--seed", type=int, default=17)
+    parser.add_argument(
+        "--audit-only",
+        action="store_true",
+        help="validate a complete resumed sweep without loading the model",
+    )
     existing = parser.add_mutually_exclusive_group()
     existing.add_argument(
         "--resume",
@@ -64,6 +69,11 @@ def main() -> None:
                 weights=args.weights,
             )
     pending = [run for run in planned if not run.skip]
+    if args.audit_only and pending:
+        missing = [f"{run.scene}/{run.variant}" for run in pending]
+        raise RuntimeError(
+            f"audit-only sweep is incomplete; refusing to run inference: {missing[:8]}"
+        )
     if not pending:
         print(
             json.dumps(
@@ -72,6 +82,7 @@ def main() -> None:
                     "run_count": len(planned),
                     "executed_count": 0,
                     "skipped_count": len(planned),
+                    "audit_only": args.audit_only,
                     "runs": [
                         {
                             "scene": run.scene,
@@ -113,6 +124,13 @@ def main() -> None:
             model_load_seconds=load_seconds,
             model_reused=True,
             print_metadata=False,
+        )
+        validate_prediction_pair(
+            run.output,
+            run.prepared_dir,
+            max_views=args.max_views,
+            seed=args.seed,
+            weights=args.weights,
         )
         event = {
             "scene": run.scene,

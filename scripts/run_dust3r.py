@@ -104,6 +104,7 @@ def run_scene(
     torch.manual_seed(seed)
     np.random.seed(seed)
     image_paths = list_images(scene_dir, max_views=max_views)
+    input_hashes = input_sha256_records(image_paths)
     source_sizes = _source_sizes(image_paths)
     patch_size = int(model.patch_size)
     square_ok = bool(getattr(model, "square_ok", False))
@@ -171,6 +172,8 @@ def run_scene(
     confidence = stack_equal_shapes(
         (to_numpy(item) for item in scene.im_conf), label="confidence"
     )
+    if input_sha256_records(image_paths) != input_hashes:
+        raise RuntimeError("a prepared input changed during DUSt3R inference")
 
     save_npz_compressed_atomic(
         output,
@@ -190,7 +193,7 @@ def run_scene(
         "model": "DUSt3R",
         "scene_directory": str(scene_dir.resolve()),
         "inputs": [path.name for path in image_paths],
-        "input_sha256": input_sha256_records(image_paths),
+        "input_sha256": input_hashes,
         "weights": str(weights.resolve()),
         "seed": seed,
         "image_size": image_size,
