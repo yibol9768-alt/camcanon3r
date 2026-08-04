@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_repair_ground_truth_results": true,
+  "source_variant": "asymmetric_crop_075",
+  "candidate_order": [
+    {
+      "label": "neutral_gray",
+      "fill_policy": "neutral_gray",
+      "repaired_variant": "canonical_asymmetric_crop_075"
+    },
+    {
+      "label": "black",
+      "fill_policy": "black",
+      "repaired_variant": "canonical_black_asymmetric_crop_075"
+    },
+    {
+      "label": "image_mean",
+      "fill_policy": "image_mean",
+      "repaired_variant": "canonical_mean_asymmetric_crop_075"
+    }
+  ],
+  "selection": {
+    "consensus_score": "median_pairwise_relative_rotation_degrees",
+    "direction": "minimum",
+    "tie_break": "candidate_order",
+    "ground_truth_used": false
+  },
+  "baselines": {
+    "analytic_single_pass": "neutral_gray",
+    "native_confidence": "maximum_median_world_points_conf_fallback_depth_conf",
+    "oracle": "minimum_ground_truth_relative_rotation_median_degrees"
+  },
+  "promotion": {
+    "primary_metric": "relative_rotation_median_degrees",
+    "minimum_gap_recovery": 0.3,
+    "maximum_clean_relative_degradation": 0.02,
+    "must_beat_single_pass_analytic_repair": true,
+    "models_are_separate": true,
+    "datasets_are_separate": true
+  },
+  "compute": {
+    "analytic_single_pass_model_runs": 1,
+    "consensus_model_runs": 3,
+    "native_confidence_model_runs": 3,
+    "oracle_model_runs": 3
+  }
+}

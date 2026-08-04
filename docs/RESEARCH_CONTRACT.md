@@ -212,5 +212,14 @@ replicates remain explicit undefined values. Detector promotion still requires
 held-out AUROC at least 0.75; implementation and exploratory ETH3D results alone
 do not satisfy that gate.
 
+The repair protocol is likewise frozen before any repaired prediction was
+evaluated against ground truth. It uses only the cropped pixels and known
+affines, compares neutral-gray, black, and image-mean canonical fills, and
+selects the candidate with minimum median cross-fill rotation disagreement.
+Native confidence and GT-oracle selection use the identical three predictions.
+The exact tie break, compute accounting, 30% recovery gate, 2% clean-cost gate,
+and requirement to beat the one-pass neutral-gray baseline are specified in
+`docs/REPAIR_PROTOCOL.md` and `configs/repair_consensus_protocol.json`.
+
 No abstract or introduction may promote a claim whose status remains "needs
 evidence."
