@@ -104,7 +104,8 @@ class HTTPRangeReader(io.RawIOBase):
         if start >= self.size:
             return b""
         response = None
-        last_error: requests.RequestException | None = None
+        last_error: Exception | None = None
+        expected_length = end - start + 1
         for attempt in range(self.max_attempts):
             try:
                 candidate = self._session.get(
@@ -118,17 +119,29 @@ class HTTPRangeReader(io.RawIOBase):
                 if candidate.status_code not in {408, 429} and not (
                     500 <= candidate.status_code < 600
                 ):
-                    response = candidate
-                    break
-                last_error = requests.HTTPError(
-                    f"transient HTTP status {candidate.status_code}"
-                )
+                    if candidate.status_code == 206:
+                        payload = bytes(candidate.content)
+                        if len(payload) != expected_length:
+                            last_error = OSError(
+                                "short HTTP range response: "
+                                f"expected={expected_length}, actual={len(payload)}"
+                            )
+                        else:
+                            response = candidate
+                            break
+                    else:
+                        response = candidate
+                        break
+                else:
+                    last_error = requests.HTTPError(
+                        f"transient HTTP status {candidate.status_code}"
+                    )
             if attempt + 1 < self.max_attempts:
                 delay = min(self.retry_delay_seconds * 2**attempt, 10.0)
                 time.sleep(delay)
         if response is None:
             raise OSError(
-                f"HTTP range failed after {self.max_attempts} attempts"
+                f"HTTP range failed after {self.max_attempts} attempts: {last_error}"
             ) from last_error
         if response.status_code != 206:
             raise OSError(
@@ -149,7 +162,6 @@ class HTTPRangeReader(io.RawIOBase):
                 f"HTTP ETag changed: expected={self.etag!r}, actual={response_etag!r}"
             )
         payload = bytes(response.content)
-        expected_length = end - start + 1
         if len(payload) != expected_length:
             raise OSError(
                 "short HTTP range response: "

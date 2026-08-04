@@ -29,10 +29,12 @@ class _Session:
         *,
         etag: str = '"frozen"',
         failures: int = 0,
+        short_responses: int = 0,
     ) -> None:
         self.payload = payload
         self.etag = etag
         self.failures = failures
+        self.short_responses = short_responses
         self.requests: list[tuple[int, int]] = []
         self.closed = False
 
@@ -45,9 +47,13 @@ class _Session:
         start_text, end_text = str(range_header).removeprefix("bytes=").split("-")
         start, end = int(start_text), int(end_text)
         self.requests.append((start, end))
+        content = self.payload[start : end + 1]
+        if self.short_responses:
+            self.short_responses -= 1
+            content = content[:-1]
         return _Response(
             status_code=206,
-            content=self.payload[start : end + 1],
+            content=content,
             headers={
                 "Content-Range": f"bytes {start}-{end}/{len(self.payload)}",
                 "ETag": self.etag,
@@ -114,3 +120,38 @@ def test_http_range_reader_retries_transient_proxy_failure() -> None:
         session=session,
     )
     assert source.read(1) == payload[:1]
+
+
+def test_http_range_reader_retries_short_response() -> None:
+    payload = _zip_payload()
+    session = _Session(payload, short_responses=2)
+    source = HTTPRangeReader(
+        "https://example.test/archive.zip",
+        size=len(payload),
+        etag='"frozen"',
+        block_size=128,
+        max_attempts=3,
+        retry_delay_seconds=0,
+        session=session,
+    )
+    assert source.read(1) == payload[:1]
+    assert len(session.requests) == 3
+
+
+def test_http_range_reader_reports_exhausted_short_responses() -> None:
+    payload = _zip_payload()
+    session = _Session(payload, short_responses=2)
+    source = HTTPRangeReader(
+        "https://example.test/archive.zip",
+        size=len(payload),
+        etag='"frozen"',
+        block_size=128,
+        max_attempts=2,
+        retry_delay_seconds=0,
+        session=session,
+    )
+    with pytest.raises(
+        OSError,
+        match=r"after 2 attempts: short HTTP range response: expected=128, actual=127",
+    ):
+        source.read(1)
