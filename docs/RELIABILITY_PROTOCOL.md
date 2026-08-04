@@ -66,8 +66,15 @@ PYTHONPATH=src .venv/bin/python scripts/build_reliability_cases.py \
   results/eth3d_training/vggt/raw \
   results/reliability/eth3d_vggt_raw_seed17/cases.json \
   --variants identity center_crop_075 asymmetric_crop_075 letterbox_square \
-  --model vggt --dataset eth3d-training-raw
+  --model vggt --dataset eth3d-training-raw \
+  --allow-extra-variants
 ```
+
+`--allow-extra-variants` is permitted only when the enclosing mechanism sweep
+has passed its exact-design audit. It ignores the seven severity/mechanism
+variants outside the four frozen reliability candidates; those files neither
+become anchors nor cases. Without this explicit flag, any extra prediction or
+evaluation remains a hard error.
 
 The evaluator accepts JSON, JSONL, or CSV cases and dot-separated nested field
 paths. The minimal flat schema remains:

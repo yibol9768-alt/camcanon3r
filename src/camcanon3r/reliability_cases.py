@@ -45,7 +45,10 @@ def _native_confidence(path: Path) -> tuple[str, float]:
 
 
 def _scene_predictions(
-    prediction_root: Path, variants: tuple[str, ...]
+    prediction_root: Path,
+    variants: tuple[str, ...],
+    *,
+    allow_extra_variants: bool,
 ) -> dict[str, dict[str, Path]]:
     expected = set(variants)
     scenes: dict[str, dict[str, Path]] = {}
@@ -53,13 +56,27 @@ def _scene_predictions(
         path for path in prediction_root.iterdir() if path.is_dir()
     ):
         records = {path.stem: path for path in scene_dir.glob("*.npz")}
-        if set(records) != expected:
+        actual = set(records)
+        design_matches = (
+            expected <= actual if allow_extra_variants else expected == actual
+        )
+        if not design_matches:
             raise ValueError(
                 f"prediction design mismatch for {scene_dir.name}: "
-                f"missing={sorted(expected - set(records))}, "
-                f"extra={sorted(set(records) - expected)}"
+                f"missing={sorted(expected - actual)}, "
+                f"extra={sorted(actual - expected)}"
             )
-        scenes[scene_dir.name] = records
+        selected = {variant: records[variant] for variant in variants}
+        missing_metadata = [
+            str(path.with_suffix(".json"))
+            for path in selected.values()
+            if not path.with_suffix(".json").is_file()
+        ]
+        if missing_metadata:
+            raise FileNotFoundError(
+                f"prediction metadata is missing: {missing_metadata}"
+            )
+        scenes[scene_dir.name] = selected
     if not scenes:
         raise ValueError("prediction root contains no scene directories")
     return scenes
@@ -69,6 +86,8 @@ def _validate_evaluation_design(
     result_root: Path,
     scenes: set[str],
     variants: tuple[str, ...],
+    *,
+    allow_extra_variants: bool,
 ) -> None:
     result_scenes = {path.name for path in result_root.iterdir() if path.is_dir()}
     if result_scenes != scenes:
@@ -80,7 +99,10 @@ def _validate_evaluation_design(
     expected = {f"{variant}_vs_gt" for variant in variants}
     for scene in sorted(scenes):
         records = {path.stem for path in (result_root / scene).glob("*_vs_gt.json")}
-        if records != expected:
+        design_matches = (
+            expected <= records if allow_extra_variants else expected == records
+        )
+        if not design_matches:
             raise ValueError(
                 f"evaluation variant design mismatch for {scene}: "
                 f"missing={sorted(expected - records)}, "
@@ -201,6 +223,7 @@ def build_reliability_cases(
     variants: tuple[str, ...],
     model: str,
     dataset: str,
+    allow_extra_variants: bool = False,
 ) -> dict[str, object]:
     """Build one case per scene/variant using leave-one-transform-out scores.
 
@@ -213,8 +236,17 @@ def build_reliability_cases(
 
     if len(variants) < 3 or len(set(variants)) != len(variants):
         raise ValueError("reliability design requires at least three unique variants")
-    scenes = _scene_predictions(prediction_root, variants)
-    _validate_evaluation_design(result_root, set(scenes), variants)
+    scenes = _scene_predictions(
+        prediction_root,
+        variants,
+        allow_extra_variants=allow_extra_variants,
+    )
+    _validate_evaluation_design(
+        result_root,
+        set(scenes),
+        variants,
+        allow_extra_variants=allow_extra_variants,
+    )
     cases: list[dict[str, object]] = []
     for scene, predictions in scenes.items():
         disagreements: dict[str, dict[str, list[float | None]]] = {
@@ -269,6 +301,7 @@ def build_reliability_cases(
         "variant_count": len(variants),
         "case_count": len(cases),
         "variants": list(variants),
+        "allow_extra_source_variants": allow_extra_variants,
         "score_protocol": {
             "cross_transform": "candidate median across all other transforms",
             "pairwise_depth": (

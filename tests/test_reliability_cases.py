@@ -31,6 +31,9 @@ def _prediction(path: Path, angle: float, confidence: float) -> None:
         source_to_model_affine=np.repeat(np.eye(3)[None], 2, axis=0),
         world_points_conf=np.full((2, 3, 4), confidence),
     )
+    path.with_suffix(".json").write_text(
+        json.dumps({"inputs": ["one.png", "two.png"]}), encoding="utf-8"
+    )
 
 
 def _evaluation(path: Path, scene: str, variant: str, error: float) -> None:
@@ -121,6 +124,27 @@ def test_build_reliability_cases_rejects_extra_predictions(tmp_path: Path) -> No
             model="test-model",
             dataset="test-data",
         )
+
+
+def test_build_reliability_cases_can_select_frozen_subset_from_audited_sweep(
+    tmp_path: Path,
+) -> None:
+    predictions, results = _design(tmp_path)
+    for scene in ("first", "second"):
+        _prediction(predictions / scene / "extra.npz", angle=0.2, confidence=1.0)
+        _evaluation(results / scene / "extra_vs_gt.json", scene, "extra", 3.0)
+    output = build_reliability_cases(
+        predictions,
+        results,
+        variants=VARIANTS,
+        model="test-model",
+        dataset="test-data",
+        allow_extra_variants=True,
+    )
+    assert output["variants"] == list(VARIANTS)
+    assert output["variant_count"] == 3
+    assert output["case_count"] == 6
+    assert output["allow_extra_source_variants"] is True
 
 
 def test_build_reliability_cases_rejects_extra_evaluation(tmp_path: Path) -> None:

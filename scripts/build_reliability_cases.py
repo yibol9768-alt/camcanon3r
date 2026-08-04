@@ -18,6 +18,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--variants", nargs="+", required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--dataset", required=True)
+    parser.add_argument(
+        "--allow-extra-variants",
+        action="store_true",
+        help=(
+            "allow audited prediction/result roots to contain variants outside "
+            "the exact registered score set"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -29,6 +37,7 @@ def main() -> None:
         variants=tuple(args.variants),
         model=args.model,
         dataset=args.dataset,
+        allow_extra_variants=args.allow_extra_variants,
     )
     rendered = json.dumps(result, indent=2, allow_nan=False) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)
