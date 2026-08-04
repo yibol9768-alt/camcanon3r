@@ -170,6 +170,20 @@ The expected prepared design is 22 scene manifests plus 22 x 11 x 3 = 726
 PNGs. Run preparation as a detached Windows task; do not tie it to an SSH
 session.
 
+Before inference, bind the preparation report to the frozen protocol and hash
+the complete prepared image tree:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/audit_dtu_mechanism.py \
+  data/dtu/rectified_mechanism \
+  --protocol configs/dtu_protocol.json \
+  --variant-config configs/eth3d_mechanism_variants.json \
+  --output results/dtu/rectified_mechanism_preparation_audit.json
+```
+
+The audit rejects any scene, camera, light, seed, variant, file, protocol hash,
+or preparation-report drift. GPU inference starts only after it passes.
+
 Run the two models sequentially, never concurrently, over the exact ordered
 variant list in `configs/eth3d_mechanism_variants.json`. Use all 22 `scan*`
 directories beneath `data/dtu/rectified_mechanism`, three views per case, and
