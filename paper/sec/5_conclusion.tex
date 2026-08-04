@@ -11,5 +11,9 @@ amplified when windows vary independently; center and letterbox controls stay
 below the registered threshold.  Model-specific and undefined metrics remain
 explicit.  The present conclusion is therefore deliberately narrow: two
 registered off-center crop families cause a real multi-model accuracy failure
-on ETH3D; cross-dataset generality, failure prediction, and repair remain
-separate promotion gates.
+on ETH3D.  Inverse-warping a known crop to its canonical camera canvas recovers
+96.6\% and 55.8\% of the rotation-error gap for VGGT and DUSt3R with zero
+measured clean cost, but it worsens depth for both models and cross-fill
+consensus fails to improve the DUSt3R analytic baseline.  The supported repair
+claim is therefore camera orientation only; cross-dataset generality and
+held-out failure prediction remain separate promotion gates.

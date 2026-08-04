@@ -5,9 +5,10 @@
 Known image preprocessing changes the camera matrix, yet feed-forward 3D
 systems can return different scene geometry after the exact camera update is
 removed; CamCanon3R audits this equivariance contract, isolates matched
-VGGT/DUSt3R off-center-crop failures and their view-dependent amplification on ETH3D, and will
-promote disagreement to a detector or repair signal only if held-out evidence
-supports that promotion.
+VGGT/DUSt3R off-center-crop failures and their view-dependent amplification on
+ETH3D, and shows that known-affine canonicalization recovers camera rotation
+but not depth; disagreement is promoted to a detector or selector only if
+held-out evidence supports it.
 
 ## Introduction mini-outline and paragraph roles
 
@@ -18,10 +19,12 @@ supports that promotion.
 3. **Method:** log and compose exact affines, map predictions to a common
    domain, and compare cameras/depth with gauge-invariant metrics.
 4. **Evidence:** separate 13-scene VGGT and DUSt3R ETH3D GT pose, intrinsics,
-   depth, and point geometry, plus severity/scope and exact-repeat controls.
+   depth, and point geometry, plus severity/scope, canonicalization, and
+   exact-repeat controls.
 5. **Contributions/boundary:** audit formulation and multi-model ETH3D
-   degradation are supported; cross-dataset generality, detection, and repair
-   remain promotion gates.
+   degradation are supported; camera rotation recovery is supported on ETH3D,
+   while depth repair, consensus, cross-dataset generality, and detection are
+   not promoted.
 
 ## Reverse outline
 
@@ -30,8 +33,8 @@ supports that promotion.
 | 1 | Practical preprocessing changes the camera. | $P'=AK[R\mid t]$ and gauge requirement. |
 | 2 | Auditing is non-trivial because transforms compose. | Hidden model maps, aspect ratio, common coordinates. |
 | 3 | CamCanon3R makes the contract measurable. | Stored $A$, $B$, $BA$; relative pose and depth alignment. |
-| 4 | Current GT evidence isolates off-center crop degradation and view-dependent amplification. | 13 ETH3D scenes, 11 variants per model; separate paired VGGT and DUSt3R aggregates. |
-| 5 | Contributions are intentionally evidence bounded. | Two supported ETH3D transform families; explicit cross-dataset, detection, and repair gates. |
+| 4 | Current GT evidence isolates off-center crop degradation, view-dependent amplification, and the limit of analytic canonicalization. | 13 ETH3D scenes, 11 mechanism variants per model; three registered repair fills, clean repeats, and separate paired aggregates. |
+| 5 | Contributions are intentionally evidence bounded. | Two supported ETH3D transform families and camera rotation recovery; explicit negative depth/consensus results and cross-dataset/detection gates. |
 
 ## Claim-evidence map
 
@@ -46,8 +49,9 @@ supports that promotion.
 | Shared off-center crops form a second failure family, while view-dependent offsets amplify it. | Frozen 90/75/60% severity and matched shared/independent-window sweep; all six independent-minus-shared rotation intervals exclude zero. | supported on ETH3D for both models | matched DTU replication for the full hypothesis |
 | Cross-transform disagreement detects high-error cases. | None yet. | needs evidence | held-out AUROC and risk--coverage |
 | Reliability metrics are auditable. | Tie-aware AUROC, tie-invariant risk--coverage, oracle/excess AURC, and scene-cluster bootstrap are unit tested. | implemented, no effectiveness claim | populate with held-out GT cases |
-| Analytic canonical-camera repair restores source pixel coordinates. | Unit-tested inverse affine, identity control, masks, and manifests. | implemented, no effectiveness claim | paired GT gap recovery and clean cost |
-| Consensus repairs geometry. | None yet. | needs evidence | paired gap recovery beyond analytic repair, clean cost, runtime |
+| Analytic canonical-camera repair recovers crop-induced camera rotation on ETH3D. | Paired 13-scene VGGT/DUSt3R GT evaluation; rotation recovery 0.966 and 0.558; zero clean cost with 130/130 byte-exact repeat arrays per model. | supported for camera rotation on ETH3D; DUSt3R lower CI is 0.267 | matched DTU replication for cross-dataset promotion |
+| Analytic canonicalization repairs generic geometry. | Every registered fill worsens median depth AbsRel for both models; metric-level point results are mixed. | contradicted on current ETH3D evidence | no generic claim; report as boundary |
+| Cross-fill consensus improves over one-pass analytic repair. | VGGT improves 1.449° to 1.416°; DUSt3R remains 2.934° while compute triples. | fails frozen multi-model promotion gate | retain as negative result; do not promote |
 
 ## Self-review
 
@@ -56,9 +60,10 @@ supports that promotion.
 - **Terminology:** use *preprocessing non-equivariance* for cross-run
   diagnostics and *accuracy degradation* only for the frozen GT comparison.
 - **Unsupported claims:** no current text claims multi-dataset GT generality,
-  that every transform/metric degrades, AUROC, or repair gains.
+  that every transform/metric degrades, AUROC, generic geometry repair, or
+  successful consensus.
 - **Missing evidence:** a second geometry dataset, held-out reliability,
-  repair, compute-normalized baselines, and qualitative geometry.
+  cross-dataset repair replication, and qualitative geometry.
 - **Statistical boundary:** the three-scene diagnostics remain descriptive;
   the two separate 13-scene ETH3D aggregates support only their registered
   model/dataset/transform claims.
@@ -70,11 +75,12 @@ supports that promotion.
 | Overview | Separate coordinate intervention from model response. | Logged maps, common-domain audit, analytic repair. |
 | Equivariance contract | Compose user and hidden model maps exactly. | $C_i=B_iA_i$; unit-tested bookkeeping. |
 | Common-domain comparison | Remove pixel and 3D gauge before measuring drift. | Common support, relative pose, one depth scale. |
-| Canonical-camera repair | Undo coordinates without claiming to restore lost pixels. | Inverse warp, neutral fill, validity mask, identity control. |
-| Disagreement | Promotion depends on held-out GT and matched compute. | No detector or consensus claim yet. |
+| Canonical-camera repair | Undo coordinates without claiming to restore lost pixels. | Inverse warp, three frozen fills, validity mask, exact identity control; ETH3D rotation recovery but negative depth. |
+| Disagreement | Promotion depends on held-out GT and matched compute. | Consensus fails the multi-model ETH3D gate; detector evidence remains pending. |
 
-The working title remains audit-only.  Add "and Repairing" only after the
-registered repair thresholds are met.
+The working title remains audit-only.  The current rotation-only result does
+not justify adding "and Repairing": depth worsens for both models and consensus
+fails its frozen multi-model gate.
 
 The final prose and evidence layout are calibrated against the frozen
 three-paper ICLR comparison in `docs/ICLR_WRITING_BENCHMARKS.md`. Those papers

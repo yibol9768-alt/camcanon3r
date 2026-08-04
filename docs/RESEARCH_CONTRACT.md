@@ -2,15 +2,16 @@
 
 Updated: 2026-08-04
 Target: 3DV 2027, paper deadline 2026-08-28 11:00 PDT  
-Status: frozen contract; matched VGGT/DUSt3R ETH3D result complete, promotion gates active
+Status: frozen contract; matched VGGT/DUSt3R ETH3D mechanism and repair results complete, cross-dataset and detector gates active
 
 ## Paper claim
 
 Feed-forward 3D reconstruction models should be equivariant to known,
 invertible image preprocessing once the induced camera update is accounted for.
-CamCanon3R measures violations of this contract and uses cross-transform
-agreement to detect and repair unreliable predictions without ground-truth 3D
-at test time.
+CamCanon3R measures violations of this contract and evaluates two test-time
+responses without ground-truth 3D: known-affine canonicalization and
+cross-transform agreement.  Current evidence supports the former only for
+camera orientation on ETH3D; detection and consensus selection remain gated.
 
 The work does **not** claim generic uncertainty estimation, robustness to
 unrelated views, or a new reconstruction backbone. The contribution boundary
@@ -147,7 +148,9 @@ in the frozen design rather than being removed after inspection.
 | Common preprocessing breaks 3D equivariance | paired multi-model, multi-dataset geometry results | **Two families supported on multi-model ETH3D raw GT:** the complete 13-scene, 11-variant sweep crosses the registered rotation threshold for independent and shared off-center crops in both VGGT and DUSt3R; DTU remains required for the full two-dataset hypothesis |
 | Native confidence misses failures | calibration and risk-coverage comparison | needs evidence |
 | Disagreement detects failures | held-out AUROC with confidence intervals | needs evidence |
-| CamCanon repairs geometry | paired baseline/ablation results and compute cost | needs evidence |
+| Known-affine canonicalization repairs crop-induced camera rotation | paired baseline/ablation results and compute cost | **Supported on ETH3D for both models at the registered point-estimate gate:** neutral-gray recovery is 0.966 for VGGT and 0.558 for DUSt3R with zero measured clean cost; the DUSt3R lower confidence bound is 0.267, so uncertainty remains explicit and DTU is required for cross-dataset promotion |
+| CamCanon repairs generic geometry | paired depth/point baseline and ablations | **Not supported:** all three fills worsen median depth AbsRel on both ETH3D models; point-geometry outcomes are mixed |
+| Consensus improves over analytic canonicalization | paired three-fill selector, analytic baseline, oracle, and compute | **Fails the frozen multi-model ETH3D gate:** it slightly improves VGGT rotation but ties neutral gray for DUSt3R at roughly three times model compute |
 
 ## Frozen confirmatory snapshot: VGGT and DUSt3R on ETH3D raw
 
@@ -250,5 +253,37 @@ The exact tie break, compute accounting, 30% recovery gate, 2% clean-cost gate,
 and requirement to beat the one-pass neutral-gray baseline are specified in
 `docs/REPAIR_PROTOCOL.md` and `configs/repair_consensus_protocol.json`.
 
+## Frozen repair snapshot: canonical-camera orientation on ETH3D
+
+The complete repair evidence is frozen in `artifacts/eth3d_repair_seed17/`.
+The one-pass neutral-gray inverse warp uses only the cropped images and their
+registered affines.  Across the same 13 scenes, VGGT rotation error changes
+from 5.274 degrees under the crop to 1.449 degrees after repair, relative to a
+0.805-degree identity baseline.  Its paired gap recovery is 0.966 (95% CI
+[0.729, 1.130]).  DUSt3R changes from 5.667 to 2.934 degrees, relative to a
+1.276-degree identity baseline, for recovery 0.558 ([0.267, 1.060]).  Both
+models pass the registered 0.30 point-estimate gate; only VGGT also passes the
+confidence-bound variant.
+
+Clean cost is measured rather than assumed.  Identity-repeat audits compare
+130 prediction arrays per model and find all arrays byte-for-byte equal, making
+the observed relative clean rotation degradation exactly zero.  Median model
+compute per scene is 0.155 seconds for one-pass VGGT and 4.80 seconds for
+one-pass DUSt3R, with model loading recorded separately.
+
+The boundary is decisive.  Every registered fill worsens median depth AbsRel
+for both models.  Neutral-gray depth gap recovery is -1.38
+([-4.45, -0.52]) for VGGT and -12.61 ([-93.04, -5.87]) for DUSt3R.
+Cross-fill consensus improves VGGT rotation from 1.449 to 1.416 degrees but
+equals the 2.934-degree neutral-gray result for DUSt3R and requires three model
+runs.  It therefore fails the frozen multi-model promotion condition.
+Black fill performs better for DUSt3R in hindsight, but it cannot replace the
+predeclared neutral-gray baseline.
+
+The supported claim is consequently limited to recovery of crop-induced camera
+rotation on ETH3D.  The evidence does not support repaired depth, generic
+geometry repair, or a promoted consensus selector.  DTU remains required for
+cross-dataset repair evidence.
+
 No abstract or introduction may promote a claim whose status remains "needs
-evidence."
+evidence" or whose frozen gate failed.

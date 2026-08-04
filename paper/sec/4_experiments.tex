@@ -231,17 +231,51 @@ gap recovery
 \end{equation}
 The repair claim requires at least 30\% recovery while identity degradation
 remains below 2\%; denominators at or below the identity noise floor are
-reported as undefined rather than clipped.  Results remain pending and no
-repair claim is drawn from the diagnostic in Table~\ref{tab:pilot} or from an
-unfinished baseline.
+reported as undefined rather than clipped.
 
-\subsection{Failure detection and repair}
+\paragraph{Canonical-camera repair.}
+Table~\ref{tab:repair} reports the frozen neutral-gray inverse warp on the same
+13 ETH3D scenes.  It recovers 0.966 of the paired rotation-error gap for VGGT
+(95\% CI [0.729, 1.130]) and 0.558 for DUSt3R ([0.267, 1.060]); both exceed the
+0.30 point-estimate gate, although the DUSt3R lower confidence bound does not.
+Repeating the identity preparation produces 130/130 byte-exact prediction
+arrays for each model, so measured clean rotation degradation is zero.  A
+single repaired run takes a median 0.155 seconds per scene for VGGT and 4.80
+seconds for DUSt3R, excluding separately reported model loading.
+
+\begin{table}[t]
+  \centering
+  \caption{Known-affine canonicalization on the independently shifted 75\%
+  crop. Rotation is median GT error in degrees; recovery uses paired scene
+  gaps. Clean is relative identity degradation.}
+  \label{tab:repair}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Model & Identity & Crop & Repair & Recovery / clean \\
+    \midrule
+    VGGT   & 0.805 & 5.274 & 1.449 & 0.966 / 0.000 \\
+    DUSt3R & 1.276 & 5.667 & 2.934 & 0.558 / 0.000 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+This is an orientation result, not a general geometry repair.  Every
+registered fill worsens median depth AbsRel for both models; neutral-gray gap
+recovery is $-1.38$ ([$-4.45$, $-0.52$]) for VGGT and $-12.61$
+([$-93.04$, $-5.87$]) for DUSt3R.  Cross-fill consensus costs three runs and
+slightly lowers VGGT rotation error from 1.449 to 1.416 degrees, but equals the
+2.934-degree neutral baseline for DUSt3R.  It therefore fails the frozen
+multi-model promotion rule.  Black fill is a stronger DUSt3R alternative in
+hindsight, but cannot replace the predeclared neutral-gray baseline.  We retain
+these negative results and promote neither repaired depth nor consensus.
+
+\subsection{Failure detection}
 Failure thresholds are frozen before held-out testing and use the strict rule
 $E>\tau$. AUROC uses average ranks for ties; risk--coverage adds complete
 equal-score blocks and reports raw AURC, oracle AURC, and their difference.
 Confidence intervals resample scenes as clusters, carrying all view-set and
 transform cases together. Single-class AUROC replicates are omitted and
 counted rather than assigned a numerical value.
-\TODO{Report native confidence, cross-transform disagreement, AUROC,
-risk--coverage, consensus repair, gap recovery, oracle selection, runtime, and
-accuracy per unit compute.}
+\TODO{Report native confidence, cross-transform disagreement, AUROC, and
+risk--coverage on held-out DTU.}

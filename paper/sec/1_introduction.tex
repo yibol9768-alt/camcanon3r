@@ -66,7 +66,16 @@ yields 5.74--8.83 degrees on the same scenes.  These diagnostics provide an
 independent repeat control and agree with the subsequent matched GT result;
 they are not substituted for it.
 
-This draft makes three evidence-bounded contributions:
+Known affine maps also permit a narrow test-time intervention: inverse-warp
+the crop onto its source camera canvas before inference.  On ETH3D this
+neutral-gray canonicalization recovers 96.6\% and 55.8\% of the paired
+rotation-error gap for VGGT and DUSt3R, respectively, with byte-exact identity
+controls.  It does not repair depth, and a three-fill disagreement selector
+does not improve the DUSt3R analytic baseline.  We therefore claim camera
+orientation recovery only and retain the geometry and consensus failures as
+boundaries.
+
+This draft makes four evidence-bounded contributions:
 \begin{itemize}
   \item We formulate image preprocessing as a falsifiable 3D equivariance
         contract with the exact camera update $K' = AK$.
@@ -78,7 +87,10 @@ This draft makes three evidence-bounded contributions:
         completeness; a matched severity/scope sweep isolates a second shared
         off-center failure family while center and letterbox controls remain
         below the registered threshold.
+  \item We show that a known-affine canonical canvas recovers the registered
+        rotation gap on both models at zero measured clean cost, while matched
+        depth and consensus controls delimit the result.
 \end{itemize}
-Cross-dataset GT results, reliability metrics, and a training-free consensus
-repair are pre-registered promotion gates, not contributions claimed by the
-present evidence.
+Cross-dataset GT results and held-out reliability metrics remain pre-registered
+promotion gates; training-free consensus repair is not promoted by the present
+evidence.

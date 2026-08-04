@@ -20,7 +20,11 @@ both models.  Severity and crop-scope controls reveal a second failure family:
 one shared off-center window at 75\% retention raises rotation error by
 \SI{2.38}{\degree} and \SI{2.18}{\degree}, while independent windows remain
 significantly worse at every matched severity.  Center crops never cross the
-registered threshold.  Thus the failure is tied to off-center camera changes
-and amplified by view dependence, not generic resampling; cross-dataset
-generality, failure detection, and repair remain separate empirical claims.
+registered threshold.  Known-affine canonicalization recovers 0.966 and 0.558
+of the paired rotation-error gap for VGGT and DUSt3R with zero measured clean
+cost, but worsens depth for both; a three-run consensus does not improve the
+DUSt3R analytic baseline.  Thus the failure is tied to off-center camera
+changes and amplified by view dependence, not generic resampling.  The repair
+evidence is limited to camera orientation on ETH3D; cross-dataset generality
+and held-out failure detection remain separate empirical claims.
 \end{abstract}
