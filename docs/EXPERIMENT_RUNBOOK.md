@@ -162,7 +162,7 @@ files:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-DTUExtractionAudit \
-  'cd /opt/camcanon3r; PYTHONPATH=src .venv/bin/python \
+  'cd /opt/camcanon3r; mkdir -p results/dtu; PYTHONPATH=src .venv/bin/python \
   scripts/audit_dtu_extraction.py \
   /mnt/e/camcanon3r-data/dtu_mvs/selections \
   /mnt/e/camcanon3r-data/dtu_selected \
