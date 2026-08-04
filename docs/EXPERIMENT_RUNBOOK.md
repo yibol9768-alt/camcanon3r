@@ -596,6 +596,13 @@ predictions and each DTU sweep contains 22 x 3 = 66 predictions:
 Evaluate with the matching wrappers, again sequentially. DTU computes the
 registered deterministic point-map metric for all three variants:
 
+The support summaries use the frozen `anchor_variant` (`letterbox_square`) as
+their declared reference rather than requiring a nonexistent `identity` case.
+This structural parameterization was added after all 39 VGGT/ETH3D GT case
+records had been written and the old identity-only summarizer stopped, but
+before any support summary or combined gate was produced. No case, metric,
+threshold, or support-control outcome was changed or inspected.
+
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-ETHSupportVGGTEval \
   'cd /opt/camcanon3r; ./scripts/run_support_control_evaluation.sh vggt eth3d \

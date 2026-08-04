@@ -164,6 +164,43 @@ def test_eth3d_summary_pairs_identity_within_each_scene(tmp_path: Path) -> None:
     )
 
 
+def test_eth3d_summary_accepts_declared_nonidentity_reference(tmp_path: Path) -> None:
+    for variant, rotation in (
+        ("letterbox_square", 1.0),
+        ("asymmetric_letterbox_square", 4.0),
+    ):
+        (tmp_path / f"{variant}_vs_gt.json").write_text(
+            json.dumps(
+                {
+                    "prediction": f"/outputs/{variant}.npz",
+                    "variant": variant,
+                    "intrinsics": {
+                        "focal_relative_error": {"median": rotation / 100},
+                        "principal_point_normalized_error": {
+                            "median": rotation / 200
+                        },
+                    },
+                    "relative_rotation_degrees": {"median": rotation},
+                    "translation_direction_degrees": {"median": rotation * 2},
+                    "depth": {"mean_abs_rel": rotation / 100, "valid_pixels": 10},
+                }
+            )
+        )
+    summary = summarize_eth3d_evaluations(
+        sorted(tmp_path.glob("*_vs_gt.json")),
+        reference_variant="letterbox_square",
+        bootstrap_replicates=20,
+    )
+    candidate = next(
+        row
+        for row in summary["evaluations"]
+        if row["variant"] == "asymmetric_letterbox_square"
+    )
+    assert summary["reference_variant"] == "letterbox_square"
+    assert candidate["rotation_delta_from_reference_degrees"] == 3.0
+    assert "rotation_delta_from_identity_degrees" not in candidate
+
+
 def test_eth3d_summary_keeps_undefined_point_alignment_explicit(
     tmp_path: Path,
 ) -> None:
@@ -295,6 +332,49 @@ def test_dtu_summary_pairs_each_variant_with_scene_identity(tmp_path: Path) -> N
         ]
         is False
     )
+
+
+def test_dtu_summary_accepts_declared_nonidentity_reference(tmp_path: Path) -> None:
+    paths = []
+    for variant, rotation in (
+        ("letterbox_square", 1.0),
+        ("asymmetric_letterbox_square", 4.0),
+    ):
+        path = tmp_path / f"{variant}_vs_gt.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "prediction": f"/outputs/{variant}.npz",
+                    "variant": variant,
+                    "intrinsics": {
+                        "focal_relative_error": {"median": rotation / 100},
+                        "principal_point_normalized_error": {
+                            "median": rotation / 200
+                        },
+                    },
+                    "relative_rotation_degrees": {"median": rotation},
+                    "translation_direction_degrees": {"median": rotation * 2},
+                    "point_cloud": {
+                        "accuracy_millimeters": {"mean": rotation},
+                        "completeness_millimeters": {"mean": rotation * 2},
+                    },
+                }
+            )
+        )
+        paths.append(path)
+    summary = summarize_dtu_evaluations(
+        paths,
+        reference_variant="letterbox_square",
+        bootstrap_replicates=20,
+    )
+    candidate = next(
+        row
+        for row in summary["evaluations"]
+        if row["variant"] == "asymmetric_letterbox_square"
+    )
+    assert summary["reference_variant"] == "letterbox_square"
+    assert candidate["rotation_median_degrees_delta_from_reference"] == 3.0
+    assert "rotation_median_degrees_delta_from_identity" not in candidate
 
 
 def test_dtu_summary_rejects_inconsistent_point_availability(tmp_path: Path) -> None:

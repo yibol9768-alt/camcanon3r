@@ -18,6 +18,13 @@ mask. Before the same protected outcomes were opened, the directional rule was
 made explicit: mark accuracy undefined but retain completeness from the full
 aligned prediction tree. This also changes no hypothesis, parameter, or case.
 
+Support-control runtime note (2026-08-05 Asia/Shanghai): after all 39 VGGT
+ETH3D support GT records were written, the legacy summary code stopped because
+it required an `identity` record absent from the registered three-variant
+control. Before any support summary or combined gate existed, summarization was
+parameterized to use the already frozen `anchor_variant=letterbox_square`.
+This structural repair changes no record, metric, threshold, or outcome.
+
 ## Paper claim
 
 Feed-forward 3D reconstruction models should be equivariant to known

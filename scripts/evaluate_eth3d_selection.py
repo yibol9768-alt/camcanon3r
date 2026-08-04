@@ -20,6 +20,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("results_root", type=Path)
     parser.add_argument("--domain", choices=("raw", "undistorted"), required=True)
     parser.add_argument("--variants", nargs="+", required=True)
+    parser.add_argument("--reference-variant", default="identity")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
     parser.add_argument("--confidence-level", type=float, default=0.95)
@@ -202,6 +203,7 @@ def main() -> None:
     outputs = sorted(Path(job["output"]) for job in jobs)
     summary = summarize_eth3d_evaluations(
         outputs,
+        reference_variant=args.reference_variant,
         bootstrap_replicates=args.bootstrap_replicates,
         confidence_level=args.confidence_level,
         bootstrap_seed=args.bootstrap_seed,

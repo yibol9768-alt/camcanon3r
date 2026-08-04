@@ -23,6 +23,11 @@ mapfile -t variants < <(
     'import json,sys; print(*json.load(open(sys.argv[1]))["ordered_variants"], sep="\n")' \
     "${variant_config}"
 )
+reference_variant="$(
+  "${python_bin}" -c \
+    'import json,sys; print(json.load(open(sys.argv[1]))["anchor_variant"])' \
+    "${variant_config}"
+)"
 
 case "${dataset}" in
   eth3d)
@@ -100,6 +105,7 @@ case "${dataset}" in
     PYTHONPATH=src "${python_bin}" scripts/evaluate_eth3d_selection.py \
       "${selection_root}" "${prediction_root}" "${results_root}" \
       --domain raw --variants "${variants[@]}" \
+      --reference-variant "${reference_variant}" \
       --bootstrap-replicates 10000 --confidence-level 0.95 \
       --bootstrap-seed 17 --resume
     ;;
@@ -108,6 +114,7 @@ case "${dataset}" in
       "${selection_root}" "${prediction_root}" "${results_root}" \
       --protocol "${protocol}" --variants "${variants[@]}" \
       --point-variants "${variants[@]}" \
+      --reference-variant "${reference_variant}" \
       --bootstrap-replicates 10000 --confidence-level 0.95 \
       --bootstrap-seed 17 --resume
     ;;

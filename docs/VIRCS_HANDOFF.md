@@ -19,6 +19,13 @@ marks only accuracy undefined and preserves completeness from the complete
 aligned prediction tree. No mask, threshold, point set, case, or prior record
 is changed. Test, push, safely sync, and resume the same task again.
 
+Later support-control execution wrote all 39 VGGT/ETH3D GT records before its
+legacy identity-only summarizer stopped: the registered support design has
+`letterbox_square`, not `identity`, as its anchor. Before a support summary or
+combined gate was produced, the summary interface was parameterized to use the
+frozen `anchor_variant`. This is a structural runtime repair only; no case,
+metric, threshold, or outcome is altered or selected.
+
 ## Mission and completion bar
 
 Continue CamCanon3R as a 3DV paper project.  The work is not complete merely

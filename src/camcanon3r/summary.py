@@ -125,14 +125,17 @@ def _complete_median(values: np.ndarray) -> float | None:
 def summarize_eth3d_evaluations(
     paths: list[Path],
     *,
+    reference_variant: str = "identity",
     bootstrap_replicates: int = 10_000,
     confidence_level: float = 0.95,
     bootstrap_seed: int = 17,
 ) -> dict[str, object]:
-    """Aggregate paired multi-scene GT metrics and identity deltas."""
+    """Aggregate paired multi-scene GT metrics and declared-reference deltas."""
 
     if not paths:
         raise ValueError("at least one ETH3D evaluation record is required")
+    if not reference_variant:
+        raise ValueError("ETH3D reference variant must be non-empty")
     rows: list[dict[str, object]] = []
     for path in sorted(paths):
         record = json.loads(path.read_text(encoding="utf-8"))
@@ -186,7 +189,23 @@ def summarize_eth3d_evaluations(
         seen_pairs.add(pair)
         by_scene[pair[0]].append(row)
 
-    identities: dict[str, dict[str, object]] = {}
+    references: dict[str, dict[str, object]] = {}
+    reference_label = "identity" if reference_variant == "identity" else "reference"
+    delta_fields = {
+        "rotation": f"rotation_delta_from_{reference_label}_degrees",
+        "translation": f"translation_delta_from_{reference_label}_degrees",
+        "focal": f"focal_relative_error_delta_from_{reference_label}",
+        "principal": (
+            f"principal_point_normalized_error_delta_from_{reference_label}"
+        ),
+        "depth": f"depth_abs_rel_delta_from_{reference_label}",
+        "point_accuracy": (
+            f"point_accuracy_delta_from_{reference_label}_meters"
+        ),
+        "point_completeness": (
+            f"point_completeness_delta_from_{reference_label}_meters"
+        ),
+    }
     expected_variants: set[str] | None = None
     for scene, scene_rows in sorted(by_scene.items()):
         scene_variants = {str(row["variant"]) for row in scene_rows}
@@ -199,61 +218,65 @@ def summarize_eth3d_evaluations(
                 f"incomplete paired ETH3D design for scene {scene!r}: "
                 f"missing={missing}, extra={extra}"
             )
-        scene_identities = [row for row in scene_rows if row["variant"] == "identity"]
-        if len(scene_identities) != 1:
+        scene_references = [
+            row for row in scene_rows if row["variant"] == reference_variant
+        ]
+        if len(scene_references) != 1:
             raise ValueError(
-                f"ETH3D scene {scene!r} requires exactly one identity record"
+                f"ETH3D scene {scene!r} requires exactly one "
+                f"{reference_variant!r} reference record"
             )
-        identity = scene_identities[0]
-        identities[scene] = identity
-        identity_has_depth = identity["depth_mean_abs_rel"] is not None
-        identity_has_point_protocol = bool(identity["point_cloud_evaluated"])
+        reference = scene_references[0]
+        references[scene] = reference
+        reference_has_depth = reference["depth_mean_abs_rel"] is not None
+        reference_has_point_protocol = bool(reference["point_cloud_evaluated"])
         for row in scene_rows:
             row_has_depth = row["depth_mean_abs_rel"] is not None
-            if row_has_depth != identity_has_depth:
+            if row_has_depth != reference_has_depth:
                 raise ValueError(
                     f"inconsistent depth availability in ETH3D scene {scene!r}"
                 )
             row_has_point_protocol = bool(row["point_cloud_evaluated"])
-            if row_has_point_protocol != identity_has_point_protocol:
+            if row_has_point_protocol != reference_has_point_protocol:
                 raise ValueError(
                     f"inconsistent point-cloud protocol in ETH3D scene {scene!r}"
                 )
-            row["rotation_delta_from_identity_degrees"] = _optional_difference(
+            row[delta_fields["rotation"]] = _optional_difference(
                 row["rotation_median_degrees"],
-                identity["rotation_median_degrees"],
+                reference["rotation_median_degrees"],
             )
-            row["translation_delta_from_identity_degrees"] = _optional_difference(
+            row[delta_fields["translation"]] = _optional_difference(
                 row["translation_median_degrees"],
-                identity["translation_median_degrees"],
+                reference["translation_median_degrees"],
             )
-            row["focal_relative_error_delta_from_identity"] = _optional_difference(
+            row[delta_fields["focal"]] = _optional_difference(
                 row["focal_relative_error_median"],
-                identity["focal_relative_error_median"],
+                reference["focal_relative_error_median"],
             )
-            row["principal_point_normalized_error_delta_from_identity"] = (
+            row[delta_fields["principal"]] = (
                 _optional_difference(
                     row["principal_point_normalized_error_median"],
-                    identity["principal_point_normalized_error_median"],
+                    reference["principal_point_normalized_error_median"],
                 )
             )
             if row["depth_mean_abs_rel"] is None:
-                row["depth_abs_rel_delta_from_identity"] = None
+                row[delta_fields["depth"]] = None
             else:
-                row["depth_abs_rel_delta_from_identity"] = float(
-                    row["depth_mean_abs_rel"] - identity["depth_mean_abs_rel"]
+                row[delta_fields["depth"]] = float(
+                    row["depth_mean_abs_rel"] - reference["depth_mean_abs_rel"]
                 )
-            row["point_accuracy_delta_from_identity_meters"] = _optional_difference(
+            row[delta_fields["point_accuracy"]] = _optional_difference(
                 row["point_accuracy_mean_meters"],
-                identity["point_accuracy_mean_meters"],
+                reference["point_accuracy_mean_meters"],
             )
-            row["point_completeness_delta_from_identity_meters"] = _optional_difference(
+            row[delta_fields["point_completeness"]] = _optional_difference(
                 row["point_completeness_mean_meters"],
-                identity["point_completeness_mean_meters"],
+                reference["point_completeness_mean_meters"],
             )
 
     depth_modes = {
-        identity["depth_mean_abs_rel"] is not None for identity in identities.values()
+        reference["depth_mean_abs_rel"] is not None
+        for reference in references.values()
     }
     if len(depth_modes) != 1:
         raise ValueError(
@@ -261,7 +284,8 @@ def summarize_eth3d_evaluations(
         )
     depth_evaluated = next(iter(depth_modes))
     point_modes = {
-        bool(identity["point_cloud_evaluated"]) for identity in identities.values()
+        bool(reference["point_cloud_evaluated"])
+        for reference in references.values()
     }
     if len(point_modes) != 1:
         raise ValueError(
@@ -289,26 +313,25 @@ def summarize_eth3d_evaluations(
             "principal_point_normalized_error_median": [
                 row["principal_point_normalized_error_median"] for row in variant_rows
             ],
-            "rotation_delta_from_identity_degrees": [
-                row["rotation_delta_from_identity_degrees"] for row in variant_rows
+            delta_fields["rotation"]: [
+                row[delta_fields["rotation"]] for row in variant_rows
             ],
-            "translation_delta_from_identity_degrees": [
-                row["translation_delta_from_identity_degrees"] for row in variant_rows
+            delta_fields["translation"]: [
+                row[delta_fields["translation"]] for row in variant_rows
             ],
-            "focal_relative_error_delta_from_identity": [
-                row["focal_relative_error_delta_from_identity"] for row in variant_rows
+            delta_fields["focal"]: [
+                row[delta_fields["focal"]] for row in variant_rows
             ],
-            "principal_point_normalized_error_delta_from_identity": [
-                row["principal_point_normalized_error_delta_from_identity"]
-                for row in variant_rows
+            delta_fields["principal"]: [
+                row[delta_fields["principal"]] for row in variant_rows
             ],
         }
         if depth_evaluated:
             metric_values["depth_mean_abs_rel"] = [
                 row["depth_mean_abs_rel"] for row in variant_rows
             ]
-            metric_values["depth_abs_rel_delta_from_identity"] = [
-                row["depth_abs_rel_delta_from_identity"] for row in variant_rows
+            metric_values[delta_fields["depth"]] = [
+                row[delta_fields["depth"]] for row in variant_rows
             ]
         if point_cloud_evaluated:
             metric_values["point_accuracy_mean_meters"] = [
@@ -317,12 +340,11 @@ def summarize_eth3d_evaluations(
             metric_values["point_completeness_mean_meters"] = [
                 row["point_completeness_mean_meters"] for row in variant_rows
             ]
-            metric_values["point_accuracy_delta_from_identity_meters"] = [
-                row["point_accuracy_delta_from_identity_meters"] for row in variant_rows
+            metric_values[delta_fields["point_accuracy"]] = [
+                row[delta_fields["point_accuracy"]] for row in variant_rows
             ]
-            metric_values["point_completeness_delta_from_identity_meters"] = [
-                row["point_completeness_delta_from_identity_meters"]
-                for row in variant_rows
+            metric_values[delta_fields["point_completeness"]] = [
+                row[delta_fields["point_completeness"]] for row in variant_rows
             ]
         metric_arrays = {
             label: np.asarray(values, dtype=np.float64)
@@ -354,22 +376,30 @@ def summarize_eth3d_evaluations(
                 seed=bootstrap_seed,
             ),
         }
-    return {
+    summary = {
         "evaluation_count": len(rows),
         "scene_count": len(by_scene),
         "scenes": sorted(by_scene),
         "depth_evaluated": depth_evaluated,
         "point_cloud_evaluated": point_cloud_evaluated,
-        "identity": next(iter(identities.values())) if len(identities) == 1 else None,
-        "identities": identities,
+        "reference_variant": reference_variant,
+        "reference": (
+            next(iter(references.values())) if len(references) == 1 else None
+        ),
+        "references": references,
         "evaluations": rows,
         "by_variant": by_variant,
     }
+    if reference_variant == "identity":
+        summary["identity"] = summary["reference"]
+        summary["identities"] = references
+    return summary
 
 
 def summarize_dtu_evaluations(
     paths: list[Path],
     *,
+    reference_variant: str = "identity",
     bootstrap_replicates: int = 10_000,
     confidence_level: float = 0.95,
     bootstrap_seed: int = 17,
@@ -378,6 +408,8 @@ def summarize_dtu_evaluations(
 
     if not paths:
         raise ValueError("at least one DTU evaluation record is required")
+    if not reference_variant:
+        raise ValueError("DTU reference variant must be non-empty")
     rows: list[dict[str, object]] = []
     for path in sorted(paths):
         record = json.loads(path.read_text(encoding="utf-8"))
@@ -436,10 +468,20 @@ def summarize_dtu_evaluations(
                 f"missing={sorted(expected_variants - variants)}, "
                 f"extra={sorted(variants - expected_variants)}"
             )
-        identities = [row for row in scene_rows if row["variant"] == "identity"]
-        if len(identities) != 1:
-            raise ValueError(f"DTU scene {scene} requires exactly one identity")
-        identity = identities[0]
+        references = [
+            row for row in scene_rows if row["variant"] == reference_variant
+        ]
+        if len(references) != 1:
+            raise ValueError(
+                f"DTU scene {scene} requires exactly one "
+                f"{reference_variant!r} reference"
+            )
+        reference = references[0]
+        delta_suffix = (
+            "delta_from_identity"
+            if reference_variant == "identity"
+            else "delta_from_reference"
+        )
         for row in scene_rows:
             for metric in (
                 "rotation_median_degrees",
@@ -449,8 +491,8 @@ def summarize_dtu_evaluations(
                 "point_accuracy_mean_millimeters",
                 "point_completeness_mean_millimeters",
             ):
-                row[f"{metric}_delta_from_identity"] = _optional_difference(
-                    row[metric], identity[metric]
+                row[f"{metric}_{delta_suffix}"] = _optional_difference(
+                    row[metric], reference[metric]
                 )
 
     grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -484,11 +526,16 @@ def summarize_dtu_evaluations(
                     for row in variant_rows
                 ]
             )
-            values[f"{metric}_delta_from_identity"] = np.asarray(
+            delta_suffix = (
+                "delta_from_identity"
+                if reference_variant == "identity"
+                else "delta_from_reference"
+            )
+            values[f"{metric}_{delta_suffix}"] = np.asarray(
                 [
                     (
-                        float(row[f"{metric}_delta_from_identity"])
-                        if row[f"{metric}_delta_from_identity"] is not None
+                        float(row[f"{metric}_{delta_suffix}"])
+                        if row[f"{metric}_{delta_suffix}"] is not None
                         else np.nan
                     )
                     for row in variant_rows
@@ -527,6 +574,7 @@ def summarize_dtu_evaluations(
         "scene_count": len(by_scene),
         "scenes": sorted(by_scene),
         "point_metric_protocol": "official_mask_plane_threshold_deterministic_cap",
+        "reference_variant": reference_variant,
         "point_metric_variants": point_metric_variants,
         "evaluations": rows,
         "by_variant": by_variant,
