@@ -29,6 +29,16 @@ arbitrary world frames and translation scale.  Depth is compared after one
 declared scene-level median scale alignment.  An identity-repeat run measures
 the numerical noise floor.
 
+For raw ETH3D point maps, we backproject the original-image z-depth through its
+thin-prism fisheye calibration and retain predicted points only where the
+inverse pixel map lands on finite scan-supported depth.  We fit one
+orientation-preserving Sim(3) from predicted to ground-truth camera centers;
+ground-truth surface points do not optimize the alignment.  We sample at most
+100k finite supported pixels per view, then apply a \SI{1}{cm} voxel grid and
+deterministic 100k-point pooled cap.  Untruncated bidirectional nearest-neighbor
+distances give accuracy and completeness.  This is a raw-depth-derived
+point-map evaluation, not the official ETH3D MVS leaderboard protocol.
+
 \subsection{Analytic canonical-camera repair}
 A crop-resize changes coordinates and removes content, but only the former is
 analytically reversible.  Let $\Omega_i$ and $\Omega'_i$ denote the source and

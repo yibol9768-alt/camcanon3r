@@ -29,6 +29,15 @@ def _extrinsics34(value: ArrayLike) -> np.ndarray:
     return extrinsics[:, :3, :4]
 
 
+def camera_centers_from_extrinsics(value: ArrayLike) -> np.ndarray:
+    """Return world-space camera centers from world-to-camera extrinsics."""
+
+    extrinsics = _extrinsics34(value)
+    rotations = extrinsics[:, :, :3]
+    translations = extrinsics[:, :, 3]
+    return -np.einsum("vji,vj->vi", rotations, translations)
+
+
 def focal_relative_error(predicted: ArrayLike, target: ArrayLike) -> float:
     predicted_k = np.asarray(predicted, dtype=np.float64)
     target_k = np.asarray(target, dtype=np.float64)
@@ -98,10 +107,8 @@ def pairwise_relative_pose_errors(
 
     reference_r = reference_e[:, :, :3]
     candidate_r = candidate_e[:, :, :3]
-    reference_t = reference_e[:, :, 3]
-    candidate_t = candidate_e[:, :, 3]
-    reference_centers = -np.einsum("vji,vj->vi", reference_r, reference_t)
-    candidate_centers = -np.einsum("vji,vj->vi", candidate_r, candidate_t)
+    reference_centers = camera_centers_from_extrinsics(reference_e)
+    candidate_centers = camera_centers_from_extrinsics(candidate_e)
 
     pairs: list[tuple[int, int]] = []
     rotation_errors: list[float] = []
@@ -131,6 +138,138 @@ def pairwise_relative_pose_errors(
         "translation_direction_degrees": np.asarray(
             translation_errors, dtype=np.float64
         ),
+    }
+
+
+def umeyama_similarity(
+    source: ArrayLike, target: ArrayLike
+) -> dict[str, np.ndarray | float]:
+    """Fit the orientation-preserving Sim(3) mapping source onto target."""
+
+    source_points = np.asarray(source, dtype=np.float64)
+    target_points = np.asarray(target, dtype=np.float64)
+    if source_points.shape != target_points.shape:
+        raise ValueError("source and target control points must have equal shape")
+    if source_points.ndim != 2 or source_points.shape[1] != 3:
+        raise ValueError("control points must have shape (N, 3)")
+    if len(source_points) < 3:
+        raise ValueError("at least three control points are required for Sim(3)")
+    if not np.isfinite(source_points).all() or not np.isfinite(target_points).all():
+        raise ValueError("control points contain a non-finite value")
+
+    source_mean = np.mean(source_points, axis=0)
+    target_mean = np.mean(target_points, axis=0)
+    source_centered = source_points - source_mean
+    target_centered = target_points - target_mean
+    coordinate_scale = float(np.max(np.abs(source_points)))
+    coordinate_tolerance = np.finfo(np.float64).eps * coordinate_scale
+    if float(np.max(np.abs(source_centered))) <= coordinate_tolerance:
+        raise ValueError("source control points are degenerate for Sim(3)")
+    source_variance = float(np.mean(np.sum(source_centered**2, axis=1)))
+    covariance = target_centered.T @ source_centered / len(source_points)
+    left, singular_values, right_transposed = np.linalg.svd(covariance)
+    signs = np.ones(3, dtype=np.float64)
+    if np.linalg.det(left) * np.linalg.det(right_transposed) < 0:
+        signs[-1] = -1.0
+    rotation = left @ np.diag(signs) @ right_transposed
+    scale = float(np.sum(singular_values * signs) / source_variance)
+    if not np.isfinite(scale) or scale <= 0.0:
+        raise ValueError("fitted Sim(3) has a non-positive scale")
+    translation = target_mean - scale * (rotation @ source_mean)
+    return {
+        "scale": scale,
+        "rotation": rotation,
+        "translation": translation,
+    }
+
+
+def _deterministic_point_cap(points: np.ndarray, maximum: int) -> np.ndarray:
+    if maximum <= 0:
+        raise ValueError("maximum point count must be positive")
+    if len(points) <= maximum:
+        return points
+    indices = np.linspace(0, len(points) - 1, maximum, dtype=np.int64)
+    return points[indices]
+
+
+def _voxel_downsample(points: np.ndarray, voxel_size: float) -> np.ndarray:
+    if voxel_size <= 0:
+        raise ValueError("voxel size must be positive")
+    keys = np.floor(points / voxel_size).astype(np.int64)
+    _, first_indices = np.unique(keys, axis=0, return_index=True)
+    return points[np.sort(first_indices)]
+
+
+def _distance_summary(values: np.ndarray) -> dict[str, float | int]:
+    return {
+        "count": len(values),
+        "mean": float(np.mean(values)),
+        "median": float(np.median(values)),
+        "p90": float(np.quantile(values, 0.9)),
+    }
+
+
+def aligned_point_cloud_accuracy_completeness(
+    predicted_points: ArrayLike,
+    target_points: ArrayLike,
+    predicted_control_points: ArrayLike,
+    target_control_points: ArrayLike,
+    *,
+    voxel_size: float = 0.01,
+    maximum_points: int = 100_000,
+) -> dict[str, object]:
+    """Compute bidirectional nearest-neighbor distances after camera Sim(3).
+
+    The Sim(3) is fitted only from the supplied control points (camera centers
+    in the ETH3D protocol), so target surface geometry is not used to optimize
+    alignment. Point sets are voxelized in target metric units before a
+    deterministic cap, and distances are not clipped.
+    """
+
+    from scipy.spatial import cKDTree
+
+    predicted = np.asarray(predicted_points, dtype=np.float64)
+    target = np.asarray(target_points, dtype=np.float64)
+    for label, points in (("predicted", predicted), ("target", target)):
+        if points.ndim != 2 or points.shape[1] != 3:
+            raise ValueError(f"{label} points must have shape (N, 3)")
+        if not len(points):
+            raise ValueError(f"{label} point cloud is empty")
+        if not np.isfinite(points).all():
+            raise ValueError(f"{label} point cloud contains a non-finite value")
+    similarity = umeyama_similarity(
+        predicted_control_points, target_control_points
+    )
+    aligned = (
+        float(similarity["scale"])
+        * (np.asarray(similarity["rotation"]) @ predicted.T).T
+        + np.asarray(similarity["translation"])
+    )
+    aligned = _deterministic_point_cap(
+        _voxel_downsample(aligned, voxel_size), maximum_points
+    )
+    target = _deterministic_point_cap(
+        _voxel_downsample(target, voxel_size), maximum_points
+    )
+    if not len(aligned) or not len(target):
+        raise ValueError("voxelization removed every point")
+    target_tree = cKDTree(target)
+    predicted_tree = cKDTree(aligned)
+    accuracy = np.asarray(target_tree.query(aligned, workers=1)[0])
+    completeness = np.asarray(predicted_tree.query(target, workers=1)[0])
+    return {
+        "alignment": {
+            "source": "camera_centers",
+            "scale": float(similarity["scale"]),
+            "rotation": np.asarray(similarity["rotation"]).tolist(),
+            "translation": np.asarray(similarity["translation"]).tolist(),
+        },
+        "voxel_size_meters": voxel_size,
+        "maximum_points": maximum_points,
+        "predicted_points_after_voxel_and_cap": len(aligned),
+        "target_points_after_voxel_and_cap": len(target),
+        "accuracy_meters": _distance_summary(accuracy),
+        "completeness_meters": _distance_summary(completeness),
     }
 
 

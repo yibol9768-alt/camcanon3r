@@ -82,6 +82,20 @@ All comparisons are paired by scene/view set/transform and use scene-level
 bootstrap confidence intervals. Raw scores are always reported next to relative
 gap recovery.
 
+For the ETH3D raw protocol, point maps are evaluated against a target cloud
+backprojected from the selected raw z-depth maps with the official
+`THIN_PRISM_FISHEYE` camera model. Predicted geometry is restricted to tensor
+pixels that map to finite scan-supported raw pixels. One orientation-preserving
+Sim(3), fitted only from predicted and ground-truth camera centers, maps the
+prediction into metric coordinates; surface ground truth never optimizes this
+alignment. Both clouds are voxelized at 1 cm, deterministically capped at
+100,000 points, and evaluated with untruncated bidirectional nearest-neighbor
+distance (prediction-to-GT accuracy and GT-to-prediction completeness). To
+bound raw-resolution backprojection, each view is first deterministically
+sampled to at most 100,000 finite supported pixels before pooling. This is a
+raw-depth-derived point-map metric, not the official ETH3D MVS leaderboard
+protocol.
+
 ## 72-hour kill-test
 
 1. **0-8 h:** install VGGT on my5090, cache weights, freeze three example scenes,

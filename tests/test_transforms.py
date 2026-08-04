@@ -3,11 +3,14 @@ import pytest
 
 from camcanon3r.metrics import (
     aligned_depth_consistency,
+    aligned_point_cloud_accuracy_completeness,
+    camera_centers_from_extrinsics,
     focal_relative_error,
     pairwise_relative_pose_errors,
     principal_point_error,
     rotation_geodesic_degrees,
     translation_direction_degrees,
+    umeyama_similarity,
 )
 from camcanon3r.transforms import crop_resize, letterbox, resize
 
@@ -120,3 +123,59 @@ def test_aligned_depth_consistency_recovers_scale_and_common_crop() -> None:
     assert result["valid_pixels"] == 18
     assert result["mean_abs_rel"] == pytest.approx(0.0)
     assert all(view["valid_fraction"] == pytest.approx(0.75) for view in result["per_view"])
+
+
+def test_camera_centers_and_umeyama_similarity() -> None:
+    centers = np.asarray(
+        [
+            [0.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [0.0, 2.0, 0.0],
+            [0.0, 0.0, 3.0],
+        ]
+    )
+    extrinsics = np.stack(
+        [np.column_stack([np.eye(3), -center]) for center in centers]
+    )
+    np.testing.assert_allclose(camera_centers_from_extrinsics(extrinsics), centers)
+    rotation = np.asarray(
+        [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+    )
+    target = 2.5 * (rotation @ centers.T).T + [4.0, -2.0, 1.0]
+    fitted = umeyama_similarity(centers, target)
+    assert fitted["scale"] == pytest.approx(2.5)
+    np.testing.assert_allclose(fitted["rotation"], rotation, atol=1e-12)
+    np.testing.assert_allclose(fitted["translation"], [4.0, -2.0, 1.0])
+
+
+def test_aligned_point_cloud_accuracy_and_completeness() -> None:
+    controls = np.asarray(
+        [
+            [0.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+    )
+    points = np.asarray(
+        [
+            [0.0, 0.0, 2.0],
+            [0.5, 0.0, 2.0],
+            [0.0, 0.5, 2.0],
+            [0.5, 0.5, 2.0],
+        ]
+    )
+    target_controls = controls * 3.0 + [1.0, 2.0, 3.0]
+    target_points = points * 3.0 + [1.0, 2.0, 3.0]
+    result = aligned_point_cloud_accuracy_completeness(
+        points,
+        target_points,
+        controls,
+        target_controls,
+        voxel_size=0.01,
+        maximum_points=100,
+    )
+    assert result["accuracy_meters"]["mean"] == pytest.approx(0.0, abs=1e-12)
+    assert result["completeness_meters"]["mean"] == pytest.approx(
+        0.0, abs=1e-12
+    )

@@ -145,6 +145,9 @@ def summarize_eth3d_evaluations(
     for path in sorted(paths):
         record = json.loads(path.read_text(encoding="utf-8"))
         depth = record["depth"]
+        point_cloud = record.get("point_cloud")
+        if point_cloud is not None and depth is None:
+            raise ValueError("ETH3D point-cloud metrics require raw depth evaluation")
         intrinsics = record["intrinsics"]
         rows.append(
             {
@@ -164,6 +167,17 @@ def summarize_eth3d_evaluations(
                 ]["median"],
                 "depth_mean_abs_rel": depth["mean_abs_rel"] if depth else None,
                 "valid_depth_pixels": depth["valid_pixels"] if depth else None,
+                "point_accuracy_mean_meters": (
+                    point_cloud["accuracy_meters"]["mean"]
+                    if point_cloud is not None
+                    else None
+                ),
+                "point_completeness_mean_meters": (
+                    point_cloud["completeness_meters"]["mean"]
+                    if point_cloud is not None
+                    else None
+                ),
+                "point_cloud_evaluated": point_cloud is not None,
                 "source": str(path),
             }
         )
@@ -201,11 +215,17 @@ def summarize_eth3d_evaluations(
         identity = scene_identities[0]
         identities[scene] = identity
         identity_has_depth = identity["depth_mean_abs_rel"] is not None
+        identity_has_point_protocol = bool(identity["point_cloud_evaluated"])
         for row in scene_rows:
             row_has_depth = row["depth_mean_abs_rel"] is not None
             if row_has_depth != identity_has_depth:
                 raise ValueError(
                     f"inconsistent depth availability in ETH3D scene {scene!r}"
+                )
+            row_has_point_protocol = bool(row["point_cloud_evaluated"])
+            if row_has_point_protocol != identity_has_point_protocol:
+                raise ValueError(
+                    f"inconsistent point-cloud protocol in ETH3D scene {scene!r}"
                 )
             row["rotation_delta_from_identity_degrees"] = _optional_difference(
                 row["rotation_median_degrees"],
@@ -232,6 +252,18 @@ def summarize_eth3d_evaluations(
                     row["depth_mean_abs_rel"]
                     - identity["depth_mean_abs_rel"]
                 )
+            row["point_accuracy_delta_from_identity_meters"] = (
+                _optional_difference(
+                    row["point_accuracy_mean_meters"],
+                    identity["point_accuracy_mean_meters"],
+                )
+            )
+            row["point_completeness_delta_from_identity_meters"] = (
+                _optional_difference(
+                    row["point_completeness_mean_meters"],
+                    identity["point_completeness_mean_meters"],
+                )
+            )
 
     depth_modes = {
         identity["depth_mean_abs_rel"] is not None for identity in identities.values()
@@ -241,6 +273,15 @@ def summarize_eth3d_evaluations(
             "an ETH3D summary cannot mix pose-only and pose-plus-depth scenes"
         )
     depth_evaluated = next(iter(depth_modes))
+    point_modes = {
+        bool(identity["point_cloud_evaluated"])
+        for identity in identities.values()
+    }
+    if len(point_modes) != 1:
+        raise ValueError(
+            "an ETH3D summary cannot mix scenes with and without point-cloud metrics"
+        )
+    point_cloud_evaluated = next(iter(point_modes))
 
     grouped_variants: dict[str, list[dict[str, object]]] = defaultdict(list)
     for row in rows:
@@ -288,6 +329,21 @@ def summarize_eth3d_evaluations(
                 row["depth_abs_rel_delta_from_identity"]
                 for row in variant_rows
             ]
+        if point_cloud_evaluated:
+            metric_values["point_accuracy_mean_meters"] = [
+                row["point_accuracy_mean_meters"] for row in variant_rows
+            ]
+            metric_values["point_completeness_mean_meters"] = [
+                row["point_completeness_mean_meters"] for row in variant_rows
+            ]
+            metric_values["point_accuracy_delta_from_identity_meters"] = [
+                row["point_accuracy_delta_from_identity_meters"]
+                for row in variant_rows
+            ]
+            metric_values["point_completeness_delta_from_identity_meters"] = [
+                row["point_completeness_delta_from_identity_meters"]
+                for row in variant_rows
+            ]
         metric_arrays = {
             label: np.asarray(values, dtype=np.float64)
             for label, values in metric_values.items()
@@ -325,6 +381,7 @@ def summarize_eth3d_evaluations(
         "scene_count": len(by_scene),
         "scenes": sorted(by_scene),
         "depth_evaluated": depth_evaluated,
+        "point_cloud_evaluated": point_cloud_evaluated,
         "identity": next(iter(identities.values())) if len(identities) == 1 else None,
         "identities": identities,
         "evaluations": rows,

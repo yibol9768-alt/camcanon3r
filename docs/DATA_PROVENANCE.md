@@ -58,6 +58,15 @@ and matching raw depth are extracted to
 `selection_report.json` records archive provenance, member byte lengths,
 per-file SHA-256 values, and exact selected filenames.
 
+Acquisition completed on 2026-08-04 with all 15 archives present at their
+frozen byte lengths (16,873,121,856 bytes total). The report stores hashes
+computed from the downloaded local files; because the frozen manifest does not
+publish official digests, these hashes establish local identity and
+reproducibility rather than independent upstream authenticity. The frozen
+four-view extraction completed at `2026-08-04T05:02:15.442011+00:00` and a
+separate strict audit rehashed all 234 payload files, matched the exact reported
+path set and sizes across 13 scenes, and found no extra payload files.
+
 ## Frozen office four-view pilot
 
 The first confirmatory set is `DSC_0219` through `DSC_0222`. Live validation on

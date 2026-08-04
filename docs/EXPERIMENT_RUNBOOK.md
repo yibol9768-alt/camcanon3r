@@ -89,7 +89,26 @@ PYTHONPATH=src .venv/bin/python scripts/evaluate_eth3d_selection.py \
 
 Each per-run result and the aggregate summary is written atomically. Resume is
 allowed only when the existing record resolves to the same scene, variant,
-domain, prediction, calibration, and depth source.
+domain, prediction, calibration, depth source, and evaluation protocol version.
+Protocol-version drift is rejected rather than silently reusing legacy records.
+
+Raw evaluation reports two separate geometry views. Scale-aligned depth AbsRel
+samples the official raw z-depth at inverse-affine-mapped tensor pixels. The
+point-map protocol samples and backprojects the selected raw depth through the
+`THIN_PRISM_FISHEYE` model, retains predicted world points whose mapped raw
+pixels have finite scan support, and fits one orientation-preserving Sim(3)
+using camera centers only. It then applies a 1 cm voxel grid and deterministic
+100,000-point pooled cap and reports untruncated prediction-to-GT accuracy plus
+GT-to-prediction completeness (mean, median, and p90 in meters). Before
+pooling, raw-resolution computation is bounded by deterministically sampling at
+most 100,000 finite supported pixels per view. These numbers must be described
+as CamCanon3R's raw-depth-derived point-map metrics, not as official ETH3D MVS
+leaderboard scores.
+
+If a model collapses all predicted camera centers, the camera-only Sim(3) is
+undefined. The evaluator keeps pose and depth results, emits an explicit
+`undefined_degenerate_camera_center_alignment` point-map status, and excludes
+that incomplete scene metric from the bootstrap instead of substituting zero.
 
 ## Three-scene severity sweep
 

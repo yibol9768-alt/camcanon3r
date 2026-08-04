@@ -96,6 +96,10 @@ def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
                         "mean_abs_rel": depth,
                         "valid_pixels": 100,
                     },
+                    "point_cloud": {
+                        "accuracy_meters": {"mean": rotation / 10},
+                        "completeness_meters": {"mean": translation / 10},
+                    },
                 }
             )
         )
@@ -112,6 +116,16 @@ def test_eth3d_summary_reports_deltas_from_identity(tmp_path: Path) -> None:
         "principal_point_normalized_error_delta_from_identity"
     ] == pytest.approx(0.0125)
     assert crop["depth_abs_rel_delta_from_identity"] == pytest.approx(0.06)
+    assert crop["point_accuracy_delta_from_identity_meters"] == pytest.approx(
+        0.25
+    )
+    assert crop[
+        "point_completeness_delta_from_identity_meters"
+    ] == pytest.approx(0.6)
+    assert summary["point_cloud_evaluated"] is True
+    assert summary["by_variant"]["crop"]["scene_bootstrap"]["metrics"][
+        "point_accuracy_mean_meters"
+    ]["point_estimate"] == pytest.approx(0.35)
     assert summary["scene_count"] == 1
     assert summary["by_variant"]["crop"]["scene_bootstrap"]["scene_count"] == 1
 
@@ -161,6 +175,40 @@ def test_eth3d_summary_pairs_identity_within_each_scene(tmp_path: Path) -> None:
     assert crop_bootstrap["metrics"]["rotation_delta_from_identity_degrees"][
         "point_estimate"
     ] == 4.0
+
+
+def test_eth3d_summary_keeps_undefined_point_alignment_explicit(
+    tmp_path: Path,
+) -> None:
+    for variant, point_mean in (("identity", 0.1), ("crop", None)):
+        (tmp_path / f"{variant}_vs_gt.json").write_text(
+            json.dumps(
+                {
+                    "prediction": f"/outputs/{variant}.npz",
+                    "variant": variant,
+                    "intrinsics": {
+                        "focal_relative_error": {"median": 0.1},
+                        "principal_point_normalized_error": {"median": 0.01},
+                    },
+                    "relative_rotation_degrees": {"median": 1.0},
+                    "translation_direction_degrees": {"median": 2.0},
+                    "depth": {"mean_abs_rel": 0.1, "valid_pixels": 10},
+                    "point_cloud": {
+                        "accuracy_meters": {"mean": point_mean},
+                        "completeness_meters": {"mean": point_mean},
+                    },
+                }
+            )
+        )
+    summary = summarize_eth3d_evaluations(
+        sorted(tmp_path.glob("*_vs_gt.json"))
+    )
+    availability = summary["by_variant"]["crop"]["metric_availability"][
+        "point_accuracy_mean_meters"
+    ]
+    assert summary["point_cloud_evaluated"] is True
+    assert availability["undefined_scene_count"] == 1
+    assert availability["included_in_scene_bootstrap"] is False
 
 
 def test_eth3d_summary_rejects_duplicate_scene_variant(tmp_path: Path) -> None:

@@ -10,6 +10,8 @@ from pathlib import Path
 from camcanon3r.eth3d import evaluate_eth3d_prediction
 from camcanon3r.summary import summarize_eth3d_evaluations
 
+EVALUATION_PROTOCOL_VERSION = "2.0"
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -106,6 +108,7 @@ def _expected_jobs(
 
 def _validate_existing(record: dict[str, object], job: dict[str, object]) -> None:
     expected = {
+        "evaluation_protocol_version": EVALUATION_PROTOCOL_VERSION,
         "scene": job["scene"],
         "variant": job["variant"],
         "domain": job["domain"],
@@ -170,6 +173,7 @@ def main() -> None:
         )
         result.update(
             {
+                "evaluation_protocol_version": EVALUATION_PROTOCOL_VERSION,
                 "scene": job["scene"],
                 "variant": job["variant"],
                 "domain": job["domain"],
@@ -204,6 +208,7 @@ def main() -> None:
     )
     summary.update(
         {
+            "evaluation_protocol_version": EVALUATION_PROTOCOL_VERSION,
             "domain": args.domain,
             "selection_report": str(
                 (args.selection_root / "selection_report.json").resolve()

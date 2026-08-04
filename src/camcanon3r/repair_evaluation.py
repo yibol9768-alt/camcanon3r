@@ -16,6 +16,16 @@ DEFAULT_ERROR_PATHS = {
         "median",
     ),
     "depth_mean_abs_rel": ("depth", "mean_abs_rel"),
+    "point_accuracy_mean_meters": (
+        "point_cloud",
+        "accuracy_meters",
+        "mean",
+    ),
+    "point_completeness_mean_meters": (
+        "point_cloud",
+        "completeness_meters",
+        "mean",
+    ),
 }
 
 

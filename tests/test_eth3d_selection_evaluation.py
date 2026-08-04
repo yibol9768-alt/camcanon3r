@@ -3,7 +3,11 @@ from pathlib import Path
 
 import pytest
 
-from scripts.evaluate_eth3d_selection import _expected_jobs, _validate_existing
+from scripts.evaluate_eth3d_selection import (
+    EVALUATION_PROTOCOL_VERSION,
+    _expected_jobs,
+    _validate_existing,
+)
 
 
 def _selection_fixture(root: Path) -> tuple[Path, Path, Path]:
@@ -77,6 +81,7 @@ def test_expected_eth3d_jobs_are_frozen_by_scene_variant_and_domain(
             "depth_dir",
         )
     }
+    record["evaluation_protocol_version"] = EVALUATION_PROTOCOL_VERSION
     _validate_existing(record, jobs[0])
 
 
@@ -116,3 +121,31 @@ def test_eth3d_resume_rejects_stale_evaluation_record(tmp_path: Path) -> None:
             },
             job,
         )
+
+
+def test_eth3d_resume_rejects_legacy_evaluation_protocol(tmp_path: Path) -> None:
+    selection_root, prediction_root, results_root = _selection_fixture(tmp_path)
+    job = _expected_jobs(
+        selection_root,
+        prediction_root,
+        results_root,
+        domain="raw",
+        variants=["identity"],
+    )[0]
+    record = {
+        key: (
+            str(Path(job[key]).resolve())
+            if key in {"prediction", "calibration_dir", "depth_dir"}
+            else job[key]
+        )
+        for key in (
+            "scene",
+            "variant",
+            "domain",
+            "prediction",
+            "calibration_dir",
+            "depth_dir",
+        )
+    }
+    with pytest.raises(ValueError, match="does not match frozen job"):
+        _validate_existing(record, job)

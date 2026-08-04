@@ -46,6 +46,29 @@ def test_repair_records_preserve_pose_and_optional_depth_boundary() -> None:
     assert metrics["relative_rotation_median_degrees"]["gap_recovery"] == 0.5
     assert metrics["translation_direction_median_degrees"]["gap_recovery"] == 0.5
     assert metrics["depth_mean_abs_rel"]["status"] == "unavailable"
+    assert metrics["point_accuracy_mean_meters"]["status"] == "unavailable"
+
+
+def test_repair_records_include_point_accuracy_and_completeness() -> None:
+    def record(accuracy: float, completeness: float):
+        return {
+            "point_cloud": {
+                "accuracy_meters": {"mean": accuracy},
+                "completeness_meters": {"mean": completeness},
+            }
+        }
+
+    result = evaluate_repair_records(
+        record(0.10, 0.20),
+        record(0.30, 0.50),
+        record(0.15, 0.30),
+    )
+    assert result["metrics"]["point_accuracy_mean_meters"][
+        "gap_recovery"
+    ] == pytest.approx(0.75)
+    assert result["metrics"]["point_completeness_mean_meters"][
+        "gap_recovery"
+    ] == pytest.approx(2.0 / 3.0)
 
 
 def test_gap_recovery_rejects_negative_errors() -> None:
