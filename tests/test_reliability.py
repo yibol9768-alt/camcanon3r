@@ -47,6 +47,10 @@ def test_reliability_summary_bootstraps_scene_clusters() -> None:
     assert result["failure_count"] == 3
     assert result["bootstrap"]["resampling_unit"] == "scene_cluster"
     assert result["excess_aurc"]["point_estimate"] == pytest.approx(0.0)
+    assert result["oracle_risk_coverage"] == risk_coverage_curve(
+        [0.1, 0.2, 3.0, 4.0, 0.3, 5.0],
+        [0.1, 0.2, 3.0, 4.0, 0.3, 5.0],
+    )
     assert result["warnings"][0].startswith("descriptive_only")
 
 

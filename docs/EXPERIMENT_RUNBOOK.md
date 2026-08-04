@@ -338,6 +338,15 @@ the full hypothesis requires two such families on two datasets. Confidence
 intervals remain visible and may narrow the prose even when a point-estimate
 gate passes.
 
+Render the registered retained-fraction curves from that machine-readable
+analysis (the same command also works on an ETH3D-only development report):
+
+```bash
+PYTHONPATH=src python3 scripts/plot_mechanism_severity.py \
+  results/mechanism/analysis.json paper/figures/mechanism_severity.pdf \
+  --png results/mechanism/mechanism_severity.png
+```
+
 ## ETH3D office preparation
 
 The selected raw and pre-undistorted source links contain `DSC_0219` through
@@ -637,3 +646,20 @@ baseline. The primary held-out endpoint is rotation error above 2 degrees;
 depth AbsRel above 0.05 is secondary where depth GT exists. The exact case
 schema, DTU held-out status, split rules, tie handling, AURC definition, and
 claim gate are frozen in `docs/RELIABILITY_PROTOCOL.md`.
+
+The analyzer stores both score-ranked and oracle risk--coverage curves. Render
+the frozen held-out panels without re-entering any values by hand:
+
+```bash
+PYTHONPATH=src python3 scripts/plot_risk_coverage.py \
+  paper/figures/dtu_risk_coverage.pdf \
+  --panel "VGGT — DTU" \
+    results/reliability/dtu_vggt_seed17/rotation_disagreement.json \
+    results/reliability/dtu_vggt_seed17/rotation_native_uncertainty.json \
+    results/reliability/dtu_vggt_seed17/cases.json \
+  --panel "DUSt3R — DTU" \
+    results/reliability/dtu_dust3r_seed17/rotation_disagreement.json \
+    results/reliability/dtu_dust3r_seed17/rotation_native_uncertainty.json \
+    results/reliability/dtu_dust3r_seed17/cases.json \
+  --png results/reliability/dtu_risk_coverage.png
+```

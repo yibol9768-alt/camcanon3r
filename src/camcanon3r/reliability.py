@@ -53,17 +53,15 @@ def binary_auroc(labels: ArrayLike, scores: ArrayLike) -> float:
     if positive_count == 0 or negative_count == 0:
         raise ValueError("AUROC is undefined when only one class is present")
 
-    _, inverse, counts = np.unique(
-        score, return_inverse=True, return_counts=True
-    )
+    _, inverse, counts = np.unique(score, return_inverse=True, return_counts=True)
     group_ends = np.cumsum(counts)
     group_starts = group_ends - counts + 1
     average_ranks = (group_starts + group_ends) / 2.0
     ranks = average_ranks[inverse]
     rank_sum = float(ranks[positive].sum())
-    return (
-        rank_sum - positive_count * (positive_count + 1) / 2.0
-    ) / (positive_count * negative_count)
+    return (rank_sum - positive_count * (positive_count + 1) / 2.0) / (
+        positive_count * negative_count
+    )
 
 
 def risk_coverage_curve(
@@ -148,9 +146,7 @@ def reliability_summary(
     scene_labels = sorted(set(scene.tolist()))
     if not scene_labels:
         raise ValueError("at least one scene is required")
-    cluster_indices = {
-        label: np.flatnonzero(scene == label) for label in scene_labels
-    }
+    cluster_indices = {label: np.flatnonzero(scene == label) for label in scene_labels}
     failures = error > failure_threshold
     curve = risk_coverage_curve(error, uncertainty)
     oracle_curve = risk_coverage_curve(error, error)
@@ -177,9 +173,7 @@ def reliability_summary(
         sampled_uncertainty = uncertainty[sampled_indices]
         sampled_failures = sampled_error > failure_threshold
         try:
-            auroc_replicates.append(
-                binary_auroc(sampled_failures, sampled_uncertainty)
-            )
+            auroc_replicates.append(binary_auroc(sampled_failures, sampled_uncertainty))
         except ValueError:
             pass
         sampled_curve = risk_coverage_curve(sampled_error, sampled_uncertainty)
@@ -192,21 +186,15 @@ def reliability_summary(
 
     auroc_interval = _percentile_interval(auroc_replicates, confidence_level)
     aurc_interval = _percentile_interval(aurc_replicates, confidence_level)
-    oracle_interval = _percentile_interval(
-        oracle_aurc_replicates, confidence_level
-    )
-    excess_interval = _percentile_interval(
-        excess_aurc_replicates, confidence_level
-    )
+    oracle_interval = _percentile_interval(oracle_aurc_replicates, confidence_level)
+    excess_interval = _percentile_interval(excess_aurc_replicates, confidence_level)
     point_aurc = float(curve["aurc"])
     point_oracle_aurc = float(oracle_curve["aurc"])
     auroc_interval.update(
         {
             "point_estimate": point_auroc,
             "status": auroc_status,
-            "undefined_replicates": (
-                bootstrap_replicates - len(auroc_replicates)
-            ),
+            "undefined_replicates": (bootstrap_replicates - len(auroc_replicates)),
         }
     )
     aurc_interval["point_estimate"] = point_aurc
@@ -231,6 +219,7 @@ def reliability_summary(
         "failure_prevalence": float(failures.mean()),
         "auroc": auroc_interval,
         "risk_coverage": curve,
+        "oracle_risk_coverage": oracle_curve,
         "aurc": aurc_interval,
         "oracle_aurc": oracle_interval,
         "excess_aurc": excess_interval,
