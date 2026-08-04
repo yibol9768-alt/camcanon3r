@@ -26,10 +26,13 @@ def main() -> None:
     args = parse_args()
     if args.limit < 0:
         raise ValueError("--limit must be non-negative")
+    etag = args.etag
+    if etag is not None and not etag.startswith(('"', 'W/"')):
+        etag = f'"{etag}"'
     with HTTPRangeReader(
         args.url,
         size=args.expected_bytes,
-        etag=args.etag,
+        etag=etag,
         block_size=args.block_size_mib * 1024 * 1024,
     ) as source, zipfile.ZipFile(source) as archive:
         infos = archive.infolist()
@@ -40,7 +43,7 @@ def main() -> None:
             "status": "complete",
             "url": args.url,
             "expected_bytes": args.expected_bytes,
-            "etag": args.etag,
+            "etag": etag,
             "member_count": len(infos),
             "compressed_payload_bytes": sum(info.compress_size for info in infos),
             "uncompressed_payload_bytes": sum(info.file_size for info in infos),
