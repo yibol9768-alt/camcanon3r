@@ -11,7 +11,7 @@ from pathlib import Path
 from camcanon3r.dtu import evaluate_dtu_prediction
 from camcanon3r.summary import summarize_dtu_evaluations
 
-EVALUATION_PROTOCOL_VERSION = "dtu-1.0"
+EVALUATION_PROTOCOL_VERSION = "dtu-1.1"
 
 
 def parse_args() -> argparse.Namespace:

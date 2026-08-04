@@ -160,10 +160,15 @@ def test_evaluate_dtu_prediction_reports_exact_synthetic_point_distances(
         "end_header\n" + "".join(f"{x} {y} {z}\n" for x, y, z in target_points),
         encoding="ascii",
     )
+    observation_mask = np.ones((5, 5, 5), dtype=np.uint8)
+    # Official DTU applies ObsMask only to prediction-to-GT accuracy. The exact
+    # predicted point at this masked target must remain available to the
+    # GT-to-prediction completeness query.
+    observation_mask[2, 2, 1] = 0
     savemat(
         gt_root / "ObsMask/ObsMask1_10.mat",
         {
-            "ObsMask": np.ones((5, 5, 5), dtype=np.uint8),
+            "ObsMask": observation_mask,
             "BB": np.array([[0.0, 0.0, 0.0], [4.0, 4.0, 4.0]]),
             "Res": np.array([[1.0]]),
         },
@@ -195,6 +200,8 @@ def test_evaluate_dtu_prediction_reports_exact_synthetic_point_distances(
     assert point_cloud["accuracy_millimeters"]["mean"] == pytest.approx(0.0)
     assert point_cloud["completeness_millimeters"]["mean"] == pytest.approx(0.0)
     assert point_cloud["alignment"]["scale"] == pytest.approx(1.0)
+    assert point_cloud["predicted_points_evaluated"] == 4
+    assert point_cloud["predicted_points_in_observation_mask"] == 3
 
     collapsed = np.repeat(extrinsics[0][None], 3, axis=0)
     np.savez_compressed(

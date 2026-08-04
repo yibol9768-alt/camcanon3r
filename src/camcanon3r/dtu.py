@@ -332,6 +332,7 @@ def _dtu_point_metrics(
         np.asarray(similarity["rotation"]) @ predicted_points.T
     ).T + np.asarray(similarity["translation"])
     aligned = _voxel_downsample(aligned, voxel_size_millimeters)
+    aligned = aligned[_deterministic_indices(np.arange(len(aligned)), maximum_points)]
     (
         full_target,
         full_target_tree,
@@ -340,10 +341,11 @@ def _dtu_point_metrics(
         resolution,
         plane,
     ) = _dtu_target_resources(point_path, mask_path, plane_path)
-    aligned = aligned[_observation_membership(aligned, mask, bounding_box, resolution)]
-    if not len(aligned):
+    observed_aligned = aligned[
+        _observation_membership(aligned, mask, bounding_box, resolution)
+    ]
+    if not len(observed_aligned):
         raise ValueError("DTU observation mask removed every predicted point")
-    aligned = aligned[_deterministic_indices(np.arange(len(aligned)), maximum_points)]
 
     target_above_plane = (
         np.column_stack([full_target, np.ones(len(full_target))]) @ plane > 0.0
@@ -354,7 +356,7 @@ def _dtu_point_metrics(
         raise ValueError("DTU ground plane removed every target point")
 
     predicted_tree = cKDTree(aligned)
-    accuracy = np.asarray(full_target_tree.query(aligned, workers=1)[0])
+    accuracy = np.asarray(full_target_tree.query(observed_aligned, workers=1)[0])
     completeness = np.asarray(predicted_tree.query(target, workers=1)[0])
     accuracy = accuracy[accuracy < outlier_threshold_millimeters]
     completeness = completeness[completeness < outlier_threshold_millimeters]
@@ -373,6 +375,7 @@ def _dtu_point_metrics(
         "outlier_threshold_millimeters": outlier_threshold_millimeters,
         "maximum_points": maximum_points,
         "predicted_points_evaluated": len(aligned),
+        "predicted_points_in_observation_mask": len(observed_aligned),
         "target_points_evaluated": len(target),
         "accuracy_millimeters": _finite_summary(accuracy),
         "completeness_millimeters": _finite_summary(completeness),

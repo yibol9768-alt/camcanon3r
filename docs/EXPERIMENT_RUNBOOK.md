@@ -223,9 +223,11 @@ The evaluator verifies every source view, calibration file, prediction pair,
 GT resource, protocol hash, and variant-config hash before computing any
 metric. Pose and intrinsics are evaluated for all 242 cases per model; point
 accuracy and completeness are evaluated only for the frozen 88 confirmatory
-cases. Its surface metric adopts the DTU observability mask, ground-plane
-filter, 0.2 mm voxel spacing, and 20 mm distance rejection, but uses a
-deterministic 100,000-point cap and camera-pose-only Sim(3) gauge alignment.
+cases. Matching the official directionality, the DTU observation mask filters
+prediction-to-GT accuracy only, while the ground plane filters GT-to-prediction
+completeness only. The surface metric otherwise adopts 0.2 mm voxel spacing
+and 20 mm distance rejection, but uses a deterministic 100,000-point cap and
+camera-pose-only Sim(3) gauge alignment.
 Therefore report it as CamCanon3R's deterministic DTU point-map metric, not an
 official DTU leaderboard score.
 
