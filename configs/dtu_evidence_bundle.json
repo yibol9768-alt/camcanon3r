@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "frozen_before_final_dtu_results": true,
+  "files": [
+    {"source": "/mnt/e/camcanon3r-data/dtu_mvs/sampleset_extraction_report.json", "target": "acquisition/sampleset_extraction_report.json"},
+    {"source": "/mnt/e/camcanon3r-data/dtu_mvs/rectified_extraction_report.json", "target": "acquisition/rectified_extraction_report.json"},
+    {"source": "/mnt/e/camcanon3r-data/dtu_mvs/points_extraction_report.json", "target": "acquisition/points_extraction_report.json"},
+    {"source": "results/dtu/rectified_mechanism_preparation_audit.json", "target": "preparation/rectified_mechanism_audit.json"},
+    {"source": "results/dtu/rectified_canonical_preparation_audit.json", "target": "preparation/rectified_canonical_audit.json"},
+    {"source": "results/dtu/rectified_canonical_preparation_compute.json", "target": "preparation/rectified_canonical_compute.json"},
+
+    {"source": "results/dtu/vggt/rectified_mechanism/summary.json", "target": "vggt/mechanism_summary.json"},
+    {"source": "results/dtu/vggt/inference_compute.json", "target": "vggt/mechanism_compute.json"},
+    {"source": "results/dtu/vggt/rectified_canonical/summary.json", "target": "vggt/repair_evaluation_summary.json"},
+    {"source": "results/dtu/vggt/repair_inference_compute.json", "target": "vggt/repair_inference_compute.json"},
+    {"source": "results/dtu/vggt/repair_identity_repeat_audit.json", "target": "vggt/repair_identity_repeat_audit.json"},
+    {"source": "results/repair/dtu_vggt_neutral_gray.json", "target": "vggt/repair_gap_recovery.json"},
+    {"source": "results/reliability/dtu_vggt_seed17/cases.json", "target": "vggt/reliability/cases.json"},
+    {"source": "results/reliability/dtu_vggt_seed17/rotation_disagreement.json", "target": "vggt/reliability/rotation_disagreement.json"},
+    {"source": "results/reliability/dtu_vggt_seed17/rotation_native_uncertainty.json", "target": "vggt/reliability/rotation_native_uncertainty.json"},
+
+    {"source": "results/dtu/dust3r/rectified_mechanism/summary.json", "target": "dust3r/mechanism_summary.json"},
+    {"source": "results/dtu/dust3r/inference_compute.json", "target": "dust3r/mechanism_compute.json"},
+    {"source": "results/dtu/dust3r/rectified_canonical/summary.json", "target": "dust3r/repair_evaluation_summary.json"},
+    {"source": "results/dtu/dust3r/repair_inference_compute.json", "target": "dust3r/repair_inference_compute.json"},
+    {"source": "results/dtu/dust3r/repair_identity_repeat_audit.json", "target": "dust3r/repair_identity_repeat_audit.json"},
+    {"source": "results/repair/dtu_dust3r_neutral_gray.json", "target": "dust3r/repair_gap_recovery.json"},
+    {"source": "results/reliability/dtu_dust3r_seed17/cases.json", "target": "dust3r/reliability/cases.json"},
+    {"source": "results/reliability/dtu_dust3r_seed17/rotation_disagreement.json", "target": "dust3r/reliability/rotation_disagreement.json"},
+    {"source": "results/reliability/dtu_dust3r_seed17/rotation_native_uncertainty.json", "target": "dust3r/reliability/rotation_native_uncertainty.json"},
+
+    {"source": "results/mechanism/analysis.json", "target": "combined/mechanism_analysis.json"},
+    {"source": "results/mechanism/cross_dataset_table.json", "target": "combined/cross_dataset_table.json"},
+    {"source": "results/paper/compute_table.json", "target": "combined/compute_table.json"},
+    {"source": "results/paper/final_claim_audit.json", "target": "combined/final_claim_audit.json"},
+    {"source": "results/paper/qualitative_eth3d.json", "target": "figures/qualitative_eth3d.json"},
+    {"source": "results/paper/qualitative_eth3d.pdf", "target": "figures/qualitative_eth3d.pdf"},
+    {"source": "results/paper/qualitative_eth3d.png", "target": "figures/qualitative_eth3d.png"},
+    {"source": "results/paper/qualitative_dtu.json", "target": "figures/qualitative_dtu.json"},
+    {"source": "results/paper/qualitative_dtu.pdf", "target": "figures/qualitative_dtu.pdf"},
+    {"source": "results/paper/qualitative_dtu.png", "target": "figures/qualitative_dtu.png"},
+    {"source": "paper/figures/mechanism_severity.pdf", "target": "figures/mechanism_severity.pdf"},
+    {"source": "results/mechanism/mechanism_severity.png", "target": "figures/mechanism_severity.png"},
+    {"source": "paper/figures/dtu_risk_coverage.pdf", "target": "figures/dtu_risk_coverage.pdf"},
+    {"source": "results/reliability/dtu_risk_coverage.png", "target": "figures/dtu_risk_coverage.png"}
+  ],
+  "trees": [
+    {"source": "results/dtu/vggt/rectified_mechanism", "target": "vggt/evaluations/mechanism", "glob": "*/*_vs_gt.json", "expected_count": 242, "mode": "copy"},
+    {"source": "results/dtu/vggt/rectified_canonical", "target": "vggt/evaluations/repair", "glob": "*/*_vs_gt.json", "expected_count": 44, "mode": "copy"},
+    {"source": "results/dtu/dust3r/rectified_mechanism", "target": "dust3r/evaluations/mechanism", "glob": "*/*_vs_gt.json", "expected_count": 242, "mode": "copy"},
+    {"source": "results/dtu/dust3r/rectified_canonical", "target": "dust3r/evaluations/repair", "glob": "*/*_vs_gt.json", "expected_count": 44, "mode": "copy"},
+
+    {"source": "outputs/dtu/vggt/rectified_mechanism", "target": "vggt/prediction_hashes/mechanism", "glob": "*/*.npz", "expected_count": 242, "mode": "hash_only"},
+    {"source": "outputs/dtu/vggt/rectified_canonical", "target": "vggt/prediction_hashes/repair", "glob": "*/*.npz", "expected_count": 44, "mode": "hash_only"},
+    {"source": "outputs/dtu/dust3r/rectified_mechanism", "target": "dust3r/prediction_hashes/mechanism", "glob": "*/*.npz", "expected_count": 242, "mode": "hash_only"},
+    {"source": "outputs/dtu/dust3r/rectified_canonical", "target": "dust3r/prediction_hashes/repair", "glob": "*/*.npz", "expected_count": 44, "mode": "hash_only"}
+  ]
+}

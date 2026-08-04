@@ -877,3 +877,21 @@ PYTHONPATH=src .venv/bin/python scripts/audit_final_claims.py \
 Use `evidence_complete` to decide whether final writing may begin; use the four
 separate `claim_gates` only to decide which claims are promoted.  The audit
 deliberately does not turn those gates into an automated reviewer score.
+
+Freeze the final evidence only after the claim audit and all four figures are
+present.  The bundle manifest copies the 572 lightweight per-scene GT records,
+summaries, reliability cases, audits, compute, and figure assets.  It hashes
+all 572 large prediction NPZ files into `BUNDLE.json` without copying them into
+Git.  Exact counts, safe relative targets, copied bytes, and bundle checksums
+are mandatory:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/freeze_evidence_bundle.py \
+  configs/dtu_evidence_bundle.json results/frozen_dtu_seed17 --resume
+```
+
+An interrupted atomic copy can resume only when its temporary bytes match the
+source. Existing target drift or an unexpected extra file aborts the freeze.
+Transfer `results/frozen_dtu_seed17` to `vircs` byte-for-byte, verify its
+`SHA256SUMS`, and commit it as `artifacts/dtu_seed17`; never copy the large NPZ
+files themselves into Git.
