@@ -848,3 +848,32 @@ PYTHONPATH=src python3 scripts/plot_risk_coverage.py \
     results/reliability/dtu_dust3r_seed17/cases.json \
   --png results/reliability/dtu_risk_coverage.png
 ```
+
+Finally, audit claim promotion separately from evidence completeness.  This
+command reopens the reliability cases and checks their SHA-256, exact 22 x 4
+design, strict threshold, score fields, scene-cluster bootstrap, and model
+identity.  It also requires the complete 13/22-scene, 11-variant mechanism
+matrix and the unchanged DTU repair gates.  A failed AUROC, mechanism, or
+repair gate remains a complete negative result and does not make the audit
+fail:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/audit_final_claims.py \
+  results/paper/final_claim_audit.json \
+  --mechanism results/mechanism/analysis.json \
+  --reliability vggt \
+    results/reliability/dtu_vggt_seed17/rotation_disagreement.json \
+    results/reliability/dtu_vggt_seed17/rotation_native_uncertainty.json \
+  --reliability dust3r \
+    results/reliability/dtu_dust3r_seed17/rotation_disagreement.json \
+    results/reliability/dtu_dust3r_seed17/rotation_native_uncertainty.json \
+  --repair vggt results/repair/dtu_vggt_neutral_gray.json \
+  --repair dust3r results/repair/dtu_dust3r_neutral_gray.json \
+  --expected-models vggt dust3r \
+  --detector-auroc-threshold 0.75 \
+  --repair-recovery-threshold 0.30 --clean-relative-threshold 0.02
+```
+
+Use `evidence_complete` to decide whether final writing may begin; use the four
+separate `claim_gates` only to decide which claims are promoted.  The audit
+deliberately does not turn those gates into an automated reviewer score.
