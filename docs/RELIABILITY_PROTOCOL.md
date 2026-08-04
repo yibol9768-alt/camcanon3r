@@ -96,6 +96,17 @@ PYTHONPATH=src .venv/bin/python scripts/analyze_reliability.py \
   --output results/reliability/rotation_disagreement.json
 ```
 
+The exact four-report ETH3D development sweep (rotation/depth crossed with
+disagreement/native uncertainty, models kept separate) is reproducible with:
+
+```bash
+./scripts/run_eth3d_reliability.sh
+```
+
+Case records use schema 1.1: prediction and evaluation files are stored
+relative to explicit source roots, and every analysis report binds its input
+case file by SHA-256. These provenance fields do not enter score construction.
+
 The detector claim is promoted only if held-out AUROC reaches 0.75 with its
 interval, native-confidence and oracle comparisons, risk--coverage, and case
 provenance all reported. No scoring, threshold, or split change is allowed
