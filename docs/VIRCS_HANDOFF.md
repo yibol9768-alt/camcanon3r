@@ -10,12 +10,14 @@ paper, evidence, reproducibility package, and reviewer red-team jointly support
 an estimated ICLR-style score in the 6--8 range.  Report uncertainty honestly;
 never promote a claim beyond the committed evidence.
 
-The present paper is a five-page working draft, not a finished submission.
-Its Related Work is calibrated against the frozen three-paper ICLR comparison,
-and its matched ETH3D tables are populated; reliability/repair results still
-contain a TODO.  The committed evidence now establishes a multi-model
-ground-truth failure for one transform family on ETH3D, but not cross-dataset
-generality, detector effectiveness, repair, or the requested reviewer score.
+The present paper is a seven-page working draft, not a finished submission.
+Its Related Work is calibrated against the frozen three-paper ICLR comparison;
+matched ETH3D mechanism, repair, and development-reliability evidence is
+integrated; and a vector method overview plus dedicated limitations section are
+present.  The remaining paper TODO is deliberately reserved for held-out DTU
+reliability.  The current red-team estimate remains 5--6, not the requested
+6--8, because cross-dataset GT, held-out detection, and result figures are not
+yet complete.
 
 ## Two-machine contract
 
@@ -103,10 +105,12 @@ only merge.  It never resets or force-checks out files.
 
 ## Current frozen state
 
-- Expected repository baseline at this update:
-  `46baf992ed13c0f3e718545ac62e62470ace47bc` plus the handoff-update commit
-  that contains this text.  Before editing this section, both hosts were clean
-  at `46baf99` and independently passed all 69 CPU tests.
+- Control-plane baseline immediately before this update:
+  `1d97c331eccc4ccf614ab70d10320e65ebc601ed` plus the handoff-update commit
+  that contains this text.  `vircs` is clean and passes 129 CPU tests.  While
+  the DTU selection extractor owns the download proxy and data tree, the
+  formal `my5090` checkout is intentionally left clean at `4029913`; it passes
+  its then-current 123 tests.  Fast-forward it only after extraction exits.
 - VGGT weights already reside on `my5090`.
 - DUSt3R weights reside at
   `/opt/camcanon3r/checkpoints/dust3r-512-dpt`; the previously verified large
@@ -141,6 +145,32 @@ only merge.  It never resets or force-checks out files.
   completeness intervals also exclude zero for both.  DUSt3R point accuracy
   does not exclude zero.  Letterbox depth and point intervals include zero for
   both models.  Do not broaden this to an all-transform or all-metric claim.
+- The exact 11-variant severity/scope sweep is complete for 13 ETH3D scenes and
+  both models (286 evaluations). Independent off-center rotation degradation
+  is monotone and exceeds the frozen threshold at 75% and 60%; the shared
+  off-center family also crosses, while center crop and letterbox remain
+  controls. Machine-readable summaries and the combined mechanism analysis are
+  committed under `artifacts/eth3d_mechanism_seed17/`.
+- The three-fill repair study and exact identity repeats are frozen under
+  `artifacts/eth3d_repair_seed17/`. Neutral-gray rotation recovery is 0.966 for
+  VGGT and 0.558 for DUSt3R with zero measured clean cost. Every registered
+  fill worsens depth for both models, and consensus fails its multi-model
+  promotion gate. `ablation_summary.json` binds all eight input reports.
+- ETH3D reliability is development-only. Rotation disagreement AUROC is 0.924
+  for VGGT and 0.908 for DUSt3R, versus 0.665 and 0.597 for native confidence.
+  These scores were visible during development and do not promote a detector;
+  the frozen DTU evaluation remains the only held-out gate.
+- DTU acquisition is active under the single Windows task
+  `CamCanon3R-DTUSelectionExtract`. At this edit, SampleSet is complete 58/58,
+  Rectified is in progress beyond 20/66, and Points has not started. The
+  extractor uses only the process-scoped proxy, is resumable, and now retries
+  truncated HTTP 206 bodies. Do not launch a duplicate, sync the execution
+  checkout, inspect GT outcomes, or start GPU work while this task is running.
+- DTU inference/evaluation wrappers are frozen on `vircs`: preparation requires
+  22 scenes, 11 variants, and 726 PNGs; model sweeps are sequential; schema-1.2
+  outputs bind input hashes and full timing; resume validates CRC and affines;
+  evaluation performs audit-only prediction validation; and qualitative scene
+  selection was frozen before outcomes.
 - Latest idle GPU check after all jobs: 0% utilization and 1336 MiB baseline
   memory.  Live sizes were 4.7 GB for VGGT weights and 2.2 GB for DUSt3R
   weights.
@@ -155,8 +185,9 @@ download progress are allowed to drift after this document is committed.
    fast-forward sync script.  Never overwrite uncommitted work.
 3. On `my5090`, check `nvidia-smi` process list and utilization.  Do not start
    VGGT or DUSt3R while another project owns the GPU.
-4. Check whether `download_archives.py` is already running before touching the
-   ETH3D download task.
+4. Check the Windows scheduled task and Linux process/report for any active
+   DTU or ETH3D transfer before touching a download. Never infer failure from a
+   long no-output interval inside a remote ZIP member.
 5. Follow `docs/EXPERIMENT_RUNBOOK.md` exactly. Use the Windows-owned background
    launcher for long commands, use resumable runners, and keep
    raw, transformed, repaired, and clean-control outputs distinct.
@@ -167,21 +198,19 @@ download progress are allowed to drift after this document is committed.
 
 ## Immediate research queue
 
-1. Freeze and implement the second-dataset protocol (DTU remains the registered
-   target) before inspecting outcomes; audit existing assets before any new
-   download and preserve dataset/model license boundaries.
-2. Run a severity response and shared-versus-view-dependent crop ablation to
-   test the principal-point mechanism and determine honestly whether a second
-   transform family crosses the frozen hypothesis threshold.
-3. Evaluate analytic repair against the same ground truth, including clean
-   cost, visible support, negative recovery, and overshoot.
-4. Populate native-confidence and cross-transform-disagreement AUROC,
-   risk--coverage, AURC/excess-AURC, and
-   scene-cluster confidence intervals on held-out cases.
-5. Add runtime/VRAM and accuracy-per-compute baselines, representative cases,
-   and explicit failures without outcome-driven scene filtering.
-6. Replace the remaining paper TODO only with committed results, then red-team the complete
-   manuscript against 3DV scope and the requested ICLR-style 6--8 bar.
+1. Let the existing DTU selection task finish exactly once; verify all three
+   reports and the selected tree before syncing the `my5090` checkout.
+2. Fast-forward `my5090`, run 129/129 tests, then execute and audit DTU
+   preparation. Start no GPU task until two idle checks and no foreign owner.
+3. Run VGGT then DUSt3R over the exact 22 x 11 design, retaining schema-1.2
+   input hashes, compute/VRAM metadata, and audit-only resumability.
+4. Evaluate all pose/intrinsic cases and the four point-map variants, freeze
+   compact artifacts, then open the unchanged held-out reliability gate.
+5. Render the frozen severity, held-out risk--coverage, repair-ablation,
+   cross-dataset, compute, and outcome-independent qualitative evidence.
+6. Replace the final TODO only from committed DTU artifacts, then run a second
+   paper-only reviewer red-team against the three ICLR writing benchmarks and
+   the honest 6--8 completion bar.
 
 ## Handoff prompt for the vircs Codex session
 
