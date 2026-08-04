@@ -1,24 +1,38 @@
 # CamCanon3R
 
-**A crop is a camera change.** CamCanon3R audits and repairs
-preprocessing-induced geometry drift in feed-forward 3D reconstruction models.
+**A crop is a camera change.** CamCanon3R audits preprocessing-induced
+geometry drift in feed-forward 3D reconstruction models and tests
+known-affine canonicalization as a bounded response.
 
 Modern models such as VGGT, DUSt3R, and MASt3R accept images after resizing,
 cropping, padding, or aspect-ratio normalization. These operations are not
 geometry-neutral: an image-space affine transform `A` changes the camera matrix
 from `K` to `A @ K`. CamCanon3R asks whether model outputs obey this known
 equivariance, measures failures in camera, depth, and point-map predictions,
-and develops a training-free consistency repair.
+and evaluates analytic and training-free consistency responses.
 
 ## Status
 
-Frozen three-scene diagnostics found a consistent asymmetric-crop
-non-equivariance signal in both VGGT and DUSt3R. VGGT has an effectively exact
-identity-repeat control; DUSt3R independently exceeds the 2° rotation threshold
-in all three asymmetric-crop scenes. See
-[`docs/MULTISCENE_RESULTS.md`](docs/MULTISCENE_RESULTS.md),
-[`docs/DUST3R_RESULTS.md`](docs/DUST3R_RESULTS.md), and their committed
-machine-readable evidence. These are not yet ground-truth accuracy claims.
+The frozen ETH3D study contains 13 scenes, 11 preprocessing variants, and 143
+ground-truth evaluations per model. Independently shifted 75% crops increase
+median rotation error by 4.61° for VGGT and 4.52° for DUSt3R; shared off-center
+75% crops form a second, smaller failure family at 2.38° and 2.18°. Center and
+letterbox controls stay below the registered mechanism threshold. Raw evidence
+is committed in [`artifacts/eth3d_mechanism_seed17/`](artifacts/eth3d_mechanism_seed17/).
+
+Known-affine neutral-gray canonicalization recovers 96.6% and 55.8% of the
+paired rotation-error gap with zero measured identity clean cost. It worsens
+depth for both models, and three-fill consensus fails its multi-model promotion
+gate, so no generic geometry-repair claim is made. The complete positive and
+negative evidence is in
+[`artifacts/eth3d_repair_seed17/`](artifacts/eth3d_repair_seed17/).
+
+Cross-transform disagreement also outperforms native uncertainty on exploratory
+ETH3D rotation failure detection, but ETH3D is development-only for this score.
+The detector decision and cross-dataset mechanism claim remain reserved for the
+frozen 22-scene DTU study. See
+[`artifacts/eth3d_reliability_seed17/`](artifacts/eth3d_reliability_seed17/)
+and [`docs/REVIEWER_RED_TEAM.md`](docs/REVIEWER_RED_TEAM.md).
 
 Ground-truth experiments use only documented official datasets. See
 [`docs/DATA_PROVENANCE.md`](docs/DATA_PROVENANCE.md) for URLs, hashes, formats,
