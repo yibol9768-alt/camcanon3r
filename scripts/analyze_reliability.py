@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 from pathlib import Path
 
@@ -44,6 +45,14 @@ def _read_cases(path: Path) -> list[dict[str, object]]:
     return payload
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def main() -> None:
     args = parse_args()
     records = _read_cases(args.cases)
@@ -65,6 +74,7 @@ def main() -> None:
     )
     result["input"] = {
         "cases": str(args.cases),
+        "cases_sha256": _sha256_file(args.cases),
         "scene_field": args.scene_field,
         "error_field": args.error_field,
         "uncertainty_field": args.uncertainty_field,

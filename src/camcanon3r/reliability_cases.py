@@ -289,14 +289,22 @@ def build_reliability_cases(
                         "native_uncertainty": -confidence,
                     },
                     "ground_truth": gt,
-                    "prediction": str(predictions[variant].resolve()),
-                    "evaluation": str(evaluation_path.resolve()),
+                    "prediction": predictions[variant]
+                    .relative_to(prediction_root)
+                    .as_posix(),
+                    "evaluation": evaluation_path
+                    .relative_to(result_root)
+                    .as_posix(),
                 }
             )
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "dataset": dataset,
         "model": model,
+        "source_roots": {
+            "predictions": prediction_root.as_posix(),
+            "evaluations": result_root.as_posix(),
+        },
         "scene_count": len(scenes),
         "variant_count": len(variants),
         "case_count": len(cases),

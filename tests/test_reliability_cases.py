@@ -89,11 +89,18 @@ def test_build_reliability_cases_is_complete_and_unprivileged(
 
     assert output["scene_count"] == 2
     assert output["case_count"] == 6
+    assert output["schema_version"] == "1.1"
+    assert output["source_roots"] == {
+        "predictions": predictions.as_posix(),
+        "evaluations": results.as_posix(),
+    }
     cases = output["cases"]
     assert {case["anchor_count"] for case in cases} == {2}
     identity = next(case for case in cases if case["variant"] == "identity")
     assert identity["scores"]["rotation_disagreement_degrees"] > 0.0
     assert identity["scores"]["native_uncertainty"] == -10.0
+    assert identity["prediction"] == "first/identity.npz"
+    assert identity["evaluation"] == "first/identity_vs_gt.json"
     assert output["score_protocol"]["ground_truth_used_in_score"] is False
 
     reversed_output = build_reliability_cases(
