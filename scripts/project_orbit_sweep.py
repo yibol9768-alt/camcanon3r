@@ -538,6 +538,9 @@ def main() -> None:
             geometric_median_iterations=int(
                 protocol["geometry_fusion"]["geometric_median_iterations"]
             ),
+            maximum_confidence_ratio=float(
+                protocol["geometry_fusion"]["maximum_confidence_ratio"]
+            ),
         )
         fusion_seconds = time.perf_counter() - start
         fusion_metadata = _write_fusion(

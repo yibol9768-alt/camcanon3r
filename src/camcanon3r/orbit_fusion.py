@@ -273,6 +273,7 @@ def fuse_orbit_geometry(
     minimum_members: int = 3,
     tile_rows: int = 64,
     geometric_median_iterations: int = 20,
+    maximum_confidence_ratio: float = 20.0,
 ) -> dict[str, Any]:
     """Fuse a reconstruction orbit into one camera-consistent prediction."""
 
@@ -283,7 +284,11 @@ def fuse_orbit_geometry(
         raise ValueError("geometry reference label is not an orbit member")
     if minimum_members < 2 or minimum_members > len(labels):
         raise ValueError("minimum geometry member count is invalid")
-    if tile_rows <= 0 or geometric_median_iterations <= 0:
+    if (
+        tile_rows <= 0
+        or geometric_median_iterations <= 0
+        or maximum_confidence_ratio <= 0.0
+    ):
         raise ValueError("geometry fusion iteration and tile counts must be positive")
     reference_index = labels.index(reference_label)
     target_extrinsics = _view_stack(
@@ -388,10 +393,14 @@ def fuse_orbit_geometry(
                 confidence = _sample_map(
                     confidences[member_index][view], member_x, member_y
                 )
-                normalized_confidence = np.clip(
-                    confidence / confidence_normalizers[member_index, view],
-                    0.05,
-                    20.0,
+                normalized_confidence = np.where(
+                    np.isfinite(confidence) & (confidence > 0.0),
+                    np.clip(
+                        confidence / confidence_normalizers[member_index, view],
+                        0.0,
+                        maximum_confidence_ratio,
+                    ),
+                    0.0,
                 )
                 normalized_confidence[~support] = 0.0
                 sampled_points.append(sampled)
@@ -444,6 +453,7 @@ def fuse_orbit_geometry(
         "source_to_model_affine": affine_stack[reference_index],
         "reference_label": reference_label,
         "minimum_members": minimum_members,
+        "maximum_confidence_ratio": maximum_confidence_ratio,
         "effective_member_count": effective_counts,
         "valid_fused_pixels": int(np.count_nonzero(np.isfinite(depth))),
         "total_reference_pixels": int(depth.size),
@@ -455,9 +465,13 @@ def fuse_orbit_geometry(
         ),
         "member_similarity": {
             label: {
-                key: value
-                for key, value in similarity.items()
-                if key not in {"rotation", "translation"}
+                **{
+                    key: value
+                    for key, value in similarity.items()
+                    if key not in {"rotation", "translation"}
+                },
+                "rotation": np.asarray(similarity["rotation"]).tolist(),
+                "translation": np.asarray(similarity["translation"]).tolist(),
             }
             for label, similarity in zip(labels, similarities, strict=True)
         },

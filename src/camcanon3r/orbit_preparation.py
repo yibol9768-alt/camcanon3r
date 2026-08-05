@@ -72,6 +72,7 @@ def load_orbit_protocol(path: Path) -> dict[str, Any]:
         or not 2 <= int(fusion.get("minimum_members", 0)) <= len(labels)
         or int(fusion.get("tile_rows", 0)) <= 0
         or int(fusion.get("geometric_median_iterations", 0)) <= 0
+        or float(fusion.get("maximum_confidence_ratio", 0.0)) <= 0.0
     ):
         raise ValueError("orbit geometry fusion protocol is invalid")
     geometry_promotion = protocol.get("geometry_promotion")
