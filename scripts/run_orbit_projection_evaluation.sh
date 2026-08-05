@@ -30,6 +30,8 @@ case "${dataset}" in
     analytic_root="outputs/eth3d_training/${model}/raw_canonical"
     projection_report="results/orbit/eth3d_${model}_projection.json"
     evaluation_report="results/orbit/eth3d_${model}_evaluation.json"
+    fusion_results_root="results/orbit/eth3d_${model}_fusion"
+    fusion_evaluation_report="results/orbit/eth3d_${model}_fusion_evaluation.json"
     dataset_label="eth3d-training-raw-canonical-orbit"
     max_views=4
     expected_scenes=13
@@ -49,6 +51,8 @@ case "${dataset}" in
     analytic_root="outputs/dtu/${model}/rectified_canonical"
     projection_report="results/orbit/dtu_${model}_projection.json"
     evaluation_report="results/orbit/dtu_${model}_evaluation.json"
+    fusion_results_root="results/orbit/dtu_${model}_fusion"
+    fusion_evaluation_report="results/orbit/dtu_${model}_fusion_evaluation.json"
     dataset_label="dtu-canonical-orbit"
     max_views=3
     expected_scenes=22
@@ -96,3 +100,10 @@ PYTHONPATH=src "${python_bin}" scripts/evaluate_orbit_projection.py \
   --protocol "${protocol}" --dataset "${dataset}" \
   --dataset-label "${dataset_label}" --model "${model}" \
   --scenes "${scenes[@]}"
+
+PYTHONPATH=src "${python_bin}" scripts/evaluate_orbit_fusion.py \
+  "${selection_root}" "${projection_root}" "${identity_root}" \
+  "${analytic_root}" "${fusion_results_root}" "${fusion_evaluation_report}" \
+  --protocol "${protocol}" --dataset "${dataset}" \
+  --dataset-label "${dataset_label}" --model "${model}" \
+  --scenes "${scenes[@]}" --resume

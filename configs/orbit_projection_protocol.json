@@ -90,6 +90,20 @@
     "ground_truth_used": false,
     "native_confidence_used": false
   },
+  "geometry_fusion": {
+    "primary_full_reconstruction_output": true,
+    "world_gauge_alignment": "camera_constrained_positive_sim3_without_ground_truth",
+    "pixel_correspondence": "logged_source_to_model_affine_on_common_source_support",
+    "point_estimator": "native_confidence_weighted_geometric_median",
+    "intrinsic_estimator": "weighted_median_in_source_coordinates",
+    "reference_member": "center",
+    "minimum_members": 3,
+    "tile_rows": 64,
+    "geometric_median_iterations": 20,
+    "depth_derivation": "fused_world_points_through_projected_cameras",
+    "ground_truth_used": false,
+    "removed_crop_pixels_imputed": false
+  },
   "baselines": [
     "one_pass_neutral_gray_analytic_repair",
     "orbit_medoid_selection",

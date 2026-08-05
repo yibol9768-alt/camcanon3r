@@ -18,8 +18,11 @@ symmetric, support-preserving set of camera-canvas placements. It transports
 the resulting camera graphs into a common quotient representation, learns the
 local camera response to known canvas coordinates without GT, evaluates that
 response at zero bias, and synchronizes it into one cycle-consistent camera
-graph. Ground truth, uncropped source pixels, and updated backbone weights are
-unavailable to the method.
+graph. That camera graph then fixes the otherwise arbitrary Sim(3) gauge of
+each dense reconstruction. Registered point maps and intrinsics are fused only
+on common source support to produce one coherent full reconstruction. Ground
+truth, uncropped source pixels, and updated backbone weights are unavailable to
+the method.
 
 ## Input orbit and information boundary
 
@@ -70,8 +73,29 @@ first center is zero, and normalized by the median nonzero pairwise baseline
 within each run. A weighted geometric median produces canonical centers. The
 projected translations follow analytically from `t_i = -R_i C_i`.
 
-The initial promoted claim is camera orientation only. Depth and point maps are
-not silently paired with projected cameras and are not generic repair outputs.
+## Camera-constrained common-support geometry
+
+The primary full output is not formed by silently pairing old point maps with
+new cameras. For every orbit member, the method estimates a positive Sim(3)
+from its predicted camera orientations and centers to the projected camera
+graph. The same predicted transform maps that member's world point map into
+the canonical world gauge. Logged source-to-model affines establish exact
+cross-run pixel correspondences on the centered member's model grid.
+
+Fusion is restricted by the canonical repair mask, so pixels removed by the
+original crop remain undefined. Native confidence is normalized within each
+member, multiplied by the response-field member weight, and used in a
+geometric median over aligned 3D points. At least three finite members are
+required. Intrinsics are first mapped back to source coordinates, fused by a
+weighted median, and then carried to the reference model grid. Depth is
+derived by transforming the fused point map through the projected cameras.
+This produces a camera, intrinsic, depth, and point-map tuple with one recorded
+provenance chain and no GT input.
+
+Camera orientation remains the promotion endpoint for the response field.
+Depth and point metrics are a separate full-reconstruction endpoint and are
+reported against identity and one-pass analytic repair without imputing lost
+support.
 
 ## Baselines
 
@@ -87,11 +111,16 @@ Every model and dataset is reported separately against:
 The projected method receives exactly the same orbit predictions as all
 matched-compute selection and averaging baselines.
 
+The full reconstruction additionally compares the camera-constrained response
+fusion with identity and one-pass analytic repair for focal length, principal
+point, depth where available, and point accuracy/completeness.
+
 ## Falsification and promotion
 
 Synthetic tests must first establish gauge invariance, run-order invariance,
-exact recovery for a consistent orbit, valid SO(3) output, and robustness to a
-minority outlier.
+exact recovery for a consistent orbit, valid SO(3) output, robustness to a
+minority outlier, exact camera-derived Sim(3) recovery, registered point-map
+fusion, and preservation of undefined support.
 
 The empirical primary endpoint is median pairwise relative-rotation error. A
 promoted multi-run method must satisfy all conditions below for VGGT and

@@ -35,6 +35,15 @@ inverse-pair robust projection without GT. Inverse-pair robust group projection,
 uniform projection, orbit medoid, native-confidence selection, and the GT oracle
 are evaluated from the same predictions.
 
+The same projection stage also writes `response_fusion.npz`. Each member's
+predicted cameras determine a positive Sim(3) into the response-camera gauge.
+Point maps are resampled through the logged source-to-model affines, restricted
+to the canonical validity mask, and fused with native-confidence-weighted
+geometric medians. Intrinsics are fused in source coordinates and depth is
+recomputed from the fused point map and projected cameras. The paired full
+evaluation covers intrinsics, depth, and point accuracy/completeness as well as
+pose; crop-removed pixels remain undefined.
+
 ## Local validation and sync
 
 On vircs:

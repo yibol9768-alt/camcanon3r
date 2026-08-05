@@ -63,6 +63,17 @@ def load_orbit_protocol(path: Path) -> dict[str, Any]:
         or any(not isinstance(value, int) or not 0 <= value <= 255 for value in fill)
     ):
         raise ValueError("orbit fill must be three uint8-compatible integers")
+    fusion = protocol.get("geometry_fusion")
+    if (
+        not isinstance(fusion, dict)
+        or fusion.get("ground_truth_used") is not False
+        or fusion.get("removed_crop_pixels_imputed") is not False
+        or str(fusion.get("reference_member")) not in labels
+        or not 2 <= int(fusion.get("minimum_members", 0)) <= len(labels)
+        or int(fusion.get("tile_rows", 0)) <= 0
+        or int(fusion.get("geometric_median_iterations", 0)) <= 0
+    ):
+        raise ValueError("orbit geometry fusion protocol is invalid")
     return protocol
 
 
