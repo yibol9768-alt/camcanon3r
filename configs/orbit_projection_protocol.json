@@ -104,6 +104,27 @@
     "ground_truth_used": false,
     "removed_crop_pixels_imputed": false
   },
+  "geometry_promotion": {
+    "reference": "one_pass_neutral_gray_analytic_repair",
+    "lower_is_better": true,
+    "maximum_relative_degradation_per_metric": 0.02,
+    "minimum_relative_improvement_for_at_least_one_geometry_metric": 0.05,
+    "eth3d_geometry_metrics": [
+      "depth_mean_abs_rel",
+      "point_accuracy_mean_meters",
+      "point_completeness_mean_meters"
+    ],
+    "dtu_geometry_metrics": [
+      "point_accuracy_mean_millimeters",
+      "point_completeness_mean_millimeters"
+    ],
+    "shared_intrinsic_metrics": [
+      "focal_relative_error_median",
+      "principal_point_normalized_error_median"
+    ],
+    "requires_complete_scene_bootstrap": true,
+    "requires_camera_promotion_separately": true
+  },
   "baselines": [
     "one_pass_neutral_gray_analytic_repair",
     "orbit_medoid_selection",

@@ -139,6 +139,13 @@ They cannot promote the method. The nine-member ETH3D orbit is development
 data. The implementation and configuration hashes must be frozen before the
 first DTU orbit evaluation.
 
+The full geometry endpoint has its own gate. Relative to one-pass analytic
+repair, no reported intrinsic or dataset-available geometry metric may worsen
+by more than two percent, and at least one depth or point metric must improve
+by five percent. ETH3D uses depth AbsRel plus point accuracy and completeness;
+DTU uses point accuracy and completeness. Passing this gate does not substitute
+for the separate camera-response promotion gate.
+
 ## Conditional single-pass student
 
 An affine-aware graph corrector is attempted only if the response-field

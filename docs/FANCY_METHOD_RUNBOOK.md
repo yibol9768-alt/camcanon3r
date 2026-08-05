@@ -142,6 +142,11 @@ The multi-run method must pass every model-dataset gate in the protocol:
 4. complete scene-cluster bootstrap and compute accounting;
 5. no GT, uncropped pixels, changed retry, or hidden undefined value.
 
+Full geometry is promoted separately only if all available intrinsic and
+geometry metrics stay within two percent of one-pass repair and at least one
+depth or point metric improves by five percent. A geometry pass cannot rescue
+a failed camera gate, and a camera pass cannot justify an unpassed dense claim.
+
 Only a full multi-run pass triggers development of the affine-aware graph
 student. The student must retain 80 percent of the teacher gain using one
 backbone forward pass. A failed student remains a negative result and cannot

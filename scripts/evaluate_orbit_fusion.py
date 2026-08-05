@@ -148,11 +148,87 @@ def _validate_existing(
         raise ValueError(f"existing fusion evaluation changed: {scene}/{method}")
 
 
+def _geometry_promotion(
+    summary: dict[str, Any],
+    *,
+    protocol: dict[str, Any],
+    dataset: str,
+) -> dict[str, Any]:
+    design = protocol["geometry_promotion"]
+    geometry_key = f"{dataset}_geometry_metrics"
+    geometry_metrics = [str(value) for value in design[geometry_key]]
+    intrinsic_metrics = [str(value) for value in design["shared_intrinsic_metrics"]]
+    maximum_degradation = float(design["maximum_relative_degradation_per_metric"])
+    minimum_improvement = float(
+        design["minimum_relative_improvement_for_at_least_one_geometry_metric"]
+    )
+    outcomes = {}
+    for metric in geometry_metrics + intrinsic_metrics:
+        analytic_record = summary["by_variant"]["analytic_repair"]["scene_bootstrap"][
+            "metrics"
+        ].get(metric)
+        response_record = summary["by_variant"]["response_fusion"]["scene_bootstrap"][
+            "metrics"
+        ].get(metric)
+        analytic = (
+            float(analytic_record["point_estimate"])
+            if isinstance(analytic_record, dict)
+            and analytic_record.get("point_estimate") is not None
+            else None
+        )
+        response = (
+            float(response_record["point_estimate"])
+            if isinstance(response_record, dict)
+            and response_record.get("point_estimate") is not None
+            else None
+        )
+        relative_improvement = (
+            (analytic - response) / analytic
+            if analytic is not None and response is not None and analytic > 1e-12
+            else None
+        )
+        outcomes[metric] = {
+            "analytic_repair": analytic,
+            "response_fusion": response,
+            "relative_improvement": relative_improvement,
+            "nondegradation_pass": relative_improvement is not None
+            and relative_improvement >= -maximum_degradation,
+        }
+    complete = all(
+        record["relative_improvement"] is not None for record in outcomes.values()
+    )
+    nondegradation = complete and all(
+        bool(record["nondegradation_pass"]) for record in outcomes.values()
+    )
+    geometry_improvements = [
+        outcomes[metric]["relative_improvement"] for metric in geometry_metrics
+    ]
+    one_geometry_improvement = complete and any(
+        float(value) >= minimum_improvement for value in geometry_improvements
+    )
+    return {
+        "reference": "analytic_repair",
+        "lower_is_better": True,
+        "maximum_relative_degradation_per_metric": maximum_degradation,
+        "minimum_relative_improvement_for_one_geometry_metric": (minimum_improvement),
+        "geometry_metrics": geometry_metrics,
+        "intrinsic_metrics": intrinsic_metrics,
+        "metrics": outcomes,
+        "complete_metric_pass": complete,
+        "all_metric_nondegradation_pass": nondegradation,
+        "one_geometry_metric_improvement_pass": one_geometry_improvement,
+        "full_geometry_promotion_pass": bool(
+            complete and nondegradation and one_geometry_improvement
+        ),
+        "camera_promotion_required_separately": True,
+    }
+
+
 def main() -> None:
     args = parse_args()
     if not args.scenes or len(set(args.scenes)) != len(args.scenes):
         raise ValueError("scenes must be a non-empty unique list")
-    load_orbit_protocol(args.protocol)
+    protocol = load_orbit_protocol(args.protocol)
     protocol_sha256 = _sha256(args.protocol)
     if args.summary_output.exists() and not args.resume:
         raise FileExistsError(
@@ -245,6 +321,11 @@ def main() -> None:
         "completed_count": completed,
         "resumed_count": skipped,
         "summary": summary,
+        "promotion": _geometry_promotion(
+            summary,
+            protocol=protocol,
+            dataset=args.dataset,
+        ),
     }
     write_json_atomic(args.summary_output, report)
     print(
@@ -252,6 +333,9 @@ def main() -> None:
             {
                 "status": "complete",
                 "scene_count": len(args.scenes),
+                "geometry_promotion_pass": report["promotion"][
+                    "full_geometry_promotion_pass"
+                ],
                 "summary": str(args.summary_output.resolve()),
             }
         )

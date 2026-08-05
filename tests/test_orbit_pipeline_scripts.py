@@ -285,6 +285,7 @@ def test_evaluate_orbit_projection_keeps_oracle_separate(tmp_path):
     assert full_report["method_ground_truth_used"] is False
     assert full_report["evaluation_count"] == 3
     assert full_report["summary"]["reference_variant"] == "analytic_repair"
+    assert "full_geometry_promotion_pass" in full_report["promotion"]
     assert '"status": "complete"' in fusion_completed.stdout
 
 

@@ -74,6 +74,23 @@ def load_orbit_protocol(path: Path) -> dict[str, Any]:
         or int(fusion.get("geometric_median_iterations", 0)) <= 0
     ):
         raise ValueError("orbit geometry fusion protocol is invalid")
+    geometry_promotion = protocol.get("geometry_promotion")
+    if (
+        not isinstance(geometry_promotion, dict)
+        or not 0.0
+        <= float(geometry_promotion.get("maximum_relative_degradation_per_metric", -1))
+        < 1.0
+        or not 0.0
+        < float(
+            geometry_promotion.get(
+                "minimum_relative_improvement_for_at_least_one_geometry_metric",
+                0,
+            )
+        )
+        < 1.0
+        or geometry_promotion.get("requires_camera_promotion_separately") is not True
+    ):
+        raise ValueError("orbit geometry promotion protocol is invalid")
     return protocol
 
 
