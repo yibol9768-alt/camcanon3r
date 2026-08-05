@@ -363,4 +363,5 @@ def test_response_field_falls_back_when_intercept_leaves_center_trust_region():
 
     assert response["response_fallback_used"] is True
     assert response["response_fallback"] == "inverse_pair_robust_group_projection"
+    assert response["geometry_member_weights"] == robust_group["member_weights"]
     assert np.allclose(response["extrinsic"], robust_group["extrinsic"])

@@ -92,6 +92,10 @@ derived by transforming the fused point map through the projected cameras.
 This produces a camera, intrinsic, depth, and point-map tuple with one recorded
 provenance chain and no GT input.
 
+If the centered-camera trust region activates the robust camera fallback, the
+dense fusion uses that fallback's inverse-pair group weights rather than the
+rejected response-fit weights. Both weight sets and the switch are retained.
+
 Camera orientation remains the promotion endpoint for the response field.
 Depth and point metrics are a separate full-reconstruction endpoint and are
 reported against identity and one-pass analytic repair without imputing lost

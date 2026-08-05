@@ -740,6 +740,14 @@ def project_camera_response_field(
         translations = -np.einsum("vij,vj->vi", rotations, centers)
         projected = np.concatenate([rotations, translations[:, :, None]], axis=2)
         synchronization = response_synchronization
+    response_member_weights = {
+        label: float(weight) for label, weight in zip(labels, weights, strict=True)
+    }
+    geometry_member_weights = (
+        dict(support_projection["member_weights"])
+        if fallback_used
+        else response_member_weights
+    )
     predicted_at_members = _fit_response_graph(
         graphs,
         coordinates,
@@ -783,9 +791,8 @@ def project_camera_response_field(
             }
             for basis, errors in cv_member_errors.items()
         },
-        "member_weights": {
-            label: float(weight) for label, weight in zip(labels, weights, strict=True)
-        },
+        "member_weights": response_member_weights,
+        "geometry_member_weights": geometry_member_weights,
         "member_fit_residual_degrees": {
             label: float(value) for label, value in zip(labels, residuals, strict=True)
         },

@@ -530,7 +530,7 @@ def main() -> None:
             members,
             projected_extrinsics=response["extrinsic"],
             member_order=labels,
-            member_weights=response["member_weights"],
+            member_weights=response["geometry_member_weights"],
             source_support_masks=support_masks,
             reference_label=str(protocol["geometry_fusion"]["reference_member"]),
             minimum_members=int(protocol["geometry_fusion"]["minimum_members"]),
