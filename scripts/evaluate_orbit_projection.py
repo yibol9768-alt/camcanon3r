@@ -139,8 +139,15 @@ def main() -> None:
     labels = [str(record["label"]) for record in protocol["orbit"]["ordered_members"]]
     per_scene: dict[str, dict[str, Any]] = {}
     for scene in args.scenes:
+        response_path = args.projection_root / scene / "response_projection.npz"
         robust_path = args.projection_root / scene / "robust_projection.npz"
         uniform_path = args.projection_root / scene / "uniform_projection.npz"
+        response_metadata = _projection_metadata(
+            response_path,
+            protocol_sha256=protocol_sha256,
+            scene=scene,
+            method="response_projection",
+        )
         robust_metadata = _projection_metadata(
             robust_path,
             protocol_sha256=protocol_sha256,
@@ -153,8 +160,8 @@ def main() -> None:
             scene=scene,
             method="uniform_projection",
         )
-        inputs = [str(value) for value in robust_metadata["inputs"]]
-        if uniform_metadata["inputs"] != inputs:
+        inputs = [str(value) for value in response_metadata["inputs"]]
+        if robust_metadata["inputs"] != inputs or uniform_metadata["inputs"] != inputs:
             raise ValueError(f"projection input order mismatch: {scene}")
         target, calibration = _target_extrinsics(args, scene, inputs)
 
@@ -191,6 +198,10 @@ def main() -> None:
         method_predictions = {
             "identity": (_load_extrinsic(identity_path), True),
             "analytic_repair": (_load_extrinsic(analytic_path), True),
+            "response_projection": (
+                _load_extrinsic(response_path),
+                response_metadata["diagnostics"]["translation_status"] == "available",
+            ),
             "robust_projection": (
                 _load_extrinsic(robust_path),
                 robust_metadata["diagnostics"]["translation_status"] == "available",
@@ -214,6 +225,7 @@ def main() -> None:
             "inputs": inputs,
             "identity_prediction": str(identity_path.resolve()),
             "analytic_prediction": str(analytic_path.resolve()),
+            "response_prediction": str(response_path.resolve()),
             "robust_prediction": str(robust_path.resolve()),
             "uniform_prediction": str(uniform_path.resolve()),
             "orbit_medoid_label": medoid_label,
@@ -228,7 +240,7 @@ def main() -> None:
                 {
                     "event": "scene_complete",
                     "scene": scene,
-                    "robust_rotation_degrees": scene_record["robust_projection"][
+                    "response_rotation_degrees": scene_record["response_projection"][
                         "relative_rotation_degrees"
                     ]["median"],
                 }

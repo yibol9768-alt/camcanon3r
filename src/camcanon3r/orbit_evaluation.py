@@ -14,6 +14,7 @@ from .statistics import scene_bootstrap_summary
 REQUIRED_METHODS = (
     "identity",
     "analytic_repair",
+    "response_projection",
     "robust_projection",
     "uniform_projection",
     "orbit_medoid",
@@ -151,15 +152,17 @@ def summarize_orbit_camera_evaluations(
         errors[method] = np.asarray(values, dtype=np.float64)
 
     derived = {
-        "robust_minus_analytic": errors["robust_projection"]
+        "response_minus_analytic": errors["response_projection"]
         - errors["analytic_repair"],
-        "robust_minus_uniform": errors["robust_projection"]
+        "response_minus_robust": errors["response_projection"]
+        - errors["robust_projection"],
+        "response_minus_uniform": errors["response_projection"]
         - errors["uniform_projection"],
-        "robust_minus_medoid": errors["robust_projection"] - errors["orbit_medoid"],
+        "response_minus_medoid": errors["response_projection"] - errors["orbit_medoid"],
         "analytic_residual_from_identity": errors["analytic_repair"]
         - errors["identity"],
-        "robust_improvement_over_analytic": errors["analytic_repair"]
-        - errors["robust_projection"],
+        "response_improvement_over_analytic": errors["analytic_repair"]
+        - errors["response_projection"],
     }
     raw_bootstrap = scene_bootstrap_summary(
         {**errors, **derived},
@@ -171,7 +174,7 @@ def summarize_orbit_camera_evaluations(
     )
     recovery = _ratio_bootstrap(
         derived["analytic_residual_from_identity"],
-        derived["robust_improvement_over_analytic"],
+        derived["response_improvement_over_analytic"],
         replicates=bootstrap_replicates,
         confidence_level=confidence_level,
         seed=bootstrap_seed,
@@ -179,9 +182,10 @@ def summarize_orbit_camera_evaluations(
     median_errors = {
         method: float(np.median(values)) for method, values in errors.items()
     }
-    robust_minus_analytic = float(np.median(derived["robust_minus_analytic"]))
-    robust_minus_uniform = float(np.median(derived["robust_minus_uniform"]))
-    robust_minus_medoid = float(np.median(derived["robust_minus_medoid"]))
+    response_minus_analytic = float(np.median(derived["response_minus_analytic"]))
+    response_minus_robust = float(np.median(derived["response_minus_robust"]))
+    response_minus_uniform = float(np.median(derived["response_minus_uniform"]))
+    response_minus_medoid = float(np.median(derived["response_minus_medoid"]))
     gate = {
         "residual_gap_reduction_threshold": minimum_residual_gap_reduction,
         "residual_gap_reduction": recovery,
@@ -190,18 +194,21 @@ def summarize_orbit_camera_evaluations(
         "maximum_median_error_increase_degrees": (
             maximum_median_error_increase_degrees
         ),
-        "median_error_increase_degrees": robust_minus_analytic,
+        "median_error_increase_degrees": response_minus_analytic,
         "nondegradation_pass": (
-            robust_minus_analytic <= maximum_median_error_increase_degrees
+            response_minus_analytic <= maximum_median_error_increase_degrees
         ),
-        "robust_minus_uniform_degrees": robust_minus_uniform,
-        "beat_or_tie_uniform_pass": robust_minus_uniform <= 0.0,
-        "robust_minus_medoid_degrees": robust_minus_medoid,
-        "beat_or_tie_medoid_pass": robust_minus_medoid <= 0.0,
+        "response_minus_robust_degrees": response_minus_robust,
+        "beat_or_tie_robust_group_pass": response_minus_robust <= 0.0,
+        "response_minus_uniform_degrees": response_minus_uniform,
+        "beat_or_tie_uniform_pass": response_minus_uniform <= 0.0,
+        "response_minus_medoid_degrees": response_minus_medoid,
+        "beat_or_tie_medoid_pass": response_minus_medoid <= 0.0,
     }
     gate["promotion_pass"] = bool(
         gate["residual_gap_reduction_pass"]
         and gate["nondegradation_pass"]
+        and gate["beat_or_tie_robust_group_pass"]
         and gate["beat_or_tie_uniform_pass"]
         and gate["beat_or_tie_medoid_pass"]
     )

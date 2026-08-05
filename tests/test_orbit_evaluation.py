@@ -64,7 +64,8 @@ def test_summary_passes_a_real_residual_reduction():
         f"scene{index}": {
             "identity": _record(1.0),
             "analytic_repair": _record(3.0),
-            "robust_projection": _record(2.0),
+            "response_projection": _record(2.0),
+            "robust_projection": _record(2.2),
             "uniform_projection": _record(2.5),
             "orbit_medoid": _record(2.4),
             "native_confidence": _record(2.8),
@@ -82,7 +83,7 @@ def test_summary_passes_a_real_residual_reduction():
         bootstrap_seed=1701,
     )
 
-    assert summary["median_rotation_degrees"]["robust_projection"] == 2.0
+    assert summary["median_rotation_degrees"]["response_projection"] == 2.0
     assert summary["promotion"]["residual_gap_reduction"]["point_estimate"] == 0.5
     assert summary["promotion"]["promotion_pass"] is True
 
@@ -92,7 +93,8 @@ def test_summary_retains_a_failed_projection_gate():
         f"scene{index}": {
             "identity": _record(1.0),
             "analytic_repair": _record(3.0),
-            "robust_projection": _record(3.3),
+            "response_projection": _record(3.3),
+            "robust_projection": _record(3.0),
             "uniform_projection": _record(2.5),
             "orbit_medoid": _record(2.4),
             "native_confidence": _record(2.8),
@@ -112,5 +114,6 @@ def test_summary_retains_a_failed_projection_gate():
 
     assert summary["promotion"]["residual_gap_reduction_pass"] is False
     assert summary["promotion"]["nondegradation_pass"] is False
+    assert summary["promotion"]["beat_or_tie_robust_group_pass"] is False
     assert summary["promotion"]["beat_or_tie_uniform_pass"] is False
     assert summary["promotion"]["promotion_pass"] is False

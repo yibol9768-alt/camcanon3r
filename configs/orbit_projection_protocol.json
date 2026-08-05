@@ -68,9 +68,32 @@
     "ground_truth_used": false,
     "native_confidence_used": false
   },
+  "response_field": {
+    "primary_method": true,
+    "coordinate_normalization": "placement_from_[0,1]^2_to_[-1,1]^2",
+    "rotation_chart": "per_edge_chordal_reference_then_SO3_logarithm",
+    "candidate_bases": ["constant", "affine", "quadratic"],
+    "basis_selection": "leave_one_orbit_member_out_median_geodesic_error",
+    "minimum_relative_cv_improvement_for_more_complex_basis": 0.05,
+    "ridge": 1e-6,
+    "ridge_excludes_intercept": true,
+    "robust_loss": "tukey_biweight_on_complete_camera_graph_fit_residual",
+    "tuning_constant": 4.685,
+    "robust_scale_floor_degrees": 0.25,
+    "minimum_effective_members": 5,
+    "center_anchor_minimum_weight": 4.0,
+    "maximum_response_anchor_deviation_degrees": 2.0,
+    "unsafe_response_fallback": "inverse_pair_robust_group_projection",
+    "query_placement": [0.5, 0.5],
+    "query_role": "zero_canvas_bias_intercept",
+    "absolute_rotation_recovery": "weighted_SO3_synchronization_with_first_camera_gauge",
+    "ground_truth_used": false,
+    "native_confidence_used": false
+  },
   "baselines": [
     "one_pass_neutral_gray_analytic_repair",
     "orbit_medoid_selection",
+    "inverse_pair_robust_group_projection",
     "uniform_chordal_orbit_projection",
     "native_confidence_selection",
     "ground_truth_oracle_selection_upper_bound"
@@ -83,11 +106,13 @@
   },
   "multi_run_promotion": {
     "primary_metric": "median_pairwise_relative_rotation_degrees",
+    "primary_method": "lie_camera_response_field",
     "minimum_residual_gap_reduction_vs_one_pass": 0.15,
     "maximum_median_error_increase_degrees": 0.1,
     "must_pass_models": ["vggt", "dust3r"],
     "must_pass_datasets": ["eth3d", "dtu"],
     "must_beat_or_tie_uniform_projection": true,
+    "must_beat_or_tie_robust_group_projection": true,
     "must_beat_or_tie_orbit_medoid": true,
     "scene_cluster_bootstrap_replicates": 10000,
     "confidence_level": 0.95,
@@ -95,7 +120,7 @@
   },
   "single_pass_distillation_trigger": {
     "enabled_only_after_multi_run_promotion": true,
-    "teacher": "frozen_canonical_orbit_projection",
+    "teacher": "frozen_lie_camera_response_field_projection",
     "student_input": [
       "one_backbone_camera_prediction",
       "registered_per_view_affine",

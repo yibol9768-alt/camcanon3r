@@ -10,15 +10,15 @@ from scipy.spatial.transform import Rotation
 from camcanon3r.metrics import pairwise_relative_pose_errors
 
 MEMBER_BIASES = {
-    "center": 0.2,
-    "left": 1.0,
-    "right": -1.0,
-    "top": 1.5,
-    "bottom": -1.5,
-    "top_left": 2.0,
-    "bottom_right": -2.0,
-    "top_right": 20.0,
-    "bottom_left": 20.0,
+    "center": 0.0,
+    "left": 2.5,
+    "right": 5.5,
+    "top": 3.0,
+    "bottom": 1.0,
+    "top_left": 5.5,
+    "bottom_right": 6.5,
+    "top_right": 8.5,
+    "bottom_left": 3.5,
 }
 
 
@@ -93,13 +93,13 @@ def test_project_orbit_sweep_is_resumable_and_camera_only(tmp_path):
 
     payload = json.loads(report.read_text(encoding="utf-8"))
     metadata = json.loads(
-        (projections / "scene1/robust_projection.json").read_text(encoding="utf-8")
+        (projections / "scene1/response_projection.json").read_text(encoding="utf-8")
     )
-    with np.load(projections / "scene1/robust_projection.npz") as prediction:
-        robust = prediction["extrinsic"]
+    with np.load(projections / "scene1/response_projection.npz") as prediction:
+        response = prediction["extrinsic"]
         assert set(prediction.files) == {"extrinsic", "rotation", "camera_center"}
     error = np.median(
-        pairwise_relative_pose_errors(_two_view(0.0), robust)["rotation_degrees"]
+        pairwise_relative_pose_errors(_two_view(0.0), response)["rotation_degrees"]
     )
     assert payload["status"] == "complete"
     assert payload["record_count"] == 1

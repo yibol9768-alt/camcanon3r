@@ -14,7 +14,10 @@ from typing import Any
 import numpy as np
 
 from camcanon3r.orbit_preparation import load_orbit_protocol
-from camcanon3r.orbit_projection import project_camera_orbit
+from camcanon3r.orbit_projection import (
+    project_camera_orbit,
+    project_camera_response_field,
+)
 from camcanon3r.prediction import save_npz_compressed_atomic, write_json_atomic
 
 
@@ -143,7 +146,11 @@ def _validate_resumed(
     protocol_sha256: str,
 ) -> dict[str, Any]:
     records = {}
-    for method in ("robust_projection", "uniform_projection"):
+    for method in (
+        "response_projection",
+        "robust_projection",
+        "uniform_projection",
+    ):
         path = output_root / scene / f"{method}.npz"
         metadata_path = path.with_suffix(".json")
         if not path.is_file() or not metadata_path.is_file():
@@ -158,10 +165,13 @@ def _validate_resumed(
         ):
             raise ValueError(f"resumed projection provenance changed: {scene}/{method}")
         records[method] = metadata
+    response = records["response_projection"]
     robust = records["robust_projection"]
     diagnostics = robust["diagnostics"]
     return {
         "scene": scene,
+        "response_projection": response["prediction"],
+        "response_projection_sha256": response["prediction_sha256"],
         "robust_projection": robust["prediction"],
         "robust_projection_sha256": robust["prediction_sha256"],
         "uniform_projection": records["uniform_projection"]["prediction"],
@@ -178,8 +188,10 @@ def _validate_resumed(
                 ),
             ),
         )["label"],
-        "translation_status": diagnostics["translation_status"],
-        "projection_seconds": float(robust["projection_seconds"])
+        "selected_response_basis": response["diagnostics"]["selected_basis"],
+        "translation_status": response["diagnostics"]["translation_status"],
+        "projection_seconds": float(response["projection_seconds"])
+        + float(robust["projection_seconds"])
         + float(records["uniform_projection"]["projection_seconds"]),
     }
 
@@ -230,6 +242,10 @@ def main() -> None:
         str(record["label"]): str(record["inverse_pair"])
         for record in protocol["orbit"]["ordered_members"]
     }
+    placements = {
+        str(record["label"]): [float(value) for value in record["placement"]]
+        for record in protocol["orbit"]["ordered_members"]
+    }
     records: list[dict[str, Any]] = []
     existing: dict[str, dict[str, Any]] = {}
     if args.report.exists():
@@ -254,6 +270,34 @@ def main() -> None:
             records.append(record)
             continue
         start = time.perf_counter()
+        response = project_camera_response_field(
+            members,
+            placements=placements,
+            member_order=labels,
+            inverse_pairs=inverse_pairs,
+            candidate_bases=protocol["response_field"]["candidate_bases"],
+            minimum_cv_improvement=float(
+                protocol["response_field"][
+                    "minimum_relative_cv_improvement_for_more_complex_basis"
+                ]
+            ),
+            ridge=float(protocol["response_field"]["ridge"]),
+            tuning_constant=float(protocol["response_field"]["tuning_constant"]),
+            scale_floor_degrees=float(
+                protocol["response_field"]["robust_scale_floor_degrees"]
+            ),
+            minimum_effective_members=int(
+                protocol["response_field"]["minimum_effective_members"]
+            ),
+            center_anchor_minimum_weight=float(
+                protocol["response_field"]["center_anchor_minimum_weight"]
+            ),
+            maximum_anchor_deviation_degrees=float(
+                protocol["response_field"]["maximum_response_anchor_deviation_degrees"]
+            ),
+        )
+        response_seconds = time.perf_counter() - start
+        start = time.perf_counter()
         robust = project_camera_orbit(
             members,
             member_order=labels,
@@ -277,6 +321,17 @@ def main() -> None:
         )
         uniform_seconds = time.perf_counter() - start
         scene_root = args.output_root / scene
+        response_metadata = _write_projection(
+            scene_root / "response_projection.npz",
+            method="response_projection",
+            scene=scene,
+            result=response,
+            inputs=inputs,
+            sources=sources,
+            protocol_path=args.protocol,
+            protocol_sha256=protocol_sha256,
+            projection_seconds=response_seconds,
+        )
         robust_metadata = _write_projection(
             scene_root / "robust_projection.npz",
             method="robust_projection",
@@ -309,14 +364,17 @@ def main() -> None:
         )
         record = {
             "scene": scene,
+            "response_projection": response_metadata["prediction"],
+            "response_projection_sha256": response_metadata["prediction_sha256"],
             "robust_projection": robust_metadata["prediction"],
             "robust_projection_sha256": robust_metadata["prediction_sha256"],
             "uniform_projection": uniform_metadata["prediction"],
             "uniform_projection_sha256": uniform_metadata["prediction_sha256"],
             "orbit_medoid": robust["orbit_medoid"],
             "native_confidence": native["label"],
-            "translation_status": robust["translation_status"],
-            "projection_seconds": robust_seconds + uniform_seconds,
+            "selected_response_basis": response["selected_basis"],
+            "translation_status": response["translation_status"],
+            "projection_seconds": (response_seconds + robust_seconds + uniform_seconds),
         }
         records.append(record)
         _checkpoint(args, protocol_sha256, records, complete=False)

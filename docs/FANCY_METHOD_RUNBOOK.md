@@ -25,11 +25,15 @@ resampling. The center and four inverse placement pairs are fixed in the
 protocol. The audit verifies every decoded RGB and mask byte, the fill region,
 the registered translation, file hashes, and complete scene counts.
 
-The projection consumes all nine camera predictions. It averages inverse
-placement pairs in the gauge-invariant relative-rotation graph, uses Tukey
-weights at the group level, and runs complete-graph SO(3) synchronization. A
-separate uniform projection, orbit medoid, native-confidence selector, and GT
-oracle are evaluated from the same predictions.
+The projection consumes all nine camera predictions. Its primary method fits a
+constant, affine, or quadratic camera response field in the Lie algebra of
+each gauge-invariant relative-rotation edge. Leave-one-member-out error chooses
+the basis without GT, Tukey weights reject response outliers, and SO(3)
+synchronization closes the final graph at zero canvas bias. A centered-member
+trust region rejects extrapolations beyond two degrees and falls back to the
+inverse-pair robust projection without GT. Inverse-pair robust group projection,
+uniform projection, orbit medoid, native-confidence selection, and the GT oracle
+are evaluated from the same predictions.
 
 ## Local validation and sync
 
@@ -124,7 +128,8 @@ The multi-run method must pass every model-dataset gate in the protocol:
 
 1. at least 15 percent residual rotation-gap reduction over one-pass repair;
 2. no median degradation greater than 0.1 degrees;
-3. robust projection beats or ties uniform projection and the orbit medoid;
+3. response-field projection beats or ties robust group projection, uniform
+   projection, and the orbit medoid;
 4. complete scene-cluster bootstrap and compute accounting;
 5. no GT, uncropped pixels, changed retry, or hidden undefined value.
 

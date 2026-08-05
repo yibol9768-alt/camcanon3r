@@ -10,6 +10,7 @@ from camcanon3r.orbit_projection import (
     chordal_rotation_mean,
     orbit_medoid,
     project_camera_orbit,
+    project_camera_response_field,
     relative_rotation_graph,
     synchronize_rotations,
 )
@@ -35,6 +36,17 @@ INVERSES = {
     "bottom_right": "top_left",
     "top_right": "bottom_left",
     "bottom_left": "top_right",
+}
+PLACEMENTS = {
+    "center": (0.5, 0.5),
+    "left": (0.0, 0.5),
+    "right": (1.0, 0.5),
+    "top": (0.5, 0.0),
+    "bottom": (0.5, 1.0),
+    "top_left": (0.0, 0.0),
+    "bottom_right": (1.0, 1.0),
+    "top_right": (1.0, 0.0),
+    "bottom_left": (0.0, 1.0),
 }
 
 
@@ -274,3 +286,81 @@ def test_projection_keeps_rotation_when_every_camera_center_is_degenerate():
     )
     assert projected["translation_member_labels"] == []
     assert np.allclose(projected["extrinsic"][:, :, 3], 0.0)
+
+
+def test_response_field_selects_constant_for_a_consistent_orbit():
+    canonical = _canonical()
+    projected = project_camera_response_field(
+        _gauged_members(canonical),
+        placements=PLACEMENTS,
+        member_order=MEMBERS,
+        inverse_pairs=INVERSES,
+    )
+
+    assert projected["selected_basis"] == "constant"
+    assert _median_rotation_error(canonical, projected["extrinsic"]) < 1e-5
+    assert projected["ground_truth_used"] is False
+
+
+def test_quadratic_response_field_removes_even_canvas_bias():
+    canonical = _canonical()
+    members = _gauged_members(canonical)
+    biased = {}
+    for label, value in members.items():
+        x = 2.0 * PLACEMENTS[label][0] - 1.0
+        y = 2.0 * PLACEMENTS[label][1] - 1.0
+        angle = 4.0 * x * x + 2.0 * y * y + 1.5 * x - y
+        biased[label] = _view_biased(value, angle)
+
+    response = project_camera_response_field(
+        biased,
+        placements=PLACEMENTS,
+        member_order=MEMBERS,
+        inverse_pairs=INVERSES,
+    )
+    robust_group = project_camera_orbit(
+        biased,
+        member_order=MEMBERS,
+        inverse_pairs=INVERSES,
+    )
+
+    response_error = _median_rotation_error(canonical, response["extrinsic"])
+    group_error = _median_rotation_error(canonical, robust_group["extrinsic"])
+    assert response["selected_basis"] == "quadratic"
+    assert response_error < 0.2
+    assert response_error < 0.25 * group_error
+
+
+def test_response_field_falls_back_when_intercept_leaves_center_trust_region():
+    canonical = _canonical()
+    members = _gauged_members(canonical)
+    biases = {
+        "center": 0.2,
+        "left": 1.0,
+        "right": -1.0,
+        "top": 1.5,
+        "bottom": -1.5,
+        "top_left": 2.0,
+        "bottom_right": -2.0,
+        "top_right": 20.0,
+        "bottom_left": 20.0,
+    }
+    biased = {
+        label: _view_biased(value, biases[label]) for label, value in members.items()
+    }
+    response = project_camera_response_field(
+        biased,
+        placements=PLACEMENTS,
+        member_order=MEMBERS,
+        inverse_pairs=INVERSES,
+        maximum_anchor_deviation_degrees=0.5,
+    )
+    robust_group = project_camera_orbit(
+        biased,
+        member_order=MEMBERS,
+        inverse_pairs=INVERSES,
+    )
+
+    assert response["response_fallback_used"] is True
+    assert response["response_fallback"] == "inverse_pair_robust_group_projection"
+    assert np.allclose(response["extrinsic"], robust_group["extrinsic"])

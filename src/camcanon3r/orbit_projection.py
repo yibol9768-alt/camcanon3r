@@ -18,6 +18,8 @@ from scipy.spatial.transform import Rotation
 
 from .metrics import camera_centers_from_extrinsics, rotation_geodesic_degrees
 
+_RESPONSE_BASES = ("constant", "affine", "quadratic")
+
 
 def _project_so3(matrix: ArrayLike) -> np.ndarray:
     value = np.asarray(matrix, dtype=np.float64)
@@ -169,6 +171,124 @@ def _weighted_edge_graph(
             target[first, second] = mean
             target[second, first] = mean.T
     return target
+
+
+def _response_features(coordinates: np.ndarray, basis: str) -> np.ndarray:
+    values = np.asarray(coordinates, dtype=np.float64)
+    if values.ndim != 2 or values.shape[1] != 2 or not np.isfinite(values).all():
+        raise ValueError("response coordinates must have shape (N, 2)")
+    x = values[:, 0]
+    y = values[:, 1]
+    if basis == "constant":
+        columns = [np.ones(len(values))]
+    elif basis == "affine":
+        columns = [np.ones(len(values)), x, y]
+    elif basis == "quadratic":
+        columns = [np.ones(len(values)), x, y, x * y, x * x, y * y]
+    else:
+        raise ValueError(f"unknown response basis: {basis}")
+    return np.column_stack(columns)
+
+
+def _weighted_ridge(
+    design: np.ndarray,
+    targets: np.ndarray,
+    weights: np.ndarray,
+    *,
+    ridge: float,
+) -> np.ndarray:
+    if ridge < 0.0:
+        raise ValueError("response ridge must be non-negative")
+    normalized = np.asarray(weights, dtype=np.float64)
+    if (
+        normalized.shape != (len(design),)
+        or not np.isfinite(normalized).all()
+        or np.any(normalized < 0.0)
+        or np.sum(normalized) <= 0.0
+    ):
+        raise ValueError("response weights are invalid")
+    regularizer = np.eye(design.shape[1], dtype=np.float64) * ridge
+    regularizer[0, 0] = 0.0
+    weighted_design = design * normalized[:, None]
+    system = design.T @ weighted_design + regularizer
+    right = design.T @ (targets * normalized[:, None])
+    try:
+        return np.linalg.solve(system, right)
+    except np.linalg.LinAlgError:
+        return np.linalg.lstsq(system, right, rcond=None)[0]
+
+
+def _fit_response_graph(
+    graphs: np.ndarray,
+    coordinates: np.ndarray,
+    weights: np.ndarray,
+    *,
+    basis: str,
+    query_coordinates: np.ndarray,
+    ridge: float,
+) -> np.ndarray:
+    design = _response_features(coordinates, basis)
+    query = _response_features(query_coordinates, basis)
+    view_count = graphs.shape[1]
+    outputs = np.empty(
+        (len(query_coordinates), view_count, view_count, 3, 3),
+        dtype=np.float64,
+    )
+    for query_index in range(len(query_coordinates)):
+        for view in range(view_count):
+            outputs[query_index, view, view] = np.eye(3)
+    for first, second in _edge_indices(view_count):
+        rotations = graphs[:, first, second]
+        base = chordal_rotation_mean(rotations, weights=weights)
+        tangent = Rotation.from_matrix(
+            np.einsum("ij,njk->nik", base.T, rotations)
+        ).as_rotvec()
+        coefficients = _weighted_ridge(design, tangent, weights, ridge=ridge)
+        predicted_tangent = query @ coefficients
+        predicted = np.einsum(
+            "ij,njk->nik",
+            base,
+            Rotation.from_rotvec(predicted_tangent).as_matrix(),
+        )
+        outputs[:, first, second] = predicted
+        outputs[:, second, first] = np.transpose(predicted, (0, 2, 1))
+    return outputs
+
+
+def _response_cross_validation(
+    graphs: np.ndarray,
+    coordinates: np.ndarray,
+    *,
+    basis: str,
+    ridge: float,
+) -> np.ndarray:
+    feature_count = _response_features(coordinates, basis).shape[1]
+    if len(graphs) - 1 < feature_count:
+        return np.full(len(graphs), np.inf, dtype=np.float64)
+    edges = _edge_indices(graphs.shape[1])
+    errors = np.empty(len(graphs), dtype=np.float64)
+    for held_out in range(len(graphs)):
+        selected = np.arange(len(graphs)) != held_out
+        predicted = _fit_response_graph(
+            graphs[selected],
+            coordinates[selected],
+            np.ones(np.count_nonzero(selected)),
+            basis=basis,
+            query_coordinates=coordinates[held_out : held_out + 1],
+            ridge=ridge,
+        )[0]
+        errors[held_out] = float(
+            np.median(
+                [
+                    rotation_geodesic_degrees(
+                        graphs[held_out, first, second],
+                        predicted[first, second],
+                    )
+                    for first, second in edges
+                ]
+            )
+        )
+    return errors
 
 
 def synchronize_rotations(
@@ -461,6 +581,231 @@ def project_camera_orbit(
         "synchronization": synchronization,
         "orbit_medoid": selected_medoid,
         "orbit_medoid_scores_degrees": medoid_scores,
+        "ground_truth_used": False,
+        "native_confidence_used": False,
+    }
+
+
+def project_camera_response_field(
+    members: Mapping[str, ArrayLike],
+    *,
+    placements: Mapping[str, Sequence[float]],
+    member_order: Sequence[str],
+    inverse_pairs: Mapping[str, str],
+    candidate_bases: Sequence[str] = _RESPONSE_BASES,
+    minimum_cv_improvement: float = 0.05,
+    ridge: float = 1e-6,
+    tuning_constant: float = 4.685,
+    scale_floor_degrees: float = 0.25,
+    minimum_effective_members: int = 5,
+    center_anchor_minimum_weight: float = 4.0,
+    maximum_anchor_deviation_degrees: float = 2.0,
+) -> dict[str, Any]:
+    """Fit a GT-free Lie-algebra camera response field and evaluate it at zero.
+
+    Canvas placements are centered and scaled to ``[-1, 1]^2``. Constant,
+    affine, and quadratic response bases are compared by leave-one-member-out
+    geodesic prediction error. A more complex basis is accepted only when it
+    improves the preceding selected basis by the frozen relative margin.
+    """
+
+    labels = [str(label) for label in member_order]
+    if set(members) != set(labels) or set(placements) != set(labels):
+        raise ValueError("response-field members or placements do not match order")
+    if not 0.0 <= minimum_cv_improvement < 1.0:
+        raise ValueError("minimum CV improvement must lie in [0, 1)")
+    if center_anchor_minimum_weight < 1.0:
+        raise ValueError("center anchor weight must be at least one")
+    if maximum_anchor_deviation_degrees <= 0.0:
+        raise ValueError("maximum anchor deviation must be positive")
+    bases = [str(value) for value in candidate_bases]
+    if (
+        not bases
+        or len(set(bases)) != len(bases)
+        or any(value not in _RESPONSE_BASES for value in bases)
+        or bases != sorted(bases, key=_RESPONSE_BASES.index)
+    ):
+        raise ValueError("response bases must be a unique ordered known subset")
+    poses = {label: _validate_extrinsics(members[label]) for label in labels}
+    view_counts = {len(value) for value in poses.values()}
+    if len(view_counts) != 1:
+        raise ValueError("all response-field members must have the same view count")
+    view_count = next(iter(view_counts))
+    coordinates = np.asarray(
+        [[2.0 * float(value) - 1.0 for value in placements[label]] for label in labels],
+        dtype=np.float64,
+    )
+    if coordinates.shape != (len(labels), 2) or np.any(np.abs(coordinates) > 1.0):
+        raise ValueError("response placements must lie in [0, 1]^2")
+    anchor_indices = np.flatnonzero(np.all(np.abs(coordinates) <= 1e-12, axis=1))
+    if len(anchor_indices) != 1:
+        raise ValueError("response field requires one unique centered orbit member")
+    anchor_index = int(anchor_indices[0])
+    graphs = np.stack([_relative_rotation_graph(poses[label]) for label in labels])
+    cv_member_errors = {
+        basis: _response_cross_validation(graphs, coordinates, basis=basis, ridge=ridge)
+        for basis in bases
+    }
+    cv_scores = {
+        basis: float(np.median(errors)) for basis, errors in cv_member_errors.items()
+    }
+    selected_basis = bases[0]
+    selected_score = cv_scores[selected_basis]
+    for basis in bases[1:]:
+        score = cv_scores[basis]
+        threshold = selected_score * (1.0 - minimum_cv_improvement)
+        if np.isfinite(score) and score < threshold - 1e-12:
+            selected_basis = basis
+            selected_score = score
+
+    weights = np.ones(len(labels), dtype=np.float64)
+    robust_scale = None
+    edges = _edge_indices(view_count)
+    for _ in range(20):
+        predicted_at_members = _fit_response_graph(
+            graphs,
+            coordinates,
+            weights,
+            basis=selected_basis,
+            query_coordinates=coordinates,
+            ridge=ridge,
+        )
+        residuals = np.asarray(
+            [
+                np.median(
+                    [
+                        rotation_geodesic_degrees(
+                            graphs[index, first, second],
+                            predicted_at_members[index, first, second],
+                        )
+                        for first, second in edges
+                    ]
+                )
+                for index in range(len(labels))
+            ],
+            dtype=np.float64,
+        )
+        updated, robust_scale = _tukey_weights(
+            residuals,
+            tuning_constant=tuning_constant,
+            scale_floor_degrees=scale_floor_degrees,
+        )
+        if np.count_nonzero(updated > 1e-8) < minimum_effective_members:
+            updated = np.ones(len(labels), dtype=np.float64)
+        updated[anchor_index] = max(
+            float(updated[anchor_index]), center_anchor_minimum_weight
+        )
+        if np.allclose(updated / np.sum(updated), weights / np.sum(weights)):
+            weights = updated
+            break
+        weights = updated
+
+    target = _fit_response_graph(
+        graphs,
+        coordinates,
+        weights,
+        basis=selected_basis,
+        query_coordinates=np.zeros((1, 2), dtype=np.float64),
+        ridge=ridge,
+    )[0]
+    support_projection = project_camera_orbit(
+        members,
+        member_order=labels,
+        inverse_pairs=inverse_pairs,
+        robust=True,
+        tuning_constant=tuning_constant,
+        scale_floor_degrees=scale_floor_degrees,
+    )
+    anchor_graph = graphs[anchor_index]
+    anchor_deviation = float(
+        np.median(
+            [
+                rotation_geodesic_degrees(
+                    target[first, second], anchor_graph[first, second]
+                )
+                for first, second in edges
+            ]
+        )
+    )
+    response_rotations, response_synchronization = synchronize_rotations(target)
+    fallback_used = anchor_deviation > maximum_anchor_deviation_degrees
+    if fallback_used:
+        rotations = np.asarray(support_projection["rotation"], dtype=np.float64)
+        centers = np.asarray(support_projection["camera_center"], dtype=np.float64)
+        projected = np.asarray(support_projection["extrinsic"], dtype=np.float64)
+        synchronization = support_projection["synchronization"]
+    else:
+        rotations = response_rotations
+        centers = np.asarray(support_projection["camera_center"], dtype=np.float64)
+        translations = -np.einsum("vij,vj->vi", rotations, centers)
+        projected = np.concatenate([rotations, translations[:, :, None]], axis=2)
+        synchronization = response_synchronization
+    predicted_at_members = _fit_response_graph(
+        graphs,
+        coordinates,
+        weights,
+        basis=selected_basis,
+        query_coordinates=coordinates,
+        ridge=ridge,
+    )
+    residuals = np.asarray(
+        [
+            np.median(
+                [
+                    rotation_geodesic_degrees(
+                        graphs[index, first, second],
+                        predicted_at_members[index, first, second],
+                    )
+                    for first, second in edges
+                ]
+            )
+            for index in range(len(labels))
+        ],
+        dtype=np.float64,
+    )
+    return {
+        "extrinsic": projected,
+        "rotation": rotations,
+        "camera_center": centers,
+        "translation_status": support_projection["translation_status"],
+        "translation_member_labels": support_projection["translation_member_labels"],
+        "member_order": labels,
+        "placements_centered": {
+            label: coordinates[index].tolist() for index, label in enumerate(labels)
+        },
+        "candidate_bases": bases,
+        "selected_basis": selected_basis,
+        "minimum_cv_improvement": minimum_cv_improvement,
+        "leave_one_member_out_median_degrees": cv_scores,
+        "leave_one_member_out_per_member_degrees": {
+            basis: {
+                label: float(value) for label, value in zip(labels, errors, strict=True)
+            }
+            for basis, errors in cv_member_errors.items()
+        },
+        "member_weights": {
+            label: float(weight) for label, weight in zip(labels, weights, strict=True)
+        },
+        "member_fit_residual_degrees": {
+            label: float(value) for label, value in zip(labels, residuals, strict=True)
+        },
+        "robust_scale_degrees": float(robust_scale),
+        "center_anchor_label": labels[anchor_index],
+        "center_anchor_minimum_weight": center_anchor_minimum_weight,
+        "response_anchor_deviation_degrees": anchor_deviation,
+        "maximum_response_anchor_deviation_degrees": (maximum_anchor_deviation_degrees),
+        "response_fallback_used": fallback_used,
+        "response_fallback": (
+            "inverse_pair_robust_group_projection" if fallback_used else None
+        ),
+        "ridge": ridge,
+        "synchronization": synchronization,
+        "unclamped_response_synchronization": response_synchronization,
+        "orbit_medoid": support_projection["orbit_medoid"],
+        "orbit_medoid_scores_degrees": support_projection[
+            "orbit_medoid_scores_degrees"
+        ],
+        "projection_family": "lie_camera_response_field",
         "ground_truth_used": False,
         "native_confidence_used": False,
     }

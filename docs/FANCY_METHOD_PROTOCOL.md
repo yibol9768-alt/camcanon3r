@@ -15,10 +15,11 @@ merely choose among predictions or rename the analytic repair.
 
 Canonical orbit projection runs a frozen black-box reconstruction model over a
 symmetric, support-preserving set of camera-canvas placements. It transports
-the resulting camera graphs into a common quotient representation, robustly
-projects them onto a single cycle-consistent camera graph, and returns new
-world-to-camera extrinsics. Ground truth, uncropped source pixels, and updated
-backbone weights are unavailable to the method.
+the resulting camera graphs into a common quotient representation, learns the
+local camera response to known canvas coordinates without GT, evaluates that
+response at zero bias, and synchronizes it into one cycle-consistent camera
+graph. Ground truth, uncropped source pixels, and updated backbone weights are
+unavailable to the method.
 
 ## Input orbit and information boundary
 
@@ -42,12 +43,27 @@ averaged directly. The observable edge rotation is
 
 `Delta_ij^m = R_j^m (R_i^m)^T`.
 
-It is invariant to a global change of world gauge. Canonical orbit projection
-first computes an inverse-placement-pair chordal mean for every camera edge,
-then applies Tukey biweighting to suppress runs whose complete edge graph is
-inconsistent with the orbit center. Finally, weighted SO(3) synchronization
-recovers one cycle-consistent set of absolute rotations with the first camera
-fixed as gauge.
+It is invariant to a global change of world gauge. The main method maps each
+edge rotation into the tangent space of its chordal reference and fits its
+response to the known two-dimensional canvas placement. Constant, affine, and
+quadratic response bases are compared by leave-one-orbit-member-out geodesic
+prediction error. A more complex basis is selected only if it reduces the
+median error by at least five percent. Tukey weighting then removes members
+whose complete camera graph disagrees with the selected response. The response
+intercept at centered placement is mapped back to SO(3), and complete-graph
+rotation synchronization recovers one cycle-consistent set of absolute
+rotations with the first camera fixed as gauge.
+
+The centered member is a no-GT trust anchor. It retains a minimum regression
+weight of four. If the fitted zero-bias camera graph moves more than two
+degrees from that observed centered graph, the response is declared unsafe and
+falls back to the inverse-pair robust group projection. The fallback and the
+unclamped response remain recorded. This rule prevents a smooth response basis
+from treating a direct center observation as an outlier.
+
+An inverse-placement-pair robust mean remains a strong matched-compute baseline.
+It is not the promoted method because group averaging and rotation averaging
+are established components. The response field must beat or tie this baseline.
 
 Camera centers are expressed in first-camera coordinates, translated so the
 first center is zero, and normalized by the median nonzero pairwise baseline
@@ -63,9 +79,10 @@ Every model and dataset is reported separately against:
 
 1. the one-pass neutral-gray analytic repair;
 2. selection of the orbit medoid;
-3. an unweighted chordal projection;
-4. native-confidence selection;
-5. a ground-truth selector reported only as an upper bound.
+3. inverse-pair robust group projection;
+4. an unweighted chordal projection;
+5. native-confidence selection;
+6. a ground-truth selector reported only as an upper bound.
 
 The projected method receives exactly the same orbit predictions as all
 matched-compute selection and averaging baselines.
@@ -83,7 +100,8 @@ DUSt3R on ETH3D and DTU:
 1. reduce at least 15 percent of the residual gap from the one-pass analytic
    repair toward the identity baseline;
 2. never increase the model-dataset median by more than 0.1 degrees;
-3. beat or tie both the orbit medoid and the uniform projection;
+3. beat or tie the robust group projection, orbit medoid, and uniform
+   projection;
 4. use no GT, uncropped pixels, or result-dependent retry;
 5. report 10,000-replicate scene-cluster intervals and complete compute.
 
@@ -94,7 +112,8 @@ first DTU orbit evaluation.
 
 ## Conditional single-pass student
 
-An affine-aware graph corrector is attempted only if the multi-run projection
+An affine-aware graph corrector is attempted only if the response-field
+projection
 passes. Its teacher is the frozen projected camera graph. The student receives
 one backbone camera prediction, registered affine parameters, valid-support
 fractions, and native confidence. It predicts per-view SE(3) corrections and a
