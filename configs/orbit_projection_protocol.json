@@ -61,7 +61,7 @@
     "robust_loss": "tukey_biweight",
     "tuning_constant": 4.685,
     "robust_scale_floor_degrees": 0.25,
-    "minimum_effective_members": 3,
+    "minimum_effective_groups": 3,
     "absolute_rotation_recovery": "weighted_SO3_synchronization_with_first_camera_gauge",
     "center_recovery": "root_camera_coordinates_then_per_run_median_baseline_normalization_and_geometric_median",
     "tie_break": "ordered_member_label",
