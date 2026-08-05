@@ -103,6 +103,7 @@
     "native_confidence_normalization": "per_member_per_view_positive_median",
     "maximum_confidence_ratio": 20.0,
     "depth_derivation": "fused_world_points_through_projected_cameras",
+    "dense_storage_dtype": "float32_after_float64_fusion",
     "ground_truth_used": false,
     "removed_crop_pixels_imputed": false
   },

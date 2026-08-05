@@ -219,7 +219,7 @@ def _source_support(
     source_y: np.ndarray,
 ) -> np.ndarray:
     values = map_coordinates(
-        np.asarray(mask, dtype=np.float64),
+        np.asarray(mask),
         [source_y, source_x],
         order=0,
         mode="constant",
@@ -444,10 +444,10 @@ def fuse_orbit_geometry(
         "extrinsic": target_extrinsics,
         "intrinsic": intrinsic_model,
         "source_intrinsic": intrinsic_source,
-        "depth": depth,
-        "depth_conf": output_confidence,
-        "world_points": output_points,
-        "world_points_conf": output_confidence,
+        "depth": depth.astype(np.float32),
+        "depth_conf": output_confidence.astype(np.float32),
+        "world_points": output_points.astype(np.float32),
+        "world_points_conf": output_confidence.astype(np.float32),
         "model_preprocess_affine": np.stack(model_affines)[reference_index],
         "protocol_affine": np.stack(protocol_affines)[reference_index],
         "source_to_model_affine": affine_stack[reference_index],
