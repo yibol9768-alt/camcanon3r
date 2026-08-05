@@ -57,7 +57,7 @@ Prepare and audit the complete orbit:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitPrep-ETH3D \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_preparation.sh eth3d \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_preparation.sh eth3d \
   > results/orbit/eth3d_preparation.log 2>&1'
 ```
 
@@ -65,11 +65,11 @@ After the task exits with code zero, run VGGT and DUSt3R sequentially:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitVGGT-ETH3D \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_inference.sh vggt eth3d \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_inference.sh vggt eth3d \
   > results/orbit/eth3d_vggt_inference.log 2>&1'
 
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitDUSt3R-ETH3D \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_inference.sh dust3r eth3d \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_inference.sh dust3r eth3d \
   > results/orbit/eth3d_dust3r_inference.log 2>&1'
 ```
 
@@ -77,11 +77,11 @@ Project and evaluate only after both complete:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitEvalVGGT-ETH3D \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_projection_evaluation.sh vggt eth3d \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_projection_evaluation.sh vggt eth3d \
   > results/orbit/eth3d_vggt_evaluation.log 2>&1'
 
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitEvalDUSt3R-ETH3D \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_projection_evaluation.sh dust3r eth3d \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_projection_evaluation.sh dust3r eth3d \
   > results/orbit/eth3d_dust3r_evaluation.log 2>&1'
 ```
 
@@ -98,23 +98,23 @@ Then use the same four-stage order:
 
 ```bash
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitPrep-DTU \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_preparation.sh dtu \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_preparation.sh dtu \
   > results/orbit/dtu_preparation.log 2>&1'
 
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitVGGT-DTU \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_inference.sh vggt dtu \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_inference.sh vggt dtu \
   > results/orbit/dtu_vggt_inference.log 2>&1'
 
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitDUSt3R-DTU \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_inference.sh dust3r dtu \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_inference.sh dust3r dtu \
   > results/orbit/dtu_dust3r_inference.log 2>&1'
 
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitEvalVGGT-DTU \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_projection_evaluation.sh vggt dtu \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_projection_evaluation.sh vggt dtu \
   > results/orbit/dtu_vggt_evaluation.log 2>&1'
 
 ./scripts/start_my5090_background_job.sh CamCanon3R-OrbitEvalDUSt3R-DTU \
-  'cd /opt/camcanon3r; ./scripts/run_orbit_projection_evaluation.sh dust3r dtu \
+  'cd /opt/camcanon3r; mkdir -p results/orbit; ./scripts/run_orbit_projection_evaluation.sh dust3r dtu \
   > results/orbit/dtu_dust3r_evaluation.log 2>&1'
 ```
 
